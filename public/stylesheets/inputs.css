@@ -1,0 +1,51 @@
+input, select {
+	x-system-font:none;
+	padding:5px;
+}
+label {
+	font-weight:bold;
+	color:#444;
+}
+label span { font-size:93%; font-weight:normal; }
+label.on-top {
+	display:block;
+	margin-top:1em;
+	margin-bottom:4px;
+}
+input.text_field, textarea {
+	background:#FFFFFF url(../images/input_bg.gif) repeat-x scroll center top;
+	border:1px solid #BBBBBB;
+	color:#222222;
+	padding:7px;
+}
+input.text_field.big { font-size:184.6%; }
+input.text_field.wide, textarea.wide { min-width:100%; width:100%; max-width:100%; }
+input.text_field.wide, textarea.wide { min-width:664px; width:664px; max-width:664px; }
+select { border:1px solid #BBB; }
+input[type=checkbox] { vertical-align:text-middle; }
+.permalink input { border:0; border-bottom:1px solid #999; padding:0; width:250px; }
+.permalink label { margin-right:0.5em; }
+.permalink { color:#666; }
+
+/*----------------------------------------------------------------------------
+		Right Sidebar - 240px
+----------------------------------------------------------------------------*/
+body.sidebar-right-240 #sidebar div.details {
+	padding:1.25em 0;
+	border-bottom:1px solid #BBB;
+	width:200px;
+}
+body.sidebar-right-240 #sidebar div.details:last-child { border-bottom:none; }
+body.sidebar-right-240 #sidebar input.text_field, body.sidebar-right-240 #sidebar select, body.sidebar-right-240 #sidebar textarea {
+	box-sizing:content-box;
+	-moz-box-sizing:content-box;
+	/* 200px - 16px (border+padding of inputs) */
+	width:184px;
+	color:#666;
+}
+body.sidebar-right-240 #sidebar label {
+	font-size:93%;
+}
+body.sidebar-right-240 #sidebar label.on-top {
+	margin-top:0;
+}

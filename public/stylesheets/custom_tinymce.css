@@ -1,0 +1,19 @@
+body {
+    margin: 8px 12px;
+    padding: 0px;
+    font-family: 'Lucida Grande', Verdana, Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    line-height: 1.4;
+    font-weight: normal;
+    background: #fff url('/images/input_bg.gif') repeat-x top;
+}
+
+a {
+    color: #007BFF;
+}
+
+blockquote {
+    border-left: solid 4px #e4e4e4;
+    margin-left: 30px;
+    padding-left: 15px;
+}

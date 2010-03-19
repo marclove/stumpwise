@@ -1,0 +1,19 @@
+- @body_class = 'sidebar-right-240'
+- @menu 			= 'website'
+- @submenu 		= 'pages'
+
+=render 'layouts/sub_menu'
+-form_for @page, :url => admin_page_path(@page) do |f|
+	#main
+		%h1 Edit Page
+		=f.label :title, {}, {:class => 'on-top'}
+		=f.text_field :title, :class => 'text_field big wide'
+		=f.label :body, {}, {:class => 'on-top'}
+		=f.text_area :body, :class => 'wide tinymce', :rows => 20
+		.buttons
+			%button.positive{:type => 'submit'}
+				=image_tag "icons-shadowless/tick.png", :alt => ''
+				Save Changes
+			=link_to "#{image_tag('icons-shadowless/cross.png', :alt => '')} Cancel", :back, :class => 'negative'
+
+	#sidebar

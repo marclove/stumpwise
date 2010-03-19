@@ -1,0 +1,9 @@
+!!! 5
+%html
+	%head
+		%title= "Contribute To #{@site.name}"
+		=stylesheet_link_tag "contribute"
+		/[if lt IE 9]
+			=javascript_include_tag "http://ie7-js.googlecode.com/svn/version/2.1(beta3)/IE9.js"
+		=javascript_include_tag "jquery.min.js"
+	%body

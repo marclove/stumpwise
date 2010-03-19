@@ -1,0 +1,12 @@
+- @body_class = 'no-sidebar'
+- @menu 			= 'website'
+- @submenu 		= 'pages'
+
+=render 'layouts/sub_menu'
+#main
+	%h1 Pages
+	%ul#pages
+		-for page in @pages
+			%li= link_to page.title, edit_admin_page_path(page)
+	#add-page-button.buttons
+		=link_to "#{image_tag('icons-shadowless/plus-circle.png', :alt => '')} New Page", new_admin_page_path, :class => 'positive'

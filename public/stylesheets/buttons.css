@@ -1,0 +1,120 @@
+/* 
+	EXAMPLE USAGE w/ FAMFAMFAM Icons
+	
+	<div class="buttons">
+	    <button type="submit" class="positive">
+	        <img src="/images/icons/tick.png" alt=""/> 
+	        Save
+	    </button>
+
+	    <a href="/password/reset/">
+	        <img src="/images/icons/textfield_key.png" alt=""/> 
+	        Change Password
+	    </a>
+
+	    <a href="#" class="negative">
+	        <img src="/images/icons/cross.png" alt=""/>
+	        Cancel
+	    </a>
+	</div>
+*/
+
+/* BUTTONS */
+
+.buttons {
+	padding:1em 0;
+}
+.buttons:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.buttons a, .buttons button{
+    display:block;
+    float:left;
+    margin:0 7px 0 0;
+    background-color:#F5F5F5;
+    border:1px solid #CCC;
+    border-top:1px solid #DEDEDE;
+    border-left:1px solid #DEDEDE;
+		-webkit-border-radius: 5px;
+		-moz-border-radius: 5px;
+		border-radius: 5px;
+
+    font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+    font-size:100%;
+    line-height:130%;
+    text-decoration:none;
+    font-weight:bold;
+    color:#565656;
+    cursor:pointer;
+    padding:5px 10px 6px 10px; /* Links */
+		-moz-box-shadow: 2px 2px 2px #EEE;
+}
+.buttons button{
+    width:auto;
+    overflow:visible;
+    padding:4px 10px 3px 10px; /* IE6 */
+}
+.buttons button[type]{
+    padding:5px 10px 5px 10px; /* Firefox */
+    line-height:17px; /* Safari */
+}
+*:first-child+html button[type]{
+    padding:4px 10px 3px 10px; /* IE7 */
+}
+.buttons button img, .buttons a img{
+    margin:0 3px -3px -3px !important;
+    padding:0;
+    border:none;
+    width:16px;
+    height:16px;
+}
+
+/* STANDARD */
+
+button:hover, .buttons a:hover{
+    background-color:#DFF4FF;
+    border:1px solid #C2E1EF;
+    color:#336699;
+}
+.buttons a:active{
+    background-color:#6299C5;
+    border:1px solid #6299C5;
+    color:#FFF;
+}
+
+/* POSITIVE */
+
+button.positive, .buttons a.positive{
+    color:#529214;
+}
+.buttons a.positive:hover, button.positive:hover{
+    background-color:#E6EFC2;
+    border:1px solid #C6D880;
+    color:#529214;
+}
+.buttons a.positive:active{
+    background-color:#529214;
+    border:1px solid #529214;
+    color:#FFF;
+}
+
+/* NEGATIVE */
+
+.buttons a.negative, button.negative{
+    color:#D12F19;
+}
+.buttons a.negative:hover, button.negative:hover{
+    background:#FBE3E4;
+    border:1px solid #FBC2C4;
+    color:#D12F19;
+}
+.buttons a.negative:active{
+    background-color:#D12F19;
+    border:1px solid #D12F19;
+    color:#FFF;
+}

@@ -1,0 +1,9 @@
+THE get_site method in all the controllers is UNSAFE!!!!! It should at least
+check on each request that user is authorized to edit that site!
+
+- Go through all the controllers and ensure that the translation strings are set.
+
+- Add to Article: published_at, tags, and allow_comments
+- Add Permalink(actually slug) fields to Article and Page forms
+
+- Ensure that slugs have no: / ? or #

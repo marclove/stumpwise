@@ -1,0 +1,38 @@
+!!! 5
+%html
+	%head
+		%title stumpwise :: login
+		=stylesheet_link_tag "master.css"
+	%body
+		#container
+			#header
+				%h1 Stumpwise
+				%div{:style => "clear:both; height:15px"}
+			#content
+				-form_for @user_session, :url => admin_sessions_path, :html => {:id => 'login', :class => 'login'} do |f|
+					%h1 Please Log In
+					=flash_messages
+					%table
+						%tbody
+							%tr
+								%td{:class => 'label'}
+									=f.label :email
+								%td{:class => 'text_field'}
+									=f.text_field :email
+							%tr
+								%td{:class => 'label'}
+									=f.label :password
+								%td{:class => 'text_field'}
+									=f.password_field :password
+							%tr
+								%td
+								%td{:style => 'text-align:right;'}
+									=submit_tag 'Log In'
+				%div{:style => "clear:both;"}
+			#footer
+				&copy;
+				%strong ProgressBound, Inc.
+				%span &#124;
+				=link_to 'Terms of Use','/'
+				%span &#124;
+				=link_to 'Privacy Policy','/'

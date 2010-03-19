@@ -1,0 +1,318 @@
+p { margin:1em 0; }
+strong { font-weight:bold; }
+a { color:#0050F0; text-decoration:none; }
+html, body{ 
+  font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+	background-color:#041D49;
+}
+#container{
+	position:relative;
+	width:960px;
+	margin:0 auto;
+}
+#header{
+	position:relative;
+	padding-top:15px;
+}
+#header h1 {
+	color:#FFF;
+	font-size:250%;
+	font-weight:bold;
+	float:left;
+	text-transform:lowercase;
+	text-shadow:2px 2px 2px #000;
+	-moz-text-shadow:2px 2px 2px #000;
+}
+#header h2 {
+	color:#FFF;
+	font-size:108%;
+	font-weight:bold;
+	float:left;
+	height:300%;
+	line-height:300%;
+	border-left:1px solid #52617A;
+	padding-left:1em;
+	margin-left:1em;
+	text-shadow:1px 1px 1px #000;
+	-moz-text-shadow:1px 1px 1px #000;
+}
+#content {
+	clear:both;
+	position:relative;
+	background-color:#FFF;
+	-webkit-border-top-right-radius: 4px;
+	-moz-border-radius-topright: 4px;
+	border-top-right-radius: 4px;
+	-webkit-border-bottom-left-radius: 4px;
+	-moz-border-radius-bottomleft: 4px;
+	border-bottom-left-radius: 4px;
+	-webkit-border-bottom-right-radius: 4px;
+	-moz-border-radius-bottomright: 4px;
+	border-bottom-right-radius: 4px;
+	border-top:6px solid #CCC;
+	min-height:500px;
+}
+#menu {
+	clear:both;
+	margin-top:15px;
+}
+#menu a {
+	display:block;
+	font-weight:bold;
+	background-color:#0059B3;
+	color:#E5F2FF;
+	padding:8px 16px;
+	padding-top:6px;
+	border-top:2px solid #007FFF;
+	font-size:108%;
+	text-decoration:none;
+	float:left;
+	margin-right:5px;
+	-webkit-border-top-left-radius:2px;
+	-webkit-border-top-right-radius:2px;
+	-moz-border-radius-topleft:2px;
+	-moz-border-radius-topright:2px;
+	border-top-left-radius:2px;
+	border-top-right-radius:2px;
+	text-shadow:0 1px 2px #00264D;
+	-moz-text-shadow:0 1px 2px #00264D;
+}
+#menu a:hover { background-color:#06C; color:#FFF; }
+#menu a.current {
+	background:#FFF url(../images/active_tab_bg.gif) repeat-x bottom center;
+	color:#333;
+	text-shadow:none;
+	-moz-text-shadow:none;
+	padding:8px 16px;
+	border:0;
+	text-shadow:1px 1px #FFF;
+	-moz-text-shadow:1px 1px #FFF;
+}
+#menu a.current:hover { color:#000; }
+#account-nav {
+	float:right;
+	color:#FFF;
+	font-size:85%;
+}
+#account-nav a, #account-nav span {
+	float:left;
+	display:block;
+	color:#FFF;
+	margin-left:0.5em;
+}
+#account-nav a { text-decoration:underline; }
+#account-nav a:hover { text-decoration:none; }
+#sub-menu {
+	background-color:#777;
+	padding: 0;
+}
+#sub-menu a{
+	display:block;
+	float:left;
+	border-right:1px solid #BBB;
+	text-decoration:none;
+	color:#FFF;
+	padding:6px 12px;
+}
+#sub-menu a:hover {
+	background-color:#555;
+}
+#sub-menu a.current { 
+	background-color:#444;
+}
+#sub-menu:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+#main { position:relative; }
+#main h1 {
+	font-family:'DroidSerifBold',"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+	font-size:230.8%;
+	/*font-weight:bold;*/
+	letter-spacing:-1px;
+	color:#002566;
+	margin-top:0.25em;
+}
+#sidebar { position:relative; }
+#footer { 
+	margin:15px 0;
+	text-align:center;
+	color:#99B5E6;
+	font-size:93%;
+}
+#footer a {
+	color:#99B5E6;
+}
+#footer a:hover {
+	color:#FFF;
+}
+#footer span { margin:0 0.5em;}
+
+/* ======= */
+/* Layouts */
+/* ======= */
+
+#main {
+	width:920px;
+	padding:10px 20px 20px 20px;
+}
+
+/* Right Sidebar - 240px Wide */
+body.sidebar-right-240 #content {
+	background:#FFF url('../images/bg-sidebar-right-240.gif') repeat-y;
+}
+body.sidebar-right-240 #main {
+	width:680px;
+	/*padding:0 20px 30px 20px;*/
+	float:left;
+}
+body.sidebar-right-240 #sidebar{
+	float:right;
+	width:200px;
+	padding:0 20px;
+}
+
+
+ul#sidebar-menu {
+	margin:0.5em -20px;
+}
+ul#sidebar-menu li a {
+	padding:5px 20px;
+	display:block;
+	margin-bottom:1px;
+}
+ul#sidebar-menu li a:hover{
+	background-color:#CCC;
+}
+ul#sidebar-menu li a.current {
+	background-color:#CCC;
+	color:#111;
+	font-weight:bold;
+	text-decoration:none;
+}
+#sidebar h2 {
+	font-size:108%;
+	font-weight:bold;
+	margin:0.5em 0;
+	border-bottom:1px solid #BBB;
+}
+#sidebar div.buttons {
+	padding:0.5em 0;
+}
+
+
+#add-post-button, #add-media-button, #export-supporters-button {
+	position:absolute;
+	right:10px;
+	top:5px;
+}
+
+
+/* ================ */
+/* Blogs / Articles */
+/* ================ */
+
+.article {
+	margin:1em 0;
+	border-top:1px solid #CCC;
+}
+.article h2 {
+	font-family:'DroidSerifBold',"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+	margin-top:1em;
+	font-size:138.5%;
+	color:#002566;
+	letter-spacing:-0.5px;
+}
+.article a:hover { text-decoration:underline; }
+.article h2 a { color:#194CB3; }
+.article-edit-links {
+	background:#EEE;
+	padding:4px 10px;
+	color:#666;
+	text-align:right;
+	font-size:93%;
+}
+
+
+/* ===== */
+/* Pages */
+/* ===== */
+
+ul#pages {
+	margin:0.5em 0;
+}
+ul#pages li a {
+	display:block;
+	padding:6px 12px;
+	background-color:#EEE;
+	margin:4px 0;
+}
+ul#pages li a:hover {
+	background-color:#DDD;
+}
+
+
+/* ======= */
+/*  Media  */
+/* ======= */
+table#images{
+	width:100%;
+}
+table#images th {
+	font-weight:bold;
+}
+table#images td, table#images th{
+	padding:6px 8px;
+	background-color:#F2F2F2;
+	border:2px solid #FFF;
+}
+table#images input {
+	width:400px;
+	margin:0.5em 0;
+}
+table#images td.thumbnail { text-align:center; }
+table#images th.date { text-align:center; }
+
+
+/* ============ */
+/*  Supporters  */
+/* ============ */
+#pager {
+	margin:0;
+	text-align:center;
+	width:100%;
+	border:1px solid #CCC;
+	padding:0.5em 0;
+}
+#supporters_table {
+	margin:1.5em 0;
+}
+#supporters_table tr.supporter_row:hover td {
+	background-color:#D8E4FD;
+	cursor:pointer;
+}
+#supporters_table tfoot td{ padding:0.5em 0; }
+#supporters_table tfoot img { vertical-align:text-bottom; }
+
+table#supporter_details{
+	width:100%;
+	margin:1em 0;
+	border-collapse:separate;
+	border-spacing:2px;
+}
+table#supporter_details th, table#supporter_details td {
+	padding:6px 8px;
+}
+table#supporter_details th {
+	background-color:#DDD;
+	font-weight:bold;
+	width:20%;
+	text-align:right;
+	vertical-align:top;
+}
+table#supporter_details td { 
+	background-color:#F2F2F2;
+}

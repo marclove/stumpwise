@@ -1,0 +1,43 @@
+- @body_class = 'sidebar-right-240'
+- @menu 			= 'website'
+- @submenu 		= 'site'
+
+=render 'layouts/sub_menu'
+-form_for @site, :url => admin_site_path do |f|
+	#main
+		%h1 Site Settings
+		=f.label :name, 'Site Name', {:class => 'on-top'}
+		=f.text_field :name, :class => 'text_field big wide'
+		=f.label :subhead, {}, {:class => 'on-top'}
+		=f.text_field :subhead, :class => 'text_field wide'
+		=f.label :subdomain, {}, {:class => 'on-top'}
+		=f.text_field :subdomain, :class => 'text_field wide'
+		=f.label :custom_domain, "Custom Domain", {:class => 'on-top'}
+		=f.text_field :custom_domain, :class => 'text_field wide'
+		=f.label :keywords, 'Search Engine Keywords', {:class => 'on-top'}
+		=f.text_area :keywords, :class => 'wide', :rows => 3
+		=f.label :description, 'Brief Description of Site', {:class => 'on-top'}
+		=f.text_area :description, :class => 'wide', :rows => 3
+		=f.label :google_analytics_id, "Google Analytics Tracking ID <span>(UA-XXXXXXX-X)</span>", {:class => 'on-top'}
+		=f.text_field :google_analytics_id, :class => 'text_field wide'
+		
+		.buttons
+			%button.positive{:type => 'submit'}
+				=image_tag "icons-shadowless/tick.png", :alt => ''
+				Save Changes
+			=link_to "#{image_tag('icons-shadowless/cross.png', :alt => '')} Cancel", :back, :class => 'negative'
+	
+	#sidebar
+		%h2{:style => "margin-top:1em;"} Social Networks
+		.details
+			=f.label :twitter_username, "Twitter Username", {:class => 'on-top'}
+			=f.text_field :twitter_username, :class => 'text_field'
+		.details
+			=f.label :facebook_page_id, "Facebook Page ID", {:class => 'on-top'}
+			=f.text_field :facebook_page_id, :class => 'text_field'
+		.details
+			=f.label :flickr_username, "Flickr Username", {:class => 'on-top'}
+			=f.text_field :flickr_username, :class => 'text_field'
+		.details
+			=f.label :youtube_username, "YouTube Username", {:class => 'on-top'}
+			=f.text_field :youtube_username, :class => 'text_field'

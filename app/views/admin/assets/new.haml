@@ -1,0 +1,15 @@
+- @body_class = 'no-sidebar'
+- @menu 			= 'website'
+- @submenu 		= 'media'
+
+=render 'layouts/sub_menu'
+#main
+	%h1 Upload New Image
+	-form_for :asset, :url => admin_assets_path(@site), :html => {:multipart => true} do |f|
+		%p
+			=f.label :photo, 'Select an image file to upload:', {:class => 'on-top'}
+			=f.file_field :photo
+		.buttons
+			%button.positive{:type => 'submit'}
+				=image_tag "icons-shadowless/arrow-090.png", :alt => ''
+				Upload

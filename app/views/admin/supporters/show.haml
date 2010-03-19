@@ -1,0 +1,29 @@
+- @body_class = 'no-sidebar'
+- @menu 			= 'supporters'
+
+#main
+	%h1 Supporter Details
+	%table{:id => "supporter_details"}
+		%tr
+			%th Full Name
+			%td= "#{@supporter.name} #{@supporter.name_suffix}"
+		%tr
+			%th Email
+			%td= mail_to(@supporter.email)
+		%tr
+			%th Phone Number
+			%td= @supporter.phone
+		%tr
+			%th Address
+			%td= "#{@supporter.thoroughfare} <br/> #{@supporter.locality}, #{@supporter.administrative_area} #{@supporter.postal_code}"
+		%tr
+			%th Joined
+			%td= @supporter.created_at.strftime('%B %e, %Y at %l:%M %p')
+		%tr
+			%th Signed up to
+			%td
+				=check_box_tag('email_updates', '1', true, {:disabled => true})
+				Receive email updates
+				%br
+				=check_box_tag('sms_updates', '1', true, {:disabled => true})
+				Receive SMS updates

@@ -1,0 +1,2 @@
+class BlogDrop < ItemDrop
+end

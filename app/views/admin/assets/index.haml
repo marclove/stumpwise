@@ -1,0 +1,33 @@
+- @body_class = 'no-sidebar'
+- @menu 			= 'website'
+- @submenu 		= 'media'
+
+=render 'layouts/sub_menu'
+#main
+	%h1 Images
+	- if @assets.size > 0
+		%table#images
+			%thead
+				%tr
+					%th
+					%th.filename Filename / URL
+					%th.date Uploaded
+					%th
+			%tbody
+				-for asset in @assets
+					="<tr class=\"#{cycle('odd','even')}\">"
+					%td.thumbnail= image_tag(asset.photo.url(:w140))
+					%td.filename
+						=asset.photo_file_name
+						%br
+						=text_field_tag '', "#{asset.photo.url}"
+						=clippy "#{asset.photo.url}"
+					%td.date= asset.created_at.to_date
+					%td.delete= link_to 'Delete', admin_asset_path(asset), :method => :delete, :confirm => "Are you sure you want to delete this image? If this image is being used anywhere in your site, it will break those pages, so please make sure its safe to delete this file before clicking OK."
+					="</tr>"
+		#add-media-button.buttons
+			=link_to "#{image_tag('icons-shadowless/plus-circle.png', :alt => '')} Upload New Image", new_admin_asset_path, :class => 'positive'
+	-else
+		%p
+			This site has no images yet.
+			=link_to "Click here to upload one.", new_admin_asset_path

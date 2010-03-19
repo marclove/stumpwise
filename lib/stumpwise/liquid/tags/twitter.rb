@@ -1,0 +1,77 @@
+module Stumpwise
+  module Liquid
+    module Tags
+      
+      class Twitter < ::Liquid::Tag
+        def initialize(name, params, tokens)
+          @attributes = {
+            'tweets'      => '5',
+            'avatars'     => 'true',
+            'timestamps'  => 'true',
+            'hashtags'    => 'true',
+            'loop'        => 'false',
+            'live'        => 'false',
+            'interval'    => '6000',
+            'shell_bg'    => '#333333',
+            'shell_text'  => '#FFFFFF',
+            'tweet_bg'    => '#000000',
+            'tweet_text'  => '#FFFFFF',
+            'links'       => '#4AED05',
+            'width'       => 'auto',
+            'height'      => '300'
+          }
+          params.scan(::Liquid::TagAttributes) do |var, value|
+            @attributes[var] = value
+          end
+        end
+        
+        def width
+          @attributes['width'] == 'auto' ? "'auto'" : @attributes['width']
+        end
+        
+        def render(context)
+          if !context['site.twitter_username'].blank? && username = context['site.twitter_username']
+            result = <<-DIV
+            <div id=\"twitter_widget\">
+            <script src=\"http://widgets.twimg.com/j/2/widget.js\"></script>
+            <script>
+              new TWTR.Widget({
+                version: 2,
+                type: 'profile',
+                rpp: #{@attributes['tweets']},
+                interval: #{@attributes['interval']},
+                width: #{width},
+                height: #{@attributes['height']},
+                theme: {
+                  shell: {
+                    background: '#{@attributes['shell_bg']}',
+                    color: '#{@attributes['shell_text']}'
+                  },
+                  tweets: {
+                    background: '#{@attributes['tweet_bg']}',
+                    color: '#{@attributes['tweet_text']}',
+                    links: '#{@attributes['links']}'
+                  }
+                },
+                features: {
+                  scrollbar: false,
+                  loop: #{@attributes['loop']},
+                  live: #{@attributes['live']},
+                  hashtags: #{@attributes['hashtags']},
+                  timestamp: #{@attributes['timestamps']},
+                  avatars: #{@attributes['avatars']},
+                  behavior: 'all'
+                }
+              }).render().setUser('#{username}').start();
+            </script>
+            </div>
+            DIV
+          else
+            result = ''
+          end
+          result
+        end
+      end
+    end
+  end
+end

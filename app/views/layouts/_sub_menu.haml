@@ -1,0 +1,7 @@
+#sub-menu
+	=link_to 'Blogs &amp; Articles', admin_blogs_path, :class => @submenu == 'blogs' ? 'current' : ''
+	=link_to 'Pages', admin_pages_path, :class => @submenu == 'pages' ? 'current' : ''
+	=link_to 'Images', admin_assets_path, :class => @submenu == 'media' ? 'current' : ''
+	/
+		=link_to 'Navigation', '/', :class => @submenu == 'navigation' ? 'current' : ''
+	=link_to 'Settings', edit_admin_site_path, :class => @submenu == 'settings' ? 'current' : ''

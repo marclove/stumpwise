@@ -1,0 +1,26 @@
+- @body_class = 'sidebar-right-240'
+- @menu 			= 'website'
+- @submenu 		= 'blogs'
+
+=render 'layouts/sub_menu'
+#main
+	%h1= "#{@blog.title} Articles"
+	#add-post-button.buttons
+		=link_to "#{image_tag('icons-shadowless/pencil.png', :alt => '')} Edit Blog Details", edit_admin_blog_path
+		=link_to "#{image_tag('icons-shadowless/plus-circle.png', :alt => '')} New Article", new_admin_article_path, :class => 'positive'
+	-for article in @articles
+		.article
+			%h2
+				=link_to article.title, edit_admin_article_path(article)
+			%p= truncate(article.body, 500)
+			.article-edit-links
+				=link_to 'Edit', edit_admin_article_path(article)
+				&#124;
+				=link_to 'Delete', admin_article_path(article), :method => :delete, :confirm => "Are you sure you want to delete this article? This cannot be undone."
+#sidebar
+	%h2{:style => 'margin-top:1em;'} Blogs
+	%ul#sidebar-menu
+		-for blog in @blogs
+			%li= link_to blog.title, admin_blog_path(blog), :class => (blog == @blog ? "current" : "")
+	.buttons
+		=link_to "#{image_tag('icons-shadowless/plus-circle.png', :alt => '')} New Blog", new_admin_blog_path, :class => 'positive'

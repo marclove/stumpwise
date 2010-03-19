@@ -1,0 +1,29 @@
+# == Schema Information
+# Schema version: 20100316133950
+#
+# Table name: sites
+#
+#  id                  :integer         not null, primary key
+#  created_at          :datetime
+#  updated_at          :datetime
+#  subdomain           :string(255)
+#  custom_domain       :string(255)
+#  theme_id            :integer
+#  name                :string(255)
+#  subhead             :string(255)
+#  keywords            :text
+#  description         :text
+#  disclaimer          :text
+#  public_email        :string(255)
+#  public_phone        :string(255)
+#  twitter_username    :string(255)
+#  facebook_page_id    :integer
+#  flickr_username     :string(255)
+#  youtube_username    :string(255)
+#  google_analytics_id :string(255)
+#  paypal_email        :string(255)
+#  owner_id            :integer
+#
+
+feingold:
+  subdomain: feingold
