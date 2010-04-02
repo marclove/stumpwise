@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100401215743
+# Schema version: 20100402013401
 #
 # Table name: items
 #

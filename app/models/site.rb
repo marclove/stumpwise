@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100401215743
+# Schema version: 20100402013401
 #
 # Table name: sites
 #
@@ -27,6 +27,7 @@
 #  supporter_list_id         :string(255)
 #  contributor_list_id       :string(255)
 #  candidate_photo           :string(255)
+#  eligibility_statement     :text
 #
 
 class Site < ActiveRecord::Base
@@ -34,7 +35,7 @@ class Site < ActiveRecord::Base
                   :keywords, :description, :disclaimer, :public_email,
                   :public_phone, :twitter_username, :facebook_page_id,
                   :flickr_username, :youtube_username, :google_analytics_id,
-                  :paypal_email
+                  :paypal_email, :eligibility_statement
   
   RESERVED_SUBDOMAINS = %w( www support blog billing help api cdn asset assets chat mail calendar docs documents apps app calendars mobile mobi static admin administration administrator moderator official store buy pages page ssl contribute )
   

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100401215743
+# Schema version: 20100402013401
 #
 # Table name: contributions
 #
@@ -66,9 +66,11 @@ class Contribution < ActiveRecord::Base
   validates_inclusion_of    :success, :in => [true, false]
   validates_inclusion_of    :test, :in => [true, false]
   validates_inclusion_of    :fraud_review, :in => [true, false]
+  validates_acceptance_of   :compliance_confirmation, :if => :requires_compliance_confirmation?
   
   before_validation_on_create :set_defaults
   before_validation_on_create :store_card_number
+  after_validation_on_create  :store_compliance_statement
   #after_save :create_supporter
   
   attr_accessor :card_number
@@ -130,6 +132,19 @@ class Contribution < ActiveRecord::Base
   end
   
   private
+    def requires_compliance_confirmation?
+      return false unless site
+      !site.eligibility_statement.blank?
+    end
+    
+    def store_compliance_statement
+      if requires_compliance_confirmation?
+        self.compliance_statement = site.eligibility_statement
+      else
+        return true
+      end
+    end
+    
     def store_card_number
       self.card_display_number = self.credit_card.display_number
       return true

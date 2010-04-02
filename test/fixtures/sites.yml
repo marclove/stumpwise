@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100401215743
+# Schema version: 20100402013401
 #
 # Table name: sites
 #
@@ -27,6 +27,7 @@
 #  supporter_list_id         :string(255)
 #  contributor_list_id       :string(255)
 #  candidate_photo           :string(255)
+#  eligibility_statement     :text
 #
 
 feingold:

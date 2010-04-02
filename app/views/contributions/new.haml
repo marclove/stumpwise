@@ -101,7 +101,7 @@
 							#sms_subscribe.field_element
 								=check_box_tag 'add_to_sms_list'
 								=label_tag 'add_to_sms_list', "Subscribe to campaign SMS updates"
-
+								
 				-field_set_tag '<span>Employment Information</span>', :id => 'employment_information', :class => 'fieldset' do
 					%p.instructions Campaign finance law requires us to collect and report your occupation and employer. In some cases, without this information we will be forced to refund your contribution. Please do not leave blank or enter "N/A".
 					#employer.field_element
@@ -112,10 +112,12 @@
 						=f.label :occupation, {}, :class => 'text_field_label'
 						=f.text_field :occupation, :class => 'text_field'
 						%span.instructions If not employed, please enter "Not employed". <br/>Complete even if self-employed. <br/>If retired, please enter "Retired".
-
-				-field_set_tag '<span>Confirm Your Eligibility</span>', :id => 'eligibility_confirmation', :class => 'fieldset' do
-					=f.check_box :compliance_confirmation
-					=f.label :compliance_confirmation, "Check this box to confirm that the following statements are true and correct:"
+						
+				-unless @site.eligibility_statement.blank?
+					-field_set_tag '<span>Confirm Your Eligibility</span>', :id => 'eligibility_confirmation', :class => 'fieldset' do
+						=f.check_box :compliance_confirmation
+						=f.label :compliance_confirmation, "Check this box to confirm that the following statements are true and correct:"
+						=@site.eligibility_statement
 				
 				.buttons
 					%button.contribute{:type => 'submit'}

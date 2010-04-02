@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100401215743) do
+ActiveRecord::Schema.define(:version => 20100402013401) do
 
   create_table "administratorships", :force => true do |t|
     t.integer "administrator_id"
@@ -126,6 +126,7 @@ ActiveRecord::Schema.define(:version => 20100401215743) do
     t.string   "supporter_list_id"
     t.string   "contributor_list_id"
     t.string   "candidate_photo"
+    t.text     "eligibility_statement"
   end
 
   add_index "sites", ["custom_domain"], :name => "index_sites_on_custom_domain", :unique => true

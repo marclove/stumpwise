@@ -20,6 +20,8 @@
 		=f.text_area :description, :class => 'wide', :rows => 3
 		=f.label :google_analytics_id, "Google Analytics Tracking ID <span>(UA-XXXXXXX-X)</span>", {:class => 'on-top'}
 		=f.text_field :google_analytics_id, :class => 'text_field wide'
+		=f.label :eligibility_statement, "Contributor Eligibility Statement<br/><span>If provided, a contributor will be required to confirm that these statement(s) are true and correct. Please consult the campaign finance regulations applicable to your campaign. They will likely provide a list of contributor eligibility requirements (i.e. age, legal residency, source of money is personal funds, etc.)</span>", {:class => 'on-top'}
+		=f.text_area :eligibility_statement, :class => 'wide tinymce', :rows => 8
 		
 		.buttons
 			%button.positive{:type => 'submit'}
