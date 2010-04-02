@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100402013401) do
+ActiveRecord::Schema.define(:version => 20100402140216) do
 
   create_table "administratorships", :force => true do |t|
     t.integer "administrator_id"
@@ -116,7 +116,7 @@ ActiveRecord::Schema.define(:version => 20100402013401) do
     t.string   "public_email"
     t.string   "public_phone"
     t.string   "twitter_username"
-    t.integer  "facebook_page_id"
+    t.string   "facebook_page_id",          :limit => 50
     t.string   "flickr_username"
     t.string   "youtube_username"
     t.string   "google_analytics_id"

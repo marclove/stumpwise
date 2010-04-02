@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100402013401
+# Schema version: 20100402140216
 #
 # Table name: users
 #

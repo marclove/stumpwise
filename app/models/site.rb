@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100402013401
+# Schema version: 20100402140216
 #
 # Table name: sites
 #
@@ -17,7 +17,7 @@
 #  public_email              :string(255)
 #  public_phone              :string(255)
 #  twitter_username          :string(255)
-#  facebook_page_id          :integer
+#  facebook_page_id          :string(50)
 #  flickr_username           :string(255)
 #  youtube_username          :string(255)
 #  google_analytics_id       :string(255)
