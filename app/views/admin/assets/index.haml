@@ -16,12 +16,12 @@
 			%tbody
 				-for asset in @assets
 					="<tr class=\"#{cycle('odd','even')}\">"
-					%td.thumbnail= image_tag(asset.photo.url(:w140))
+					%td.thumbnail= image_tag(asset.file.small.url)
 					%td.filename
-						=asset.photo_file_name
+						=asset['file']
 						%br
-						=text_field_tag '', "#{asset.photo.url}"
-						=clippy "#{asset.photo.url}"
+						=text_field_tag '', "#{asset.file.url}"
+						=clippy "#{asset.file.url}"
 					%td.date= asset.created_at.to_date
 					%td.delete= link_to 'Delete', admin_asset_path(asset), :method => :delete, :confirm => "Are you sure you want to delete this image? If this image is being used anywhere in your site, it will break those pages, so please make sure its safe to delete this file before clicking OK."
 					="</tr>"
