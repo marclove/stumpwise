@@ -1,8 +1,7 @@
 module Stumpwise
   module Liquid
     module Tags
-      
-      class Twitter < ::Liquid::Tag
+      class TwitterWidget < ::Liquid::Tag
         def initialize(name, params, tokens)
           @attributes = {
             'tweets'      => '5',
@@ -12,11 +11,11 @@ module Stumpwise
             'loop'        => 'false',
             'live'        => 'false',
             'interval'    => '6000',
-            'shell_bg'    => '#333333',
+            'shell_bg'    => '#002266',
             'shell_text'  => '#FFFFFF',
-            'tweet_bg'    => '#000000',
+            'tweet_bg'    => '#001122',
             'tweet_text'  => '#FFFFFF',
-            'links'       => '#4AED05',
+            'links'       => '#6699FF',
             'width'       => 'auto',
             'height'      => '300'
           }
