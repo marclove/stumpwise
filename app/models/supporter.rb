@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100316133950
+# Schema version: 20100401215743
 #
 # Table name: supporters
 #
@@ -18,22 +18,33 @@
 #  administrative_area    :string(255)
 #  country                :string(255)
 #  postal_code            :string(255)
+#  mobile_phone           :string(255)
 #
 
 class Supporter < ActiveRecord::Base
-  RegEmailName   = '[\w\.%\+\-]+'
-  RegDomainHead  = '(?:[A-Z0-9\-]+\.)+'
-  RegDomainTLD   = '(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)'
-  RegEmailOk     = /\A#{RegEmailName}@#{RegDomainHead}#{RegDomainTLD}\z/i
-  
   has_many :supporterships, :foreign_key => 'supporter_id'
   has_many :sites, :through => :supporterships
   
-  validates_length_of :email, :within => 6..100, :allow_blank => false
-  validates_format_of :email, :with => RegEmailOk, :allow_blank => false
+  validates_length_of   :email, :within => 6..100,   :allow_blank => true
+  validates_format_of   :email, :with => RegEmailOk, :allow_blank => true
+  validates_presence_of :email, :if => Proc.new{|s| s.mobile_phone.blank?}
+  validates_length_of   :phone, :is => 10, :allow_blank => true,
+                                :message => 'must include the area code and be 10 digits long'
+  validates_length_of   :mobile_phone, :is => 10, :allow_blank => true,
+                                :message => 'must include the area code and be 10 digits long'
   
   def email=(new_email)
     new_email.downcase! unless new_email.nil?
     write_attribute(:email, new_email)
+  end
+  
+  def phone=(new_phone)
+    new_phone = new_phone.gsub(/[^0-9]/, '') unless new_phone.nil?
+    write_attribute(:phone, new_phone)
+  end
+  
+  def mobile_phone=(new_mobile_phone)
+    new_mobile_phone = new_mobile_phone.gsub(/[^0-9]/, '') unless new_mobile_phone.nil?
+    write_attribute(:mobile_phone, new_mobile_phone)
   end
 end

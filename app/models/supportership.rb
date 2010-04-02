@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100316133950
+# Schema version: 20100401215743
 #
 # Table name: supporterships
 #
@@ -7,6 +7,7 @@
 #  supporter_id  :integer
 #  site_id       :integer
 #  receive_email :boolean
+#  receive_sms   :boolean
 #
 
 class Supportership < ActiveRecord::Base

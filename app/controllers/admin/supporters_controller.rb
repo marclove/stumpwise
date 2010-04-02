@@ -1,6 +1,8 @@
 require 'csv'
 
 class Admin::SupportersController < ApplicationController
+  before_filter :require_authorized_user
+
   def index
     @supporters = current_site.supporters
   end

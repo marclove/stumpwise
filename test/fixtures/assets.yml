@@ -1,15 +1,13 @@
 # == Schema Information
-# Schema version: 20100316133950
+# Schema version: 20100401215743
 #
 # Table name: assets
 #
-#  id                 :integer         not null, primary key
-#  site_id            :string(255)
-#  photo_file_name    :string(255)
-#  photo_content_type :string(255)
-#  photo_file_size    :integer
-#  created_at         :datetime
-#  updated_at         :datetime
+#  id         :integer         not null, primary key
+#  site_id    :integer
+#  file       :string(255)
+#  created_at :datetime
+#  updated_at :datetime
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

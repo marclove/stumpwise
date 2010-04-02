@@ -34,6 +34,30 @@ module Stumpwise
         return text
       end
       
+      def stylesheets(names, media="screen")
+        sheets = names.split(",")
+        sheets.inject("") do |result,s|
+          result << tag(:link, {:media => media, :rel => "stylesheet", :type => "text/css", :href => asset_url("#{s}.css")})
+        end
+      end
+      alias_method :stylesheet, :stylesheets
+      
+      def javascripts(names)
+        scripts = names.split(",")
+        scripts.inject("") do |result,s|
+          result << content_tag(:script, "", {:type => "text/javascript", :src => asset_url("#{s}.js")})
+        end
+      end
+      alias_method :javascript, :javascripts
+      
+      def asset_url(filename)
+        File.join("http://s3.amazonaws.com/#{ThemeAssetUploader.s3_bucket}/themes", @context.registers[:site].theme_id.to_s, filename)
+      end
+      
+      def asset_image_tag(filename)
+        image_tag(asset_url(filename), :alt => "")
+      end
+      
       def google_js(lib)
         lib = lib.to_s
         library, version = lib.split(".", 2)
@@ -133,6 +157,11 @@ module Stumpwise
         area_code = false unless (area_code == true || area_code == false)
         delimiter = delimiter.to_s
         number_to_phone(number, {:area_code => area_code, :delimiter => delimiter})
+      end
+      
+      def date(time, format_string)
+        time = time.is_a?(String) ? Time.parse(time) : time
+        time.strftime(format_string)
       end
     end
   end

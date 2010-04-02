@@ -3,12 +3,13 @@ ActionController::Routing::Routes.draw do |map|
     base.root :controller => 'home', :action => 'index'
   end
   
-  map.with_options(:conditions => {:subdomain => 'contribute', :domain => BASE_URL}) do |c|
-    # https://contribute.stumpwise.com/woods
-    c.connect ':subdomain', :controller => 'contributions', :action => 'new'
-    # https://contribute.stumpwise.com/woods/process
-    # https://contribute.stumpwise.com/woods/thanks/r94473624dj5d78fkfvmvht36
-    #c.connect ':subdomain/:action/:order_id', :controller => 'contributions'
+  map.with_options(:conditions => {:subdomain => 'secure', :domain => BASE_URL}) do |c|
+    # https://secure.stumpwise.com/woods/contribute
+    c.connect ':subdomain/contribute', :controller => 'contributions', :action => 'new', :conditions => {:method => :get}
+    # https://secure.stumpwise.com/woods/contribute
+    c.connect ':subdomain/contribute', :controller => 'contributions', :action => 'create', :conditions => {:method => :post}
+    # https://secure.stumpwise.com/woods/contribute/thanks/r94473624dj5d78fkfvmvht36
+    c.connect ':subdomain/contribute/:action/:order_id', :controller => 'contributions'
   end
 
   map.namespace(:admin) do |admin|
@@ -32,15 +33,12 @@ ActionController::Routing::Routes.draw do |map|
     #admin.resources :javascripts
     
     admin.resources :supporters, :only => [:index, :show, :destroy], :collection => {:export => :get}
-    admin.resources :contributions, :only => [:index, :show]
+    admin.resources :contributions, :only => [:index, :show], :member => {:refund => :put}
     
     admin.root :controller => 'blogs', :action => 'index'
   end
   
-  map.resources :assets,        :only => [:show]
-  map.resources :stylesheets,   :only => [:show]
-  map.resources :javascripts,   :only => [:show]
-  map.resources :supporters,    :only => [:new, :create]
+  map.resources :supporters, :only => [:new, :create]
   map.join 'join', :controller => 'supporters', :action => 'new'
   map.connect '*path', :controller => 'stumpwise', :action => 'show'
 end

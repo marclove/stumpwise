@@ -1,4 +1,6 @@
 class Admin::PagesController < ApplicationController
+  before_filter :require_authorized_user
+
   def index
     @pages = current_site.pages
   end
@@ -27,7 +29,7 @@ class Admin::PagesController < ApplicationController
     @page = current_site.pages.find(params[:id])
     if @page.update_attributes(params[:page])
       flash[:notice] = t("page.update.success")
-      redirect_to admin_page_path(@page)
+      redirect_to admin_pages_path
     else
       flash[:error] = t("page.update.fail")
       render :action => 'edit'

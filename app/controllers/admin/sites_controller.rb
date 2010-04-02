@@ -1,4 +1,6 @@
 class Admin::SitesController < ApplicationController
+  before_filter :require_authorized_user
+
   def edit
     @site = current_site
   end

@@ -1,31 +1,41 @@
 # == Schema Information
-# Schema version: 20100316133950
+# Schema version: 20100401215743
 #
 # Table name: sites
 #
-#  id                  :integer         not null, primary key
-#  created_at          :datetime
-#  updated_at          :datetime
-#  subdomain           :string(255)
-#  custom_domain       :string(255)
-#  theme_id            :integer
-#  name                :string(255)
-#  subhead             :string(255)
-#  keywords            :text
-#  description         :text
-#  disclaimer          :text
-#  public_email        :string(255)
-#  public_phone        :string(255)
-#  twitter_username    :string(255)
-#  facebook_page_id    :integer
-#  flickr_username     :string(255)
-#  youtube_username    :string(255)
-#  google_analytics_id :string(255)
-#  paypal_email        :string(255)
-#  owner_id            :integer
+#  id                        :integer         not null, primary key
+#  created_at                :datetime
+#  updated_at                :datetime
+#  subdomain                 :string(255)
+#  custom_domain             :string(255)
+#  theme_id                  :integer
+#  name                      :string(255)
+#  subhead                   :string(255)
+#  keywords                  :text
+#  description               :text
+#  disclaimer                :text
+#  public_email              :string(255)
+#  public_phone              :string(255)
+#  twitter_username          :string(255)
+#  facebook_page_id          :integer
+#  flickr_username           :string(255)
+#  youtube_username          :string(255)
+#  google_analytics_id       :string(255)
+#  paypal_email              :string(255)
+#  owner_id                  :integer
+#  campaign_monitor_password :string(255)
+#  supporter_list_id         :string(255)
+#  contributor_list_id       :string(255)
+#  candidate_photo           :string(255)
 #
 
 class Site < ActiveRecord::Base
+  attr_accessible :subdomain, :custom_domain, :theme_id, :name, :subhead,
+                  :keywords, :description, :disclaimer, :public_email,
+                  :public_phone, :twitter_username, :facebook_page_id,
+                  :flickr_username, :youtube_username, :google_analytics_id,
+                  :paypal_email
+  
   RESERVED_SUBDOMAINS = %w( www support blog billing help api cdn asset assets chat mail calendar docs documents apps app calendars mobile mobi static admin administration administrator moderator official store buy pages page ssl contribute )
   
   belongs_to  :owner, :class_name => 'User'
@@ -38,9 +48,6 @@ class Site < ActiveRecord::Base
   belongs_to  :theme
   has_many    :layouts,     :through => :theme
   has_many    :templates,   :through => :theme
-  has_many    :stylesheets, :through => :theme
-  has_many    :javascripts, :through => :theme
-  #has_many    :images,      :through => :theme
   
   has_many    :items,     :order => 'created_at ASC'
   has_many    :pages,     :order => 'created_at ASC'
@@ -48,7 +55,8 @@ class Site < ActiveRecord::Base
   has_many    :articles,  :order => 'created_at DESC'
   has_many    :assets,    :order => 'created_at DESC'
   
-  after_create            :setup_theme
+  mount_uploader :candidate_photo, CandidatePhotoUploader
+  
   before_validation       :downcase_subdomain
   before_validation       :downcase_custom_domain
   validates_uniqueness_of :subdomain, :message => "This subdomain is already in use."
@@ -62,6 +70,13 @@ class Site < ActiveRecord::Base
   validates_format_of     :custom_domain, :if => Proc.new {|site| !site.custom_domain.blank? }, 
                           :with => /\A([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])+\.)[a-zA-Z]{2,6}\Z/, #/\A([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}\Z/,
                           :message => 'The domain name is not valid. Please enter your domain in the following format: "example.com"'
+  validates_length_of     :public_email, :within => 6..100,   :allow_blank => false
+  validates_format_of     :public_email, :with => RegEmailOk, :allow_blank => false
+  validates_presence_of   :name
+  
+  def sms_recipient_numbers
+    supporters.all(:select => 'supporters.mobile_phone', :conditions => ['supporterships.receive_sms = ?', true]).collect(&:mobile_phone)
+  end
   
   def gateway
     ActiveMerchant::Billing::Base.gateway('paypal').new(
@@ -81,8 +96,13 @@ class Site < ActiveRecord::Base
   end
   alias_method :landing_page, :root_item
   
+  def navigation
+    items.all(:conditions => {:parent_id => nil, :show_in_navigation => true, :published => true})
+  end
+  
   def contribute_url
-    "https://contribute.#{HOST}/#{subdomain}"
+    protocol = Rails.env == :production ? "https" : "http"
+    "#{protocol}://secure.#{HOST}/#{subdomain}/contribute"
   end
   
   def assets
@@ -108,6 +128,18 @@ class Site < ActiveRecord::Base
     name.to_s.parameterize('_').scan(/([a-zA-Z0-9]([a-zA-Z0-9\-_]{0,61}[a-zA-Z0-9])?)+/).flatten[0]
   end
   
+  def supporter_list
+    CampaignMonitor::List[supporter_list_id] if supporter_list_id
+  end
+  
+  def contributor_list
+    CampaignMonitor::List[contributor_list_id] if contributor_list_id
+  end
+  
+  def authorized_user?(user)
+    user.super_admin? || administratorships.first(:conditions => {:administrator_id => user})
+  end
+  
   protected
     def downcase_subdomain
       self.subdomain.downcase! if self.subdomain
@@ -115,9 +147,5 @@ class Site < ActiveRecord::Base
     
     def downcase_custom_domain
       self.custom_domain.downcase! if self.custom_domain
-    end
-    
-    def setup_theme
-      self.create_theme(:name => "#{self.subdomain} Default Theme")
     end
 end

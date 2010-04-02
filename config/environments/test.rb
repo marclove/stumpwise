@@ -27,10 +27,12 @@ config.action_mailer.delivery_method = :test
 # like if you have constraints or database-specific column types
 # config.active_record.schema_format = :sql
 
+ActiveMerchant::Billing::Base.mode = :test
+SslRequirement.disable_ssl_check = true
 BASE_URL = "localdev.com"
 HOST = "localdev.com:3000"
 
-config.gem 'machinist_mongo', :lib => 'machinist/mongo_mapper', :version => '1.0.2'
+config.gem 'machinist'
 config.gem 'shoulda', '2.10.3'
 config.gem 'thoughtbot-factory_girl', :lib => 'factory_girl'
 config.gem 'mcmire-matchy', :lib => 'matchy', :version => '0.4.2'

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100316133950
+# Schema version: 20100401215743
 #
 # Table name: users
 #
@@ -21,34 +21,27 @@
 #  last_login_at       :datetime
 #  current_login_ip    :string(255)
 #  last_login_ip       :string(255)
+#  super_admin         :boolean
 #
 
 class User < ActiveRecord::Base
+  attr_protected :super_admin
+  
   acts_as_authentic
   
-  RegEmailName   = '[\w\.%\+\-]+'
-  RegDomainHead  = '(?:[A-Z0-9\-]+\.)+'
-  RegDomainTLD   = '(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)'
-  RegEmailOk     = /\A#{RegEmailName}@#{RegDomainHead}#{RegDomainTLD}\z/i
-  
-  has_many :owned_sites,        :foreign_key => 'owner_id'
+  has_many :owned_sites,        :foreign_key => 'owner_id', :class_name => 'Site'
   has_many :administratorships, :foreign_key => 'administrator_id'
   has_many :administered_sites, :through => :administratorships, :source => :site
   
   validates_length_of :email, :within => 6..100, :allow_blank => false
   validates_format_of :email, :with => RegEmailOk, :allow_blank => false
   
-  # PasswordRequired = Proc.new { |u| u.password_required? }
-  # validates_presence_of     :password, :if => PasswordRequired
-  # validates_confirmation_of :password, :if => PasswordRequired, :allow_nil => true
-  # validates_length_of       :password, :if => PasswordRequired, :allow_nil => true, :minimum => 6
-  
   def email=(new_email)
     new_email.downcase! unless new_email.nil?
     write_attribute(:email, new_email)
   end
   
-  # def password_required?
-  #   crypted_password.blank? || !password.blank?
-  # end
+  def name
+    "#{first_name} #{last_name}"
+  end
 end

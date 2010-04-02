@@ -11,5 +11,11 @@ en:
     process:
       success: "Your contribution has been processed. Thank you for your support!"
       fail:
-        invalid_card: "The credit card information you entered is not valid, please check the card type and number and try again."
+        invalid_record: "Your contribution could not be processed. Please correct the highlighted fields and try again."
+        amount: "The contribution amount given was invalid."
+        invalid_card: "The credit card information you entered is not valid. Please check the card type and number and try again."
         rejected: "The transaction was rejected. The reason given was:"
+  supporter:
+    create:
+      success: "Thank you for joining the campaign!"
+      fail: "There was a problem adding you to the campaign. Please check the validity of the information you entered and try again."

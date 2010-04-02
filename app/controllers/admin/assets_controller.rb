@@ -1,4 +1,6 @@
 class Admin::AssetsController < ApplicationController
+  before_filter :require_authorized_user
+
   def index
     @assets = current_site.assets
   end

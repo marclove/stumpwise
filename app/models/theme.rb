@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100316133950
+# Schema version: 20100401215743
 #
 # Table name: themes
 #
@@ -15,7 +15,5 @@ class Theme < ActiveRecord::Base
   has_many :liquid_templates
   has_many :layouts
   has_many :templates
-  has_many :stylesheets
-  has_many :javascripts
-  has_many :images  
+  has_many :assets, :class_name => 'ThemeAsset'
 end

@@ -1,4 +1,6 @@
 class Admin::ArticlesController < ApplicationController
+  before_filter :require_authorized_user
+
   def new
     @article = Article.new
   end

@@ -16,13 +16,17 @@
 					%span &#124;
 					=link_to 'Account Info', '/'
 					%span &#124;
-					=link_to 'Log Out', '/'
+					=link_to 'Log Out', admin_logout_path
 				%div{:style => "clear:both;"}
 				#menu
 					=link_to 'Web Site', admin_root_path, :class => @menu == 'website' ? 'current' : ''
 					=link_to 'Supporters', admin_supporters_path, :class => @menu == 'supporters' ? 'current' : ''
-					=link_to 'Donations', '/', :class => @menu == 'donations' ? 'current' : ''
-					=link_to 'Email', '/', :class => @menu == 'email' ? 'current' : ''
+					=link_to 'Contributions', admin_contributions_path, :class => @menu == 'contributions' ? 'current' : ''
+					-if current_site.campaign_monitor_password
+						-form_tag "http://email.stumpwise.com/login.aspx", :id => 'createsend', :target => '_blank', :method => :post do 
+							=hidden_field_tag 'username', current_site.subdomain
+							=hidden_field_tag 'password', current_site.campaign_monitor_password
+						=link_to_function 'Email', "$('#createsend').submit()", :class => @menu == 'email' ? 'current' : ''
 					=link_to 'SMS', '/', :class => @menu == 'sms' ? 'current' : ''
 			#content
 				= yield
@@ -34,3 +38,4 @@
 				=link_to 'Terms of Use','/'
 				%span &#124;
 				=link_to 'Privacy Policy','/'
+

@@ -1,0 +1,53 @@
+!!! 5
+%html
+	%head
+		%title= "Thank you for your contribution!"
+		=stylesheet_link_tag "http://yui.yahooapis.com/2.8.0r4/build/reset/reset-min.css"
+		=stylesheet_link_tag "http://yui.yahooapis.com/2.8.0r4/build/fonts/fonts-min.css"
+		=stylesheet_link_tag "contribute"
+		/[if lt IE 9]
+			=javascript_include_tag "http://ie7-js.googlecode.com/svn/version/2.1(beta3)/IE9.js"
+		=javascript_include_tag "jquery.min.js"
+	%body
+		#contribution
+			%h1= "Thank you for your contribution!"
+			%p.thank_you 
+				Your generous contribution is a critical component to the success of our campaign!<br/>
+				Your receipt is below and a copy will be emailed to you:
+			#receipt
+				%table
+					%tr
+						%th Contribution To
+						%td= @contribution.site.name
+					%tr
+						%th Reference #
+						%td= @contribution.order_id
+					%tr
+						%th Transaction Time
+						%td= @contribution.created_at.strftime('%m/%d/%Y %l:%M %p')
+					%tr
+						%th Amount
+						%td= number_to_currency(@contribution.amount.to_f / 100)
+					%tr
+						%th Contributor Information
+						%td
+							=@contribution.first_name
+							=@contribution.last_name
+							%br
+							=@contribution.address1
+							-unless @contribution.address2.blank?
+								%br
+								=@contribution.address2
+							%br
+							="#{@contribution.city}, #{@contribution.state} #{@contribution.zip}"
+							%br
+							=@contribution.country
+							%br
+							=@contribution.phone
+					%tr
+						%th Card Information
+						%td
+							=@contribution.card_type.titleize
+							=@contribution.card_display_number
+							%br
+							="Exp. #{@contribution.card_month}/#{@contribution.card_year}"

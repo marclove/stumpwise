@@ -5,6 +5,29 @@ html, body{
   font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
 	background-color:#041D49;
 }
+
+.pagination { margin:1em 0; text-align:center;}
+.pagination a, .pagination .current, .pagination .prev_page, .pagination.next_page {
+	border:1px solid #36C;
+	background:#E0F0FF;
+	padding:4px 6px;
+	margin-right:2px;
+	color:#133986;
+}
+.pagination a:hover, .pagination .current:hover, .pagination .prev_page:hover, .pagination .next_page:hover {
+	display:pointer;
+}
+.pagination .disabled {
+	border-color:#AAA;
+	background:#F2F2F2;
+	color:#666;
+}
+.pagination .current {
+	border-color:#36C;
+	background:#36C;	
+	color:#FFF;
+}
+
 #container{
 	position:relative;
 	width:960px;
@@ -316,3 +339,47 @@ table#supporter_details th {
 table#supporter_details td { 
 	background-color:#F2F2F2;
 }
+
+/* =============== */
+/*  Contributions  */
+/* =============== */
+#total_contributions {
+	position:absolute;
+	top:0.25em;
+	right:20px;
+	font-size:138.5%;
+	font-weight:bold;
+	line-height:3em;
+	color:#061;
+}
+.contribution {
+	width:100%;
+	background:#FFF;
+	margin:1em auto;
+}
+.contribution th, .contribution td {
+	padding:4px 8px;
+	border:2px solid #FFF;
+	vertical-align:top;
+}
+.contribution th {
+	font-weight:bold;
+	text-align:right;
+	width:25%;
+	background:#DDD;
+}
+.contribution td {
+	text-align:left;
+	background:#EEE;
+}
+#contributions_table tr.contribution_row:hover td {
+	background-color:#D8E4FD;
+	cursor:pointer;
+}
+table.contribution .card-logo { vertical-align:middle; }
+.first-name, .last-name, .city { width:13%; }
+.state { width:4%; text-align:center; }
+.zip, .phone { width:10%; }
+.status { width:9%; }
+.amount { width:10%; text-align:right; }
+.submitted-at { text-align:right; }

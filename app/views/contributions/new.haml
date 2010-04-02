@@ -2,8 +2,121 @@
 %html
 	%head
 		%title= "Contribute To #{@site.name}"
+		=stylesheet_link_tag "http://yui.yahooapis.com/2.8.0r4/build/reset/reset-min.css"
+		=stylesheet_link_tag "http://yui.yahooapis.com/2.8.0r4/build/fonts/fonts-min.css"
 		=stylesheet_link_tag "contribute"
 		/[if lt IE 9]
 			=javascript_include_tag "http://ie7-js.googlecode.com/svn/version/2.1(beta3)/IE9.js"
 		=javascript_include_tag "jquery.min.js"
 	%body
+		#contribution
+			%h1= "Contribute To #{@site.name}"
+			-form_for @contribution, :url => url_for(:subdomain => @site.subdomain, :controller => 'contributions', :action => 'create', :only_path => true, :secure => true), :html => {:id => 'contribution_form', :method => :post} do |f|
+				-if flash[:error]
+					.flash.error= flash[:error]
+				%p.fields_required All fields are required unless otherwise noted.
+				-field_set_tag '<span>Contribution Amount</span>', :id => 'contribution_info', :class => 'fieldset' do
+					-if @contribution.errors.on(:amount)
+						#amount_error.flash.error= t('contribution.process.fail.amount')
+					#amount.field_element
+						.amount_choice
+							=radio_button_tag 'amount_choice','25', @amount_choice == "25"
+							=label_tag 'amount_choice_25', '$25.00'
+						.amount_choice
+							=radio_button_tag 'amount_choice','50', @amount_choice == "50"
+							=label_tag 'amount_choice_50', '$50.00'
+						.amount_choice
+							=radio_button_tag 'amount_choice','100', @amount_choice == "100"
+							=label_tag 'amount_choice_100', '$100.00'
+						.amount_choice
+							=radio_button_tag 'amount_choice','250', @amount_choice == "250"
+							=label_tag 'amount_choice_250', '$250.00'
+						.amount_choice
+							=radio_button_tag 'amount_choice','500', @amount_choice == "500"
+							=label_tag 'amount_choice_500', '$500.00'
+						.amount_choice
+							=radio_button_tag 'amount_choice','1000', @amount_choice == "1000"
+							=label_tag 'amount_choice_1000', '$1,000.00'
+						.amount_choice
+							=radio_button_tag 'amount_choice','2500', @amount_choice == "2500"
+							=label_tag 'amount_choice_2500', '$2,500.00'
+						.amount_choice.other_amount
+							=radio_button_tag 'amount_choice','other', @amount_choice == "other"
+							=label_tag 'amount_choice_other', 'Other:'
+							=text_field_tag 'amount_other', @amount_other, :class => 'text_field'
+
+				-field_set_tag '<span>Credit Card Information <img id="credit-card-logos" src="/images/payments/creditcards.png" alt="" /></span>', :id => 'credit_card', :class => 'fieldset' do
+					-if flash[:card_error]
+						#card_error.flash.error= flash[:card_error]
+					#type.field_element
+						=f.label :card_type, 'Card Type'
+						=f.select :card_type, [['Visa','visa'],['Mastercard','master'],['Discover','discover'],['American Express','american_express']]
+					#expiration.field_element
+						=f.label :card_month, 'Expiration Date'
+						=select_month @contribution.card_month, {:use_month_numbers => true}, {:id => 'contribution_card_month', :name => 'contribution[card_month]'}
+						=select_year @contribution.card_year, {:start_year => Time.now.year, :end_year => Time.now.year + 10}, {:id => 'contribution_card_year', :name => 'contribution[card_year]'}
+					#number.field_element
+						=f.label :card_number, 'Card Number', :class => 'text_field_label'
+						=f.text_field :card_number, :class => 'text_field'
+					#verification_value.field_element
+						=f.label :verification_value, 'Verification No.', :class => 'text_field_label'
+						=f.text_field :verification_value, :class => 'text_field'
+						=link_to "What's this?", '/cvv2.html', :target => '_blank'
+
+				-field_set_tag '<span>Contributor Information</span>', :id => 'contributor', :class => 'fieldset' do
+					#contributor_name
+						#first_name.field_element
+							=f.label :first_name, 'First Name', :class => 'text_field_label'
+							=f.text_field :first_name, :class => 'text_field'
+						#last_name.field_element
+							=f.label :last_name, 'Last Name', :class => 'text_field_label'
+							=f.text_field :last_name, :class => 'text_field'
+					#street.field_element
+						=f.label :address1, 'Billing Address', :class => 'text_field_label'
+						=f.text_field :address1, :class => 'text_field'
+						=f.text_field :address2, :class => 'text_field'
+					#city.field_element
+						=f.label :city, {}, :class => 'text_field_label'
+						=f.text_field :city, :class => 'text_field'
+					#state.field_element
+						=f.label :state, {}, :class => 'text_field_label'
+						=f.select :state, STATES
+					#zip.field_element
+						=f.label :zip, {}, :class => 'text_field_label'
+						=f.text_field :zip, :class => 'text_field'
+					#country.field_element
+						=f.label :country, {}, :class => 'text_field_label'
+						=f.country_select :country, ['United States']
+					#email.field_element
+						=f.label :email, 'Email', :class => 'text_field_label'
+						=f.text_field :email, :class => 'text_field'
+						/
+							#email_subscribe.field_element
+								=check_box_tag 'add_to_email_list'
+								=label_tag 'add_to_email_list', "Subscribe to campaign email updates"
+					#phone.field_element
+						=f.label :phone, 'Phone <span class="optional">(optional)</span>', :class => 'text_field_label'
+						=f.text_field :phone, :class => 'text_field'
+						/
+							#sms_subscribe.field_element
+								=check_box_tag 'add_to_sms_list'
+								=label_tag 'add_to_sms_list', "Subscribe to campaign SMS updates"
+
+				-field_set_tag '<span>Employment Information</span>', :id => 'employment_information', :class => 'fieldset' do
+					%p.instructions Campaign finance law requires us to collect and report your occupation and employer. In some cases, without this information we will be forced to refund your contribution. Please do not leave blank or enter "N/A".
+					#employer.field_element
+						=f.label :employer, {}, :class => 'text_field_label'
+						=f.text_field :employer, :class => 'text_field'
+						%span.instructions If not employed, please enter "None". <br/>If self-employed, please enter "Self". <br/>If retired, please enter "Retired".
+					#occupation.field_element
+						=f.label :occupation, {}, :class => 'text_field_label'
+						=f.text_field :occupation, :class => 'text_field'
+						%span.instructions If not employed, please enter "Not employed". <br/>Complete even if self-employed. <br/>If retired, please enter "Retired".
+
+				-field_set_tag '<span>Confirm Your Eligibility</span>', :id => 'eligibility_confirmation', :class => 'fieldset' do
+					=f.check_box :compliance_confirmation
+					=f.label :compliance_confirmation, "Check this box to confirm that the following statements are true and correct:"
+				
+				.buttons
+					%button.contribute{:type => 'submit'}
+						Submit Contribution

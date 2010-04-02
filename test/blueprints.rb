@@ -1,4 +1,5 @@
-require 'machinist/mongo_mapper'
+=begin
+require 'machinist'
 require 'sham'
 require 'faker'
 
@@ -85,3 +86,4 @@ Supporter.blueprint do
   last_name { Sham.name }
   email { Sham.email }
 end
+=end

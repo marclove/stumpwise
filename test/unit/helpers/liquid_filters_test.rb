@@ -17,7 +17,7 @@ class LiquidFiltersTest < ActionView::TestCase
   
   context "Custom Liquid filters" do
     setup do 
-      @context = Context.new
+      @context = Context.new({},{'site' => Site.new(:theme_id => 1)})
       
       def setup_vars(vars)
         vars.each_pair do |k,v|
@@ -136,7 +136,7 @@ class LiquidFiltersTest < ActionView::TestCase
         assert_equal '<a href="/news">News</a>', render_template("item | link_to_item")
         assert_equal '<a href="/news">Alt Text</a>', render_template('item | link_to_item:"Alt Text"')
       end
-    
+      
       should "include google javascript links" do
         assert_equal '<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js" type="text/javascript"></script>', render_template('"jquery.1.4.1" | google_js')
         assert_equal '<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.4.1/jquery-ui.min.js" type="text/javascript"></script>', render_template('"jqueryui.1.4.1" | google_js')
@@ -154,10 +154,25 @@ class LiquidFiltersTest < ActionView::TestCase
       end
     
       should_eventually "produce a gravatar for a user"
-      should_eventually "produce javascript tags for theme javascript files"
-      should_eventually "produce stylesheet tags for theme stylesheets"
-      should_eventually "produce javascript tags with IE conditional comments for theme javascript files"
-      should_eventually "produce stylesheet tags with IE conditional comments for theme stylesheets"
+      
+      should "produce javascript tags for theme javascript files" do
+        assert_equal '<script src="http://s3.amazonaws.com/stumpwise-test/themes/1/application.js" type="text/javascript"></script>', render_template('"application" | javascript')
+        assert_equal '<script src="http://s3.amazonaws.com/stumpwise-test/themes/1/jquery.js" type="text/javascript"></script><script src="http://s3.amazonaws.com/stumpwise-test/themes/1/application.js" type="text/javascript"></script>', render_template('"jquery,application" | javascripts')
+      end
+      
+      should "produce stylesheet tags for theme stylesheets" do
+        assert_equal '<link href="http://s3.amazonaws.com/stumpwise-test/themes/1/master.css" media="screen" rel="stylesheet" type="text/css" />', render_template('"master" | stylesheet')
+        assert_equal '<link href="http://s3.amazonaws.com/stumpwise-test/themes/1/master.css" media="print" rel="stylesheet" type="text/css" />', render_template('"master" | stylesheet:"print"')
+        assert_equal '<link href="http://s3.amazonaws.com/stumpwise-test/themes/1/base.css" media="screen" rel="stylesheet" type="text/css" /><link href="http://s3.amazonaws.com/stumpwise-test/themes/1/grids.css" media="screen" rel="stylesheet" type="text/css" />', render_template('"base,grids" | stylesheets')
+      end
+      
+      should "produce a theme asset url" do
+        assert_equal 'http://s3.amazonaws.com/stumpwise-test/themes/1/my_file.png', render_template('"my_file.png" | asset_url')
+      end
+
+      should "produce a theme image tag" do
+        assert_equal '<img alt="" src="http://s3.amazonaws.com/stumpwise-test/themes/1/my_file.png" />', render_template('"my_file.png" | asset_image_tag')
+      end
     end
     
     context "for Arrays" do

@@ -36,14 +36,14 @@ module Stumpwise
           
           if assigns['layout']
             #layout = Layout.find_by_filename(assigns['layout'])
-            layout = @site.theme.layouts.find_by_filename(assigns['layout'])
+            @layout = @site.theme.liquid_templates.find_by_filename(assigns['layout'])
           elsif default_layout
             #layout = Layout.find_by_filename(assigns['layout'])
-            layout = @site.theme.layouts.find_by_filename(default_layout)
+            @layout = @site.theme.liquid_templates.find_by_filename(default_layout)
           end
           # If neither layout is provided or found in the database, fallback
           # to layout.tpl which all themes should have.
-          return layout || @site.theme.layouts.find_by_filename("layout.tpl")
+          @layout ||= @site.theme.liquid_templates.find_by_filename("layout.tpl")
         end
     end
   end

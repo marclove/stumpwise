@@ -16,6 +16,10 @@ module Stumpwise
           end
         @site ||= :invalid
       end
+      
+      def current_site_valid?
+        current_site && (current_site != :invalid)
+      end
   
       def custom_domain?
         current_domain != BASE_URL

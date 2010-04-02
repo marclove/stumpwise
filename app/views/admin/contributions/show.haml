@@ -1,0 +1,51 @@
+- @body_class = 'no-sidebar'
+- @menu 			= 'contributions'
+
+#main
+	%h1 Contribution Detail
+	%table.contribution
+		%tr
+			%th Transaction Status
+			%td= @contribution.status
+		%tr
+			%th Reference #
+			%td= @contribution.order_id
+		%tr
+			%th Amount
+			%td= number_to_currency(@contribution.amount.to_f / 100)
+		%tr
+			%th Contributor
+			%td
+				=@contribution.first_name
+				=@contribution.last_name
+		%tr
+			%th Email
+			%td= mail_to(@contribution.email)
+		%tr
+			%th Phone Number
+			%td= @contribution.phone
+		%tr
+			%th Billing Address
+			%td
+				=@contribution.address1
+				-unless @contribution.address2.blank?
+					%br
+					=@contribution.address2
+				%br
+				="#{@contribution.city}, #{@contribution.state} #{@contribution.zip}"
+				%br
+				=@contribution.country
+		%tr
+			%th Card Information
+			%td
+				=image_tag "payments/#{@contribution.card_type}.png", :class => 'card-logo'
+				%br
+				=@contribution.card_display_number
+				%br
+				="Exp. #{@contribution.card_month}/#{@contribution.card_year}"
+		%tr
+			%th Submitted
+			%td= @contribution.created_at.strftime('%m/%d/%Y %l:%M %p')
+	
+	#contribution-admin-buttons.buttons
+		=link_to "#{image_tag('icons-shadowless/cross.png', :alt => '')} Refund Contribution", refund_admin_contribution_path(@contribution), :class => 'negative', :method => :put

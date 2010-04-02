@@ -1,0 +1,37 @@
+- @body_class = 'no-sidebar'
+- @menu 			= 'contributions'
+
+#main
+	%h1 Contributions
+	#total_contributions
+		Total Received
+		=number_to_currency(@contribution_total.to_f / 100)
+	%table{:id => "contributions_table", :class => "tablesorter"}
+		%thead
+			%tr
+				%th.first-name First Name
+				%th.last-name Last Name
+				%th.city City
+				%th.state State
+				%th.zip Zip
+				%th.phone Phone
+				%th.status Status
+				%th.amount Amount
+				%th.submitted-at Submitted
+		%tbody
+			-for contribution in @contributions
+				="<tr class='contribution_row #{cycle("odd","even")}' data-url='#{admin_contribution_path(contribution)}'>"
+				%td.first-name= link_to contribution.first_name, admin_contribution_path(contribution)
+				%td.last-name= link_to contribution.last_name, admin_contribution_path(contribution)
+				%td.city= contribution.city
+				%td.state= contribution.state
+				%td.zip= contribution.zip
+				%td.phone= contribution.phone
+				%td.status= contribution.status
+				%td.amount= number_to_currency(contribution.amount.to_f / 100)
+				%td.submitted-at= contribution.created_at.strftime('%b %e, %Y %I:%M:%S %p')
+				="</tr>"
+	=will_paginate @contributions
+	/
+		#export-supporters-button.buttons
+			=link_to "#{image_tag('icons-shadowless/document-excel-csv.png', :alt => '')} Download CSV File", export_admin_supporters_path

@@ -36,20 +36,4 @@ class ActiveSupport::TestCase
   # Note: You'll currently still have to declare fixtures explicitly in integration tests
   # -- they do not yet inherit this setting
   #fixtures :all
-  
-  # Cleanup the database before every test
-  # Modified from: http://github.com/ramdiv/mongo_mapper_acts_as_tree
-  def teardown
-    MongoMapper.database.collections.each do |coll|
-      unless coll.name =~ /^system\.+/
-        coll.drop
-      end
-    end
-  end
-  
-  def inherited(base)
-    base.define_method teardown do
-      super
-    end
-  end
 end

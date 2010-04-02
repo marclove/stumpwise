@@ -28,8 +28,10 @@ Rails::Initializer.run do |config|
   config.gem 'bcrypt-ruby', :lib => 'bcrypt', :version => '2.1.2'
   config.gem 'authlogic'
   config.gem 'will_paginate', :version => '2.3.12'
+  config.gem 'carrierwave'
   config.gem 'activemerchant', :lib => 'active_merchant'
   config.gem 'shenie-ssl_requirement', :lib => 'ssl_requirement'
+  config.gem 'twilio', :version => '2.7.0'
   
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
@@ -40,7 +42,7 @@ Rails::Initializer.run do |config|
   # config.frameworks -= [ :active_record, :active_resource, :action_mailer ]
 
   # Activate observers that should always be running
-  # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
+  config.active_record.observers = :supportership_observer, :site_observer
 
   # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
   # Run "rake -D time" for a list of tasks for finding time zone names.
@@ -55,6 +57,3 @@ SubdomainFu.tld_size = 1 # all environments
 SubdomainFu.preferred_mirror = "www"
 
 ActiveMerchant::Billing::Gateway.application_id = 'ProgressBound_ActiveMerchant_US'
-
-
-#require 'stumpwise/liquid/tags/twitter'

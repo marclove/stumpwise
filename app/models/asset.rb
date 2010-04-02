@@ -1,23 +1,25 @@
 # == Schema Information
-# Schema version: 20100316133950
+# Schema version: 20100401215743
 #
 # Table name: assets
 #
-#  id                 :integer         not null, primary key
-#  site_id            :string(255)
-#  photo_file_name    :string(255)
-#  photo_content_type :string(255)
-#  photo_file_size    :integer
-#  created_at         :datetime
-#  updated_at         :datetime
+#  id         :integer         not null, primary key
+#  site_id    :integer
+#  file       :string(255)
+#  created_at :datetime
+#  updated_at :datetime
 #
 
 class Asset < ActiveRecord::Base
   belongs_to :site
-  
-  has_attached_file :photo, :styles => {
-    :w140 => "140x>", :w300 => "300x>",
-    :w460 => "460x>", :w620 => "620x>"
-  }
-  validates_attachment_presence :photo
+  #has_attachment :storage => :s3, :path_prefix => "sites"
+  validates_presence_of :site_id
+  mount_uploader :file, SiteAssetUploader
+
+=begin
+  # provides a path like: sites/:site_id/:filename
+  def attachment_path_id
+    site_id.to_s
+  end
+=end
 end

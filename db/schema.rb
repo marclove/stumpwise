@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100316133950) do
+ActiveRecord::Schema.define(:version => 20100401215743) do
 
   create_table "administratorships", :force => true do |t|
     t.integer "administrator_id"
@@ -19,10 +19,8 @@ ActiveRecord::Schema.define(:version => 20100316133950) do
   add_index "administratorships", ["administrator_id", "site_id"], :name => "index_administratorships_on_administrator_id_and_site_id", :unique => true
 
   create_table "assets", :force => true do |t|
-    t.string   "site_id"
-    t.string   "photo_file_name"
-    t.string   "photo_content_type"
-    t.integer  "photo_file_size"
+    t.integer  "site_id"
+    t.string   "file"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -124,6 +122,10 @@ ActiveRecord::Schema.define(:version => 20100316133950) do
     t.string   "google_analytics_id"
     t.string   "paypal_email"
     t.integer  "owner_id"
+    t.string   "campaign_monitor_password"
+    t.string   "supporter_list_id"
+    t.string   "contributor_list_id"
+    t.string   "candidate_photo"
   end
 
   add_index "sites", ["custom_domain"], :name => "index_sites_on_custom_domain", :unique => true
@@ -144,6 +146,7 @@ ActiveRecord::Schema.define(:version => 20100316133950) do
     t.string   "administrative_area"
     t.string   "country"
     t.string   "postal_code"
+    t.string   "mobile_phone"
   end
 
   add_index "supporters", ["email"], :name => "index_supporters_on_email", :unique => true
@@ -152,10 +155,16 @@ ActiveRecord::Schema.define(:version => 20100316133950) do
   create_table "supporterships", :force => true do |t|
     t.integer "supporter_id"
     t.integer "site_id"
-    t.boolean "receive_email"
+    t.boolean "receive_email", :default => false
+    t.boolean "receive_sms",   :default => false
   end
 
   add_index "supporterships", ["supporter_id", "site_id"], :name => "index_supporterships_on_supporter_id_and_site_id", :unique => true
+
+  create_table "theme_assets", :force => true do |t|
+    t.integer "theme_id"
+    t.string  "file"
+  end
 
   create_table "themes", :force => true do |t|
     t.string   "name"
@@ -164,23 +173,24 @@ ActiveRecord::Schema.define(:version => 20100316133950) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                              :null => false
+    t.string   "email",                                  :null => false
     t.string   "first_name"
     t.string   "last_name"
     t.string   "crypted_password"
     t.string   "password_salt"
-    t.string   "persistence_token",                  :null => false
+    t.string   "persistence_token",                      :null => false
     t.string   "single_access_token"
     t.string   "perishable_token"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "login_count",         :default => 0, :null => false
-    t.integer  "failed_login_count",  :default => 0, :null => false
+    t.integer  "login_count",         :default => 0,     :null => false
+    t.integer  "failed_login_count",  :default => 0,     :null => false
     t.datetime "last_request_at"
     t.datetime "current_login_at"
     t.datetime "last_login_at"
     t.string   "current_login_ip"
     t.string   "last_login_ip"
+    t.boolean  "super_admin",         :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

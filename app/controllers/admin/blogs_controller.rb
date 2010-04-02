@@ -1,6 +1,8 @@
 class Admin::BlogsController < ApplicationController
+  before_filter :require_authorized_user
+
   def index
-    @blogs = @site.blogs
+    @blogs = current_site.blogs
     @page = params[:page] || 1
     @articles = current_site.articles.paginate(:per_page => 5, :page => @page)
   end

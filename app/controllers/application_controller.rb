@@ -3,8 +3,7 @@ class ApplicationController < ActionController::Base
   include SslRequirement
   before_filter :handle_invalid_site
   
-  filter_parameter_logging 'password'
-  filter_parameter_logging 'token'
+  filter_parameter_logging :password, :token
   
   helper :all
   helper_method :current_user_session, :current_user
@@ -40,8 +39,17 @@ class ApplicationController < ActionController::Base
     def require_user
       unless current_user
         store_location
-        flash[:notice] = "You must be logged in to access this page"
-        redirect_to new_user_session_url
+        flash[:error] = "You must be logged in to access this page"
+        redirect_to admin_login_url
+        return false
+      end
+      true
+    end
+    
+    def require_authorized_user
+      if require_user && current_site_valid? && !current_site.authorized_user?(current_user)
+        flash[:error] = "You are not an authorized user for this site"
+        redirect_to :back
         return false
       end
     end
