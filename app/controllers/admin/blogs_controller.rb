@@ -3,8 +3,12 @@ class Admin::BlogsController < ApplicationController
 
   def index
     @blogs = current_site.blogs
-    @page = params[:page] || 1
-    @articles = current_site.articles.paginate(:per_page => 5, :page => @page)
+    if @blogs.size > 1
+      @page = params[:page] || 1
+      @articles = current_site.articles.paginate(:per_page => 5, :page => @page)
+    else
+      redirect_to admin_blog_path(@blogs.first)
+    end
   end
   
   def new

@@ -27,7 +27,8 @@
 							=hidden_field_tag 'username', current_site.subdomain
 							=hidden_field_tag 'password', current_site.campaign_monitor_password
 						=link_to_function 'Email', "$('#createsend').submit()", :class => @menu == 'email' ? 'current' : ''
-					=link_to 'SMS', '/', :class => @menu == 'sms' ? 'current' : ''
+					/
+						=link_to 'SMS', '/', :class => @menu == 'sms' ? 'current' : ''
 			#content
 				= yield
 				%div{:style => "clear:both;"}

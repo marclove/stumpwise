@@ -22,5 +22,6 @@
 	%ul#sidebar-menu
 		-for blog in @blogs
 			%li= link_to blog.title, admin_blog_path(blog)
-	.buttons
-		=link_to "#{image_tag('icons-shadowless/plus-circle.png', :alt => '')} New Blog", new_admin_blog_path, :class => 'positive'
+	/
+		.buttons
+			=link_to "#{image_tag('icons-shadowless/plus-circle.png', :alt => '')} New Blog", new_admin_blog_path, :class => 'positive'
