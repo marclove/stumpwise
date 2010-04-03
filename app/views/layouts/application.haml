@@ -1,21 +1,24 @@
 !!! 5
 %html
 	%head
+		%meta{:charset => "utf-8"}
 		%title= "stumpwise :: #{@site.name}"
 		=stylesheet_link_tag "master.css",'tablesorter','tablesorter.pager'
 		/[if lt IE 9]
 			=javascript_include_tag "http://ie7-js.googlecode.com/svn/version/2.1(beta3)/IE9.js"
 		=javascript_include_tag "jquery.min.js",'jquery.tablesorter.min.js','jquery.tablesorter.pager.js',"tiny_mce/jquery.tinymce.js","application.js"
+		= yield :head
 	%body{:class => @body_class}
 		#container
 			#header
 				%h1 Stumpwise
 				%h2= @site.name || ''
 				#account-nav
-					=link_to 'Users', '/'
-					%span &#124;
-					=link_to 'Account Info', '/'
-					%span &#124;
+					/
+						=link_to 'Users', '/'
+						%span &#124;
+						=link_to 'Account Info', '/'
+						%span &#124;
 					=link_to 'Log Out', admin_logout_path
 				%div{:style => "clear:both;"}
 				#menu
