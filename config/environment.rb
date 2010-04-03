@@ -32,6 +32,7 @@ Rails::Initializer.run do |config|
   config.gem 'activemerchant', :lib => 'active_merchant'
   config.gem 'shenie-ssl_requirement', :lib => 'ssl_requirement'
   config.gem 'twilio', :version => '2.7.0'
+  config.gem 'newrelic_rpm'
   
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
