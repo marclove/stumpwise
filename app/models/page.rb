@@ -23,7 +23,13 @@
 #  article_template_name :string(255)
 #
 
-class Page < Item  
+class Page < Item
+  validates_presence_of :template_name
+  
+  def initialize(attrs = {})
+    super(attrs.reverse_merge({:template_name => 'page.tpl'}))
+  end
+
   def template
     @template ||= Template.find_by_filename(template_name)
   end

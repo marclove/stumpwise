@@ -25,7 +25,14 @@
 
 class Blog < Item
   has_many :articles, :class_name => 'Article', :foreign_key => 'parent_id', :order => 'lft DESC'
-
+  
+  validates_presence_of :template_name
+  validates_presence_of :article_template_name
+  
+  def initialize(attrs = {})
+    super(attrs.reverse_merge({:template_name => 'blog.tpl', :article_template_name => 'article.tpl'}))
+  end
+  
   def template
     @template ||= site.theme.templates.select{|t| t.filename == template_name}.first
   end
