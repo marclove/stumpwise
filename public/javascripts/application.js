@@ -44,12 +44,11 @@ $(document).ready(function() {
 	// Sortable Data Table
 	$("#supporters_table").tablesorter({
 		headers:{
-			3:{sorter:false},
-			6:{sorter:false}
+			5:{sorter:false}
 		},
 		widgets: ['zebra'],
 		widthFixed: true,
-		sortList:[[7,1]]
+		sortList:[[6,1]]
 	}).tablesorterPager({container:$("#pager"), size:20});
 
 	// Sortable Data Table Clickable Rows
