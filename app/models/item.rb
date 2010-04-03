@@ -24,7 +24,7 @@
 #
 
 class Item < ActiveRecord::Base
-  RESERVED_PERMALINKS = ["contribute", "join", "contributions/new", "supporters/new", "admin"]
+  RESERVED_PERMALINKS = ["contribute", "join", "contributions", "contributions/new", "supporters", "supporters/new", "admin"]
   
   acts_as_nested_set :scope => :site
   alias_method :previous, :left_sibling
