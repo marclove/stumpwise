@@ -17,3 +17,9 @@
 			=link_to "#{image_tag('icons-shadowless/cross.png', :alt => '')} Cancel", :back, :class => 'negative'
 
 	#sidebar
+		.details
+			=f.check_box :published
+			=f.label :published
+		.details
+			=f.check_box :show_in_navigation
+			=f.label :show_in_navigation, "Include in site navigation"

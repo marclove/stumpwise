@@ -12,16 +12,16 @@
 		.article
 			%h2
 				=link_to article.title, edit_admin_article_path(article)
-			%p= truncate(article.body, :length => 500)
+			=article.body
 			.article-edit-links
 				=link_to 'Edit', edit_admin_article_path(article)
 				&#124;
 				=link_to 'Delete', admin_article_path(article), :method => :delete, :confirm => "Are you sure you want to delete this article? This cannot be undone."
+	=will_paginate @articles
 #sidebar
 	%h2{:style => 'margin-top:1em;'} Blogs
 	%ul#sidebar-menu
 		-for blog in @blogs
 			%li= link_to blog.title, admin_blog_path(blog)
-	/
-		.buttons
-			=link_to "#{image_tag('icons-shadowless/plus-circle.png', :alt => '')} New Blog", new_admin_blog_path, :class => 'positive'
+	.buttons
+		=link_to "#{image_tag('icons-shadowless/plus-circle.png', :alt => '')} New Blog", new_admin_blog_path, :class => 'positive'

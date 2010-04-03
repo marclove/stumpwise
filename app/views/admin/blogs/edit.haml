@@ -1,23 +1,24 @@
-- @body_class = 'no-sidebar'
+- @body_class = 'sidebar-right-240'
 - @menu 			= 'website'
 - @submenu 		= 'blogs'
 
 =render 'layouts/sub_menu'
-#main
-	%h1 Edit Blog
-	-form_for :blog, :url => admin_blog_path(@blog) do |f|
+-form_for :blog, :url => admin_blog_path(@blog) do |f|
+	#main
+		%h1 Edit Blog
 		=f.label :title, {}, {:class => 'on-top'}
 		=f.text_field :title, :class => 'text_field big wide'
 		=f.label :slug, {}, {:class => 'on-top'}
 		=f.text_field :slug, :class => 'text_field wide'
-		%p
-			=f.check_box :published
-			=f.label :published
-		%p
-			=f.check_box :show_in_navigation
-			=f.label :show_in_navigation
 		.buttons
 			%button.positive{:type => 'submit'}
 				=image_tag "icons-shadowless/tick.png", :alt => ''
 				Save Changes
 			=link_to "#{image_tag('icons-shadowless/cross.png', :alt => '')} Cancel", :back, :class => 'negative'
+	#sidebar
+		%p
+			=f.check_box :published
+			=f.label :published
+		%p
+			=f.check_box :show_in_navigation
+			=f.label :show_in_navigation, "Include in site navigation"

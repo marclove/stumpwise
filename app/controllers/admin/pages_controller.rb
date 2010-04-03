@@ -6,7 +6,7 @@ class Admin::PagesController < ApplicationController
   end
 
   def new
-    @page = Page.new
+    @page = Page.new(:show_in_navigation => true, :published => true)
   end
 
   def create

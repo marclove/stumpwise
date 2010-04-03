@@ -2,17 +2,24 @@ class Admin::BlogsController < ApplicationController
   before_filter :require_authorized_user
 
   def index
+=begin
     @blogs = current_site.blogs
     if @blogs.size > 1
       @page = params[:page] || 1
-      @articles = current_site.articles.paginate(:per_page => 5, :page => @page)
+      @articles = current_site.articles.paginate(
+        :per_page => 5,
+        :page => @page,
+        :order => 'created_at desc'
+      )
     else
       redirect_to admin_blog_path(@blogs.first)
     end
+=end
+    redirect_to admin_blog_path(current_site.blogs.first)
   end
   
   def new
-    @blog = Blog.new
+    @blog = Blog.new(:show_in_navigation => true, :published => true)
   end
   
   def create
@@ -32,7 +39,7 @@ class Admin::BlogsController < ApplicationController
     @blog = current_site.blogs.find(params[:id])
     @page = params[:page] || 1
     @articles = @blog.articles.paginate(
-      :per_page => 10,
+      :per_page => 5,
       :page => @page,
       :order => 'created_at desc'
     )
