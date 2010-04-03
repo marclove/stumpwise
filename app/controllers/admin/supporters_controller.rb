@@ -9,6 +9,7 @@ class Admin::SupportersController < ApplicationController
   
   def show
     @supporter = current_site.supporters.find(params[:id])
+    @supportership = Supportership.first(:conditions => {:supporter_id => @supporter, :site_id => current_site})
   end
   
   def export

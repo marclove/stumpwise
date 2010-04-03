@@ -6,10 +6,9 @@
 	%table{:id => "supporters_table", :class => "tablesorter"}
 		%thead
 			%tr
-				%th Title
+				%th Email
 				%th First Name
 				%th Last Name
-				%th Suffix
 				%th City
 				%th State
 				%th Phone
@@ -17,10 +16,9 @@
 		%tbody
 			-for supporter in @supporters
 				="<tr class='supporter_row' data-url='#{admin_supporter_path(supporter)}'>"
-				%td= supporter.name_prefix
-				%td= link_to supporter.first_name, admin_supporter_path(supporter)
-				%td= link_to supporter.last_name, admin_supporter_path(supporter)
-				%td= supporter.name_suffix
+				%td= link_to supporter.email, admin_supporter_path(supporter)
+				%td= link_to_unless supporter.first_name.blank?, supporter.first_name, admin_supporter_path(supporter)
+				%td= link_to_unless supporter.last_name.blank?, supporter.last_name, admin_supporter_path(supporter)
 				%td= supporter.locality
 				%td= supporter.administrative_area
 				%td= supporter.phone

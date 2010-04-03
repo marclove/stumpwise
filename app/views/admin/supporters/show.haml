@@ -15,15 +15,16 @@
 			%td= @supporter.phone
 		%tr
 			%th Address
-			%td= "#{@supporter.thoroughfare} <br/> #{@supporter.locality}, #{@supporter.administrative_area} #{@supporter.postal_code}"
+			%td= @supporter.full_address
 		%tr
 			%th Joined
 			%td= @supporter.created_at.strftime('%B %e, %Y at %l:%M %p')
 		%tr
 			%th Signed up to
 			%td
-				=check_box_tag('email_updates', '1', true, {:disabled => true})
+				=check_box_tag('email_updates', '1', @supportership.receive_email, {:disabled => true})
 				Receive email updates
-				%br
-				=check_box_tag('sms_updates', '1', true, {:disabled => true})
-				Receive SMS updates
+				/
+					%br
+					=check_box_tag('sms_updates', '1', @supportership.receive_sms, {:disabled => true})
+					Receive SMS updates

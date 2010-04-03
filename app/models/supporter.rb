@@ -47,4 +47,27 @@ class Supporter < ActiveRecord::Base
     new_mobile_phone = new_mobile_phone.gsub(/[^0-9]/, '') unless new_mobile_phone.nil?
     write_attribute(:mobile_phone, new_mobile_phone)
   end
+  
+  def name
+    "#{first_name} #{last_name}"
+  end
+  
+  def full_address
+    returning result = [] do
+      result << thoroughfare unless thoroughfare.blank?
+      result << last_address_line if last_address_line
+    end.join("<br/>")
+  end
+  
+  def last_address_line
+    returning result = [] do
+      result << locality unless locality.blank?
+      result << area_and_postal_code unless area_and_postal_code.blank?
+    end
+    result.empty? ? nil : result.join(", ")
+  end
+  
+  def area_and_postal_code
+    "#{administrative_area} #{postal_code}"
+  end
 end
