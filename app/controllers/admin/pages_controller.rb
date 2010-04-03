@@ -1,5 +1,6 @@
 class Admin::PagesController < ApplicationController
   before_filter :require_authorized_user
+  before_filter :get_page, :except => [:index, :new, :create]
 
   def index
     @pages = current_site.pages
@@ -22,11 +23,9 @@ class Admin::PagesController < ApplicationController
   end
 
   def edit
-    @page = current_site.pages.find(params[:id])
   end
 
   def update
-    @page = current_site.pages.find(params[:id])
     if @page.update_attributes(params[:page])
       flash[:notice] = t("page.update.success")
       redirect_to admin_pages_path
@@ -37,14 +36,20 @@ class Admin::PagesController < ApplicationController
   end
   
   def publish
-    if @page = current_site.pages.find(params[:id])
-      @page.update_attributes(:published => true)
-    end
+    @page.update_attributes(:published => true) if @page
   end
   
   def unpublish
-    if @page = current_site.pages.find(params[:id])
-      @page.update_attributes(:published => false)
-    end
+    @page.update_attributes(:published => false) if @page
   end
+  
+  def destroy
+    @page.destroy if @page
+    redirect_to admin_pages_path
+  end
+  
+  private
+    def get_page
+      @page = current_site.pages.find(params[:id])
+    end
 end
