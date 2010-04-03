@@ -22,7 +22,7 @@ ActionController::Routing::Routes.draw do |map|
 
     admin.resources :assets
     admin.resources :pages, :member => { :publish => :put, :unpublish => :put }
-    admin.resources :articles, :member => { :publish => :put, :unpublish => :put }
+    #admin.resources :articles, :member => { :publish => :put, :unpublish => :put }
     admin.resources :blogs do |b|
       b.resources :articles, :member => { :publish => :put, :unpublish => :put }
     end

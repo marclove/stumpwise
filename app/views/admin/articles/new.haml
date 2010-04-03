@@ -3,7 +3,7 @@
 - @submenu 		= 'blogs'
 
 =render 'layouts/sub_menu'
--form_for @article, :url => admin_articles_path do |f|
+-form_for @article, :url => admin_blog_articles_path(@blog) do |f|
 	#main
 		%h1 New Article
 		=f.label :title, {}, {:class => 'on-top'}

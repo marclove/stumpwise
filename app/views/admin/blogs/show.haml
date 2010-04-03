@@ -7,16 +7,16 @@
 	%h1= @blog.title
 	#add-post-button.buttons
 		=link_to "#{image_tag('icons-shadowless/pencil.png', :alt => '')} Edit Blog Details", edit_admin_blog_path
-		=link_to "#{image_tag('icons-shadowless/plus-circle.png', :alt => '')} New Article", new_admin_article_path, :class => 'positive'
+		=link_to "#{image_tag('icons-shadowless/plus-circle.png', :alt => '')} New Article", new_admin_blog_article_path(@blog), :class => 'positive'
 	-for article in @articles
 		.article
 			%h2
-				=link_to article.title, edit_admin_article_path(article)
+				=link_to article.title, edit_admin_blog_article_path(@blog, article)
 			=article.body
 			.article-edit-links
-				=link_to 'Edit', edit_admin_article_path(article)
+				=link_to 'Edit', edit_admin_blog_article_path(@blog, article)
 				&#124;
-				=link_to 'Delete', admin_article_path(article), :method => :delete, :confirm => "Are you sure you want to delete this article? This cannot be undone."
+				=link_to 'Delete', admin_blog_article_path(@blog, article), :method => :delete, :confirm => "Are you sure you want to delete this article? This cannot be undone."
 	=will_paginate @articles
 #sidebar
 	%h2{:style => 'margin-top:1em;'} Select A Blog
