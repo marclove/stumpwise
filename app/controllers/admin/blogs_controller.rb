@@ -59,4 +59,10 @@ class Admin::BlogsController < ApplicationController
       render :action => 'edit'
     end
   end
+  
+  def destroy
+    @blog = current_site.blogs.find(params[:id])
+    @blog.delete
+    redirect_to admin_blogs_path
+  end
 end

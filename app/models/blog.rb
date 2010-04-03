@@ -24,7 +24,8 @@
 #
 
 class Blog < Item
-  has_many :articles, :class_name => 'Article', :foreign_key => 'parent_id', :order => 'lft DESC'
+  has_many :articles, :class_name => 'Article', :foreign_key => 'parent_id',
+                      :order => 'lft DESC', :dependent => :destroy
   
   validates_presence_of :template_name
   validates_presence_of :article_template_name
