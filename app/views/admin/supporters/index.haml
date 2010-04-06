@@ -11,6 +11,7 @@
 				%th Last Name
 				%th City
 				%th State
+				%th Zip Code
 				%th Phone
 				%th Joined On
 		%tbody
@@ -21,6 +22,7 @@
 				%td= link_to_unless supporter.last_name.blank?, supporter.last_name, admin_supporter_path(supporter)
 				%td= supporter.locality
 				%td= supporter.administrative_area
+				%td= supporter.postal_code
 				%td= supporter.phone
 				%td= supporter.created_at.strftime('%b %d, %Y at %I:%M %p')
 				="</tr>"
