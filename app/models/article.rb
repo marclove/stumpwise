@@ -28,6 +28,8 @@ class Article < Item
 
   attr_readonly :show_in_navigation
   
+  validates_presence_of :body
+  
   def template
     @template ||= Template.find_by_filename(blog.article_template_name)
   end

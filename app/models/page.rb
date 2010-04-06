@@ -25,6 +25,7 @@
 
 class Page < Item
   validates_presence_of :template_name
+  validates_presence_of :body
   
   def initialize(attrs = {})
     super(attrs.reverse_merge({:template_name => 'page.tpl'}))
