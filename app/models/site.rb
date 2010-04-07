@@ -98,7 +98,7 @@ class Site < ActiveRecord::Base
   alias_method :landing_page, :root_item
   
   def navigation
-    items.all(:conditions => {:parent_id => nil, :show_in_navigation => true, :published => true})
+    items.all(:order => 'lft ASC', :conditions => {:parent_id => nil, :show_in_navigation => true, :published => true})
   end
   
   def contribute_url
