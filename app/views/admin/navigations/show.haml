@@ -1,0 +1,34 @@
+- @body_class = 'no-sidebar'
+- @menu 			= 'website'
+- @submenu 		= 'navigation'
+
+-content_for :head do
+	=javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"
+
+=render 'layouts/sub_menu'
+#main
+	%h1 Site Navigation
+	%p Drag and drop items to reorder the navigation of your site:
+	%ul{:id => "site_navigation"}
+		-for item in @items
+			%li{:id => "item_#{item.id}"}
+				%span{:class => "handle"}
+				=item.title
+
+:plain
+	<script type="text/javascript">
+		$('#site_navigation').sortable(
+			{ axis:'y', 
+				dropOnEmpty:false, 
+				update:function(event, ui){
+					$.ajax({
+						data:'moved_item_id='+ ui.item.attr('id').split('_').pop() + '&' + $(this).sortable('serialize') + '&_method=put', 
+						dataType:'script', 
+						type:'post', 
+						url:'/admin/navigation'
+					})
+				}
+			}
+		);
+		$("#site_navigation").disableSelection();
+	</script>

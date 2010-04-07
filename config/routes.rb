@@ -18,7 +18,8 @@ ActionController::Routing::Routes.draw do |map|
     admin.logout 'logout', :controller => 'sessions', :action => 'destroy'
     #admin.resources :users
 
-    admin.resource  :site
+    admin.resource :site
+    admin.resource :navigation
 
     admin.resources :assets
     admin.resources :pages, :member => { :publish => :put, :unpublish => :put }

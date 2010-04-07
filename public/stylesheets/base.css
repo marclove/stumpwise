@@ -383,3 +383,23 @@ table.contribution .card-logo { vertical-align:middle; }
 .status { width:9%; }
 .amount { width:10%; text-align:right; }
 .submitted-at { text-align:right; }
+
+#site_navigation { width:50%; margin:1em 0; }
+#site_navigation li {
+	margin: 3px 1em; 
+	padding: 0.4em; 
+	padding-left: 2.25em; 
+	line-height: 1.5em;
+	border:1px solid #CCC;
+	background:#EEE;
+	cursor:move;
+	font-weight:bold;
+	color:#333;
+}
+#site_navigation li span {
+	position: absolute;
+	margin-left: -1.75em;
+	width:16px;
+	height:1.5em;
+	background:url(../images/icons-shadowless/arrow-move.png) center center no-repeat;
+}
