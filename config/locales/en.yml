@@ -7,6 +7,7 @@ en:
       fail: "We could not find an account with that email address and password combination."
     logout:
       success: "You have been successfully logged out."
+
   contribution:
     process:
       success: "Your contribution has been processed. Thank you for your support!"
@@ -15,7 +16,43 @@ en:
         amount: "The contribution amount given was invalid."
         invalid_card: "The credit card information you entered is not valid. Please check the card type and number and try again."
         rejected: "The transaction was rejected. The reason given was:"
+    refund:
+      success: "The contribution was successfully refunded to the contributor."
+      rejected: "The refund request was rejected. Please try again or contact support for assistance."
+
   supporter:
     create:
       success: "Thank you for joining the campaign!"
       fail: "There was a problem adding you to the campaign. Please check the validity of the information you entered and try again."
+  
+  site:
+    update:
+      success: "Your changes have been saved."
+      fail: "There was an error. Your changes could not be saved."
+
+  blog:
+    create:
+      success: "Your new blog has been created."
+      fail: "There was an error. You new blog could not be created."
+    update:
+      success: "Your changes have been saved."
+      fail: "There was an error. Your changes could not be saved."
+
+  article:
+    create:
+      success: "Your new article has been created."
+      fail: "There was an error. You new article could not be created."
+    update:
+      success: "Your changes have been saved."
+      fail: "There was an error. Your changes could not be saved."
+    destroy:
+      success: "The article was successfully deleted"
+      fail: "There was an error. The article could not be deleted."
+  
+  page:
+    create:
+      success: "Your new page has been created."
+      fail: "There was an error. You new page could not be created."
+    update:
+      success: "Your changes have been saved."
+      fail: "There was an error. Your changes could not be saved."
