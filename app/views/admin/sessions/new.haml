@@ -1,8 +1,9 @@
 !!! 5
 %html
 	%head
+		%meta{:charset => "utf-8"}
 		%title stumpwise :: login
-		=stylesheet_link_tag "master.css"
+		=stylesheet_link_tag "login.css"
 	%body
 		#container
 			#header
@@ -10,7 +11,6 @@
 				%div{:style => "clear:both; height:15px"}
 			#content
 				-form_for @user_session, :url => admin_sessions_path, :html => {:id => 'login', :class => 'login'} do |f|
-					%h1 Please Log In
 					=flash_messages
 					%table
 						%tbody
@@ -24,15 +24,6 @@
 									=f.label :password
 								%td{:class => 'text_field'}
 									=f.password_field :password
-							%tr
-								%td
-								%td{:style => 'text-align:right;'}
-									=submit_tag 'Log In'
-				%div{:style => "clear:both;"}
-			#footer
-				&copy;
-				%strong ProgressBound, Inc.
-				%span &#124;
-				=link_to 'Terms of Use','/'
-				%span &#124;
-				=link_to 'Privacy Policy','/'
+					.buttons{:style => "text-align:center;"}
+						%button{:type => 'submit', :id => "login_button"}
+							Log In
