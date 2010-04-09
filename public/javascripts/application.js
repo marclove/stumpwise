@@ -5,7 +5,7 @@ $(document).ready(function() {
 		// Location of TinyMCE script
 		script_url : '/javascripts/tiny_mce/tiny_mce.js',
 		mode: "exact",
-		entities: "",
+		entity_encoding: "named",
 		convert_newlines_to_brs: false,
 		theme: "advanced",
 		skin: "stumpwise",
