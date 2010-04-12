@@ -2,9 +2,8 @@ class Admin::BlogsController < ApplicationController
   before_filter :require_authorized_user
 
   def index
-=begin
     @blogs = current_site.blogs
-    if @blogs.size > 1
+    if @blogs
       @page = params[:page] || 1
       @articles = current_site.articles.paginate(
         :per_page => 5,
@@ -14,8 +13,6 @@ class Admin::BlogsController < ApplicationController
     else
       redirect_to admin_blog_path(@blogs.first)
     end
-=end
-    redirect_to admin_blog_path(current_site.blogs.first)
   end
   
   def new
