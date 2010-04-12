@@ -3,7 +3,7 @@ class Admin::BlogsController < ApplicationController
 
   def index
     @blogs = current_site.blogs
-    if @blogs
+    if @blogs > 1
       @page = params[:page] || 1
       @articles = current_site.articles.paginate(
         :per_page => 5,
