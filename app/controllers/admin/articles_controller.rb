@@ -8,7 +8,7 @@ class Admin::ArticlesController < ApplicationController
   
   def create
     @article = @blog.articles.build(params[:article])
-    @article.site_id = current_site
+    @article.site_id = current_site.id
     if @article.save
       flash[:notice] = t("article.create.success")
       redirect_to admin_blog_path(@blog)
