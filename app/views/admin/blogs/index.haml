@@ -3,25 +3,33 @@
 - @submenu 		= 'blogs'
 
 =render 'layouts/sub_menu'
-#main
-	%h1 All Blog Articles
-	%p Select a blog on the right to view only the articles for a particular blog.
-	#add-post-button.buttons
-		=link_to "#{image_tag('icons-shadowless/plus-circle.png', :alt => '')} New Article", new_admin_article_path, :class => 'positive'
-	-for article in @articles
-		.article
-			%h2
-				=link_to article.title, edit_admin_article_path(article)
-			=article.body
-			.article-edit-links
-				=link_to 'Edit', edit_admin_article_path(article)
-				&#124;
-				=link_to 'Delete', admin_article_path(article), :method => :delete, :confirm => "Are you sure you want to delete this article? This cannot be undone."
-	=will_paginate @articles
-#sidebar
-	%h2{:style => 'margin-top:1em;'} Blogs
-	%ul#sidebar-menu
-		-for blog in @blogs
-			%li= link_to blog.title, admin_blog_path(blog)
-	.buttons
-		=link_to "#{image_tag('icons-shadowless/plus-circle.png', :alt => '')} New Blog", new_admin_blog_path, :class => 'positive'
+-if @blogs.size > 0
+	#main
+		%h1 All Blog Articles
+		%p Select a blog on the right to view only the articles for a particular blog.
+		-# #add-post-button.buttons
+			-# =link_to "#{image_tag('icons-shadowless/plus-circle.png', :alt => '')} New Article", new_admin_article_path, :class => 'positive'
+		-for article in @articles
+			.article
+				%h2
+					=link_to article.title, edit_admin_article_path(article)
+				=article.body
+				.article-edit-links
+					=link_to 'Edit', edit_admin_article_path(article)
+					&#124;
+					=link_to 'Delete', admin_article_path(article), :method => :delete, :confirm => "Are you sure you want to delete this article? This cannot be undone."
+		=will_paginate @articles
+
+	#sidebar
+		%h2{:style => 'margin-top:1em;'} Blogs
+		%ul#sidebar-menu
+			-for blog in @blogs
+				%li= link_to blog.title, admin_blog_path(blog)
+		.buttons
+			=link_to "#{image_tag('icons-shadowless/plus-circle.png', :alt => '')} New Blog", new_admin_blog_path, :class => 'positive'
+-else
+	#main
+		%h1 Blogs &amp; Articles
+		%p 
+			You have not created any blogs for this site yet.
+			=link_to "Click here to create one.", new_admin_blog_path
