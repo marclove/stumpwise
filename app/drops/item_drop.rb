@@ -1,7 +1,6 @@
 class ItemDrop < BaseDrop
   liquid_attributes.push(*[
-    :title, :slug, :permalink, :show_in_navigation,
-    :created_at, :updated_at, :created_by, :updated_by
+    :title, :slug, :show_in_navigation, :created_at, :updated_at, :created_by, :updated_by
   ])
   
   def previous
@@ -30,5 +29,9 @@ class ItemDrop < BaseDrop
   
   def landing_page?
     @source.landing_page?
+  end
+  
+  def permalink
+    "/#{@source.permalink}"
   end
 end

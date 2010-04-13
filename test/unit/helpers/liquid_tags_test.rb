@@ -18,7 +18,7 @@ class LiquidTagsTest < ActionView::TestCase
   context "Custom tags" do
     setup do 
       @context = Context.new()
-      @item = Page.make(:title => 'News', :slug => 'news')
+      @item = Page.create(:title => 'News', :slug => 'news', :body => "test")
     end
     
     should "link to an item by passing its liquid object" do
@@ -26,7 +26,7 @@ class LiquidTagsTest < ActionView::TestCase
     end
     
     should "link to an item by passing its permalink" do
-      assert_template_result '<a href="/news">News</a>', "{% link_to '/news' %}", {'site' => @item.site.to_liquid}
+      assert_template_result '<a href="/news">News</a>', "{% link_to 'news' %}", {'site' => @item.site.to_liquid}
     end
     
     should "render a Twitter widget" do
@@ -43,13 +43,13 @@ class LiquidTagsTest < ActionView::TestCase
                 height: 300,
                 theme: {
                   shell: {
-                    background: '#333333',
+                    background: '#002266',
                     color: '#FFFFFF'
                   },
                   tweets: {
-                    background: '#000000',
+                    background: '#001122',
                     color: '#FFFFFF',
-                    links: '#4AED05'
+                    links: '#6699FF'
                   }
                 },
                 features: {
@@ -101,8 +101,29 @@ class LiquidTagsTest < ActionView::TestCase
             </script>
             </div>
             CUSTOM_RESULT
-      assert_template_result(default_result, "{% twitter %}", {'site' => {'twitter_username' => 'marcslove'}})
-      assert_template_result(custom_result, "{% twitter tweets:10, avatars:false, timestamps:false, hashtags:false, loop:true, live:true, interval:3000, shell_bg:#444444, shell_text:#CCCCCC, tweet_bg:#111111, tweet_text:#DDDDDD, links:#AAAAAA, width:400, height:700 %}", {'site' => {'twitter_username' => 'marcslove'}})
+      assert_template_result(default_result, "{% twitter_widget %}", {'site' => {'twitter_username' => 'marcslove'}})
+      assert_template_result(custom_result, "{% twitter_widget tweets:10, avatars:false, timestamps:false, hashtags:false, loop:true, live:true, interval:3000, shell_bg:#444444, shell_text:#CCCCCC, tweet_bg:#111111, tweet_text:#DDDDDD, links:#AAAAAA, width:400, height:700 %}", {'site' => {'twitter_username' => 'marcslove'}})
+    end
+    
+    should "render a Facebook widget" do
+      default_result = <<-DEFAULT_RESULT
+            <div id=\"facebook_widget\">
+            	<script type="text/javascript" src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php/en_US"></script>
+            	<script type="text/javascript">FB.init("a9d92ba216c544f61a752bf756df9a10");</script>
+            	<fb:fan profile_id="1234567890" stream="0" connections="6" logobar="1" width="220" height="251"></fb:fan>
+            </div>
+      DEFAULT_RESULT
+      
+      custom_result = <<-CUSTOM_RESULT
+            <div id=\"facebook_widget\">
+            	<script type="text/javascript" src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php/en_US"></script>
+            	<script type="text/javascript">FB.init("a9d92ba216c544f61a752bf756df9a10");</script>
+            	<fb:fan name="Anthony.Woods" stream="1" connections="20" logobar="0" width="400" height="500"></fb:fan>
+            </div>
+      CUSTOM_RESULT
+      
+      assert_template_result(default_result, "{% facebook_widget %}", {'site' => {'facebook_page_id' => '1234567890'}})
+      assert_template_result(custom_result, "{% facebook_widget stream:1 connections:20 logobar:0 width:400 height:500 %}", {'site' => {'facebook_page_id' => 'Anthony.Woods'}})
     end
   end
 end

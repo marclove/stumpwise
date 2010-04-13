@@ -21,11 +21,12 @@ module Stumpwise
         
         def render(context)
           if !context['site.facebook_page_id'].blank? && profile_id = context['site.facebook_page_id']
+            profile_attribute = profile_id.integer? ? "profile_id" : "name"
             result = <<-DIV
             <div id=\"facebook_widget\">
-    					<script type="text/javascript" src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php/en_US"></script>
-    					<script type="text/javascript">FB.init("a9d92ba216c544f61a752bf756df9a10");</script>
-    					<fb:fan profile_id="#{profile_id}" stream="#{@attributes['stream']}" connections="#{@attributes['connections']}" logobar="#{@attributes['logobar']}" width="#{@attributes['width']}" height="#{@attributes['height']}"></fb:fan>
+            	<script type="text/javascript" src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php/en_US"></script>
+            	<script type="text/javascript">FB.init("a9d92ba216c544f61a752bf756df9a10");</script>
+            	<fb:fan #{profile_attribute}="#{profile_id}" stream="#{@attributes['stream']}" connections="#{@attributes['connections']}" logobar="#{@attributes['logobar']}" width="#{@attributes['width']}" height="#{@attributes['height']}"></fb:fan>
             </div>
             DIV
           else

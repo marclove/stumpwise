@@ -28,7 +28,7 @@ module Stumpwise
           if @item_name
             @item = context[@item_name]
           elsif @item_path
-            @item = Item.find_by_permalink(@item_path)
+            @item = Item.find_by_permalink(@item_path).to_liquid
           end
           
           if @item
