@@ -106,7 +106,6 @@ class Site < ActiveRecord::Base
   end
   
   def contribute_url
-    return nil if paypal_email.blank?
     protocol = Rails.env == :production ? "https" : "http"
     "#{protocol}://secure.#{HOST}/#{subdomain}/contribute"
   end
