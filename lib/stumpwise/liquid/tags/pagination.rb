@@ -17,7 +17,7 @@ module Stumpwise
             next_content = link_to_if(context['next_page'], "Next &raquo;", next_link(context), :class => "next_page") do
               content_tag :span, "Next &raquo;", :class => "next_page disabled"
             end
-            content_tag :div, prev_content + ' | ' + next_content, :class => 'pagination'
+            content_tag :div, prev_content + next_content, :class => 'pagination'
           else
             ''
           end
