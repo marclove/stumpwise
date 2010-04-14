@@ -89,7 +89,11 @@ class Site < ActiveRecord::Base
   end
   
   def root_url
-    custom_domain.blank? ? "http://#{subdomain}.#{BASE_URL}" : "http://#{custom_domain}"
+    "http://#{domain}"
+  end
+  
+  def domain
+    custom_domain.blank? ? "#{subdomain}.#{BASE_URL}" : custom_domain
   end
   
   def root_item
