@@ -23,6 +23,11 @@ module Stumpwise
         end
       end
       
+      def image_tag(url, opts={})
+        return nil if url.blank?
+        super(url, opts)
+      end
+      
       def link_to_item(item, link_text=nil)
         link_text = link_text.to_s if link_text
         content_tag(:a, link_text || item['title'], :href => item['permalink'])
@@ -51,7 +56,12 @@ module Stumpwise
       alias_method :javascript, :javascripts
       
       def asset_url(filename)
-        File.join("http://s3.amazonaws.com/#{ThemeAssetUploader.s3_bucket}/themes", @context.registers[:site].theme_id.to_s, filename)
+        path = []
+        path << ((RAILS_ENV == 'production') ? "http://#{ThemeAssetUploader.s3_bucket}" : "http://s3.amazonaws.com/#{ThemeAssetUploader.s3_bucket}")
+        path << "themes"
+        path << @context.registers[:site].theme_id.to_s
+        path << filename
+        File.join(path)
       end
       
       def asset_image_tag(filename)
@@ -124,42 +134,49 @@ module Stumpwise
       end
       
       def currency(number, precision=2, unit="$", delimiter=",", separator=".", format="%u%n")
+        return nil if number.blank?
         return nil unless number.is_a?(Numeric)
         precision, unit, delimiter, separator, format = precision.to_i, unit.to_s, delimiter.to_s, separator.to_s, format.to_s
         number_to_currency(number, :precision => precision, :unit => unit, :delimiter => delimiter, :separator => separator, :format => format)
       end
       
       def readable_file_size(number)
+        return nil if number.blank?
         return nil unless number.is_a?(Numeric)
         number_to_human_size(number)
       end
       
       def percentage(number, precision=2, delimiter=',', separator='.')
+        return nil if number.blank?
         return nil unless number.is_a?(Numeric)
         precision, delimiter, separator = precision.to_i, delimiter.to_s, separator.to_s
         number_to_percentage(number, :precision => precision, :separator => separator, :delimiter => delimiter)
       end
       
       def delimiter(number, delimiter=",", separator=".")
+        return nil if number.blank?
         return nil unless number.is_a?(Numeric)
         delimiter, separator = delimiter.to_s, separator.to_s
         number_with_delimiter(number, :delimiter => delimiter, :separator => separator)
       end
       
       def precision(number, precision=2, delimiter=",", separator=".")
+        return nil if number.blank?
         return nil unless number.is_a?(Numeric)
         precision, delimiter, separator = precision.to_i, delimiter.to_s, separator.to_s
         number_with_precision(number, {:precision => precision, :delimiter => delimiter, :separator => separator})
       end
       
       def phone_number(number, area_code=false, delimiter="-")
-        return nil unless number.is_a?(Numeric)
+        return nil if number.blank?
         area_code = false unless (area_code == true || area_code == false)
         delimiter = delimiter.to_s
         number_to_phone(number, {:area_code => area_code, :delimiter => delimiter})
       end
       
       def date(time, format_string)
+        return nil unless time.is_a?(String)
+        return nil if time.blank?
         time = time.is_a?(String) ? Time.parse(time) : time
         time.strftime(format_string)
       end
