@@ -35,7 +35,7 @@ class Site < ActiveRecord::Base
                   :keywords, :description, :disclaimer, :public_email,
                   :public_phone, :twitter_username, :facebook_page_id,
                   :flickr_username, :youtube_username, :google_analytics_id,
-                  :paypal_email, :eligibility_statement
+                  :paypal_email, :eligibility_statement, :candidate_photo
   
   RESERVED_SUBDOMAINS = %w( www support blog billing help api cdn asset assets chat mail calendar docs documents apps app calendars mobile mobi static admin administration administrator moderator official store buy pages page ssl contribute )
   

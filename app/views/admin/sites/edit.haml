@@ -3,7 +3,7 @@
 - @submenu 		= 'settings'
 
 =render 'layouts/sub_menu'
--form_for @site, :url => admin_site_path do |f|
+-form_for @site, :url => admin_site_path, :html => {:multipart => true} do |f|
 	#main
 		%h1 Site Settings
 		=f.label :name, 'Site Name', {:class => 'on-top'}
@@ -22,6 +22,8 @@
 		=f.text_field :google_analytics_id, :class => 'text_field wide'
 		=f.label :eligibility_statement, "Contributor Eligibility Statement<br/><span>If provided, a contributor will be required to confirm that these statement(s) are true and correct. Please consult the campaign finance regulations applicable to your campaign. They will likely provide a list of contributor eligibility requirements (i.e. age, legal residency, source of money is personal funds, etc.)</span>", {:class => 'on-top'}
 		=f.text_area :eligibility_statement, :class => 'wide tinymce', :rows => 8
+		=f.label :candidate_photo, '', {:class => 'on-top'}
+		=f.file_field :candidate_photo
 		
 		.buttons
 			%button.positive{:type => 'submit'}
