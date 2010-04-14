@@ -11,7 +11,7 @@ test:
   #distribution_domain: XXXX.cloudfront.net
 
 production:
-  bucket_name: stumpwise
+  bucket_name: assets.stumpwise.com
   access_key_id: AKIAJGRQI2SK2FQTNSGQ
   secret_access_key: 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
   #distribution_domain: XXXX.cloudfront.net
