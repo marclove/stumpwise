@@ -11,11 +11,11 @@ module Stumpwise
         
         def render(context)
           if context['page']
-            prev_content = link_to_if(context['previous_page'], "&laquo; Previous", prev_link(context), :class => "previous") do
-              content_tag :span, "&laquo; Previous", :class => "previous"
+            prev_content = link_to_if(context['previous_page'], "&laquo; Previous", prev_link(context), :class => "prev_page") do
+              content_tag :span, "&laquo; Previous", :class => "prev_page disabled"
             end
-            next_content = link_to_if(context['next_page'], "Next &raquo;", next_link(context), :class => "next") do
-              content_tag :span, "Next &raquo;", :class => "next"
+            next_content = link_to_if(context['next_page'], "Next &raquo;", next_link(context), :class => "next_page") do
+              content_tag :span, "Next &raquo;", :class => "next_page disabled"
             end
             content_tag :div, prev_content + ' | ' + next_content, :class => 'pagination'
           else
