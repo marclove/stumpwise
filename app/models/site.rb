@@ -97,15 +97,16 @@ class Site < ActiveRecord::Base
   end
   
   def root_item
-    Item.first(:conditions => {:site_id => self.id, :parent_id => nil, :lft => 1})
+    items.roots.first(:order => 'lft ASC', :conditions => {:published => true, :show_in_navigation => true})
   end
   alias_method :landing_page, :root_item
   
   def navigation
-    items.all(:order => 'lft ASC', :conditions => {:parent_id => nil, :show_in_navigation => true, :published => true})
+    items.roots.all(:order => 'lft ASC', :conditions => {:published => true, :show_in_navigation => true})
   end
   
   def contribute_url
+    return nil if paypal_email.blank?
     protocol = Rails.env == :production ? "https" : "http"
     "#{protocol}://secure.#{HOST}/#{subdomain}/contribute"
   end
