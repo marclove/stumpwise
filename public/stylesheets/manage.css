@@ -1,0 +1,35 @@
+#main.edit_theme li {
+	margin:0.3em;
+}
+.inline_image {
+	vertical-align:text-bottom;
+}
+#layout_filename, #template_filename {
+	min-width:920px;
+	width:920px;
+	max-width:920px;
+}
+#layout_content, #template_content {
+	min-width:920px;
+	width:920px;
+	max-width:920px;
+}
+.theme_section {
+	margin:1em 0;
+	padding-bottom:0.5em;
+	border-bottom:1px solid #CCC;
+}
+#main .theme_section h2{
+	border-bottom:4px solid #CCC;
+	line-height:2em;
+	margin:0.5em 0;
+}
+.theme_section ul {
+	margin:0 1em;
+}
+#new_theme_asset {
+	margin:1em;
+}
+#new_theme_asset label {
+	display:block;
+}

@@ -151,13 +151,19 @@ html, body{
     visibility: hidden;
 }
 #main { position:relative; }
-#main h1 {
+#main h1, #main h2, #main h3 {
 	font-family:'DroidSerifBold',"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
 	font-size:230.8%;
 	/*font-weight:bold;*/
 	letter-spacing:-1px;
 	color:#002566;
 	margin-top:0.25em;
+}
+#main h2 { font-size:153.9%; }
+#main h3 {
+  font-family:'DroidSansBold',"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+	font-size:123.1%;
+	letter-spacing:0;
 }
 #sidebar { position:relative; }
 #footer { 

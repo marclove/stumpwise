@@ -1,0 +1,43 @@
+- @body_class = 'no-sidebar'
+- @menu 			= 'themes'
+
+#main.edit_theme
+	%h1= @theme.name
+
+	.theme_section
+		%h2 Layouts
+		%ul{:id => "layouts", :class => "layouts"}
+			-for template in @theme.layouts
+				%li{:class => "layout"}
+					=link_to(image_tag('icons-shadowless/bin-metal-full.png', :class => "inline_image"), manage_theme_template_path(@theme, template), :method => :delete, :confirm => "Are you sure you want to delete this layout? This cannot be undone and could break any sites using this theme.")
+					=link_to template.filename, edit_manage_theme_template_path(@theme, template)
+		/
+			.buttons
+				=link_to "#{image_tag('icons-shadowless/plus-circle.png', :alt => '')} New Layout", new_manage_theme_layout_path(@theme), :class => 'positive'
+
+	.theme_section
+		%h2 Templates
+		%ul{:id => "templates", :class => "templates"}
+			-for template in @theme.templates
+				%li{:class => "template"}
+					=link_to(image_tag('icons-shadowless/bin-metal-full.png', :class => "inline_image"), manage_theme_template_path(@theme, template), :method => :delete, :confirm => "Are you sure you want to delete this template? This cannot be undone and could break any sites using this theme.")
+					=link_to template.filename, edit_manage_theme_template_path(@theme, template)
+		/
+			.buttons
+				=link_to "#{image_tag('icons-shadowless/plus-circle.png', :alt => '')} New Template", new_manage_theme_template_path(@theme), :class => 'positive'
+
+	.theme_section
+		%h2 Static Assets
+		%ul{:id => "assets", :class => "assets"}
+			-for asset in @theme.assets
+				%li{:class => "asset"}
+					=link_to(image_tag('icons-shadowless/bin-metal-full.png', :class => "inline_image"), manage_theme_asset_path(@theme, asset), :method => :delete, :confirm => "Are you sure you want to delete this asset? This cannot be undone and could break any sites using this theme.")
+					=link_to asset['file'], asset.file.url
+		-form_for @theme_asset, :url => manage_theme_assets_path(@theme), :html => {:multipart => true} do |f|
+			=f.label :file, 'New Asset'
+			=f.file_field :file
+			.buttons
+				%button{:type => 'submit'}
+					=image_tag "icons-shadowless/arrow-090.png", :alt => ''
+					Upload
+

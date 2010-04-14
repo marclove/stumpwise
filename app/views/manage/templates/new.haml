@@ -1,0 +1,15 @@
+- @body_class = 'no-sidebar'
+- @menu 			= 'themes'
+
+#main
+	%h1 New Template
+	-form_for @liquid_template, :url => manage_theme_template_path(@theme, @liquid_template) do |f|
+		=f.label :filename, 'Template Filename', :class => 'on-top'
+		=f.text_field :filename, :class => 'text_field big wide'
+		=f.label :content, 'Code', :class => 'on-top'
+		=f.text_area :content, :class => 'wide', :rows => 40
+		.buttons
+			%button.positive{:type => 'submit'}
+				=image_tag "icons-shadowless/tick.png", :alt => ''
+				Create Template
+			=link_to "#{image_tag('icons-shadowless/cross.png', :alt => '')} Cancel", :back, :class => 'negative'

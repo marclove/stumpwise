@@ -1,0 +1,29 @@
+!!! 5
+%html
+	%head
+		%meta{:charset => "utf-8"}
+		%title stumpwise :: login
+		=stylesheet_link_tag "login.css"
+	%body
+		#container
+			#header
+				%h1 Stumpwise
+				%div{:style => "clear:both; height:15px"}
+			#content
+				-form_for @user_session, :url => manage_sessions_path, :html => {:id => 'login', :class => 'login'} do |f|
+					=flash_messages
+					%table
+						%tbody
+							%tr
+								%td{:class => 'label'}
+									=f.label :email
+								%td{:class => 'text_field'}
+									=f.text_field :email
+							%tr
+								%td{:class => 'label'}
+									=f.label :password
+								%td{:class => 'text_field'}
+									=f.password_field :password
+					.buttons{:style => "text-align:center;"}
+						%button{:type => 'submit', :id => "login_button"}
+							Log In

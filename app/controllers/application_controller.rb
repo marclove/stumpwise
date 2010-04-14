@@ -54,6 +54,16 @@ class ApplicationController < ActionController::Base
       end
     end
     
+    def require_administrator
+      unless current_user && current_user.super_admin?
+        store_location
+        flash[:error] = "You must be logged in to access this page."
+        redirect_to manage_login_url
+        return false
+      end
+      true
+    end
+    
     def require_no_user
       if current_user
         store_location

@@ -3,6 +3,22 @@ ActionController::Routing::Routes.draw do |map|
     base.root :controller => 'home', :action => 'index'
   end
   
+  map.with_options(:conditions => {:subdomain => 'admin', :domain => BASE_URL}) do |a|
+    a.namespace(:manage) do |manage|
+      manage.resources :themes do |t|
+        t.resources :layouts
+        t.resources :templates
+        t.resources :theme_assets, :as => :assets, :name_prefix => 'manage_'
+      end
+    
+      manage.resources :sessions, :only => [:create]
+      manage.login  'login',  :controller => 'sessions', :action => 'new'
+      manage.logout 'logout', :controller => 'sessions', :action => 'destroy'
+    
+      manage.root :controller => 'themes', :action => 'index'
+    end
+  end
+  
   map.with_options(:conditions => {:subdomain => 'secure', :domain => BASE_URL}) do |c|
     # https://secure.stumpwise.com/woods/contribute
     c.connect ':subdomain/contribute', :controller => 'contributions', :action => 'new', :conditions => {:method => :get}

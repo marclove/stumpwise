@@ -1,0 +1,37 @@
+!!! 5
+%html
+	%head
+		%meta{:charset => "utf-8"}
+		%title= "stumpwise :: admin"
+		/[if lt IE 9]
+			=javascript_include_tag "http://ie7-js.googlecode.com/svn/version/2.1(beta3)/IE9.js"
+		=stylesheet_link_tag 'master.css', 'manage.css'
+		=javascript_include_tag 'jquery.min.js','jrails.js'
+		=yield :head
+
+	%body{:class => @body_class}
+		#container
+			#header
+				%h1 Stumpwise Admin
+				#account-nav
+					=link_to 'Log Out', manage_logout_path
+				%div{:style => "clear:both;"}
+				#menu
+					=link_to 'Themes', manage_root_path, :class => @menu == 'themes' ? 'current' : ''
+			#content
+				= yield
+				%div{:style => "clear:both;"}
+			#footer
+				&copy;
+				%strong ProgressBound, Inc.
+				%span &#124;
+				=link_to 'Terms of Use','#'
+				%span &#124;
+				=link_to 'Privacy Policy','#'
+		
+		%script{:type => "text/javascript"}
+			:plain
+				// <![CDATA[
+			=yield :javascript
+			:plain
+				// ]]>
