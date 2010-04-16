@@ -88,10 +88,9 @@ class Site < ActiveRecord::Base
   
   def gateway
     ActiveMerchant::Billing::Base.gateway('paypal').new(
-      :login => 'marc.love_api1.progressbound.com',
-      :password => '9AFE79AHZAF6G59H',
-      :signature => 'AzH56dRB-gyN4C.dhLrbPvRZO6XnA-XprdAPHqIwbMLKD7Sf7BEy4pHo',
-      :subject => paypal_email
+      :login => 'billing_api1.progressbound.com',
+      :password => 'S3Z8JT73P5UA8H2F',
+      :signature => 'AFcWxV21C7fd0v3bYYYRCpSSRl31AtqRsGGkj3Mi7JF9RjKunsb07YR-'
     )
   end
   
