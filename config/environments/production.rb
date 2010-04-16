@@ -27,6 +27,15 @@ config.action_view.cache_template_loading            = true
 # Enable threaded mode
 # config.threadsafe!
 
+config.action_mailer.default_charset = "utf-8"
+config.action_mailer.smtp_settings = {
+  :address => "smtp.sendgrid.net",
+  :port = > '587',
+  :domain => "stumpwise.com",
+  :authentication => :plain,
+  :user_name => "marc.love@progressbound.com",
+  :password => "ioQkyaaavKb1njYX6KEJ"
+}
+
 BASE_URL = "stumpwise.com"
 HOST = "stumpwise.com"
-#BASE_URL = "localdev.com"
