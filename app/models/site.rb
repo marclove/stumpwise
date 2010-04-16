@@ -37,10 +37,12 @@
 
 class Site < ActiveRecord::Base
   attr_accessible :subdomain, :custom_domain, :theme_id, :name, :subhead,
-                  :keywords, :description, :disclaimer, :public_email,
-                  :public_phone, :twitter_username, :facebook_page_id,
+                  :keywords, :description, :disclaimer, :campaign_email,
+                  :campaign_phone, :twitter_username, :facebook_page_id,
                   :flickr_username, :youtube_username, :google_analytics_id,
-                  :paypal_email, :eligibility_statement, :candidate_photo
+                  :paypal_email, :eligibility_statement, :candidate_photo,
+                  :campaign_legal_name, :campaign_street, :campaign_city,
+                  :campaign_state, :campaign_zip
   
   RESERVED_SUBDOMAINS = %w( www support blog billing help api cdn asset assets chat mail calendar docs documents apps app calendars mobile mobi static admin administration administrator moderator official store buy pages page ssl contribute )
   
@@ -76,8 +78,8 @@ class Site < ActiveRecord::Base
   validates_format_of     :custom_domain, :if => Proc.new {|site| !site.custom_domain.blank? }, 
                           :with => /\A([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])+\.)[a-zA-Z]{2,6}\Z/, #/\A([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}\Z/,
                           :message => 'The domain name is not valid. Please enter your domain in the following format: "example.com"'
-  validates_length_of     :public_email, :within => 6..100,   :allow_blank => false
-  validates_format_of     :public_email, :with => RegEmailOk, :allow_blank => false
+  validates_length_of     :campaign_email, :within => 6..100,   :allow_blank => false
+  validates_format_of     :campaign_email, :with => RegEmailOk, :allow_blank => false
   validates_presence_of   :name
   
   def sms_recipient_numbers
