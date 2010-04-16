@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100413020913) do
+ActiveRecord::Schema.define(:version => 20100415090246) do
 
   create_table "administratorships", :force => true do |t|
     t.integer "administrator_id"
@@ -113,8 +113,8 @@ ActiveRecord::Schema.define(:version => 20100413020913) do
     t.text     "keywords"
     t.text     "description"
     t.text     "disclaimer"
-    t.string   "public_email"
-    t.string   "public_phone"
+    t.string   "campaign_email"
+    t.string   "campaign_phone"
     t.string   "twitter_username"
     t.string   "facebook_page_id"
     t.string   "flickr_username"
@@ -127,6 +127,11 @@ ActiveRecord::Schema.define(:version => 20100413020913) do
     t.string   "contributor_list_id"
     t.string   "candidate_photo"
     t.text     "eligibility_statement"
+    t.string   "campaign_legal_name"
+    t.string   "campaign_street"
+    t.string   "campaign_city"
+    t.string   "campaign_state"
+    t.string   "campaign_zip"
   end
 
   add_index "sites", ["custom_domain"], :name => "index_sites_on_custom_domain", :unique => true

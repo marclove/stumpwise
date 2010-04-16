@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100402140216
+# Schema version: 20100415090246
 #
 # Table name: theme_assets
 #

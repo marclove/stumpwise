@@ -6,9 +6,9 @@
 -form_for @site, :url => admin_site_path, :html => {:multipart => true} do |f|
 	#main
 		%h1 Site Settings
-		=f.label :name, 'Site Name', {:class => 'on-top'}
+		=f.label :name, 'Site Header', {:class => 'on-top'}
 		=f.text_field :name, :class => 'text_field big wide'
-		=f.label :subhead, {}, {:class => 'on-top'}
+		=f.label :subhead, 'Site Subhead', {:class => 'on-top'}
 		=f.text_field :subhead, :class => 'text_field wide'
 		=f.label :subdomain, {}, {:class => 'on-top'}
 		=f.text_field :subdomain, :class => 'text_field wide'
@@ -16,10 +16,29 @@
 		=f.text_field :custom_domain, :class => 'text_field wide'
 		=f.label :keywords, 'Search Engine Keywords', {:class => 'on-top'}
 		=f.text_area :keywords, :class => 'wide', :rows => 3
-		=f.label :description, 'Brief Description of Site', {:class => 'on-top'}
+		=f.label :description, 'Brief Description of Site <span>(1-2 sentence summary of the site, to be displayed in search engine results)</span>', {:class => 'on-top'}
 		=f.text_area :description, :class => 'wide', :rows => 3
 		=f.label :google_analytics_id, "Google Analytics Tracking ID <span>(UA-XXXXXXX-X)</span>", {:class => 'on-top'}
 		=f.text_field :google_analytics_id, :class => 'text_field wide'
+
+		=f.label :campaign_legal_name, 'Legal Name of the Campaign', {:class => 'on-top'}
+		=f.text_field :campaign_legal_name, :class => 'text_field wide'
+		=f.label :campaign_street, 'Campaign Street Address', {:class => 'on-top'}
+		=f.text_field :campaign_street, :class => 'text_field wide'
+		=f.label :campaign_city, 'Campaign City', {:class => 'on-top'}
+		=f.text_field :campaign_city, :class => 'text_field wide'
+		=f.label :campaign_state, 'Campaign State', {:class => 'on-top'}
+		=f.text_field :campaign_state, :class => 'text_field wide'
+		=f.label :campaign_zip, 'Campaign Zip', {:class => 'on-top'}
+		=f.text_field :campaign_zip, :class => 'text_field wide'
+		=f.label :campaign_email, 'Campaign Email', {:class => 'on-top'}
+		=f.text_field :campaign_email, :class => 'text_field wide'
+		=f.label :campaign_phone, 'Campaign Phone', {:class => 'on-top'}
+		=f.text_field :campaign_phone, :class => 'text_field wide'
+		
+		=f.label :disclaimer, 'Site Legal Disclaimer <span>(i.e. "Paid for and maintained by THE COMMITTEE TO ELECT JOHN DOE")</span>', {:class => 'on-top'}
+		=f.text_field :disclaimer, :class => 'text_field wide'
+
 		=f.label :eligibility_statement, "Contributor Eligibility Statement<br/><span>If provided, a contributor will be required to confirm that these statement(s) are true and correct. Please consult the campaign finance regulations applicable to your campaign. They will likely provide a list of contributor eligibility requirements (i.e. age, legal residency, source of money is personal funds, etc.)</span>", {:class => 'on-top'}
 		=f.text_area :eligibility_statement, :class => 'wide tinymce', :rows => 8
 		=f.label :candidate_photo, '', {:class => 'on-top'}

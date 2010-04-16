@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100402140216
+# Schema version: 20100415090246
 #
 # Table name: sites
 #
@@ -14,10 +14,10 @@
 #  keywords                  :text
 #  description               :text
 #  disclaimer                :text
-#  public_email              :string(255)
-#  public_phone              :string(255)
+#  campaign_email            :string(255)
+#  campaign_phone            :string(255)
 #  twitter_username          :string(255)
-#  facebook_page_id          :string(50)
+#  facebook_page_id          :string(255)
 #  flickr_username           :string(255)
 #  youtube_username          :string(255)
 #  google_analytics_id       :string(255)
@@ -28,6 +28,11 @@
 #  contributor_list_id       :string(255)
 #  candidate_photo           :string(255)
 #  eligibility_statement     :text
+#  campaign_legal_name       :string(255)
+#  campaign_street           :string(255)
+#  campaign_city             :string(255)
+#  campaign_state            :string(255)
+#  campaign_zip              :string(255)
 #
 
 feingold:
