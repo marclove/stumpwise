@@ -9,7 +9,7 @@ class Admin::SitesController < ApplicationController
     @site = current_site
     if @site.update_attributes(params[:site])
       flash[:notice] = t("site.update.success")
-      redirect_to :action => 'edit', :id => @site.id
+      redirect_to edit_admin_site_path
     else
       flash[:error] = t("site.update.fail")
       render :action => 'edit'
