@@ -117,7 +117,8 @@
 					-field_set_tag '<span>Confirm Your Eligibility</span>', :id => 'eligibility_confirmation', :class => 'fieldset' do
 						=f.check_box :compliance_confirmation
 						=f.label :compliance_confirmation, "Check this box to confirm that the following statements are true and correct:"
-						=@site.eligibility_statement
+						#eligibility_statement
+							=@site.eligibility_statement
 				
 				.buttons
 					%button.contribute{:type => 'submit'}

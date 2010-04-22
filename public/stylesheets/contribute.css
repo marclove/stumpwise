@@ -21,12 +21,18 @@ p.fields_required {
 	font-weight:bold;
 }
 strong { font-weight:bold; }
+i { font-style:italic; }
 a { color:#0050F0; text-decoration:none; }
+blockquote { background:#EEE; border:1px solid #CCC; padding:1em; }
 div, form, fieldset { position:relative; }
 input {
 	box-sizing:content-box;
 	-moz-box-sizing:content-box;
 }
+#eligibility_statement { margin:0 2em; }
+#eligibility_statement ol, #eligibility_statement ul { margin:1em; }
+#eligibility_statement li { margin:0.5em 0 0.5em 1.5em; }
+#eligibility_statement ol li { list-style-type:decimal; }
 #contribution {
 	position:relative;
 	width:740px;
