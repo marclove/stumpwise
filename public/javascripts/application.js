@@ -20,7 +20,7 @@ $(document).ready(function() {
 		process_html: true,
 		inline_styles: false,
 		gecko_spellcheck: true,
-		valid_elements: "-p[class],-a[name|id|title|target|href],-blockquote[class],br,-code[class]," + "-dd[*],-dl[*],-dt[*],-del[*],-i/em[class],-ins[*],-li[*],-ol[*],-pre[class]," + "-q[*],-b/strong[class],-u[*],-ul[*],-s[*],img[*],hr[*],-sub[*]," + "-sup[*],-strike[*],-small[*],-big[*],-h1[id|class],-h2[id|class],-h3[id|class]," + "-h4[id|class],-h5[id|class],-h6[id|class],object[*],embed[*],param[*]," + "script[type|src|language|charset|defer],span[*]",
+		valid_elements: "-p[class],-a[name|id|title|target|href],-blockquote[class],br,-code[class]," + "-dd[*],-dl[*],-dt[*],-del[*],-i/em[class],-ins[*],-li[*],-ol[*],-pre[class]," + "-q[*],-b/strong[class],-u[*],-ul[*],-s[*],img[*],hr[*],-sub[*]," + "-sup[*],-strike[*],-small[*],-big[*],-h1[id|class],-h2[id|class],-h3[id|class]," + "-h4[id|class],-h5[id|class],-h6[id|class],object[*],embed[*],param[*],iframe[*]," + "script[type|src|language|charset|defer],span[*]",
 		theme_advanced_buttons1: "bold,italic,strikethrough,separator,blockquote,formatselect,separator,bullist,numlist,separator,outdent,indent,separator,image,link,unlink,separator,code",
 		theme_advanced_blockformats : "h1,h2,h3,p",
 		width: '100%',
