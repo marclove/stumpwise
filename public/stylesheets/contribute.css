@@ -29,9 +29,9 @@ input {
 	box-sizing:content-box;
 	-moz-box-sizing:content-box;
 }
-#eligibility_statement { margin:0 2em; }
+#eligibility_statement { margin:0 2em; color:#555; }
 #eligibility_statement ol, #eligibility_statement ul { margin:1em; }
-#eligibility_statement li { margin:0.5em 0 0.5em 1.5em; }
+#eligibility_statement li { margin:1em 0 1em 1.5em; }
 #eligibility_statement ol li { list-style-type:decimal; }
 #contribution {
 	position:relative;
