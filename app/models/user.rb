@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100415090246
+# Schema version: 20100416182257
 #
 # Table name: users
 #
@@ -22,6 +22,7 @@
 #  current_login_ip    :string(255)
 #  last_login_ip       :string(255)
 #  super_admin         :boolean
+#  time_zone           :string(255)     default("Pacific Time (US & Canada)")
 #
 
 class User < ActiveRecord::Base

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100415090246) do
+ActiveRecord::Schema.define(:version => 20100416182257) do
 
   create_table "administratorships", :force => true do |t|
     t.integer "administrator_id"
@@ -132,6 +132,7 @@ ActiveRecord::Schema.define(:version => 20100415090246) do
     t.string   "campaign_city"
     t.string   "campaign_state"
     t.string   "campaign_zip"
+    t.string   "time_zone",                 :default => "Pacific Time (US & Canada)"
   end
 
   add_index "sites", ["custom_domain"], :name => "index_sites_on_custom_domain", :unique => true
@@ -179,24 +180,25 @@ ActiveRecord::Schema.define(:version => 20100415090246) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                  :null => false
+    t.string   "email",                                                         :null => false
     t.string   "first_name"
     t.string   "last_name"
     t.string   "crypted_password"
     t.string   "password_salt"
-    t.string   "persistence_token",                      :null => false
+    t.string   "persistence_token",                                             :null => false
     t.string   "single_access_token"
     t.string   "perishable_token"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "login_count",         :default => 0,     :null => false
-    t.integer  "failed_login_count",  :default => 0,     :null => false
+    t.integer  "login_count",         :default => 0,                            :null => false
+    t.integer  "failed_login_count",  :default => 0,                            :null => false
     t.datetime "last_request_at"
     t.datetime "current_login_at"
     t.datetime "last_login_at"
     t.string   "current_login_ip"
     t.string   "last_login_ip"
     t.boolean  "super_admin",         :default => false
+    t.string   "time_zone",           :default => "Pacific Time (US & Canada)"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

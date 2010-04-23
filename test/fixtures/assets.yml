@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100415090246
+# Schema version: 20100416182257
 #
 # Table name: assets
 #

@@ -32,7 +32,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :sessions, :only => [:new, :create, :destroy]
     admin.login  'login',  :controller => 'sessions', :action => 'new'
     admin.logout 'logout', :controller => 'sessions', :action => 'destroy'
-    #admin.resources :users
+    admin.resource :profile
 
     admin.resource :site
     admin.resource :navigation

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100415090246
+# Schema version: 20100416182257
 #
 # Table name: sites
 #
@@ -33,6 +33,7 @@
 #  campaign_city             :string(255)
 #  campaign_state            :string(255)
 #  campaign_zip              :string(255)
+#  time_zone                 :string(255)     default("Pacific Time (US & Canada)")
 #
 
 feingold:

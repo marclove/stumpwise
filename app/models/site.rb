@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100415090246
+# Schema version: 20100416182257
 #
 # Table name: sites
 #
@@ -33,6 +33,7 @@
 #  campaign_city             :string(255)
 #  campaign_state            :string(255)
 #  campaign_zip              :string(255)
+#  time_zone                 :string(255)     default("Pacific Time (US & Canada)")
 #
 
 class Site < ActiveRecord::Base
@@ -42,7 +43,7 @@ class Site < ActiveRecord::Base
                   :flickr_username, :youtube_username, :google_analytics_id,
                   :paypal_email, :eligibility_statement, :candidate_photo,
                   :campaign_legal_name, :campaign_street, :campaign_city,
-                  :campaign_state, :campaign_zip
+                  :campaign_state, :campaign_zip, :time_zone
   
   RESERVED_SUBDOMAINS = %w( www support blog billing help api cdn asset assets chat mail calendar docs documents apps app calendars mobile mobi static admin administration administrator moderator official store buy pages page ssl contribute )
   

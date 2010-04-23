@@ -1,0 +1,22 @@
+- @body_class = 'sidebar-right-240'
+
+-form_for @user, :url => admin_profile_path do |f|
+	#main
+		%h1 Edit Your Personal Information
+		=f.label :email, {}, {:class => 'on-top'}
+		=f.text_field :email, :class => 'text_field wide'
+		=f.label :first_name, {}, {:class => 'on-top'}
+		=f.text_field :first_name, :class => 'text_field wide'
+		=f.label :last_name, {}, {:class => 'on-top'}
+		=f.text_field :last_name, :class => 'text_field wide'
+		=f.label :time_zone, 'Timezone', {:class => 'on-top'}
+		=f.time_zone_select :time_zone, nil, :default => "Pacific Time (US & Canada)"
+		=f.label :password, "Password <span>(Only complete if you wish to change your password)</span>", {:class => 'on-top'}
+		=f.password_field :password, :class => 'text_field wide'
+		=f.label :password_confirmation, "Re-type Password <span>(Only complete if you wish to change your password)</span>", {:class => 'on-top'}
+		=f.password_field :password_confirmation, :class => 'text_field wide'
+		.buttons
+			%button.positive{:type => 'submit'}
+				=image_tag "icons-shadowless/tick.png", :alt => ''
+				Save Changes
+			=link_to "#{image_tag('icons-shadowless/cross.png', :alt => '')} Cancel", :back, :class => 'negative'

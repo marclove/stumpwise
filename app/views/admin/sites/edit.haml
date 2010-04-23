@@ -35,6 +35,8 @@
 		=f.text_field :campaign_email, :class => 'text_field wide'
 		=f.label :campaign_phone, 'Campaign Phone', {:class => 'on-top'}
 		=f.text_field :campaign_phone, :class => 'text_field wide'
+		=f.label :time_zone, 'Timezone', {:class => 'on-top'}
+		=f.time_zone_select :time_zone, nil, :default => "Pacific Time (US & Canada)"
 		
 		=f.label :disclaimer, 'Site Legal Disclaimer <span>(i.e. "Paid for and maintained by THE COMMITTEE TO ELECT JOHN DOE")</span>', {:class => 'on-top'}
 		=f.text_field :disclaimer, :class => 'text_field wide'

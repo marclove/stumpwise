@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   include Stumpwise::Domains
   include SslRequirement
-  before_filter :handle_invalid_site
+  before_filter :handle_invalid_site, :set_time_zone
   
   filter_parameter_logging :password, :token
   
@@ -10,6 +10,14 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging :password, :password_confirmation
   
   protected
+    def set_time_zone
+      if current_user
+        Time.zone = current_user.time_zone
+      elsif current_site && current_site != :invalid
+        Time.zone = current_site.time_zone
+      end
+    end
+
     def handle_invalid_site
       render_404 if current_site == :invalid
     end

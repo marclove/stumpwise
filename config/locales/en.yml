@@ -7,6 +7,10 @@ en:
       fail: "We could not find an account with that email address and password combination."
     logout:
       success: "You have been successfully logged out."
+  profile:
+    update:
+      success: "Your profile information has been updated."
+      fail: "There was a problem updating your profile information."
 
   contribution:
     process:
