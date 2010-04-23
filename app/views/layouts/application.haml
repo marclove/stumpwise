@@ -3,11 +3,12 @@
 	%head
 		%meta{:charset => "utf-8"}
 		%title= "stumpwise :: #{@site.name}"
-		=stylesheet_link_tag "master.css",'tablesorter','tablesorter.pager'
 		/[if lt IE 9]
 			=javascript_include_tag "http://ie7-js.googlecode.com/svn/version/2.1(beta3)/IE9.js"
-		=javascript_include_tag "jquery.min.js",'jrails.js','jquery.tablesorter.min.js','jquery.tablesorter.pager.js',"tiny_mce/jquery.tinymce.js","application.js"
-		= yield :head
+		=stylesheet_link_tag 'master.css'
+		=javascript_include_tag 'jquery.min.js','jrails.js','tiny_mce/jquery.tinymce.js','jquery.tablesorter.min.js','jquery.tablesorter.pager.js','application.js'
+		=yield :head
+
 	%body{:class => @body_class}
 		#container
 			#header
@@ -39,7 +40,13 @@
 				&copy;
 				%strong ProgressBound, Inc.
 				%span &#124;
-				=link_to 'Terms of Use','/'
+				=link_to 'Terms of Use','#'
 				%span &#124;
-				=link_to 'Privacy Policy','/'
-
+				=link_to 'Privacy Policy','#'
+		
+		%script{:type => "text/javascript"}
+			:plain
+				// <![CDATA[
+			=yield :javascript
+			:plain
+				// ]]>

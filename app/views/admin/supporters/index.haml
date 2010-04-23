@@ -1,6 +1,9 @@
 - @body_class = 'no-sidebar'
 - @menu 			= 'supporters'
 
+- content_for :head do
+	=stylesheet_link_tag 'tablesorter.css','tablesorter.pager.css'
+
 #main
 	%h1 Campaign Supporters
 	%table{:id => "supporters_table", :class => "tablesorter"}

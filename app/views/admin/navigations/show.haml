@@ -15,20 +15,18 @@
 				%span{:class => "handle"}
 				=item.title
 
-:plain
-	<script type="text/javascript">
-		$('#site_navigation').sortable(
-			{ axis:'y', 
-				dropOnEmpty:false, 
-				update:function(event, ui){
-					$.ajax({
-						data:'moved_item_id='+ ui.item.attr('id').split('_').pop() + '&' + $(this).sortable('serialize') + '&_method=put', 
-						dataType:'script', 
-						type:'post', 
-						url:'/admin/navigation'
-					})
-				}
+-content_for :javascript do
+	:plain
+		$('#site_navigation').sortable({
+			axis:'y', 
+			dropOnEmpty:false, 
+			update:function(event, ui){
+				$.ajax({
+					data:'moved_item_id='+ ui.item.attr('id').split('_').pop() + '&' + $(this).sortable('serialize') + '&_method=put', 
+					dataType:'script', 
+					type:'post', 
+					url:'/admin/navigation'
+				})
 			}
-		);
+		});
 		$("#site_navigation").disableSelection();
-	</script>
