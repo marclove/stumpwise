@@ -5,6 +5,17 @@ html, body{
   font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
 	background-color:#041D49;
 }
+#flash_messages p{ margin:0; }
+p.flash_message{
+	text-align:center;
+	background-color:#FFFAAA;
+	border:1px solid #FFFAAA;
+	padding:8px;
+}
+p#error.flash_message {
+	background-color:#FFBBBB;
+	border-color:#FFBBBB;
+}
 
 .pagination { margin:1em 0; text-align:center;}
 .pagination a, .pagination .current, .pagination .prev_page, .pagination.next_page {

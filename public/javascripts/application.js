@@ -62,5 +62,6 @@ $(document).ready(function() {
 		var href = $(this).find("a").attr("href");
 		if (href) { window.location = href;}
 	});
-
+	
+	$('#notice.flash_message').delay(3000).slideToggle(600);
 });
