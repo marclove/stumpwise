@@ -39,3 +39,5 @@ config.action_mailer.smtp_settings = {
 
 BASE_URL = "stumpwise.com"
 HOST = "stumpwise.com"
+
+config.middleware.use "SetCookieDomain", ".stumpwise.com"

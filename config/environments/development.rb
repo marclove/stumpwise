@@ -19,8 +19,20 @@ config.action_controller.perform_caching             = false
 
 # Don't care if the mailer can't send
 config.action_mailer.raise_delivery_errors = false
+config.action_mailer.perform_deliveries = true
+config.action_mailer.default_charset = "utf-8"
+config.action_mailer.smtp_settings = {
+  :address => "smtp.gmail.com",
+  :port => '465',
+  :domain => "progressbound.com",
+  :authentication => :plain,
+  :user_name => "dev-server@progressbound.com",
+  :password => "0xZ2NSqrGcZrSPBqseTN"
+}
 
 ActiveMerchant::Billing::Base.mode = :test
 SslRequirement.disable_ssl_check = true
 BASE_URL = "localdev.com"
 HOST = "localdev.com:3000"
+
+config.middleware.use "SetCookieDomain", ".localdev.com"
