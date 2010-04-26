@@ -1,0 +1,95 @@
+- @body_class = 'no-sidebar'
+- @menu 			= 'sites'
+
+-form_for @site, :url => manage_sites_path do |f|
+	#main
+		%h1 New Site
+		
+		-field_set_tag "Site Information" do
+			=hidden_field_tag 'site[theme_id]', "1"
+			%table
+				%tr
+					%th
+						=f.label :name, 'Site Name / Header'
+						=f.error_message_on(:name)
+					%td{:colspan => 2}
+						=f.text_field :name, :class => 'text_field'
+				%tr
+					%th
+						=f.label :subdomain, "Subdomain"
+						=f.error_message_on(:subdomain)
+					%td
+						=f.text_field :subdomain, :class => 'text_field'
+					%td Ex. For candidate Jane Doe: <strong>janedoe</strong>.stumpwise.com
+				%tr
+					%th
+						=f.label :custom_domain, 'Custom Domain'
+						=f.error_message_on(:custom_domain)
+					%td
+						=f.text_field :custom_domain, :class => 'text_field'
+					%td Do not include the "www" &mdash; Ex. "mycustomdomain.com"
+				%tr
+					%th
+						=f.label :campaign_legal_name, 'Legal Name of the Campaign'
+						=f.error_message_on(:campaign_legal_name)
+					%td{:colspan => 2}
+						=f.text_field :campaign_legal_name, :class => 'text_field'
+				%tr
+					%th
+						=f.label :campaign_email, 'Campaign Email'
+						=f.error_message_on(:campaign_email)
+					%td{:colspan => 2}
+						=f.text_field :campaign_email, :class => 'text_field'
+				%tr
+					%th
+						=f.label :time_zone, 'Timezone'
+						=f.error_message_on(:time_zone)
+					%td{:colspan => 2}
+						=f.time_zone_select :time_zone, nil, :default => "Pacific Time (US & Canada)"
+
+		-field_set_tag "Administrator User Information" do
+			-fields_for @user do |o|
+				%table
+					%tr
+						%th
+							=o.label :first_name, "First Name"
+							=o.error_message_on(:first_name)
+						%td
+							=o.text_field :first_name, :class => 'text_field'
+					%tr
+						%th
+							=o.label :last_name, "Last Name"
+							=o.error_message_on(:last_name)
+						%td
+							=o.text_field :last_name, :class => 'text_field'
+					%tr
+						%th
+							=o.label :email, "Email"
+							=o.error_message_on(:email)
+						%td
+							=o.text_field :email, :class => 'text_field'
+					%tr
+						%th
+							=o.label :password, "Temporary Password"
+							=o.error_message_on(:password)
+						%td
+							=o.password_field :password, :class => 'text_field'
+					%tr
+						%th
+							=o.label :password_confirmation, "Confirm Password"
+							=o.error_message_on(:password_confirmation)
+						%td
+							=o.password_field :password_confirmation, :class => 'text_field'
+					%tr
+						%th
+							=o.label :time_zone, "Timezone"
+							=o.error_message_on(:time_zone)
+						%td
+							=o.time_zone_select :time_zone, nil, :default => "Pacific Time (US & Canada)"			
+
+		
+		.buttons
+			%button.positive{:type => 'submit'}
+				=icon_tag "tick"
+				Create Site
+			=link_to "#{icon_tag('cross')} Cancel", :back, :class => 'negative'

@@ -16,6 +16,8 @@ p#error.flash_message {
 	background-color:#FFBBBB;
 	border-color:#FFBBBB;
 }
+img.fugue-icon { vertical-align:text-bottom; }
+.buttons img.fugue-icon { vertical-align:baseline; }
 
 .pagination { margin:1em 0; text-align:center;}
 .pagination a, .pagination .current, .pagination .prev_page, .pagination.next_page {
@@ -236,7 +238,7 @@ ul#sidebar-menu li a.current {
 #sidebar h2 {
 	font-size:108%;
 	font-weight:bold;
-	margin:0.5em 0;
+	margin:1em 0 0.5em 0;
 	border-bottom:1px solid #BBB;
 }
 #sidebar div.buttons {
@@ -419,4 +421,19 @@ table.contribution .card-logo { vertical-align:middle; }
 	width:16px;
 	height:1.5em;
 	background:url(../images/icons-shadowless/arrow-move.png) center center no-repeat;
+}
+
+fieldset {
+	border-top:1px solid #AAA;
+	border-bottom:1px solid #AAA;
+	padding:0 1em 1em 1em;
+	margin:2em 0;
+	background:#F7F7F7;
+}
+legend {
+	padding:0 0.25em;
+	background:#FFF;
+	font-weight:bold;
+	margin-left:0.5em;
+	font-size:108%;
 }

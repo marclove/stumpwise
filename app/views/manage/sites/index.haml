@@ -1,0 +1,25 @@
+- @body_class = 'no-sidebar'
+- @menu 			= 'sites'
+
+#main
+	%h1 Sites
+	%table{:id => "sites", :class => "sites"}
+		%thead
+			%tr
+				%th
+				%th Subdomain
+				%th Name
+				%th Public URL
+		-for site in @sites
+			%tr{:id => "site_#{site.id}", :class => "site"}
+				%td{:class => "admin_links"}
+					=link_to icon_tag("blog", :overlay => "pencil"), edit_manage_site_path(site)
+					=link_to icon_tag("blog", :overlay => "arrow"), admin_root_url(:subdomain => site.subdomain)
+				%td{:class => "subdomain"}=site.subdomain
+				%td{:class => "name"}=link_to site.name, edit_manage_site_path(site)
+				%td{:class => "url"}
+					=link_to site.domain, site.root_url
+					=link_to image_tag("new_window_icon.png"), site.root_url, {:target => "_blank"}
+				
+	.buttons
+		=link_to "#{icon_tag('plus-circle')} New Site", new_manage_site_path, :class => 'positive'

@@ -14,11 +14,11 @@ class SiteObserver < ActiveRecord::Observer
     def create_client(site)
       site.update_attribute(:campaign_monitor_password, UUIDTools::UUID.random_create.to_s[0..7])
       @client = CampaignMonitor::Client.new(
-        "CompanyName"   => site.name,
+        "CompanyName"   => site.campaign_legal_name,
         "ContactName"   => site.owner.name,
-        "EmailAddress"  => site.public_email,
+        "EmailAddress"  => site.campaign_email,
         "Country"       => "United States of America",
-        "Timezone"      => "(GMT-08:00) Pacific Time (US & Canada)" #CM.timezones.select{|t| t =~ Regexp.new(Regexp.escape("Pacific Time (US & Canada)"))}.first
+        "Timezone"      => CM.timezones.select{|t| t =~ Regexp.new(Regexp.escape(site.time_zone))}.first
       )
       @client.Create
       @client["Username"] = site.subdomain

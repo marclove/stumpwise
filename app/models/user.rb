@@ -36,6 +36,7 @@ class User < ActiveRecord::Base
   
   validates_length_of :email, :within => 6..100, :allow_blank => false
   validates_format_of :email, :with => RegEmailOk, :allow_blank => false
+  validates_presence_of :first_name, :last_name, {:message => "is required"}
   
   def email=(new_email)
     new_email.downcase! unless new_email.nil?

@@ -5,6 +5,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.with_options(:conditions => {:subdomain => 'admin', :domain => BASE_URL}) do |a|
     a.namespace(:manage) do |manage|
+      manage.resources :sites
       manage.resources :themes do |t|
         t.resources :layouts
         t.resources :templates
@@ -15,7 +16,7 @@ ActionController::Routing::Routes.draw do |map|
       manage.login  'login',  :controller => 'sessions', :action => 'new'
       manage.logout 'logout', :controller => 'sessions', :action => 'destroy'
     
-      manage.root :controller => 'themes', :action => 'index'
+      manage.root :controller => 'sites', :action => 'index'
     end
   end
   

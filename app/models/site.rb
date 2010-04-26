@@ -63,25 +63,24 @@ class Site < ActiveRecord::Base
   has_many    :blogs,     :order => 'created_at ASC'
   has_many    :articles,  :order => 'created_at DESC'
   has_many    :assets,    :order => 'created_at DESC'
-  
+    
   mount_uploader :candidate_photo, CandidatePhotoUploader
   
   before_validation       :downcase_subdomain
   before_validation       :downcase_custom_domain
-  validates_uniqueness_of :subdomain, :message => "This subdomain is already in use."
+  validates_uniqueness_of :subdomain
   validates_length_of     :subdomain, :within => 3..63,
-                          :message => "A subdomain is required and must be between 3 and 63 characters in length."
+                          :message => "is required and must be between 3 and 63 characters in length."
   validates_format_of     :subdomain, :with => /\A([a-z0-9]([a-z0-9\-_]{0,61}[a-z0-9])?)+\Z/,
-                          :message => "A subdomain can only contain alphanumeric characters, underscores and dashes. It must also begin and end with either a letter or a number."
-  validates_exclusion_of  :subdomain, :in => RESERVED_SUBDOMAINS,
-                          :message => "This subdomain is already in use."
-  validates_uniqueness_of :custom_domain, :allow_blank => true, :message => "This domain name is already in use."
+                          :message => "can only contain alphanumeric characters, underscores and dashes. It must also begin and end with either a letter or a number."
+  validates_exclusion_of  :subdomain, :in => RESERVED_SUBDOMAINS
+  validates_uniqueness_of :custom_domain, :allow_blank => true
   validates_format_of     :custom_domain, :if => Proc.new {|site| !site.custom_domain.blank? }, 
                           :with => /\A([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])+\.)[a-zA-Z]{2,6}\Z/, #/\A([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}\Z/,
-                          :message => 'The domain name is not valid. Please enter your domain in the following format: "example.com"'
+                          :message => 'is invalid. Please use the following format: "example.com"'
   validates_length_of     :campaign_email, :within => 6..100,   :allow_blank => false
   validates_format_of     :campaign_email, :with => RegEmailOk, :allow_blank => false
-  validates_presence_of   :name
+  validates_presence_of   :name, :campaign_legal_name, :time_zone
   
   def sms_recipient_numbers
     supporters.all(:select => 'supporters.mobile_phone', :conditions => ['supporterships.receive_sms = ?', true]).collect(&:mobile_phone)
@@ -97,6 +96,15 @@ class Site < ActiveRecord::Base
   
   def root_url
     "http://#{domain}"
+  end
+  
+  # If custom_domain is blank, it has to be nil, else MySQL's unique index freaks
+  def custom_domain=(new_custom_domain)
+    if new_custom_domain.blank?
+      write_attribute(:custom_domain, nil)
+    else
+      super
+    end
   end
   
   def domain

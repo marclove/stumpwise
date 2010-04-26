@@ -30,9 +30,15 @@ en:
       fail: "There was a problem adding you to the campaign. Please check the validity of the information you entered and try again."
   
   site:
+    create:
+      success: "The site has been created."
+      fail: "There was an error. The site could not be created."
     update:
       success: "Your changes have been saved."
       fail: "There was an error. Your changes could not be saved."
+    destroy:
+      success: "The site and all its content has been deleted."
+      fail: "There was an error. The site could not be deleted."
 
   blog:
     create:
@@ -60,3 +66,70 @@ en:
     update:
       success: "Your changes have been saved."
       fail: "There was an error. Your changes could not be saved."
+
+
+
+
+  # Attributes names common to most models
+  #attributes:
+    #created_at: "Created at"
+    #updated_at: "Updated at"
+
+  # ActiveRecord models configuration
+  activerecord:
+    errors:
+      # The values :model, :attribute and :value are always available for interpolation
+      # The value :count is available when applicable. Can be used for pluralization.
+      messages:
+        inclusion: "is not a valid option" #"is not included in the list"
+        exclusion: "is reserved"
+        invalid: "is invalid"
+        confirmation: "doesn't match confirmation"
+        accepted: "must be accepted"
+        empty: "is required" #"can't be empty"
+        blank: "is required" #"can't be blank"
+        too_long: "is too long (maximum is {{count}} characters)"
+        too_short: "is too short (minimum is {{count}} characters)"
+        wrong_length: "is the wrong length (should be {{count}} characters)"
+        taken: "is already in use" #"has already been taken"
+        not_a_number: "must be a number" #"is not a number"
+        greater_than: "must be greater than {{count}}"
+        greater_than_or_equal_to: "must be greater than or equal to {{count}}"
+        equal_to: "must be equal to {{count}}"
+        less_than: "must be less than {{count}}"
+        less_than_or_equal_to: "must be less than or equal to {{count}}"
+        odd: "must be odd"
+        even: "must be even"
+        record_invalid: "Validation failed: {{errors}}"
+        # Append your own errors here or at the model/attributes scope.
+
+      full_messages:
+        format: "{{attribute}} {{message}}"
+
+      # You can define own errors for models or model attributes.
+      # The values :model, :attribute and :value are always available for interpolation.
+      #
+      # For example,
+      #   models:
+      #     user:
+      #       blank: "This is a custom blank message for {{model}}: {{attribute}}"
+      #       attributes:
+      #         login:
+      #           blank: "This is a custom blank message for User login"
+      # Will define custom blank validation message for User model and 
+      # custom blank validation message for login attribute of User model.
+      #models:
+        
+    # Translate model names. Used in Model.human_name().
+    #models:
+      # For example,
+      #   user: "Dude"
+      # will translate User model name to "Dude"
+    
+    # Translate model attribute names. Used in Model.human_attribute_name(attribute).
+    #attributes:
+      # For example,
+      #   user:
+      #     login: "Handle"
+      # will translate User attribute "login" as "Handle"
+

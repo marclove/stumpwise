@@ -17,7 +17,8 @@
 					=link_to 'Log Out', manage_logout_path
 				%div{:style => "clear:both;"}
 				#menu
-					=link_to 'Themes', manage_root_path, :class => @menu == 'themes' ? 'current' : ''
+					=link_to 'Sites', manage_root_path, :class => @menu == 'sites' ? 'current' : ''
+					=link_to 'Themes', manage_themes_path, :class => @menu == 'themes' ? 'current' : ''
 			#content
 				= yield
 				%div{:style => "clear:both;"}

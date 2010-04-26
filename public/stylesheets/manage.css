@@ -33,3 +33,30 @@
 #new_theme_asset label {
 	display:block;
 }
+table#sites { width:100%; margin:1em 0;}
+table#sites td, table#sites th {
+	border:1px solid #CCC;
+	padding:0.4em 0.5em;
+}
+table#sites th {
+	background:#EEE;
+	font-weight:bold;
+}
+table#sites td.admin_links {
+	width:40px;
+	text-align:center;
+}
+table#sites td.admin_links img { vertical-align:text-bottom; }
+table#sites td.subdomain { width:150px;}
+
+form#new_site table { width:100%; }
+form#new_site th, form#new_site td { border-bottom:1px solid #DDD; padding:1.5em 0.25em; }
+form#new_site tr:last-child th, form#new_site tr:last-child td { border:0; }
+form#new_site th { width:30%; text-align:right; }
+form#new_site td { padding:1em; }
+input#site_name { width:400px;}
+input#site_campaign_legal_name { width:400px; }
+input#site_campaign_email{ width:300px; }
+input#user_email { width:300px; }
+
+.formError { font-size:93%; color:#C00; }
