@@ -1,9 +1,15 @@
 ENV["RAILS_ENV"] = "test"
+I_KNOW_I_AM_USING_AN_OLD_AND_BUGGY_VERSION_OF_LIBXML2 = "leave me alone"
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'test_help'
 require 'shoulda'
 require 'matchy'
 require 'blueprints'
+require "webrat"
+
+Webrat.configure do |config|
+  config.mode = :rails
+end
 
 class ActiveSupport::TestCase
   # Transactional fixtures accelerate your tests by wrapping each test method
@@ -36,4 +42,13 @@ class ActiveSupport::TestCase
   # Note: You'll currently still have to declare fixtures explicitly in integration tests
   # -- they do not yet inherit this setting
   #fixtures :all
+
+  def compact_html(str)
+    str.squish!.gsub(/> </, '><')
+  end
+  
+  def assert_html_equal(html1,html2)
+    assert_equal compact_html(html1), compact_html(html2)
+  end
 end
+
