@@ -1,0 +1,17 @@
+- @body_class = 'no-sidebar'
+- @menu 			= 'users'
+
+#main
+	%h1 Users
+	%table{:id => "users", :class => "users"}
+		%thead
+			%tr
+				%th Name
+				%th Email
+				%th
+		-for user in @users
+			%tr{:id => "user_#{user.id}", :class => "user"}
+				%td{:class => "name"}=link_to user.name, edit_manage_user_path(user)
+				%td{:class => "email"}=user.email
+				%td{:class => "admin_links"}
+					=link_to("Delete", manage_user_path(user), :method => :delete, :confirm => "Are you sure you want to delete this user? This can not be undone.")

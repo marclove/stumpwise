@@ -6,6 +6,7 @@ ActionController::Routing::Routes.draw do |map|
   map.with_options(:conditions => {:subdomain => 'admin', :domain => BASE_URL}) do |a|
     a.namespace(:manage) do |manage|
       manage.resources :sites
+      manage.resources :users
       manage.resources :themes do |t|
         t.resources :layouts
         t.resources :templates

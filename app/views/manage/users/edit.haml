@@ -1,0 +1,38 @@
+- @body_class = 'no-sidebar'
+- @menu 			= 'users'
+
+-form_for @user, :url => manage_user_path(@user) do |f|
+	#main
+		%h1 Edit User
+		-field_set_tag do
+			%table
+				%tr
+					%th
+						=f.label :first_name, "First Name"
+						=f.error_message_on(:first_name)
+					%td
+						=f.text_field :first_name, :class => 'text_field'
+				%tr
+					%th
+						=f.label :last_name, "Last Name"
+						=f.error_message_on(:last_name)
+					%td
+						=f.text_field :last_name, :class => 'text_field'
+				%tr
+					%th
+						=f.label :email, "Email"
+						=f.error_message_on(:email)
+					%td
+						=f.text_field :email, :class => 'text_field'
+				%tr
+					%th
+						=f.label :time_zone, "Timezone"
+						=f.error_message_on(:time_zone)
+					%td
+						=f.time_zone_select :time_zone, nil, :default => "Pacific Time (US & Canada)"			
+
+		.buttons
+			%button.positive{:type => 'submit'}
+				=icon_tag "tick"
+				Save Changes
+			=link_to "#{icon_tag('cross')} Cancel", :back, :class => 'negative'

@@ -18,6 +18,7 @@
 				%div{:style => "clear:both;"}
 				#menu
 					=link_to 'Sites', manage_root_path, :class => @menu == 'sites' ? 'current' : ''
+					=link_to 'Users', manage_users_path, :class => @menu == 'users' ? 'current' : ''
 					=link_to 'Themes', manage_themes_path, :class => @menu == 'themes' ? 'current' : ''
 			#content
 				= yield

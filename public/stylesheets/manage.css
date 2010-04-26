@@ -33,12 +33,12 @@
 #new_theme_asset label {
 	display:block;
 }
-table#sites { width:100%; margin:1em 0;}
-table#sites td, table#sites th {
+table#sites, table#users { width:100%; margin:1em 0;}
+table#sites td, table#sites th, table#users td, table#users th {
 	border:1px solid #CCC;
 	padding:0.4em 0.5em;
 }
-table#sites th {
+table#sites th, table#users th {
 	background:#EEE;
 	font-weight:bold;
 }
@@ -46,7 +46,7 @@ table#sites td.admin_links {
 	width:40px;
 	text-align:center;
 }
-table#sites td.admin_links img { vertical-align:text-bottom; }
+
 table#sites td.subdomain { width:150px;}
 
 form#new_site table { width:100%; }
@@ -58,5 +58,12 @@ input#site_name { width:400px;}
 input#site_campaign_legal_name { width:400px; }
 input#site_campaign_email{ width:300px; }
 input#user_email { width:300px; }
+
+form.edit_user table { width:100%; }
+form.edit_user th, form.edit_user td { border-bottom:1px solid #DDD; padding:1em 0.25em; }
+form.edit_user tr:last-child th, form.edit_user tr:last-child td { border:0; }
+form.edit_user th { width:30%; text-align:right; }
+form.edit_user td { padding:1em; }
+
 
 .formError { font-size:93%; color:#C00; }
