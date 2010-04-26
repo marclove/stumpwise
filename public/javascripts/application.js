@@ -16,6 +16,7 @@ $(document).ready(function() {
 		theme_advanced_toolbar_location: "top",
 		content_css: "/stylesheets/custom_tinymce.css",
 		plugins: "spellchecker,safari,pagebreak,paste",
+		paste_auto_cleanup_on_paste: false,
 		convert_urls: false,
 		process_html: true,
 		inline_styles: false,
