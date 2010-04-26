@@ -28,7 +28,9 @@
 class User < ActiveRecord::Base
   attr_protected :super_admin
   
-  acts_as_authentic
+  acts_as_authentic do |c|
+    c.merge_validates_length_of_password_field_options :minimum => 8
+  end
   
   has_many :owned_sites,        :foreign_key => 'owner_id', :class_name => 'Site'
   has_many :administratorships, :foreign_key => 'administrator_id'
