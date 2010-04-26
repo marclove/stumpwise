@@ -12,7 +12,7 @@
 		.article
 			%h2
 				=link_to article.title, edit_admin_blog_article_path(@blog, article)
-			=article.body
+			%p=truncate(strip_tags(article.body), :length => 800)
 			.article-edit-links
 				=link_to 'Edit', edit_admin_blog_article_path(@blog, article)
 				&#124;
