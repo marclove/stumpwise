@@ -15,6 +15,9 @@
 				%h1 Stumpwise
 				%h2= @site.name || ''
 				#account-nav
+					-if super_admin?
+						=link_to 'Administration Panel', manage_root_url(:subdomain => "admin")
+						%span &#124;
 					/
 						=link_to 'Users', '/'
 						%span &#124;

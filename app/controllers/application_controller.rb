@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging :password, :token
   
   helper :all
-  helper_method :current_user_session, :current_user
+  helper_method :current_user_session, :current_user, :super_admin?
   filter_parameter_logging :password, :password_confirmation
   
   protected
@@ -42,6 +42,10 @@ class ApplicationController < ActionController::Base
     def current_user
       return @current_user if defined?(@current_user)
       @current_user = current_user_session && current_user_session.record
+    end
+    
+    def super_admin?
+      current_user && current_user.super_admin?
     end
     
     def require_user
