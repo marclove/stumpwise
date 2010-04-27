@@ -46,7 +46,7 @@ class Manage::SitesController < ApplicationController
     end
   end
   
-  def delete
+  def destroy
     if @site.destroy
       flash[:notice] = t("site.destroy.success")
       redirect_to manage_sites_path

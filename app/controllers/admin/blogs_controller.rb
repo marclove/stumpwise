@@ -59,7 +59,7 @@ class Admin::BlogsController < ApplicationController
   
   def destroy
     @blog = current_site.blogs.find(params[:id])
-    @blog.delete
+    @blog.destroy
     redirect_to admin_blogs_path
   end
 end

@@ -6,25 +6,10 @@ class CandidatePhotoUploader < CarrierWave::Uploader::Base
     "sites/#{model.id}/candidate"
   end
 
-  # Provide a default URL as a default if there hasn't been a file uploaded
-  #     def default_url
-  #       "sites/defaults/" + [version_name, "candidate.png"].compact.join('_')
-  #     end
-
-  # Process files as they are uploaded.
-  #     process :scale => [200, 300]
-  #
-  #     def scale(width, height)
-  #       # do something
-  #     end
-
-  # Create different versions of your uploaded files
   version :t1 do
     process :resize_to_fit => [210, 10000]
   end
 
-  # Add a white list of extensions which are allowed to be uploaded,
-  # for images you might use something like this:
   def extension_white_list
     %w(jpg jpeg gif png)
   end
