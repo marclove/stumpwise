@@ -27,6 +27,7 @@ Rails::Initializer.run do |config|
   config.gem 'liquid', :version => '2.0.0'
   config.gem 'bcrypt-ruby', :lib => 'bcrypt', :version => '2.1.2'
   config.gem 'authlogic'
+  config.gem 'delayed_job'
   config.gem 'will_paginate', :version => '2.3.12'
   config.gem 'carrierwave'
   config.gem 'activemerchant', :lib => 'active_merchant'

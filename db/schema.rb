@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100416182257) do
+ActiveRecord::Schema.define(:version => 20100426155751) do
 
   create_table "administratorships", :force => true do |t|
     t.integer "administrator_id"
@@ -66,6 +66,21 @@ ActiveRecord::Schema.define(:version => 20100416182257) do
   add_index "contributions", ["site_id"], :name => "index_contributions_on_site_id"
   add_index "contributions", ["status"], :name => "index_contributions_on_status"
   add_index "contributions", ["success"], :name => "index_contributions_on_success"
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
   create_table "items", :force => true do |t|
     t.datetime "created_at"

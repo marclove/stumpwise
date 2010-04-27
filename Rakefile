@@ -3,6 +3,12 @@
 
 require(File.join(File.dirname(__FILE__), 'config', 'boot'))
 
+begin
+  require 'delayed/tasks'
+rescue LoadError
+  STDERR.puts "Run `rake gems:install` to install delayed_job"
+end
+
 require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
