@@ -33,4 +33,8 @@ module ApplicationHelper
       </object>
     EOF
   end
+  
+  def authenticity_token
+    javascript_tag "window._token = \"#{form_authenticity_token}\""
+  end
 end

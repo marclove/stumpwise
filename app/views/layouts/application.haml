@@ -3,12 +3,12 @@
 	%head
 		%meta{:charset => "utf-8"}
 		%title= "stumpwise :: #{@site.name}"
+		=authenticity_token
 		/[if lt IE 9]
 			=javascript_include_tag "http://ie7-js.googlecode.com/svn/version/2.1(beta3)/IE9.js"
 		=stylesheet_link_tag 'master.css'
 		=javascript_include_tag 'jquery.min.js','jrails.js','tiny_mce/jquery.tinymce.js','jquery.tablesorter.min.js','jquery.tablesorter.pager.js','application.js'
 		=yield :head
-
 	%body{:class => @body_class}
 		#container
 			#header
