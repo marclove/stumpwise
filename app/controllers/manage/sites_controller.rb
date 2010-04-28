@@ -39,7 +39,7 @@ class Manage::SitesController < ApplicationController
   def update
     if @site.update_attributes(params[:site])
       flash[:notice] = t("site.update.success")
-      redirect_to edit_manage_site_path(@site)
+      redirect_to manage_sites_path
     else
       flash[:error] = t("site.update.fail")
       render :action => 'edit'
