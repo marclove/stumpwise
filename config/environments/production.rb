@@ -28,8 +28,6 @@ config.action_view.cache_template_loading            = true
 # config.threadsafe!
 
 config.action_mailer.default_charset = "utf-8"
-config.action_mailer.delivery_method = :sendmail
-=begin
 config.action_mailer.smtp_settings = {
   :address => "smtp.sendgrid.net",
   :port => '25',
@@ -38,7 +36,6 @@ config.action_mailer.smtp_settings = {
   :user_name => "marc.love@progressbound.com",
   :password => "ioQkyaaavKb1njYX6KEJ"
 }
-=end
 
 config.after_initialize do
   ActiveMerchant::Billing::Base.mode = :production
