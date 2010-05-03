@@ -11,7 +11,7 @@
 	%body
 		#contribution
 			%h1= "Contribute To #{@site.name}"
-			-form_for @contribution, :url => url_for(:subdomain => @site.subdomain, :controller => 'contributions', :action => 'create', :only_path => true, :secure => true), :html => {:id => 'contribution_form', :method => :post} do |f|
+			-form_for @contribution, :url => "/#{@site.subdomain}/contribute", :html => {:id => 'contribution_form', :method => :post} do |f|
 				-if flash[:error]
 					.flash.error= flash[:error]
 					=error_messages_for 'contribution'
