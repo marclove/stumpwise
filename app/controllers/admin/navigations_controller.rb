@@ -1,4 +1,5 @@
 class Admin::NavigationsController < ApplicationController
+  before_filter :require_authorized_user, :require_acceptance_of_campaign_agreement
   handles_sorting_of_nested_set
   
   def show

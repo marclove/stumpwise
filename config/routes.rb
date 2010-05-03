@@ -1,5 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
   map.with_options(:conditions => {:subdomain => false, :domain => BASE_URL}) do |base|
+    base.connect 'info/:action', :controller => 'info', :conditions => {:method => :get}
     base.root :controller => 'home', :action => 'index'
   end
   
@@ -31,6 +32,9 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.namespace(:admin) do |admin|
+    admin.terms 'terms', :controller => 'info', :action => 'terms'
+    admin.accept_terms 'accept_terms', :controller => 'info', :action => 'accept_terms'
+    
     admin.resources :sessions, :only => [:new, :create, :destroy]
     admin.login  'login',  :controller => 'sessions', :action => 'new'
     admin.logout 'logout', :controller => 'sessions', :action => 'destroy'
@@ -45,15 +49,9 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :blogs do |b|
       b.resources :articles, :member => { :publish => :put, :unpublish => :put }
     end
-    
-    #admin.resources :layouts
-    #admin.resources :templates
-    #admin.resources :stylesheets
-    #admin.resources :javascripts
-    
+        
     admin.resources :supporters, :only => [:index, :show, :destroy], :collection => {:export => :get}
     admin.resources :contributions, :only => [:index, :show], :member => {:refund => :put}
-    
     admin.root :controller => 'blogs', :action => 'index'
   end
   

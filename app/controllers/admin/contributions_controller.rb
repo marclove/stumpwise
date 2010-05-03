@@ -1,5 +1,5 @@
 class Admin::ContributionsController < ApplicationController
-  before_filter :require_authorized_user
+  before_filter :require_authorized_user, :require_acceptance_of_campaign_agreement
 
   def index
     @contribution_total = current_site.contributions.approved.sum(:amount)

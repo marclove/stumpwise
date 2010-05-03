@@ -85,6 +85,15 @@ class ApplicationController < ActionController::Base
       end
     end
     
+    def require_acceptance_of_campaign_agreement
+      unless current_user.accepted_campaign_terms?
+        store_location
+        redirect_to admin_terms_path
+        return false
+      end
+      return true
+    end
+    
     def store_location
       session[:return_to] = request.request_uri
     end

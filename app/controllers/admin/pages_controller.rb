@@ -1,5 +1,5 @@
 class Admin::PagesController < ApplicationController
-  before_filter :require_authorized_user
+  before_filter :require_authorized_user, :require_acceptance_of_campaign_agreement
   before_filter :get_page, :except => [:index, :new, :create]
 
   def index
