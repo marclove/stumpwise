@@ -52,7 +52,7 @@
 					-fields_for :credit_card, @credit_card do |cc|
 						#type.field_element
 							=cc.label :type, 'Card Type'
-							=cc.select :type, [['Bogus','bogus'],['Visa','visa'],['Mastercard','master'],['Discover','discover'],['American Express','american_express']]
+							=cc.select :type, [['Visa','visa'],['Mastercard','master'],['Discover','discover'],['American Express','american_express']]
 						#expiration.field_element
 							=cc.label :month, 'Expiration Date'
 							=cc.select :month, (1..12)
@@ -88,7 +88,7 @@
 						=f.text_field :zip, :class => 'text_field'
 					#country.field_element
 						=f.label :country, {}, :class => 'text_field_label'
-						=f.country_select :country, ['United States']
+						=f.country_code_select :country, [['United States','US']]
 					#email.field_element
 						=f.label :email, 'Email', :class => 'text_field_label'
 						=f.text_field :email, :class => 'text_field'

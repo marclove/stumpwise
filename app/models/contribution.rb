@@ -80,7 +80,7 @@ class Contribution < ActiveRecord::Base
   end
   
   
-  def process(credit_card, options = {})
+  def process(credit_card, options = default_options)
     update_attributes(
       :order_id => ActiveMerchant::Utils.generate_unique_id,
       :card_type => credit_card.type,
