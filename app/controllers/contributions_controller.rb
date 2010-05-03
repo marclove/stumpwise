@@ -24,8 +24,8 @@ class ContributionsController < ApplicationController
     if @credit_card.valid? && @contribution.save
       response = @contribution.process(@credit_card)
       if response.success?
-        flash[:notice] = t('contribution.process.success')
-        redirect_to url_for(:subdomain => @site.subdomain, :controller => 'contributions', :action => 'thanks', :order_id => @contribution.order_id, :only_path => true, :secure => true)
+        #flash[:notice] = t('contribution.process.success')
+        redirect_to "/#{@site.subdomain}/contribute/thanks/#{@contribution.order_id}"
       else
         flash.now[:error] = "#{t('contribution.process.fail.rejected')} #{response.message}"
         render :action => 'new'

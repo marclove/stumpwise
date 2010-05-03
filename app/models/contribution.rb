@@ -140,7 +140,7 @@ class Contribution < ActiveRecord::Base
       :ip => ip,
       :customer => contributor_name_with_email,
       :merchant => site.campaign_legal_name,
-      :description => "Campaign contribution",
+      :description => "Contribution to #{site.campaign_legal_name}",
       :email => email,
       :billing_address => {
         :name => "#{first_name} #{last_name}",
