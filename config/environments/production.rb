@@ -39,7 +39,7 @@ config.action_mailer.smtp_settings = {
 
 config.after_initialize do
   ActiveMerchant::Billing::Base.mode = :production
-  OrderTransaction.gateway =
+  ContributionTransaction.gateway =
     ActiveMerchant::Billing::Base.gateway('paypal').new(
       :login => 'billing_api1.progressbound.com',
       :password => 'S3Z8JT73P5UA8H2F',
