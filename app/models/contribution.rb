@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100426155751
+# Schema version: 20100503085721
 #
 # Table name: contributions
 #
@@ -29,13 +29,7 @@
 #  country                 :string(255)
 #  zip                     :string(255)
 #  phone                   :string(255)
-#  success                 :boolean
 #  test                    :boolean
-#  fraud_review            :boolean
-#  message                 :text
-#  authorization           :string(255)
-#  cvv_result              :text
-#  avs_result              :text
 #
 
 class Contribution < ActiveRecord::Base
@@ -158,7 +152,6 @@ class Contribution < ActiveRecord::Base
   def send_receipt
     ContributionNotifier.deliver_send_receipt(self)
   end
-  #handle_asynchronously :send_receipt
   
   private
     def requires_compliance_confirmation?
