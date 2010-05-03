@@ -136,12 +136,12 @@ input.text_field, select {
 	max-width:80px;
 }
 #expiration label { display:block; }
-#contribution_card_month {
+#expiration #credit_card_month {
 	min-width:60px;
 	width:60px;
 	max-width:60px;
 }
-#contribution_card_year {
+#expiration #credit_card_year {
 	min-width:80px;
 	width:80px;
 	max-width:80px;
@@ -235,6 +235,7 @@ p.thank_you {
   border: 1px solid #DDF;
   background-color: #EEF;
 }
+div.fieldWithErrors { display:inline; }
 .fieldWithErrors label { color:#C00; }
 .fieldWithErrors input, .fieldWithErrors select {
 	background:#FDD;

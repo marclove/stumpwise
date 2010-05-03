@@ -16,7 +16,7 @@ Rails::Initializer.run do |config|
 
   # Add additional load paths for your own custom dirs
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
-  %w(middleware uploaders drops observers mailers).each do |dir|
+  %w(middleware uploaders drops observers mailers jobs).each do |dir|
     config.load_paths << "#{RAILS_ROOT}/app/#{dir}"
   end
 
@@ -37,6 +37,7 @@ Rails::Initializer.run do |config|
   config.gem 'twilio', :version => '2.7.0'
   config.gem 'newrelic_rpm'
   config.gem 'hoptoad_notifier'
+  config.gem 'aasm'
   
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named

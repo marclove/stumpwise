@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100426155751) do
+ActiveRecord::Schema.define(:version => 20100501094158) do
 
   create_table "administratorships", :force => true do |t|
     t.integer "administrator_id"
@@ -21,6 +21,19 @@ ActiveRecord::Schema.define(:version => 20100426155751) do
   create_table "assets", :force => true do |t|
     t.integer  "site_id"
     t.string   "file"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "contribution_transactions", :force => true do |t|
+    t.integer  "contribution_id"
+    t.integer  "amount"
+    t.boolean  "success"
+    t.string   "reference"
+    t.string   "message"
+    t.string   "action"
+    t.text     "params"
+    t.boolean  "test"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -51,13 +64,7 @@ ActiveRecord::Schema.define(:version => 20100426155751) do
     t.string   "country"
     t.string   "zip"
     t.string   "phone"
-    t.boolean  "success"
     t.boolean  "test"
-    t.boolean  "fraud_review"
-    t.text     "message"
-    t.string   "authorization"
-    t.text     "cvv_result"
-    t.text     "avs_result"
   end
 
   add_index "contributions", ["email"], :name => "index_contributions_on_email"
@@ -65,7 +72,6 @@ ActiveRecord::Schema.define(:version => 20100426155751) do
   add_index "contributions", ["order_id"], :name => "index_contributions_on_order_id", :unique => true
   add_index "contributions", ["site_id"], :name => "index_contributions_on_site_id"
   add_index "contributions", ["status"], :name => "index_contributions_on_status"
-  add_index "contributions", ["success"], :name => "index_contributions_on_success"
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0

@@ -86,14 +86,6 @@ class Site < ActiveRecord::Base
     supporters.all(:select => 'supporters.mobile_phone', :conditions => ['supporterships.receive_sms = ?', true]).collect(&:mobile_phone)
   end
   
-  def gateway
-    ActiveMerchant::Billing::Base.gateway('paypal').new(
-      :login => 'billing_api1.progressbound.com',
-      :password => 'S3Z8JT73P5UA8H2F',
-      :signature => 'AFcWxV21C7fd0v3bYYYRCpSSRl31AtqRsGGkj3Mi7JF9RjKunsb07YR-'
-    )
-  end
-  
   def root_url
     "http://#{domain}"
   end

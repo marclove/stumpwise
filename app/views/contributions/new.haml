@@ -14,6 +14,7 @@
 			-form_for @contribution, :url => url_for(:subdomain => @site.subdomain, :controller => 'contributions', :action => 'create', :only_path => true, :secure => true), :html => {:id => 'contribution_form', :method => :post} do |f|
 				-if flash[:error]
 					.flash.error= flash[:error]
+					=error_messages_for 'contribution'
 				%p.fields_required All fields are required unless otherwise noted.
 				-field_set_tag '<span>Contribution Amount</span>', :id => 'contribution_info', :class => 'fieldset' do
 					-if @contribution.errors.on(:amount)
@@ -48,20 +49,21 @@
 				-field_set_tag '<span>Credit Card Information <img id="credit-card-logos" src="/images/payments/creditcards.png" alt="" /></span>', :id => 'credit_card', :class => 'fieldset' do
 					-if flash[:card_error]
 						#card_error.flash.error= flash[:card_error]
-					#type.field_element
-						=f.label :card_type, 'Card Type'
-						=f.select :card_type, [['Visa','visa'],['Mastercard','master'],['Discover','discover'],['American Express','american_express']]
-					#expiration.field_element
-						=f.label :card_month, 'Expiration Date'
-						=select_month @contribution.card_month, {:use_month_numbers => true}, {:id => 'contribution_card_month', :name => 'contribution[card_month]'}
-						=select_year @contribution.card_year, {:start_year => Time.now.year, :end_year => Time.now.year + 10}, {:id => 'contribution_card_year', :name => 'contribution[card_year]'}
-					#number.field_element
-						=f.label :card_number, 'Card Number', :class => 'text_field_label'
-						=f.text_field :card_number, :class => 'text_field'
-					#verification_value.field_element
-						=f.label :verification_value, 'Verification No.', :class => 'text_field_label'
-						=f.text_field :verification_value, :class => 'text_field'
-						=link_to "What's this?", '/cvv2.html', :target => '_blank'
+					-fields_for :credit_card, @credit_card do |cc|
+						#type.field_element
+							=cc.label :type, 'Card Type'
+							=cc.select :type, [['Bogus','bogus'],['Visa','visa'],['Mastercard','master'],['Discover','discover'],['American Express','american_express']]
+						#expiration.field_element
+							=cc.label :month, 'Expiration Date'
+							=cc.select :month, (1..12)
+							=cc.select :year, ((Time.now.year)..(Time.now.year + 10))
+						#number.field_element
+							=cc.label :number, 'Card Number', :class => 'text_field_label'
+							=cc.text_field :number, :class => 'text_field'
+						#verification_value.field_element
+							=cc.label :verification_value, 'Verification No.', :class => 'text_field_label'
+							=cc.text_field :verification_value, :class => 'text_field'
+							=link_to "What's this?", '/cvv2.html', :target => '_blank'
 
 				-field_set_tag '<span>Contributor Information</span>', :id => 'contributor', :class => 'fieldset' do
 					#contributor_name
@@ -116,7 +118,7 @@
 				-unless @site.eligibility_statement.blank?
 					-field_set_tag '<span>Confirm Your Eligibility</span>', :id => 'eligibility_confirmation', :class => 'fieldset' do
 						=f.check_box :compliance_confirmation
-						=f.label :compliance_confirmation, "Check this box to confirm that the following statements are true and correct:"
+						=f.label :compliance_confirmation, "Check this box to confirm the following statements are true and correct:"
 						#eligibility_statement
 							=@site.eligibility_statement
 				

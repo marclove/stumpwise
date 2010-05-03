@@ -27,7 +27,6 @@ config.action_mailer.delivery_method = :test
 # like if you have constraints or database-specific column types
 # config.active_record.schema_format = :sql
 
-ActiveMerchant::Billing::Base.mode = :test
 SslRequirement.disable_ssl_check = true
 BASE_URL = "localdev.com"
 HOST = "localdev.com:3000"
@@ -36,6 +35,23 @@ config.middleware.use "SetCookieDomain", ".localdev.com"
 
 config.gem 'machinist'
 config.gem 'shoulda', '2.10.3'
-config.gem 'thoughtbot-factory_girl', :lib => 'factory_girl'
-config.gem 'mcmire-matchy', :lib => 'matchy', :version => '0.4.2'
 config.gem 'webrat'
+config.gem "fakeweb"
+
+config.after_initialize do
+  ActiveMerchant::Billing::Base.mode = :test
+end
+
+config.to_prepare do
+  ContributionTransaction.gateway = ActiveMerchant::Billing::Base.gateway('bogus').new
+end
+
+require 'fakeweb'
+
+OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
+FakeWeb.allow_net_connect = false
+
+# Twitter
+FakeWeb.register_uri(:post, 'http://twitter.com/oauth/request_token', :body => 'oauth_token=fake&oauth_token_secret=fake')
+FakeWeb.register_uri(:post, 'http://twitter.com/oauth/access_token', :body => 'oauth_token=fake&oauth_token_secret=fake')
+FakeWeb.register_uri(:get, 'http://twitter.com/account/verify_credentials.json', :response => File.join(RAILS_ROOT, 'features', 'fixtures', 'verify_credentials.json'))

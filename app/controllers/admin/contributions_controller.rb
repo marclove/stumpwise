@@ -2,7 +2,7 @@ class Admin::ContributionsController < ApplicationController
   before_filter :require_authorized_user
 
   def index
-    @contribution_total = current_site.contributions.processed.sum(:amount)
+    @contribution_total = current_site.contributions.approved.sum(:amount)
     @contributions = current_site.contributions.paginate(
       :page     => params[:page] || 1,
       :per_page => params[:per_page] || 20,

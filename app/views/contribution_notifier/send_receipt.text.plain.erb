@@ -1,0 +1,29 @@
+Dear <%= @contribution.first_name %>,
+
+Thank you for your generous contribution of <%= number_to_currency(@contribution.display_amount) %> to our
+campaign! Please keep this receipt for your records.
+
+
+Contribution Receipt
+-----------------------------------------------------------
+
+ Contribution To:  <%= @contribution.site.campaign_legal_name %>
+
+       Billed To:  <%= @contribution.contributor_name %>
+                   <%= @contribution.address1 %>
+<%- unless @contribution.address2 -%>
+                   <%= @contribution.address2 %>
+<%- end -%>
+                   <%= @contribution.city %>, <%= @contribution.state %> <%= @contribution.zip %>
+                   <%= @contribution.email %>
+
+          Amount:  <%= number_to_currency(@contribution.display_amount) %>
+            Date:  <%= @contribution.created_at.strftime('%m/%d/%G %I:%M %p') %>
+  Transaction ID:  <%= @contribution.order_id %>
+Card Information:  <%= @contribution.card_information %>
+
+-----------------------------------------------------------
+
+
+Thank you,
+<%= @contribution.site.name %>

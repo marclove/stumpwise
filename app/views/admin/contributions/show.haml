@@ -48,4 +48,5 @@
 			%td= @contribution.created_at.strftime('%m/%d/%Y %l:%M %p')
 	
 	#contribution-admin-buttons.buttons
-		=link_to "#{image_tag('icons-shadowless/cross.png', :alt => '')} Refund Contribution", refund_admin_contribution_path(@contribution), :class => 'negative', :method => :put
+		-if @contribution.approved?
+			=link_to "#{image_tag('icons-shadowless/cross.png', :alt => '')} Refund Contribution", refund_admin_contribution_path(@contribution), :class => 'negative', :method => :put

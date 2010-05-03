@@ -40,84 +40,108 @@
 
 class Contribution < ActiveRecord::Base
   belongs_to :site
+  has_many :transactions, :class_name => 'ContributionTransaction',
+                          :dependent => :destroy
   
-  named_scope :processed,   :conditions => {:status => 'Processed'}
-  named_scope :rejected,    :conditions => {:status => 'Rejected'}
-  named_scope :unprocessed, :conditions => {:status => 'Unprocessed'}
+  named_scope :pending,   :conditions => {:status => 'pending'}
+  named_scope :approved,  :conditions => {:status => 'approved'}
+  named_scope :declined,  :conditions => {:status => 'declined'}
+  named_scope :refunded,  :conditions => {:status => 'refunded'}
   
-  RegEmailName   = '[\w\.%\+\-]+'
-  RegDomainHead  = '(?:[A-Z0-9\-]+\.)+'
-  RegDomainTLD   = '(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)'
-  RegEmailOk     = /\A#{RegEmailName}@#{RegDomainHead}#{RegDomainTLD}\z/i
-  
-  validates_presence_of     :order_id
+  validates_presence_of     :site_id
   validates_length_of       :email, :within => 6..100, :allow_blank => false
   validates_format_of       :email, :with => RegEmailOk, :allow_blank => false
-  validates_numericality_of :amount, :greater_than => 100
-  validates_inclusion_of    :card_month, :in => 1..12
-  validates_numericality_of :card_year, :only_integer => true
-  validates_presence_of     :address1
-  validates_presence_of     :city
-  validates_presence_of     :state
-  validates_presence_of     :zip
-  validates_presence_of     :country
-  validates_presence_of     :occupation
-  validates_presence_of     :employer
-  validates_inclusion_of    :success, :in => [true, false]
-  validates_inclusion_of    :test, :in => [true, false]
-  validates_inclusion_of    :fraud_review, :in => [true, false]
-  validates_acceptance_of   :compliance_confirmation, :if => :requires_compliance_confirmation?
+  validates_numericality_of :amount, :greater_than => 100, :only_integer => true
+  validates_presence_of     :first_name, :last_name, :address1, :city, :state,
+                            :zip, :country, :occupation, :employer
+  validates_acceptance_of   :compliance_confirmation, :accept => true,
+                            :if => :requires_compliance_confirmation?
   
-  before_validation_on_create :set_defaults
-  before_validation_on_create :store_card_number
-  after_validation_on_create  :store_compliance_statement
-  #after_save :create_supporter
+
+  include AASM
+  aasm_column :status
+  aasm_initial_state :pending
+
+  aasm_state :pending
+  aasm_state :approved, :enter => :send_receipt
+  aasm_state :declined
+  aasm_state :refunded
+
+  aasm_event :contribution_approved do
+    transitions :from => :pending, :to => :approved
+  end
+
+  aasm_event :contribution_declined do
+    transitions :from => [:pending, :declined], :to => :declined
+  end
+
+  aasm_event :contribution_refunded do
+    transitions :from => [:approved, :refunded], :to => :refunded
+  end
   
-  attr_accessor :card_number
-  attr_accessor :verification_value
   
-  serialize :avs_result
-  serialize :cvv_result
-  
-  def process
-    result = site.gateway.purchase(amount, credit_card, options)
+  def process(credit_card, options = {})
     update_attributes(
-      :status => result.success? ? "Processed" : "Rejected",
-      :success => result.success?,
-      :test => result.test?,
-      :authorization => result.authorization,
-      :fraud_review => result.fraud_review?,
-      :avs_result => result.avs_result,
-      :cvv_result => result.cvv_result,
-      :message => result.message
+      :order_id => ActiveMerchant::Utils.generate_unique_id,
+      :card_type => credit_card.type,
+      :card_display_number => credit_card.display_number,
+      :compliance_statement => site.eligibility_statement,
+      :card_year => credit_card.year,
+      :card_month => credit_card.month,
+      :test => (ActiveMerchant::Billing::Base.mode == :test)
     )
-    result
+    transaction do
+      authorization = ContributionTransaction.approve(amount, credit_card, options)
+      transactions.push(authorization)
+      authorization.success? ? contribution_approved! : contribution_declined!
+      authorization
+    end
   end
   
-  def refund
-    site.gateway.credit(amount, authorization, options)
+  def refund(options = {})
+    transaction do
+      authorization = ContributionTransaction.refund(amount, authorization_reference, options)
+      transactions.push(authorization)
+      contribution_refunded! if authorization.success?
+      authorization
+    end
+  end
+  
+  def email=(new_email)
+    new_email.downcase! unless new_email.nil?
+    write_attribute(:email, new_email)
   end
 
-  def credit_card
-    ActiveMerchant::Billing::CreditCard.new(
-      :number => card_number,
-      :month => card_month,
-      :year => card_year,
-      :type => card_type,
-      :first_name => first_name,
-      :last_name => last_name,
-      :verification_value => verification_value
-    )
+  def authorization_reference
+    if authorization = transactions.find_by_action_and_success('approve', true, :order => 'id ASC')
+      authorization.reference
+    end
   end
-
-  def options
+  
+  def display_amount
+    amount.to_f / 100.0
+  end
+  
+  def contributor_name
+    "#{first_name} #{last_name}"
+  end
+  
+  def contributor_name_with_email
+    "#{contributor_name} <#{email}>"
+  end
+  
+  def card_information
+    "#{card_type.titlecase} #{card_display_number}"
+  end
+  
+  def default_options
     {
       :order_id => order_id,
       :ip => ip,
-      :customer => "#{first_name} #{last_name} <#{email}>",
-      :merchant => site.name,
+      :customer => contributor_name_with_email,
+      :merchant => site.campaign_legal_name,
       :description => "Campaign contribution",
-      :email => email.to_s,
+      :email => email,
       :billing_address => {
         :name => "#{first_name} #{last_name}",
         :address1 => address1,
@@ -131,47 +155,14 @@ class Contribution < ActiveRecord::Base
     }
   end
   
+  def send_receipt
+    ContributionNotifier.deliver_send_receipt(self)
+  end
+  handle_asynchronously :send_receipt
+  
   private
     def requires_compliance_confirmation?
       return false unless site
       !site.eligibility_statement.blank?
-    end
-    
-    def store_compliance_statement
-      if requires_compliance_confirmation?
-        self.compliance_statement = site.eligibility_statement
-      else
-        return true
-      end
-    end
-    
-    def store_card_number
-      self.card_display_number = self.credit_card.display_number
-      return true
-    end
-    
-    def set_defaults
-      self.status = "Unprocessed"
-      self.order_id = ActiveMerchant::Utils.generate_unique_id
-      self.success = false
-      self.test = ActiveMerchant::Billing::Base.mode == :test
-      self.fraud_review = false
-      return true
-    end
-    
-    def create_supporter
-      thoroughfare = "#{address1}"
-      thoroughfare << ", #{address2}" if !address2.blank?
-      site.supporters.create(
-        :first_name => first_name,
-        :last_name => last_name,
-        :email => email,
-        :phone => phone,
-        :thoroughfare => thoroughfare,
-        :locality => city,
-        :administrative_area => state,
-        :country => country,
-        :postal_code => zip
-      )
     end
 end

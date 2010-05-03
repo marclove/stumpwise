@@ -30,7 +30,7 @@
 				%td.state= contribution.state
 				%td.zip= contribution.zip
 				%td.phone= contribution.phone
-				%td.status= contribution.status
+				%td.status= contribution.status.titlecase
 				%td.amount= number_to_currency(contribution.amount.to_f / 100)
 				%td.submitted-at= contribution.created_at.strftime('%b %e, %Y %I:%M:%S %p')
 				="</tr>"

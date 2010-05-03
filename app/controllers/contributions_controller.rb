@@ -3,36 +3,36 @@ class ContributionsController < ApplicationController
   skip_before_filter :handle_invalid_site
   before_filter :get_site
   ssl_required :new, :create, :thanks
-  filter_parameter_logging :card_number, :verification_value
+  filter_parameter_logging :number, :verification_value
   
   
   def new
     @contribution = Contribution.new
+    @credit_card = ActiveMerchant::Billing::CreditCard.new
   end
   
   def create
     @contribution = @site.contributions.build(params[:contribution])
-    if @contribution.credit_card.valid?
-      @contribution.ip = request.ip
-      @contribution.amount = contribution_amount
-      if @contribution.save
-        response = @contribution.process
-        if response.success?
-          flash.now[:notice] = t('contribution.process.success')
-          redirect_to url_for(:subdomain => @site.subdomain, :controller => 'contributions', :action => 'thanks', :order_id => @contribution.order_id, :only_path => true, :secure => true)
-        else
-          flash.now[:error] = "#{t('contribution.process.fail.rejected')} #{response.message}"
-          render :action => 'new'
-        end
+    @contribution.ip = request.ip
+    @contribution.amount = contribution_amount
+
+    @credit_card = ActiveMerchant::Billing::CreditCard.new(params[:credit_card])
+    @credit_card.first_name = @contribution.first_name
+    @credit_card.last_name = @contribution.last_name
+
+    @contribution.valid? # Need to call this to ensure all errors are shown if @credit_card is invalid
+    if @credit_card.valid? && @contribution.save
+      response = @contribution.process(@credit_card)
+      if response.success?
+        flash[:notice] = t('contribution.process.success')
+        redirect_to url_for(:subdomain => @site.subdomain, :controller => 'contributions', :action => 'thanks', :order_id => @contribution.order_id, :only_path => true, :secure => true)
       else
-        puts @contribution.save
-        flash.now[:error] = t('contribution.process.fail.invalid_record')
-        # the contribution record was invalid, error messages will be embedded in the form
+        flash.now[:error] = "#{t('contribution.process.fail.rejected')} #{response.message}"
         render :action => 'new'
       end
     else
+      flash.now[:card_error] = t('contribution.process.fail.invalid_card') unless @credit_card.valid?
       flash.now[:error] = t('contribution.process.fail.invalid_record')
-      flash.now[:card_error] = t('contribution.process.fail.invalid_card')
       render :action => 'new'
     end
   end
