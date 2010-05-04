@@ -152,6 +152,7 @@ class Contribution < ActiveRecord::Base
   def send_receipt
     ContributionNotifier.deliver_send_receipt(self)
   end
+  handle_asynchronously :send_receipt
   
   private
     def requires_compliance_confirmation?
