@@ -13,7 +13,7 @@ class Admin::ArticlesController < ApplicationController
       flash[:notice] = t("article.create.success")
       redirect_to admin_blog_path(@blog)
     else
-      flash[:error] = t("article.create.fail")
+      flash.now[:error] = t("article.create.fail")
       render :action => 'new'
     end
   end
@@ -28,7 +28,7 @@ class Admin::ArticlesController < ApplicationController
       flash[:notice] = t("article.update.success")
       redirect_to admin_blog_path(@blog)
     else
-      flash[:error] = t("article.update.fail")
+      flash.now[:error] = t("article.update.fail")
       render :action => 'edit'
     end
   end
@@ -51,7 +51,7 @@ class Admin::ArticlesController < ApplicationController
       flash[:notice] = t("article.destroy.success")
       redirect_to admin_blog_path(@blog)
     else
-      flash[:error] = t("article.destroy.fail")
+      flash.now[:error] = t("article.destroy.fail")
       render :action => 'edit'
     end
   end

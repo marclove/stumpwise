@@ -11,7 +11,7 @@ class Admin::SitesController < ApplicationController
       flash[:notice] = t("site.update.success")
       redirect_to edit_admin_site_path
     else
-      flash[:error] = t("site.update.fail")
+      flash.now[:error] = t("site.update.fail")
       render :action => 'edit'
     end
   end

@@ -36,7 +36,7 @@ class Manage::UsersController < ApplicationController
       flash[:notice] = t('user.create.success')
       redirect_to manage_user_path(@user)
     else
-      flash[:error] = t('user.create.fail')
+      flash.now[:error] = t('user.create.fail')
       render :action => 'new'
     end
   end
@@ -49,7 +49,7 @@ class Manage::UsersController < ApplicationController
       flash[:notice] = t('user.update.success')
       redirect_to manage_users_path
     else
-      flash[:error] = t('user.update.fail')
+      flash.now[:error] = t('user.update.fail')
       render :action => 'edit'
     end
   end

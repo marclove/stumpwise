@@ -17,7 +17,7 @@ class Admin::PagesController < ApplicationController
       flash[:notice] = t("page.create.success")
       redirect_to admin_pages_path
     else
-      flash[:error] = t("page.create.fail")
+      flash.now[:error] = t("page.create.fail")
       render :action => 'new'
     end
   end
@@ -30,7 +30,7 @@ class Admin::PagesController < ApplicationController
       flash[:notice] = t("page.update.success")
       redirect_to admin_pages_path
     else
-      flash[:error] = t("page.update.fail")
+      flash.now[:error] = t("page.update.fail")
       render :action => 'edit'
     end
   end

@@ -11,7 +11,7 @@ class Admin::ProfilesController < ApplicationController
       flash[:notice] = t('profile.update.success')
       redirect_to edit_admin_profile_path
     else
-      flash[:error] = t('profile.update.fail')
+      flash.now[:error] = t('profile.update.fail')
       render :action => :edit
     end
   end

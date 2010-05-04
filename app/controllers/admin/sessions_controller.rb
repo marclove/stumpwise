@@ -10,7 +10,7 @@ class Admin::SessionsController < ApplicationController
     if @user_session.save
       redirect_back_or_default admin_root_path
     else
-      flash[:error] = t('user.login.fail')
+      flash.now[:error] = t('user.login.fail')
       render :action => 'new'
     end
   end

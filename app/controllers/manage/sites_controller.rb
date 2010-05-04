@@ -28,7 +28,7 @@ class Manage::SitesController < ApplicationController
     if @user_saved && @site_saved
       redirect_to manage_sites_path
     else
-      flash[:error] = t("site.create.fail")
+      flash.now[:error] = t("site.create.fail")
       render :action => 'new'
     end
   end
@@ -41,7 +41,7 @@ class Manage::SitesController < ApplicationController
       flash[:notice] = t("site.update.success")
       redirect_to manage_sites_path
     else
-      flash[:error] = t("site.update.fail")
+      flash.now[:error] = t("site.update.fail")
       render :action => 'edit'
     end
   end
@@ -51,7 +51,7 @@ class Manage::SitesController < ApplicationController
       flash[:notice] = t("site.destroy.success")
       redirect_to manage_sites_path
     else
-      flash[:error] = t("site.destroy.fail")
+      flash.now[:error] = t("site.destroy.fail")
       redirect_to :back
     end
   end
