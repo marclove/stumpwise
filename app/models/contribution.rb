@@ -45,7 +45,7 @@ class Contribution < ActiveRecord::Base
   validates_presence_of     :site_id
   validates_length_of       :email, :within => 6..100, :allow_blank => false
   validates_format_of       :email, :with => RegEmailOk, :allow_blank => false
-  validates_numericality_of :amount, :greater_than => 100, :only_integer => true
+  validates_numericality_of :amount, :greater_than => 99, :only_integer => true
   validates_presence_of     :first_name, :last_name, :address1, :city, :state,
                             :zip, :country, :occupation, :employer
   validates_acceptance_of   :compliance_confirmation, :accept => true,
@@ -152,7 +152,6 @@ class Contribution < ActiveRecord::Base
   def send_receipt
     ContributionNotifier.deliver_send_receipt(self)
   end
-  handle_asynchronously :send_receipt
   
   private
     def requires_compliance_confirmation?
