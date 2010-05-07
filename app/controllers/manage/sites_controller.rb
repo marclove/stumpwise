@@ -22,10 +22,11 @@ class Manage::SitesController < ApplicationController
         @user_saved = @user.save
         @site = @user.owned_sites.build(params[:site])
         @site_saved = @site.save
+        @administratorship_created = Administratorship.create(:site => @site, :administrator => @user)
       end
     end
     
-    if @user_saved && @site_saved
+    if @user_saved && @site_saved && @administratorship_created
       redirect_to manage_sites_path
     else
       flash.now[:error] = t("site.create.fail")
