@@ -4,11 +4,11 @@ module Stumpwise
       class FacebookWidget < ::Liquid::Tag
         def initialize(name, params, tokens)
           @attributes = {
-            'stream' => '0',
+            'stream' => 'false',
             'connections' => '6',
-            'logobar' => '1',
+            'header' => 'true',
             'width' => '220',
-            'height' => '251'
+            'height' => '290'
           }
           params.scan(::Liquid::TagAttributes) do |var, value|
             @attributes[var] = value
@@ -21,12 +21,10 @@ module Stumpwise
         
         def render(context)
           if !context['site.facebook_page_id'].blank? && profile_id = context['site.facebook_page_id']
-            profile_attribute = profile_id.integer? ? "profile_id" : "name"
+            profile_attribute = profile_id.integer? ? "id" : "name"
             result = <<-DIV
             <div id=\"facebook_widget\">
-            	<script type="text/javascript" src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php/en_US"></script>
-            	<script type="text/javascript">FB.init("a9d92ba216c544f61a752bf756df9a10");</script>
-            	<fb:fan #{profile_attribute}="#{profile_id}" stream="#{@attributes['stream']}" connections="#{@attributes['connections']}" logobar="#{@attributes['logobar']}" width="#{@attributes['width']}" height="#{@attributes['height']}"></fb:fan>
+              <iframe src="http://www.facebook.com/plugins/likebox.php?#{profile_attribute}=#{profile_id}&amp;width=#{@attributes['width']}&amp;connections=#{@attributes['connections']}&amp;stream=#{@attributes['stream']}&amp;header=#{@attributes['header']}" scrolling="no" frameborder="0" allowTransparency="true" style="border:none; overflow:hidden; width:#{@attributes['width']}px; height:#{@attributes['height']}px;"></iframe>
             </div>
             DIV
           else

@@ -108,22 +108,18 @@ class LiquidTagsTest < ActionView::TestCase
     should "render a Facebook widget" do
       default_result = <<-DEFAULT_RESULT
             <div id=\"facebook_widget\">
-            	<script type="text/javascript" src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php/en_US"></script>
-            	<script type="text/javascript">FB.init("a9d92ba216c544f61a752bf756df9a10");</script>
-            	<fb:fan profile_id="1234567890" stream="0" connections="6" logobar="1" width="220" height="251"></fb:fan>
+              <iframe src="http://www.facebook.com/plugins/likebox.php?id=1234567890&amp;width=220&amp;connections=6&amp;stream=false&amp;header=true" scrolling="no" frameborder="0" allowTransparency="true" style="border:none; overflow:hidden; width:220px; height:290px;"></iframe>
             </div>
       DEFAULT_RESULT
       
       custom_result = <<-CUSTOM_RESULT
             <div id=\"facebook_widget\">
-            	<script type="text/javascript" src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php/en_US"></script>
-            	<script type="text/javascript">FB.init("a9d92ba216c544f61a752bf756df9a10");</script>
-            	<fb:fan name="Anthony.Woods" stream="1" connections="20" logobar="0" width="400" height="500"></fb:fan>
+              <iframe src="http://www.facebook.com/plugins/likebox.php?name=Anthony.Woods&amp;width=400&amp;connections=20&amp;stream=true&amp;header=false" scrolling="no" frameborder="0" allowTransparency="true" style="border:none; overflow:hidden; width:400px; height:500px;"></iframe>
             </div>
       CUSTOM_RESULT
       
       assert_template_result(default_result, "{% facebook_widget %}", {'site' => {'facebook_page_id' => '1234567890'}})
-      assert_template_result(custom_result, "{% facebook_widget stream:1 connections:20 logobar:0 width:400 height:500 %}", {'site' => {'facebook_page_id' => 'Anthony.Woods'}})
+      assert_template_result(custom_result, "{% facebook_widget stream:true connections:20 header:false width:400 height:500 %}", {'site' => {'facebook_page_id' => 'Anthony.Woods'}})
     end
   end
 end
