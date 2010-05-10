@@ -25,9 +25,11 @@ class Supporter < ActiveRecord::Base
   has_many :supporterships, :foreign_key => 'supporter_id'
   has_many :sites, :through => :supporterships
   
-  validates_length_of   :email, :within => 6..100,   :allow_blank => true
-  validates_format_of   :email, :with => RegEmailOk, :allow_blank => true
-  validates_presence_of :email, :if => Proc.new{|s| s.mobile_phone.blank?}
+  validates_length_of     :email, :within => 6..100,   :allow_blank => true
+  validates_format_of     :email, :with => RegEmailOk, :allow_blank => true
+  validates_presence_of   :email, :if => Proc.new{|s| s.mobile_phone.blank?}
+  validates_uniqueness_of :email
+  
   validates_length_of   :phone, :is => 10, :allow_blank => true,
                                 :message => 'must include the area code and be 10 digits long'
   validates_length_of   :mobile_phone, :is => 10, :allow_blank => true,
