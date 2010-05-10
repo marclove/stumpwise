@@ -14,6 +14,8 @@
 
 class LiquidTemplate < ActiveRecord::Base
   belongs_to :theme
+  validates_presence_of :theme_id, :type, :filename
+  validates_uniqueness_of :filename, :scope => [:theme_id]
 
   def parsed
     Liquid::Template.parse(self.content)
