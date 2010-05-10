@@ -1,43 +1,25 @@
 require 'test_helper'
 
 class ArticleTest < ActiveSupport::TestCase
-  context "Article:" do
-    setup do
-      @theme = Theme.create(:name => "theme")
-      @site = Site.create(:subdomain => "my_site", :theme => @theme)
-      @blog = Blog.create(:title => "Test Blog Title", :theme_id => @theme.id, :site_id => @site.id)
+  context "An article" do
+    should_belong_to :blog
+    should_validate_presence_of :parent_id # for blog relationship
+    should_have_readonly_attributes :show_in_navigation
+    should_validate_presence_of :body
+    
+    should "know its liquid name" do
+      assert_equal "article", Article.new.liquid_name
     end
-  
-    context "An instance of an Article" do
-      setup do
-        @valid_attributes = {
-          :title => "Test Article Title",
-          :theme_id => @theme.id,
-          :site_id => @site.id,
-          :blog_id => @blog.id
-        }
-        def new_article(options={})
-          Article.new(@valid_attributes.merge(options))
-        end
-      end
-      
-      should "save with valid attributes" do
-        assert_difference 'Article.count' do
-          article = new_article
-          article.save
-          assert article.errors.blank?
-        end
-      end
-      
-      should "require a blog_id" do
-        article = new_article(:blog_id => nil)
-        article.valid?
-        assert article.errors.on(:blog_id)
-      end
-      
-      should "belong_to a blog" do
-        assert_equal @blog, new_article.blog
-      end
+    
+    should "inherit its site_id from its blog" do
+      article = items(:blog).articles.create(:title => "Test Article", :body => "Article body")
+      assert_equal article.site_id, items(:blog).site_id
     end
-  end
+
+    should "be able to be transformed into a liquid drop" do
+      assert_instance_of ArticleDrop, Article.new.to_liquid
+    end
+
+    should_eventually "return its template"
+  end  
 end

@@ -25,10 +25,9 @@
 
 class Article < Item
   belongs_to :blog, :foreign_key => 'parent_id'
-
   attr_readonly :show_in_navigation
-  
-  validates_presence_of :body
+  validates_presence_of :parent_id, :body
+  before_validation_on_create :set_site
   
   def template
     @template ||= Template.find_by_filename(blog.article_template_name)
@@ -37,4 +36,9 @@ class Article < Item
   def to_liquid
     ArticleDrop.new(self)
   end
+  
+  private
+    def set_site
+      self[:site_id] = blog.site_id if blog
+    end
 end
