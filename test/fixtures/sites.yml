@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100426155751
+# Schema version: 20100503085721
 #
 # Table name: sites
 #
@@ -36,5 +36,65 @@
 #  time_zone                 :string(255)     default("Pacific Time (US & Canada)")
 #
 
-feingold:
-  subdomain: feingold
+woods:
+  id: 1
+  owner_id: 1
+  subdomain: woods
+  theme_id: 1
+  name: "Anthony Woods"
+  campaign_legal_name: "Woods For Congress"
+  campaign_email: tony@anthonywoods.com
+  time_zone: "Pacific Time (US & Canada)"
+
+two:
+  id: 2
+  owner_id: 1
+  subdomain: two
+  theme_id: 1
+  name: Two
+  campaign_legal_name: Two
+  campaign_email: two@me.com
+  time_zone: "Pacific Time (US & Canada)"
+
+without_eligibility_statement:
+  id: 3
+  owner_id: 1
+  subdomain: three
+  theme_id: 1
+  name: "Three"
+  campaign_legal_name: "Three"
+  campaign_email: three@me.com
+  time_zone: "Pacific Time (US & Canada)"
+
+with_eligibility_statement:
+  id: 4
+  owner_id: 1
+  subdomain: four
+  theme_id: 1
+  name: Anthony Woods
+  campaign_legal_name: Anthony Woods For Congress
+  campaign_email: four@me.com
+  time_zone: "Pacific Time (US & Canada)"
+  eligibility_statement: statement
+
+without_content:
+  id: 5
+  owner_id: 1
+  subdomain: without-content
+  theme_id: 1
+  name: Without Content
+  description: Newly created without any content
+  campaign_legal_name: New Site
+  campaign_email: person@me.com
+  time_zone: "Pacific Time (US & Canada)"
+
+with_content:
+  id: 6
+  owner_id: 1
+  subdomain: with-content
+  theme_id: 1
+  name: With Content
+  campaign_legal_name: With Content
+  campaign_email: person@me.com
+  time_zone: "Pacific Time (US & Canada)"
+

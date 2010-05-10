@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100426155751
+# Schema version: 20100503085721
 #
 # Table name: assets
 #
@@ -10,10 +10,12 @@
 #  updated_at :datetime
 #
 
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+for_other_site:
+  id: 1
+  site_id: 1
+  file: image.png
 
-# one:
-#   column: value
-#
-# two:
-#   column: value
+for_site_with_content:
+  id: 2
+  site_id: 6
+  file: image.png

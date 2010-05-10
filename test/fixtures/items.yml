@@ -1,0 +1,245 @@
+# == Schema Information
+# Schema version: 20100503085721
+#
+# Table name: items
+#
+#  id                    :integer         not null, primary key
+#  created_at            :datetime
+#  updated_at            :datetime
+#  type                  :string(255)
+#  created_by            :integer
+#  updated_by            :integer
+#  site_id               :integer
+#  parent_id             :integer
+#  lft                   :integer
+#  rgt                   :integer
+#  title                 :string(255)
+#  slug                  :string(255)
+#  permalink             :string(255)
+#  published             :boolean
+#  show_in_navigation    :boolean
+#  template_name         :string(255)
+#  body                  :text
+#  article_template_name :string(255)
+#
+
+root_1:
+  id: 1
+  site_id: 1
+  type: Page
+  title: Issues
+  slug: issues
+  permalink: issues
+  template_name: page.tpl
+  body: "Here's the issues page."
+  published: true
+  show_in_navigation: true
+  lft: 1
+  rgt: 10
+  
+child_1:
+  id: 2
+  site_id: 1
+  parent_id: 1
+  type: Page
+  title: Veterans
+  slug: veterans
+  permalink: issues/veterans
+  template_name: page.tpl
+  body: "On veterans"
+  published: true
+  show_in_navigation: true
+  lft: 2
+  rgt: 5
+
+child_2:
+  id: 3
+  site_id: 1
+  parent_id: 1
+  type: Page
+  title: Climate Change
+  slug: climate-change
+  permalink: issues/climate-change
+  template_name: page.tpl
+  body: "On climate change"
+  published: true
+  show_in_navigation: true
+  lft: 6
+  rgt: 7
+
+child_3:
+  id: 4
+  site_id: 1
+  parent_id: 1
+  type: Page
+  title: Healthcare
+  slug: healthcare
+  permalink: issues/healthcare
+  template_name: page.tpl
+  body: "On healthcare"
+  published: true
+  show_in_navigation: true
+  lft: 8
+  rgt: 9
+
+grandchild_1:
+  id: 5
+  site_id: 1
+  parent_id: 2
+  type: Page
+  title: Iraq
+  slug: iraq
+  permalink: issues/veterans/iraq
+  template_name: page.tpl
+  body: "On Iraq"
+  published: true
+  show_in_navigation: true
+  lft: 3
+  rgt: 4
+
+root_2:
+  id: 6
+  site_id: 1
+  type: Page
+  title: About
+  slug: about
+  permalink: about
+  template_name: page.tpl
+  body: "About the candidate."
+  published: true
+  show_in_navigation: true
+  lft: 11
+  rgt: 12
+
+root_3:
+  id: 7
+  site_id: 1
+  type: Page
+  title: District
+  slug: district
+  permalink: district
+  template_name: page.tpl
+  body: "The 10th Congressional District"
+  published: true
+  show_in_navigation: true
+  lft: 13
+  rgt: 14
+
+blog:
+  id: 8
+  site_id: 2
+  type: Blog
+  title: News
+  slug: news
+  permalink: news
+  template_name: blog.tpl
+  article_template_name: article.tpl
+  published: true
+  show_in_navigation: true
+  lft: 1
+  rgt: 2
+
+######
+# Items for sites(:with_content)
+news_blog:
+  id: 9
+  site_id: 6
+  type: Blog
+  title: News
+  slug: news
+  permalink: news
+  template_name: blog.tpl
+  article_template_name: article.tpl
+  published: true
+  show_in_navigation: true
+  lft: 1
+  rgt: 6
+
+news_blog_article_1:
+  id: 10
+  parent_id: 9
+  site_id: 6
+  type: Article
+  title: News Blog Article 1
+  slug: news-blog-article-1
+  permalink: news/news-blog-article-1
+  published: true
+  lft: 2
+  rgt: 3
+
+unpublished_news_blog_article:
+  id: 16
+  parent_id: 9
+  site_id: 6
+  type: Article
+  title: Unpublished News Blog Article
+  slug: unpublished-article
+  permalink: news/unpublished-article
+  published: false
+  lft: 4
+  rgt: 5
+
+unpublished_blog:
+  id: 11
+  site_id: 6
+  type: Blog
+  title: Endorsements
+  slug: unpublished-blog
+  permalink: unpublished-blog
+  template_name: blog.tpl
+  article_template_name: article.tpl
+  published: false
+  show_in_navigation: false
+  lft: 7
+  rgt: 10
+
+published_article_from_unpublished_blog:
+  id: 15
+  parent_id: 11
+  site_id: 6
+  type: Article
+  title: Endorsements Blog Article
+  slug: published-article
+  permalink: unpublished-blog/published-article
+  published: true
+  lft: 8
+  rgt: 9
+
+about_page:
+  id: 12
+  site_id: 6
+  type: Page
+  title: About
+  slug: about
+  permalink: about
+  template_name: page.tpl
+  published: true
+  show_in_navigation: true
+  lft: 11
+  rgt: 12
+
+issues_page:
+  id: 13
+  site_id: 6
+  type: Page
+  title: Issues
+  slug: issues
+  permalink: issues
+  template_name: page.tpl
+  published: true
+  show_in_navigation: true
+  lft: 13
+  rgt: 14
+
+unpublished_page:
+  id: 14
+  site_id: 6
+  type: Page
+  title: Unpublished Page
+  slug: unpublished-page
+  permalink: unpublished-page
+  template_name: page.tpl
+  published: false
+  show_in_navigation: false
+  lft: 15
+  rgt: 16

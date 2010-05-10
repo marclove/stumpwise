@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100426155751
+# Schema version: 20100503085721
 #
 # Table name: contributions
 #
@@ -29,19 +29,234 @@
 #  country                 :string(255)
 #  zip                     :string(255)
 #  phone                   :string(255)
-#  success                 :boolean
 #  test                    :boolean
-#  fraud_review            :boolean
-#  message                 :text
-#  authorization           :string(255)
-#  cvv_result              :text
-#  avs_result              :text
 #
 
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+pending:
+  id: 1
+  site_id: 4
+  status: pending
+  email: me@me.com
+  amount: 2000
+  first_name: Marc
+  last_name: Love
+  address1: 2400 Market Street
+  address2: Suite 1000
+  city: San Francisco
+  state: CA
+  zip: 94114
+  country: US
+  employer: ProgressBound
+  occupation: Engineering Bitch
 
-# one:
-#   column: value
-#
-# two:
-#   column: value
+approved:
+  id: 2
+  site_id: 4
+  status: approved
+  email: me@me.com
+  amount: 2000
+  first_name: Marc
+  last_name: Love
+  address1: 2400 Market Street
+  address2: Suite 1000
+  city: San Francisco
+  state: CA
+  zip: 94114
+  phone: 4085555555
+  country: US
+  employer: ProgressBound
+  occupation: Engineering Bitch
+  compliance_confirmation: true
+  compliance_statement: statement
+  ip: "99.99.99.99"
+  order_id: e1b949f653fcb52b8c93dc5b37e11277
+  card_type: visa
+  card_display_number: XXXX-XXXX-XXXX-1234
+  card_year: <%= Time.now.year + 1 %>
+  card_month: 1
+  test: true
+
+declined:
+  id: 3
+  site_id: 4
+  status: declined
+  email: me@me.com
+  amount: 2000
+  first_name: Marc
+  last_name: Love
+  address1: 2400 Market Street
+  address2: Suite 1000
+  city: San Francisco
+  state: CA
+  zip: 94114
+  country: US
+  employer: ProgressBound
+  occupation: Engineering Bitch
+  compliance_confirmation: true
+  compliance_statement: statement
+  ip: "99.99.99.99"
+  order_id: 3bc3d5b11c2526a681f8c21d4c5fe2fe
+  card_type: visa
+  card_display_number: XXXX-XXXX-XXXX-1234
+  card_year: <%= Time.now.year + 1 %>
+  card_month: 1
+  test: true
+
+refunded:
+  id: 4
+  site_id: 4
+  status: refunded
+  email: me@me.com
+  amount: 2000
+  first_name: Marc
+  last_name: Love
+  address1: 2400 Market Street
+  address2: Suite 1000
+  city: San Francisco
+  state: CA
+  zip: 94114
+  country: US
+  employer: ProgressBound
+  occupation: Engineering Bitch
+  compliance_confirmation: true
+  compliance_statement: statement
+  ip: "99.99.99.99"
+  order_id: d66cee59ca8e15542a6660852b7714cb
+  card_type: visa
+  card_display_number: XXXX-XXXX-XXXX-1234
+  card_year: <%= Time.now.year + 1 %>
+  card_month: 1
+  test: true
+
+with_content_approved_1:
+  id: 5
+  site_id: 6
+  status: approved
+  email: me@me.com
+  amount: 2000
+  first_name: Marc
+  last_name: Love
+  address1: 2400 Market Street
+  address2: Suite 1000
+  city: San Francisco
+  state: CA
+  zip: 94114
+  phone: 4085555555
+  country: US
+  employer: ProgressBound
+  occupation: Engineering Bitch
+  compliance_confirmation: true
+  compliance_statement: statement
+  ip: "99.99.99.99"
+  order_id: 15fc05f77d625ef138ffb92e338deb9e
+  card_type: visa
+  card_display_number: XXXX-XXXX-XXXX-1234
+  card_year: <%= Time.now.year + 1 %>
+  card_month: 1
+  test: true
+
+with_content_approved_2:
+  id: 6
+  site_id: 6
+  status: approved
+  email: me@me.com
+  amount: 2000
+  first_name: Marc
+  last_name: Love
+  address1: 2400 Market Street
+  address2: Suite 1000
+  city: San Francisco
+  state: CA
+  zip: 94114
+  phone: 4085555555
+  country: US
+  employer: ProgressBound
+  occupation: Engineering Bitch
+  compliance_confirmation: true
+  compliance_statement: statement
+  ip: "99.99.99.99"
+  order_id: 980f384db92f8378a893bf90345a60bb
+  card_type: visa
+  card_display_number: XXXX-XXXX-XXXX-1234
+  card_year: <%= Time.now.year + 1 %>
+  card_month: 1
+  test: true
+
+with_content_approved_3:
+  id: 7
+  site_id: 6
+  status: approved
+  email: me@me.com
+  amount: 2000
+  first_name: Marc
+  last_name: Love
+  address1: 2400 Market Street
+  address2: Suite 1000
+  city: San Francisco
+  state: CA
+  zip: 94114
+  phone: 4085555555
+  country: US
+  employer: ProgressBound
+  occupation: Engineering Bitch
+  compliance_confirmation: true
+  compliance_statement: statement
+  ip: "99.99.99.99"
+  order_id: 97a19eb547f3a7aae4f8ffb63b3eca8d
+  card_type: visa
+  card_display_number: XXXX-XXXX-XXXX-1234
+  card_year: <%= Time.now.year + 1 %>
+  card_month: 1
+  test: true
+
+with_content_declined:
+  id: 8
+  site_id: 6
+  status: declined
+  email: me@me.com
+  amount: 2000
+  first_name: Marc
+  last_name: Love
+  address1: 2400 Market Street
+  address2: Suite 1000
+  city: San Francisco
+  state: CA
+  zip: 94114
+  country: US
+  employer: ProgressBound
+  occupation: Engineering Bitch
+  compliance_confirmation: true
+  compliance_statement: statement
+  ip: "99.99.99.99"
+  order_id: a3a417ebaf2a67bf28a20b45f855ace4
+  card_type: visa
+  card_display_number: XXXX-XXXX-XXXX-1234
+  card_year: <%= Time.now.year + 1 %>
+  card_month: 1
+  test: true
+
+with_content_refunded:
+  id: 9
+  site_id: 6
+  status: refunded
+  email: me@me.com
+  amount: 2000
+  first_name: Marc
+  last_name: Love
+  address1: 2400 Market Street
+  address2: Suite 1000
+  city: San Francisco
+  state: CA
+  zip: 94114
+  country: US
+  employer: ProgressBound
+  occupation: Engineering Bitch
+  compliance_confirmation: true
+  compliance_statement: statement
+  ip: "99.99.99.99"
+  order_id: 26b174135f13e1b1f99e3a9861f629de
+  card_type: visa
+  card_display_number: XXXX-XXXX-XXXX-1234
+  card_year: <%= Time.now.year + 1 %>
+  card_month: 1
+  test: true

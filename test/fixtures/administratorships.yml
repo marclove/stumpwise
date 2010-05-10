@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100426155751
+# Schema version: 20100503085721
 #
 # Table name: administratorships
 #
@@ -8,10 +8,26 @@
 #  site_id          :integer
 #
 
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+one:
+  administrator_id: 2
+  site_id: 1
 
-# one:
-#   column: value
-#
-# two:
-#   column: value
+two:
+  administrator_id: 2
+  site_id: 2
+
+three:
+  administrator_id: 2
+  site_id: 3
+
+four:
+  administrator_id: 2
+  site_id: 4
+
+five:
+  administrator_id: 2
+  site_id: 5
+
+six:
+  administrator_id: 2
+  site_id: 6

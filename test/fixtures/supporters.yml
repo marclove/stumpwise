@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100426155751
+# Schema version: 20100503085721
 #
 # Table name: supporters
 #
@@ -21,10 +21,20 @@
 #  mobile_phone           :string(255)
 #
 
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-# one:
-#   column: value
-#
-# two:
-#   column: value
+with_content_supporter_1:
+  id: 1
+  email: marclove@gmail.com
+  first_name: Marc
+  last_name: Love
+  
+with_content_supporter_2:
+  id: 2
+  email: jeffsuch@gmail.com
+  first_name: Jeff
+  last_name: Such
+  
+other_site_supporter:
+  id: 3
+  email: me@other.com
+  first_name: John
+  last_name: Doe

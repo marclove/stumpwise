@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100426155751
+# Schema version: 20100503085721
 #
 # Table name: theme_assets
 #
@@ -8,10 +8,12 @@
 #  file     :string(255)
 #
 
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-# one:
-#   column: value
+# == Schema Information
+# Schema version: 20100503085721
 #
-# two:
-#   column: value
+# Table name: theme_assets
+#
+#  id       :integer         not null, primary key
+#  theme_id :integer
+#  file     :string(255)
+#

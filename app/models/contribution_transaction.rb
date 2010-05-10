@@ -1,3 +1,21 @@
+# == Schema Information
+# Schema version: 20100503085721
+#
+# Table name: contribution_transactions
+#
+#  id              :integer         not null, primary key
+#  contribution_id :integer
+#  amount          :integer
+#  success         :boolean
+#  reference       :string(255)
+#  message         :string(255)
+#  action          :string(255)
+#  params          :text
+#  test            :boolean
+#  created_at      :datetime
+#  updated_at      :datetime
+#
+
 class ContributionTransaction < ActiveRecord::Base
   belongs_to :contribution
   serialize :params

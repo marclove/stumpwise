@@ -1,0 +1,41 @@
+# == Schema Information
+# Schema version: 20100503085721
+#
+# Table name: liquid_templates
+#
+#  id         :integer         not null, primary key
+#  theme_id   :integer         not null
+#  type       :string(255)     not null
+#  filename   :string(255)     not null
+#  content    :text
+#  created_at :datetime
+#  updated_at :datetime
+#
+
+layout:
+  id: 1
+  theme_id: 1
+  type: Layout
+  filename: layout.tpl
+  content: content
+
+page:
+  id: 2
+  theme_id: 1
+  type: Template
+  filename: page.tpl
+  content: content
+
+blog:
+  id: 3
+  theme_id: 1
+  type: Template
+  filename: blog.tpl
+  content: content
+
+article:
+  id: 4
+  theme_id: 1
+  type: Template
+  filename: article.tpl
+  content: content
