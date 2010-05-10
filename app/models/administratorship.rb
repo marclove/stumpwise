@@ -11,4 +11,5 @@
 class Administratorship < ActiveRecord::Base
   belongs_to :administrator, :class_name => 'User'
   belongs_to :site
+  validates_presence_of :administrator_id, :site_id
 end
