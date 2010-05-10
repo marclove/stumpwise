@@ -61,7 +61,7 @@ class ApplicationController < ActionController::Base
     def require_authorized_user
       if require_user && current_site_valid? && !current_site.authorized_user?(current_user)
         flash[:error] = "You are not an authorized user for this site"
-        redirect_to :back
+        redirect_to admin_login_url
         return false
       end
     end
