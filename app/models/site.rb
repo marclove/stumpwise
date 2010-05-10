@@ -82,6 +82,8 @@ class Site < ActiveRecord::Base
   validates_format_of     :campaign_email, :with => RegEmailOk, :allow_blank => false
   validates_presence_of   :name, :campaign_legal_name, :time_zone, :owner_id
   
+  after_create :add_to_campaign_monitor
+  
   def sms_recipient_numbers
     supporters.all(:select => 'supporters.mobile_phone', :conditions => ['supporterships.receive_sms = ?', true]).collect(&:mobile_phone)
   end
@@ -155,5 +157,9 @@ class Site < ActiveRecord::Base
     
     def downcase_custom_domain
       self.custom_domain.downcase! if self.custom_domain
+    end
+    
+    def add_to_campaign_monitor
+      Delayed::Job.enqueue CreateCampaignMonitorClientJob.new(self)
     end
 end
