@@ -84,6 +84,11 @@ class Site < ActiveRecord::Base
   
   after_create :add_to_campaign_monitor
   
+  def campaign_email=(new_email)
+    new_email.downcase! unless new_email.nil?
+    write_attribute(:campaign_email, new_email)
+  end  
+  
   def sms_recipient_numbers
     supporters.all(:select => 'supporters.mobile_phone', :conditions => ['supporterships.receive_sms = ?', true]).collect(&:mobile_phone)
   end
