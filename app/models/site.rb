@@ -68,7 +68,7 @@ class Site < ActiveRecord::Base
   
   before_validation       :downcase_subdomain
   before_validation       :downcase_custom_domain
-  validates_uniqueness_of :subdomain
+  validates_uniqueness_of :subdomain, :case_sensitive => false
   validates_length_of     :subdomain, :within => 3..63,
                           :message => "is required and must be between 3 and 63 characters in length."
   validates_format_of     :subdomain, :with => /\A([a-z0-9]([a-z0-9\-_]{0,61}[a-z0-9])?)+\Z/,
