@@ -80,7 +80,7 @@ class Site < ActiveRecord::Base
                           :message => 'is invalid. Please use the following format: "example.com"'
   validates_length_of     :campaign_email, :within => 6..100,   :allow_blank => false
   validates_format_of     :campaign_email, :with => RegEmailOk, :allow_blank => false
-  validates_presence_of   :name, :campaign_legal_name, :time_zone
+  validates_presence_of   :name, :campaign_legal_name, :time_zone, :owner_id
   
   def sms_recipient_numbers
     supporters.all(:select => 'supporters.mobile_phone', :conditions => ['supporterships.receive_sms = ?', true]).collect(&:mobile_phone)
