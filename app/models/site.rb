@@ -140,7 +140,7 @@ class Site < ActiveRecord::Base
   end
   
   def self.generate_subdomain(name)
-    name.to_s.parameterize('_').scan(/([a-zA-Z0-9]([a-zA-Z0-9\-_]{0,61}[a-zA-Z0-9])?)+/).flatten[0]
+    name.to_s.downcase.parameterize('_').scan(/([a-zA-Z0-9]([a-zA-Z0-9\-_]{0,61}[a-zA-Z0-9])?)/).flatten[0]
   end
   
   def supporter_list
