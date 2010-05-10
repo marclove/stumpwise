@@ -16,4 +16,6 @@ class Theme < ActiveRecord::Base
   has_many :layouts
   has_many :templates
   has_many :assets, :class_name => 'ThemeAsset'
+  
+  validates_presence_of :name
 end
