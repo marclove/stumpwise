@@ -18,7 +18,7 @@ class LiquidTagsTest < ActionView::TestCase
   context "Custom tags" do
     setup do 
       @context = Context.new()
-      @item = Page.create(:title => 'News', :slug => 'news', :body => "test")
+      @item = Page.make(:title => 'News', :slug => 'news', :body => "test")
     end
     
     should "link to an item by passing its liquid object" do
