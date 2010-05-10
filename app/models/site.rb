@@ -117,10 +117,6 @@ class Site < ActiveRecord::Base
     "#{protocol}://secure.#{HOST}/#{subdomain}/contribute"
   end
   
-  def assets
-    Asset.all(:conditions => {:site_id => self.id.to_s}, :order => 'created_at desc')
-  end
-  
   def call_render(object, default_layout = nil, assigns = {}, controller = nil, options = {})
     assigns.update('site' => to_liquid, object.liquid_name => object.to_liquid)
     options.reverse_merge!(:layout => true)
