@@ -5,13 +5,17 @@ require 'test_help'
 require 'shoulda'
 require 'matchy'
 require 'blueprints'
-require "webrat"
+require 'fakeweb'
+require 'webrat'
+require 'authlogic/test_case'
 
 Webrat.configure do |config|
   config.mode = :rails
 end
 
 class ActiveSupport::TestCase
+  include ActiveMerchant::Billing
+
   # Transactional fixtures accelerate your tests by wrapping each test method
   # in a transaction that's rolled back on completion.  This ensures that the
   # test database remains unchanged so your fixtures don't have to be reloaded
@@ -41,7 +45,9 @@ class ActiveSupport::TestCase
   #
   # Note: You'll currently still have to declare fixtures explicitly in integration tests
   # -- they do not yet inherit this setting
-  #fixtures :all
+  fixtures :all
+  
+  setup { Sham.reset }
 
   def compact_html(str)
     str.squish!.gsub(/> </, '><')
@@ -50,5 +56,58 @@ class ActiveSupport::TestCase
   def assert_html_equal(html1,html2)
     assert_equal compact_html(html1), compact_html(html2)
   end
-end
+  
+  def assert_blank(attribute)
+    assert attribute.blank?, "#{attribute} was expected to be blank"
+  end
+  
+  def assert_not_blank(attribute)
+    assert !attribute.blank?, "#{attribute} should have had a value, but was blank"
+  end
+  
+  def make_site_with_pages
+    Site.make do |site|
+      3.times { site.pages.make }
+    end
+  end
+  
+  def address(options = {})
+    { :name     => 'Marc Love',
+      :address1 => '2400 Market Street',
+      :address2 => 'Suite 1000',
+      :city     => 'San Francisco', 
+      :state    => 'CA',
+      :country  => 'US',
+      :zip      => '94114'
+    }.update(options)
+  end
+  
+  def credit_card_hash(options = {})
+    { :number     => '1',
+      :first_name => 'Marc',
+      :last_name  => 'Love',
+      :month      => '1',
+      :year       => "#{ Time.now.year + 1 }",
+      :verification_value => '123',
+      :type       => 'visa' 
+    }.update(options)
+  end
 
+  def credit_card(options = {})
+    ActiveMerchant::Billing::CreditCard.new(credit_card_hash(options))
+  end
+  
+  def setup_session_domain
+    @request.env['rack.session.options'] = {:domain => ".localdev.com"}
+  end
+  
+  def login_as(fixture_name)
+    setup_session_domain
+    activate_authlogic
+    UserSession.create(users(fixture_name))
+  end
+  
+  def on_site(fixture_name)
+    @controller.stubs(:current_site).returns(sites(fixture_name))
+  end
+end
