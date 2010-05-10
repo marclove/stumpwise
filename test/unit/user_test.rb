@@ -1,82 +1,48 @@
 require 'test_helper'
  
 class UserTest < ActiveSupport::TestCase
-  should "validate presence of email" do
-    user = User.new
-    user.valid?
-    assert user.errors.on(:email)
-    user.email = 'foo@bar.com'
-    user.valid?
-    assert !user.errors.on(:email)
+  setup do
+    @existing_user = User.make
   end
+
+  should_validate_presence_of :first_name, :last_name
+
+  # Relationships
+  should_have_many :owned_sites, :administered_sites
+  should_have_many :administratorships, :dependent => :destroy
+
+  # Mass assignment protections
+  should_not_allow_mass_assignment_of :super_admin
+  should_allow_mass_assignment_of :email, :first_name, :last_name, :password, :password_confirmation
   
-  should "validate length of email" do
-    user = User.new
-    user.email = 'a@a'
-    user.valid?
-    assert user.errors.on(:email)
-    user.email = 'r@a.wk'
-    user.valid?
-    assert !user.errors.on(:email)
-  end
-  
+  # Email formatting & uniqueness
+  should_ensure_length_in_range :email, 6..100
+  should_allow_values_for :email, "a@b.ly", "test@john.co.uk"
+  should_not_allow_values_for :email, "notanemail", "no email"
+  should_validate_uniqueness_of :email, :case_sensitive => false
+
   should "always store email as lower case" do
-    user = User.new
-    user.email = 'F@FOOBAR.COM'
-    user.email.should == 'f@foobar.com'
+    u = User.make(:email => "F@FOOBAR.COM")
+    u.email.should == 'f@foobar.com'
   end
-  
-  should "be able to set user's reset password code" do
-    user = User.make
-    user.reset_password_code.should be_nil
-    user.reset_password_code_until.should be_nil
-    user.set_password_code!
-    user.reset_password_code.should_not be_nil
-    user.reset_password_code_until.should_not be_nil
-  end
-  
-  context "Authentication" do
-    should 'work with existing email and correct password' do
-      user = User.make
-      User.authenticate(user.email, 'testing').should == user
-    end
-    
-    should 'work with existing email (case insensitive) and password' do
-      user = User.make
-      User.authenticate(user.email.upcase, 'testing').should == user
-    end
-    
-    should 'not work with existing email and incorrect password' do
-      User.authenticate('john@doe.com', 'foobar').should be_nil
-    end
-    
-    should 'not work with non-existant email' do
-      User.authenticate('foo@bar.com', 'foobar').should be_nil
+
+  should "require password to be at least 8 characters long" do
+    assert_no_difference 'User.count' do
+      u = User.make_unsaved(:password => "1234567", :password_confirmation => "1234567")
+      u.save
+      assert u.errors.on(:password)
+      assert u.errors.on(:password_confirmation)
     end
   end
+
+  should "require password to be confirmed" do
+    u = User.make_unsaved(:password_confirmation => "")
+    u.save
+    assert u.errors.on(:password_confirmation)
+  end
   
-  context "password" do
-    should 'be required if crypted password is blank' do
-      user = User.new
-      user.valid?
-      assert user.errors.on(:password)
-    end
-    
-    should 'not be required if crypted password is present' do
-      user = User.new
-      user.crypted_password = BCrypt::Password.create('foobar')
-      user.valid?
-      assert !user.errors.on(:password)
-    end
-    
-    should "validate the length of password" do
-      user = User.new
-      user.password = '1234'
-      user.valid?
-      assert user.errors.on(:password)
-      user.password = '123456'
-      user.valid?
-      assert !user.errors.on(:password)
-    end
+  should "return a user's full name" do
+    u = User.make(:first_name => "Marc", :last_name => "Love")
+    assert_equal "Marc Love", u.name
   end
 end

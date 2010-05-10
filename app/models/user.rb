@@ -34,9 +34,10 @@ class User < ActiveRecord::Base
   end
   
   has_many :owned_sites,        :foreign_key => 'owner_id', :class_name => 'Site'
-  has_many :administratorships, :foreign_key => 'administrator_id'
+  has_many :administratorships, :foreign_key => 'administrator_id', :dependent => :destroy
   has_many :administered_sites, :through => :administratorships, :source => :site
   
+  validates_uniqueness_of :email, :case_sensitive => false
   validates_length_of :email, :within => 6..100, :allow_blank => false
   validates_format_of :email, :with => RegEmailOk, :allow_blank => false
   validates_presence_of :first_name, :last_name, {:message => "is required"}
