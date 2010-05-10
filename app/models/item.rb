@@ -26,28 +26,20 @@
 class Item < ActiveRecord::Base
   RESERVED_PERMALINKS = ["contribute", "join", "contributions", "contributions/new", "supporters", "supporters/new", "admin"]
   
-  acts_as_nested_set :scope => :site
+  acts_as_nested_set(:scope => :site, :dependent => :destroy)
   alias_method :previous, :left_sibling
   alias_method :next,     :right_sibling
 
   belongs_to :site
-  belongs_to :parent, :class_name => 'Item'
-  has_many :children, :class_name => 'Item', :foreign_key => 'parent_id', :order => 'lft ASC'
   
   before_validation :set_slug, :set_permalink
-  after_save        :update_permalinks_on_descendants
-  before_destroy    :ensure_not_parent
+  after_save :update_permalinks_on_descendants
+  after_move :update_permalink, :update_permalinks_on_descendants
   
-  validates_presence_of   :title, :message => "A title is required."
-  validates_presence_of   :slug,  :message => "A permalink is required."
-  validates_uniqueness_of :slug, :scope => [:site_id, :parent_id],
-                          :case_sensitive => false,
-                          :message => "An item on your site is already using this permalink."
-  validates_uniqueness_of :permalink, :scope => :site_id,
-                          :case_sensitive => false,
-                          :message => "An item on your site is already using this permalink."
-  validates_exclusion_of  :permalink, :in => RESERVED_PERMALINKS,
-                          :message => "This is a reserved permalink. Please change it to something else."
+  validates_presence_of   :title, :slug, :site_id
+  validates_uniqueness_of :slug, :scope => [:site_id, :parent_id], :case_sensitive => false
+  validates_uniqueness_of :permalink, :scope => :site_id, :case_sensitive => false
+  validates_exclusion_of  :permalink, :in => RESERVED_PERMALINKS
   
   
   def liquid_name
@@ -63,21 +55,25 @@ class Item < ActiveRecord::Base
   end
   
   def update_permalink
-    self.update_attributes({:permalink => default_permalink})
+    #puts "Updated: was #{permalink}, now #{default_permalink}"
+    update_attribute(:permalink, default_permalink)
+  end
+  
+  def destroy
+    raise Stumpwise::ParentItemDestroyError unless children.empty?
+    super
   end
   
   private
-    def ensure_not_parent
-      children.size == 0
-    end
-  
     def set_slug
       return true if !slug.blank?
       self.slug = self.title.parameterize if self.title
     end
     
     def set_permalink
-      self.permalink = default_permalink
+      if self.permalink.blank? || (!new_record? && slug_changed?)
+        self.permalink = default_permalink
+      end
     end
     
     def default_permalink
