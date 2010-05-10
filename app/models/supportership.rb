@@ -13,4 +13,5 @@
 class Supportership < ActiveRecord::Base
   belongs_to :supporter
   belongs_to :site
+  validates_presence_of :supporter_id, :site_id
 end

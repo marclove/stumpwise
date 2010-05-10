@@ -1,8 +1,6 @@
 require 'test_helper'
 
 class SupportershipTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
-  end
+  should_belong_to :supporter, :site
+  should_validate_presence_of :supporter_id, :site_id
 end
