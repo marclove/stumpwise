@@ -2,7 +2,7 @@
 %html
 	%head
 		%meta{:charset => "utf-8"}
-		%title= "stumpwise :: #{@site.name}"
+		%title= "stumpwise :: #{current_site.name}"
 		=authenticity_token
 		/[if lt IE 9]
 			=javascript_include_tag "http://ie7-js.googlecode.com/svn/version/2.1(beta3)/IE9.js"
@@ -15,7 +15,7 @@
 		#container
 			#header
 				%h1 Stumpwise
-				%h2= @site.name || ''
+				%h2= current_site.name || ''
 				#account-nav
 					-if super_admin?
 						=link_to 'Administration Panel', manage_root_url(:subdomain => "admin")
@@ -24,7 +24,7 @@
 						=link_to 'Users', '/'
 						%span &#124;
 					
-					=link_to 'View Site', @site.root_url
+					=link_to 'View Site', current_site.root_url
 					%span &#124;
 					=link_to 'My Profile', edit_admin_profile_path
 					%span &#124;
