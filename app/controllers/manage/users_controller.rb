@@ -5,7 +5,7 @@ class Manage::UsersController < ApplicationController
   before_filter :get_user, :only => [:edit, :update, :destroy]
 
   def index
-    @page = params[:page] || 1
+    @page = params[:page] || "1"
     @users = User.paginate(
       :per_page => 10,
       :page => @page,
@@ -55,7 +55,13 @@ class Manage::UsersController < ApplicationController
   end
   
   def destroy
-    @user.destroy
+    if @user.destroy
+      flash[:notice] = t("user.destroy.success")
+      redirect_to manage_users_path
+    else
+      flash[:error] = t("user.destroy.fail")
+      redirect_to :back
+    end
   end
   
   private
