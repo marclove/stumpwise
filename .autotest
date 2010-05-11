@@ -1,0 +1,90 @@
+require "autotest/restart"
+require 'autotest/fsevent'
+require 'redgreen/autotest'
+require 'autotest/growl'
+
+Autotest::Growl::hide_label = true
+Autotest.add_hook :initialize do |at|
+
+  at.add_exception %r%^\./(?:db|doc|log|public|script|tmp|vendor)%
+
+  at.clear_mappings
+
+=begin
+  at.self.add_mapping(/^lib\/.*\.rb$/) do |filename, _|
+    impl = File.basename(filename, '.rb')
+    at.files_matching %r%^test/unit/#{impl}_test.rb$%
+    # TODO: (unit|functional|integration) maybe?
+  end
+=end
+
+  at.add_mapping %r%^test/fixtures/(.*)s.yml% do |_, m|
+    ["test/unit/#{m[1]}_test.rb",
+     "test/controllers/#{m[1]}_controller_test.rb",
+     "test/views/#{m[1]}_view_test.rb",
+     "test/functional/#{m[1]}_controller_test.rb"]
+  end
+
+  at.add_mapping %r%^test/(unit|integration|controllers|views|functional)/.*rb$% do |filename, _|
+    filename
+  end
+
+  at.add_mapping %r%^app/models/(.*)\.rb$% do |_, m|
+    "test/unit/#{m[1]}_test.rb"
+  end
+
+  at.add_mapping %r%^app/helpers/application_helper.rb% do
+    at.files_matching %r%^test/(views|functional)/.*_test\.rb$%
+  end
+
+  at.add_mapping %r%^app/helpers/(.*)_helper.rb% do |_, m|
+    if m[1] == "application" then
+      at.files_matching %r%^test/(views|functional)/.*_test\.rb$%
+    else
+      ["test/views/#{m[1]}_view_test.rb",
+       "test/functional/#{m[1]}_controller_test.rb"]
+    end
+  end
+
+  at.add_mapping %r%^app/views/(.*)/% do |_, m|
+    ["test/views/#{m[1]}_view_test.rb",
+     "test/functional/#{m[1]}_controller_test.rb"]
+  end
+
+  at.add_mapping %r%^app/controllers/(.*)\.rb$% do |_, m|
+    if m[1] == "application" then
+      at.files_matching %r%^test/(controllers|views|functional)/.*_test\.rb$%
+    else
+      ["test/controllers/#{m[1]}_test.rb",
+       "test/functional/#{m[1]}_test.rb"]
+    end
+  end
+
+  at.add_mapping %r%^app/views/layouts/% do
+    "test/views/layouts_view_test.rb"
+  end
+
+  at.add_mapping %r%^config/routes.rb$% do # FIX:
+    at.files_matching %r%^test/(controllers|views|functional)/.*_test\.rb$%
+  end
+
+  at.add_mapping %r%^test/test_helper.rb|test/blueprints.rb|config/((boot|environment(s/test)?).rb|database.yml)% do
+    at.files_matching %r%^test/(unit|controllers|views|functional)/.*_test\.rb$%
+  end
+
+
+  #
+  # Custom Mappings
+  #  
+  # TODO: lib/stumpwise/domains.rb
+  #       lib/stumpwise/liquid/liquid_template.rb
+  #       app/drops/*.rb => test/unit/drops/*_test.rb
+    
+  at.add_mapping %r%^lib/stumpwise/liquid/tags/(.*)\.rb$% do |_, m|
+    "test/unit/helpers/liquid_tags_test.rb"
+  end
+
+  at.add_mapping %r%^lib/stumpwise/liquid/filters\.rb$% do |_, m|
+    "test/unit/helpers/liquid_filters_test.rb"
+  end
+end

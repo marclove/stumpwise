@@ -7,3 +7,4 @@ public/uploads
 db/development.sqlite3
 db/production.sqlite3
 db/test.sqlite3
+autotest.rb
