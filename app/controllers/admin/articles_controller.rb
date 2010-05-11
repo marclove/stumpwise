@@ -33,6 +33,7 @@ class Admin::ArticlesController < ApplicationController
     end
   end
   
+=begin
   def publish
     if @article = @blog.articles.find(params[:id])
       @article.update_attributes(:published => true)
@@ -44,6 +45,7 @@ class Admin::ArticlesController < ApplicationController
       @article.update_attributes(:published => false)
     end
   end
+=end
   
   def destroy
     @article = @blog.articles.find(params[:id])
