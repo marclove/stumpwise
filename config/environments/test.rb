@@ -35,6 +35,7 @@ config.middleware.use "SetCookieDomain", ".localdev.com"
 
 config.gem 'machinist'
 config.gem 'shoulda', '2.10.3'
+config.gem 'factory_girl'
 config.gem 'webrat'
 config.gem "fakeweb"
 
