@@ -24,7 +24,7 @@ class Admin::SupportersController < ApplicationController
     report.rewind
     respond_to do |format|
       format.csv { 
-        send_data report.string, :type => "application/csv", :filename => "Supporters - #{Time.now.strftime('%Y-%m-%d-%H:%M')}.csv"
+        send_data report.string, :type => "text/csv", :filename => "Supporters - #{Time.now.strftime('%Y-%m-%d-%H:%M')}.csv"
       }
     end
   end
@@ -32,6 +32,6 @@ class Admin::SupportersController < ApplicationController
   def destroy
     @supporter = current_site.supporters.find(params[:id])
     @supporter.destroy
-    redirect_to :back #admin_supporters
+    redirect_to admin_supporters_path
   end
 end
