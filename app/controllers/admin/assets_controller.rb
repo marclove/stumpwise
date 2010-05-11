@@ -12,13 +12,18 @@ class Admin::AssetsController < ApplicationController
   def create
     @asset = Asset.new(params[:asset])
     @asset.site_id = current_site.id
-    @asset.save
-    redirect_to :action => :index
+    if @asset.save
+      flash[:notice] = t('asset.create.success')
+      redirect_to admin_assets_path
+    else
+      flash.now[:error] = t('asset.create.fail')
+      render :action => 'new'
+    end
   end
   
   def destroy
-    @asset = Asset.find(params[:id])
+    @asset = current_site.assets.find(params[:id])
     @asset.destroy
-    redirect_to :back
+    redirect_to admin_assets_path
   end
 end
