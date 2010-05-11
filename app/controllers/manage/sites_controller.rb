@@ -52,7 +52,7 @@ class Manage::SitesController < ApplicationController
       flash[:notice] = t("site.destroy.success")
       redirect_to manage_sites_path
     else
-      flash.now[:error] = t("site.destroy.fail")
+      flash[:error] = t("site.destroy.fail")
       redirect_to :back
     end
   end
