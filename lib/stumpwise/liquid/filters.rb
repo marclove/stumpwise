@@ -175,7 +175,7 @@ module Stumpwise
       end
       
       def date(time, format_string)
-        return nil unless time.is_a?(String)
+        return nil unless (time.is_a?(String) || time.is_a?(Time))
         return nil if time.blank?
         time = time.is_a?(String) ? Time.parse(time) : time
         time.strftime(format_string)
