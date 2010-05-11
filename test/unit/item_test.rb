@@ -24,6 +24,11 @@ class ItemTest < ActiveSupport::TestCase
       assert Item.leaves.include? items(:root_2)
       assert Item.leaves.include? items(:root_3)
     end
+    
+    should "have a named scope of published items" do
+      assert Item.published.include?(items(:news_blog)) # published
+      assert !Item.published.include?(items(:unpublished_blog))
+    end
   end
   
   context "An item" do

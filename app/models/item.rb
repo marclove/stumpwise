@@ -32,6 +32,8 @@ class Item < ActiveRecord::Base
 
   belongs_to :site
   
+  named_scope :published, :conditions => {:published => true}
+  
   before_validation :set_slug, :set_permalink
   after_save :update_permalinks_on_descendants
   after_move :update_permalink, :update_permalinks_on_descendants
