@@ -14,7 +14,6 @@ en:
 
   contribution:
     process:
-      success: "Your contribution has been processed. Thank you for your support!"
       fail:
         invalid_record: "Your contribution could not be processed. Please correct the highlighted fields and try again."
         amount: "The contribution amount given was invalid."
@@ -67,7 +66,10 @@ en:
       success: "Your changes have been saved."
       fail: "There was an error. Your changes could not be saved."
 
-
+  asset:
+    create:
+      success: "Your asset has been uploaded."
+      fail: "There was an error. Your asset could not be uploaded."
 
 
   # Attributes names common to most models
@@ -118,7 +120,11 @@ en:
       #           blank: "This is a custom blank message for User login"
       # Will define custom blank validation message for User model and 
       # custom blank validation message for login attribute of User model.
-      #models:
+      models:
+        contribution:
+          attributes:
+            amount:
+              greater_than: "must be at least $1.00"
         
     # Translate model names. Used in Model.human_name().
     #models:
