@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
     
     # called from the non-administrative controllers instead of ActionController::Base#render
     def render_liquid_template_for(object, assigns = {})
-      return render_404 unless object
+      render_404 unless object
       headers["Content-Type"] ||= 'text/html; charset=utf-8'
       status = (assigns.delete(:status) || :ok)
       render :status => status, :text => current_site.call_render(object, nil, assigns)
@@ -32,6 +32,7 @@ class ApplicationController < ActionController::Base
     
     def render_404
       render :file => 'public/404.html', :status => 404
+      return
     end
     
     def current_user_session
