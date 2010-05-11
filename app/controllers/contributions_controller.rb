@@ -24,7 +24,6 @@ class ContributionsController < ApplicationController
     if @credit_card.valid? && @contribution.save
       response = @contribution.process(@credit_card)
       if response.success?
-        #flash[:notice] = t('contribution.process.success')
         redirect_to "/#{@site.subdomain}/contribute/thanks/#{@contribution.order_id}"
       else
         flash.now[:error] = "#{t('contribution.process.fail.rejected')} #{response.message}"
@@ -38,7 +37,9 @@ class ContributionsController < ApplicationController
   end
   
   def thanks
-    @contribution = Contribution.find_by_order_id(params[:order_id])
+    unless @contribution = @site.contributions.find_by_order_id(params[:order_id])
+      raise ActiveRecord::RecordNotFound
+    end
   end
   
   private
