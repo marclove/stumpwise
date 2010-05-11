@@ -21,7 +21,7 @@ class StumpwiseController < ApplicationController
     end
     
     def render_blog
-      @articles = @item.articles.published.paginate(:page => page, :per_page => per_page)
+      @articles = @item.articles.published.paginate(:page => params[:page], :per_page => params[:per_page])
       render_liquid_template_for(@item, {
         'articles' => @articles.map(&:to_liquid),
         'page' => @articles.current_page,
@@ -35,13 +35,5 @@ class StumpwiseController < ApplicationController
     
     def render_article
       render_liquid_template_for(@item)
-    end
-
-    def page
-      params[:page] || 1
-    end
-
-    def per_page
-      params[:per_page] || 5
     end
 end

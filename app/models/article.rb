@@ -29,6 +29,10 @@ class Article < Item
   validates_presence_of :parent_id, :body
   before_validation_on_create :set_site
   
+  def self.per_page
+    5
+  end
+  
   def template
     @template ||= Template.find_by_filename(blog.article_template_name)
   end
