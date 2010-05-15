@@ -7,9 +7,13 @@ class SetCookieDomain
   end
  
   def call(env)
-    host = env["HTTP_HOST"].split(':').first
-    env["rack.session.options"][:domain] = custom_domain?(host) ? ".#{host}" : "#{@default_domain}"
-    @app.call(env)
+    if env["HTTP_HOST"]
+      host = env["HTTP_HOST"].split(':').first
+      env["rack.session.options"][:domain] = custom_domain?(host) ? ".#{host}" : "#{@default_domain}"
+      @app.call(env)
+    else
+      [403, {'Content-Type' => 'text/html', "Content-Length" => "0"}, []]
+    end
   end
  
   def custom_domain?(host)
