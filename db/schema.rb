@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100503085721) do
+ActiveRecord::Schema.define(:version => 20100515094436) do
 
   create_table "administratorships", :force => true do |t|
     t.integer "administrator_id"
@@ -181,10 +181,12 @@ ActiveRecord::Schema.define(:version => 20100503085721) do
   add_index "supporters", ["last_name", "first_name"], :name => "index_supporters_on_last_name_and_first_name"
 
   create_table "supporterships", :force => true do |t|
-    t.integer "supporter_id"
-    t.integer "site_id"
-    t.boolean "receive_email", :default => false
-    t.boolean "receive_sms",   :default => false
+    t.integer  "supporter_id"
+    t.integer  "site_id"
+    t.boolean  "receive_email", :default => false
+    t.boolean  "receive_sms",   :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "supporterships", ["supporter_id", "site_id"], :name => "index_supporterships_on_supporter_id_and_site_id", :unique => true

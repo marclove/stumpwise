@@ -18,16 +18,16 @@
 				%th Phone
 				%th Joined On
 		%tbody
-			-for supporter in @supporters
-				="<tr class='supporter_row' data-url='#{admin_supporter_path(supporter)}'>"
-				%td= link_to supporter.email, admin_supporter_path(supporter)
-				%td= link_to_unless supporter.first_name.blank?, supporter.first_name, admin_supporter_path(supporter)
-				%td= link_to_unless supporter.last_name.blank?, supporter.last_name, admin_supporter_path(supporter)
-				%td= supporter.locality
-				%td= supporter.administrative_area
-				%td= supporter.postal_code
-				%td= supporter.phone
-				%td= supporter.created_at.strftime('%b %d, %Y at %I:%M %p')
+			-for s in @supporterships
+				="<tr class='supporter_row' data-url='#{admin_supporter_path(s.supporter)}'>"
+				%td= link_to s.supporter.email, admin_supporter_path(s.supporter)
+				%td= link_to_unless s.supporter.first_name.blank?, s.supporter.first_name, admin_supporter_path(s.supporter)
+				%td= link_to_unless s.supporter.last_name.blank?, s.supporter.last_name, admin_supporter_path(s.supporter)
+				%td= s.supporter.locality
+				%td= s.supporter.administrative_area
+				%td= s.supporter.postal_code
+				%td= s.supporter.phone
+				%td= s.created_at.strftime('%b %d, %Y at %I:%M %p')
 				="</tr>"
 		%tfoot{:id => "pager", :class => "pager"}
 			%tr
