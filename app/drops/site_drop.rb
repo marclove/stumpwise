@@ -8,15 +8,15 @@ class SiteDrop < BaseDrop
   ])
   
   def copyright
-    "Copyright &copy; #{Time.now.year} #{@source['name']}"
+    "Copyright &copy; #{Time.now.year} #{@source['campaign_legal_name']}"
   end
   
   def candidate_photo
-    @source.candidate_photo.t1.url
+    @source.candidate_photo.t1.url if @source.candidate_photo
   end
   
   def navigation
-    @source.navigation &:to_liquid
+    @source.navigation.map(&:to_liquid)
   end
   
   def google_analytics_code

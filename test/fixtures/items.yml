@@ -163,6 +163,7 @@ news_blog_article_1:
   title: News Blog Article 1
   slug: news-blog-article-1
   permalink: news/news-blog-article-1
+  body: The article body
   published: true
   lft: 2
   rgt: 3
@@ -212,6 +213,7 @@ about_page:
   title: About
   slug: about
   permalink: about
+  body: About page body
   template_name: page.tpl
   published: true
   show_in_navigation: true

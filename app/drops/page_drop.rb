@@ -1,3 +1,3 @@
-class PageDrop < ItemDrop #BaseDrop
+class PageDrop < ItemDrop
   liquid_attributes.push(*[ :body ])
 end

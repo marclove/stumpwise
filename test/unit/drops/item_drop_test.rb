@@ -1,61 +1,145 @@
 require 'test_helper'
-require 'liquid'
 
-class ItemDropTest < Test::Unit::TestCase
-  include Liquid
-  
+class ItemDropTest < ActiveSupport::TestCase
   context "Item Drop" do
     setup do
-      @attributes = {
-        :site_id => Mongo::ObjectID.new,
-        :slug => "kundesmith-kundesmith-kundesmith",
-        :title => "Aut Qui Animi",
-        :published => true,
-        :template_name => "template.tpl",
-        :show_in_navigation => false,
-        :created_by => nil,
-        :updated_by => nil
-        #path => ["kundesmith-kundesmith-kundesmith"]
-        #path_size => 1,
-        #permalink => "/kundesmith-kundesmith-kundesmith",
-        #position => 1,
-        #ancestor_ids => [],
-        #_type => "Page",
-        #parent_id => nil,
-      }
-      @item = Item.create(@attributes).to_liquid
-    end
-    
-    should "have slug attribute" do
-      assert_equal @attributes[:slug], @item['slug']
+      @item_drop = items(:root_2).to_liquid
     end
     
     should "have title attribute" do
-      assert_equal @attributes[:title], @item['title']
+      assert_equal "About", @item_drop['title']
+    end
+    
+    should "have a slug attribute" do
+      assert_equal "about", @item_drop['slug']
     end
     
     should "have show_in_navigation attribute" do
-      assert_equal @attributes[:show_in_navigation], @item['show_in_navigation']
+      assert_equal true, @item_drop['show_in_navigation']
     end
     
-    should "have created_by attribute" do
-      assert_equal @attributes[:created_by], @item['created_by']
+    should "have a created_at attribute" do
+      assert @item_drop['created_at']
+      assert @item_drop['created_at'].is_a?(Time)
+    end
+
+    should "have a updated_at attribute" do
+      assert @item_drop['updated_at']
+      assert @item_drop['updated_at'].is_a?(Time)
     end
     
-    should "have updated_by attribute" do
-      assert_equal @attributes[:updated_by], @item['updated_by']
+    should "have a permalink attribute" do
+      assert_equal "/about", @item_drop['permalink']
     end
     
-    should "have root? attribute" do
-      assert @item['root?']
+    context "with sibling to its left" do
+      should "return its left sibling as a drop" do
+        assert @item_drop['previous'].is_a?(Liquid::Drop)
+        assert_equal "Issues", @item_drop['previous']['title']
+      end
     end
     
-    should_eventually "have access to its self and siblings"
+    context "with a sibling to its right" do
+      should "return its right sibling as a drop" do
+        assert @item_drop['next'].is_a?(Liquid::Drop)
+        assert_equal "District", @item_drop['next']['title']
+      end
+    end
     
-    should_eventually "have access to its siblings"
+    context "with a parent" do
+      setup do
+        @item_drop = items(:child_1).to_liquid
+      end
+      
+      should "return its parent as a drop" do
+        assert @item_drop['parent'].is_a?(Liquid::Drop)
+        assert_equal "Issues", @item_drop['parent']['title']
+      end
+    end
     
-    should_eventually "have access to its parent"
+    context "with children" do
+      setup do
+        @item_drop = items(:root_1).to_liquid
+      end
+      
+      should "return its children as an array of drops" do
+        assert @item_drop['children'].is_a?(Array)
+        @item_drop['children'].each do |c|
+          assert c.is_a?(Liquid::Drop)
+        end
+        children_drop_names = @item_drop['children'].map{|c| c['title']}
+        assert_contains children_drop_names, "Veterans"
+        assert_contains children_drop_names, "Climate Change"
+        assert_contains children_drop_names, "Healthcare"
+      end
+    end
     
-    should_eventually "have access to its children"
+    context "that's a root" do
+      setup do
+        @item_drop = items(:root_2).to_liquid
+      end
+      
+      should "know that it's the root" do
+        assert @item_drop['root?']
+      end
+      
+      should "know that it's not a child" do
+        assert !@item_drop['child?']
+      end
+    end
+    
+    context "that's a child" do
+      setup do
+        @item_drop = items(:child_1).to_liquid
+      end
+      
+      should "know that it's not a root" do
+        assert !@item_drop['root?']
+      end
+      
+      should "know that it's a child" do
+        assert @item_drop['child?']
+      end
+    end
+    
+    context "that's a leaf" do
+      setup do
+        @item_drop = items(:grandchild_1).to_liquid
+      end
+      
+      should "know that it's a leaf" do
+        assert @item_drop['leaf?']
+      end
+    end
+    
+    context "that's not a leaf" do
+      setup do
+        @item_drop = items(:root_1).to_liquid
+      end
+      
+      should "know that it's not a leaf" do
+        assert !@item_drop['leaf?']
+      end
+    end
+    
+    context "that's a site's landing page" do
+      setup do
+        @item_drop = items(:root_1).to_liquid
+      end
+      
+      should "know that it's a landing page" do
+        assert @item_drop['landing_page?']
+      end
+    end
+    
+    context "that's not a site's landing page" do
+      setup do
+        @item_drop = items(:root_2).to_liquid
+      end
+      
+      should "know that it's not a landing page" do
+        assert !@item_drop['landing_page?']
+      end
+    end
   end
 end
