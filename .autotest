@@ -20,6 +20,7 @@ Autotest.add_hook :initialize do |at|
 
   at.add_mapping %r%^test/fixtures/(.*)s.yml% do |_, m|
     ["test/unit/#{m[1]}_test.rb",
+     "test/unit/drops/#{m[1]}_drop_test.rb", # custom
      "test/controllers/#{m[1]}_controller_test.rb",
      "test/views/#{m[1]}_view_test.rb",
      "test/functional/#{m[1]}_controller_test.rb"]
@@ -30,20 +31,12 @@ Autotest.add_hook :initialize do |at|
   end
 
   at.add_mapping %r%^app/models/(.*)\.rb$% do |_, m|
-    "test/unit/#{m[1]}_test.rb"
-  end
-
-  at.add_mapping %r%^app/helpers/application_helper.rb% do
-    at.files_matching %r%^test/(views|functional)/.*_test\.rb$%
+    ["test/unit/#{m[1]}_test.rb",
+     "test/unit/drops/#{m[1]}_drop_test.rb"] # custom
   end
 
   at.add_mapping %r%^app/helpers/(.*)_helper.rb% do |_, m|
-    if m[1] == "application" then
-      at.files_matching %r%^test/(views|functional)/.*_test\.rb$%
-    else
-      ["test/views/#{m[1]}_view_test.rb",
-       "test/functional/#{m[1]}_controller_test.rb"]
-    end
+    at.files_matching %r%^test/(views|functional)/.*_test\.rb$%
   end
 
   at.add_mapping %r%^app/views/(.*)/% do |_, m|
@@ -64,11 +57,11 @@ Autotest.add_hook :initialize do |at|
     "test/views/layouts_view_test.rb"
   end
 
-  at.add_mapping %r%^config/routes.rb$% do # FIX:
+  at.add_mapping %r%^config/routes.rb$% do
     at.files_matching %r%^test/(controllers|views|functional)/.*_test\.rb$%
   end
 
-  at.add_mapping %r%^test/test_helper.rb|test/blueprints.rb|config/((boot|environment(s/test)?).rb|database.yml)% do
+  at.add_mapping %r%^test/test_helper.rb|test/blueprints.rb|test/factories.rb|config/((boot|environment(s/test)?).rb|database.yml)% do # custom
     at.files_matching %r%^test/(unit|controllers|views|functional)/.*_test\.rb$%
   end
 
@@ -86,5 +79,9 @@ Autotest.add_hook :initialize do |at|
 
   at.add_mapping %r%^lib/stumpwise/liquid/filters\.rb$% do |_, m|
     "test/unit/helpers/liquid_filters_test.rb"
+  end
+  
+  at.add_mapping %r%^app/drops/(.*)\.rb$% do |_, m|
+    "test/unit/drops/#{m[1]}_test.rb"
   end
 end
