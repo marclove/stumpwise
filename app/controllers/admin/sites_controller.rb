@@ -1,6 +1,4 @@
-class Admin::SitesController < ApplicationController
-  before_filter :require_authorized_user, :require_acceptance_of_campaign_agreement
-
+class Admin::SitesController < AdminController
   def edit
     @site = current_site
   end

@@ -1,7 +1,5 @@
-class Manage::TemplatesController < ApplicationController
-  layout 'manage'
-  skip_before_filter :handle_invalid_site
-  before_filter :require_administrator, :get_template
+class Manage::TemplatesController < ManageController
+  before_filter :get_template
 
   def edit
   end

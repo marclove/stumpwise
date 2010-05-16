@@ -1,8 +1,6 @@
 require 'csv'
 
-class Admin::SupportersController < ApplicationController
-  before_filter :require_authorized_user, :require_acceptance_of_campaign_agreement
-
+class Admin::SupportersController < AdminController
   def index
     @supporterships = current_site.supporterships.find(:all, :include => [:supporter])
   end

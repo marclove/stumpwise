@@ -1,6 +1,4 @@
-class Admin::BlogsController < ApplicationController
-  before_filter :require_authorized_user, :require_acceptance_of_campaign_agreement
-
+class Admin::BlogsController < AdminController
   def index
     @blogs = current_site.blogs
     if @blogs.size < 1

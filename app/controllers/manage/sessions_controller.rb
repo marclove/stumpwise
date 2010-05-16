@@ -1,6 +1,6 @@
-class Manage::SessionsController < ApplicationController
+class Manage::SessionsController < ManageController
   layout nil
-  skip_before_filter :handle_invalid_site
+  skip_before_filter :require_administrator
   
   def new
     @user_session = UserSession.new

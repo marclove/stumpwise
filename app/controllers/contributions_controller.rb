@@ -1,10 +1,8 @@
 class ContributionsController < ApplicationController
   layout nil
-  skip_before_filter :handle_invalid_site
   before_filter :get_site
   ssl_required :new, :create, :thanks
   filter_parameter_logging :number, :verification_value
-  
   
   def new
     @contribution = Contribution.new

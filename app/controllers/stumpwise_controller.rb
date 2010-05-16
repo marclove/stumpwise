@@ -1,4 +1,6 @@
 class StumpwiseController < ApplicationController
+  before_filter :handle_invalid_site
+  
   def show
     if @item = find_item(params[:path])
       send("render_#{@item.class.to_s.underscore}")

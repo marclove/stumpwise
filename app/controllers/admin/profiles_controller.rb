@@ -1,6 +1,4 @@
-class Admin::ProfilesController < ApplicationController
-  before_filter :require_authorized_user, :require_acceptance_of_campaign_agreement
-  
+class Admin::ProfilesController < AdminController
   def edit
     @user = self.current_user
   end

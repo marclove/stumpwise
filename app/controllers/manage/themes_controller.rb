@@ -1,8 +1,4 @@
-class Manage::ThemesController < ApplicationController
-  layout 'manage'
-  skip_before_filter :handle_invalid_site
-  before_filter :require_administrator
-
+class Manage::ThemesController < ManageController
   # GET /themes
   # GET /themes.xml
   def index

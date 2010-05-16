@@ -1,7 +1,4 @@
-class Manage::UsersController < ApplicationController
-  layout 'manage'
-  skip_before_filter :handle_invalid_site
-  before_filter :require_administrator
+class Manage::UsersController < ManageController
   before_filter :get_user, :only => [:edit, :update, :destroy]
 
   def index

@@ -1,5 +1,6 @@
-class Admin::SessionsController < ApplicationController
+class Admin::SessionsController < AdminController
   layout nil
+  skip_before_filter :require_authorized_user, :require_acceptance_of_campaign_agreement
   
   def new
     @user_session = UserSession.new

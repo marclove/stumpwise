@@ -1,7 +1,4 @@
-class Manage::SitesController < ApplicationController
-  layout 'manage'
-  skip_before_filter :handle_invalid_site
-  before_filter :require_administrator
+class Manage::SitesController < ManageController
   before_filter :get_site, :except => [:index, :new, :create]
 
   def index

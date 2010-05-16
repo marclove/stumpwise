@@ -1,8 +1,4 @@
-class Manage::ThemeAssetsController < ApplicationController
-  layout 'manage'
-  skip_before_filter :handle_invalid_site
-  before_filter :require_administrator
-
+class Manage::ThemeAssetsController < ManageController
   def create
     @theme_asset = Theme.find(params[:theme_id]).assets.create(params[:theme_asset])
     redirect_to :back

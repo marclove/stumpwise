@@ -1,4 +1,6 @@
-class Admin::InfoController < ApplicationController
+class Admin::InfoController < AdminController
+  skip_before_filter :require_acceptance_of_campaign_agreement
+  
   def terms
   end
   
