@@ -42,6 +42,10 @@ class User < ActiveRecord::Base
   validates_format_of :email, :with => RegEmailOk, :allow_blank => false
   validates_presence_of :first_name, :last_name, {:message => "is required"}
   
+  def to_liquid
+    UserDrop.new(self)
+  end
+  
   def email=(new_email)
     new_email.downcase! unless new_email.nil?
     write_attribute(:email, new_email)

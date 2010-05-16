@@ -31,10 +31,14 @@ class Item < ActiveRecord::Base
   alias_method :next,     :right_sibling
 
   belongs_to :site
+  belongs_to :creator, :foreign_key => 'created_by', :class_name => 'User'
+  belongs_to :updater, :foreign_key => 'updated_by', :class_name => 'User'
   
   named_scope :published, :conditions => {:published => true}
   
   before_validation :set_slug, :set_permalink
+  before_create :set_created_by, :set_updated_by
+  before_update :set_updated_by
   after_save :update_permalinks_on_descendants
   after_move :update_permalink, :update_permalinks_on_descendants
   
@@ -84,5 +88,13 @@ class Item < ActiveRecord::Base
     
     def update_permalinks_on_descendants
       self.descendants.each{ |d| d.update_permalink }
+    end
+    
+    def set_created_by
+      self[:created_by] = Thread.current['user'].id if Thread.current['user']
+    end
+    
+    def set_updated_by
+      self[:updated_by] = Thread.current['user'].id if Thread.current['user']
     end
 end

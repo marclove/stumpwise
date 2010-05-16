@@ -32,7 +32,7 @@ class ItemTest < ActiveSupport::TestCase
   end
   
   context "An item" do
-    should_belong_to :site, :parent
+    should_belong_to :site, :parent, :creator, :updater
     should_have_many :children
     
     should "be able to be transformed into a liquid drop" do
@@ -68,6 +68,38 @@ class ItemTest < ActiveSupport::TestCase
       assert_equal "my-other-slug", i.permalink
       i.update_attributes(:permalink => "")
       assert_equal "test-title", i.permalink
+    end
+    
+    context "on create" do
+      setup do
+        Thread.current['user'] = users(:authorized)
+        @item = Page.make
+      end
+      
+      should "set the creator" do
+        assert_equal users(:authorized), @item.creator
+      end
+      
+      should "set the updater" do
+        assert_equal users(:authorized), @item.updater
+      end
+    end
+    
+    context "on update" do
+      setup do
+        Thread.current['user'] = users(:authorized)
+        @item = Page.make
+        Thread.current['user'] = users(:admin)
+        @item.update_attributes(:title => "New Title")
+      end
+      
+      should "not change the creator" do
+        assert_equal users(:authorized), @item.creator
+      end
+      
+      should "set the updater" do
+        assert_equal users(:admin), @item.updater
+      end
     end
     
     context "that's a root" do

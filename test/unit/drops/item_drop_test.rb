@@ -28,6 +28,16 @@ class ItemDropTest < ActiveSupport::TestCase
       assert @item_drop['updated_at'].is_a?(Time)
     end
     
+    should "return its creator as a liquid drop" do
+      assert @item_drop['creator'].is_a?(Liquid::Drop)
+      assert_equal "Jeff Such", @item_drop['creator']['name']
+    end
+    
+    should "return its updater as a liquid drop" do
+      assert @item_drop['updater'].is_a?(Liquid::Drop)
+      assert_equal "Jeff Such", @item_drop['updater']['name']
+    end
+    
     should "have a permalink attribute" do
       assert_equal "/about", @item_drop['permalink']
     end

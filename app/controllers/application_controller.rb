@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   include Stumpwise::Domains
   include SslRequirement
-  before_filter :set_time_zone, :set_cookie_domain
+  before_filter :set_time_zone, :set_cookie_domain, :set_current_user
   
   filter_parameter_logging :password, :token
   
@@ -43,6 +43,10 @@ class ApplicationController < ActionController::Base
     def current_user
       return @current_user if defined?(@current_user)
       @current_user = current_user_session && current_user_session.record
+    end
+    
+    def set_current_user
+      Thread.current['user'] = current_user
     end
     
     def super_admin?
