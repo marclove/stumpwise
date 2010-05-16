@@ -11,16 +11,11 @@ module Stumpwise
             Site.find_by_custom_domain(current_domain)
           elsif current_subdomain != 'www' && !current_subdomain.nil?
             Site.find_by_subdomain(current_subdomain)
-#          elsif current_domain == BASE_URL && (current_subdomain == 'www' || current_subdomain.nil?)
-#            :root
+          else
+            nil
           end
-        @site ||= :invalid
       end
       
-      def current_site_valid?
-        current_site && (current_site != :invalid)
-      end
-  
       def custom_domain?
         current_domain != BASE_URL
       end

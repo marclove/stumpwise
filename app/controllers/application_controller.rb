@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
     end
 
     def handle_invalid_site
-      render_404 if current_site == :invalid
+      render_404 unless current_site
     end
     
     # called from the non-administrative controllers instead of ActionController::Base#render
@@ -60,7 +60,7 @@ class ApplicationController < ActionController::Base
     end
     
     def require_authorized_user
-      if require_user && current_site_valid? && !current_site.authorized_user?(current_user)
+      if require_user && current_site && !current_site.authorized_user?(current_user)
         flash[:error] = "You are not an authorized user for this site"
         redirect_to admin_login_url
         return false
