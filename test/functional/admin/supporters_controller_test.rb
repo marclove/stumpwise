@@ -11,7 +11,7 @@ class Admin::SupportersControllerTest < ActionController::TestCase
       setup { get :index }
       should_render_with :application, :index
       should_not_set_the_flash
-      should_assign_to :supporters
+      should_assign_to :supporterships
     end
     
     context "on GET to :show" do
@@ -29,7 +29,7 @@ class Admin::SupportersControllerTest < ActionController::TestCase
     
     context "on GET to :export" do
       setup { get :export, :format => 'csv' }
-      should_assign_to :supporters
+      should_assign_to :supporterships
       should_respond_with_content_type :csv
     end
     
@@ -53,7 +53,7 @@ class Admin::SupportersControllerTest < ActionController::TestCase
       setup { get :index }
       should_render_with :application, :index
       should_not_set_the_flash
-      should_assign_to :supporters
+      should_assign_to :supporterships
     end
     
     context "on GET to :show" do
@@ -71,7 +71,7 @@ class Admin::SupportersControllerTest < ActionController::TestCase
     
     context "on GET to :export" do
       setup { get :export, :format => 'csv' }
-      should_assign_to :supporters
+      should_assign_to :supporterships
       should_respond_with_content_type :csv
     end
     
