@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100516224238) do
+ActiveRecord::Schema.define(:version => 20100517083625) do
 
   create_table "administratorships", :force => true do |t|
     t.integer "administrator_id"
@@ -108,9 +108,9 @@ ActiveRecord::Schema.define(:version => 20100516224238) do
     t.string   "article_template_name"
   end
 
-  add_index "items", ["lft", "rgt", "parent_id", "site_id"], :name => "index_items_on_lft_and_rgt_and_parent_id_and_site_id"
-  add_index "items", ["parent_id", "site_id"], :name => "index_items_on_parent_id_and_site_id"
-  add_index "items", ["site_id", "published", "permalink"], :name => "index_items_on_site_id_and_published_and_permalink"
+  add_index "items", ["parent_id", "published", "type", "lft"], :name => "by_parent_published_type_and_lft"
+  add_index "items", ["permalink", "site_id", "published"], :name => "by_permalink_site_and_published"
+  add_index "items", ["site_id", "parent_id", "published", "show_in_navigation"], :name => "by_site_parent_published_and_nav"
 
   create_table "liquid_templates", :force => true do |t|
     t.integer  "theme_id",   :null => false

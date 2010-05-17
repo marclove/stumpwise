@@ -58,10 +58,10 @@ class Site < ActiveRecord::Base
   has_many    :layouts,     :through => :theme
   has_many    :templates,   :through => :theme
   
-  has_many    :items,     :order => 'created_at ASC'
-  has_many    :pages,     :order => 'created_at ASC'
-  has_many    :blogs,     :order => 'created_at ASC'
-  has_many    :articles,  :order => 'created_at DESC'
+  has_many    :items,     :order => 'lft ASC'
+  has_many    :pages,     :order => 'lft ASC'
+  has_many    :blogs,     :order => 'lft ASC'
+  has_many    :articles,  :order => 'lft DESC'
   has_many    :assets,    :order => 'created_at DESC'
     
   mount_uploader :candidate_photo, CandidatePhotoUploader
@@ -111,7 +111,7 @@ class Site < ActiveRecord::Base
   end
   
   def root_item
-    items.roots.first(:order => 'lft ASC', :conditions => {:published => true, :show_in_navigation => true})
+    items.roots.first(:conditions => {:published => true, :show_in_navigation => true})
   end
   alias_method :landing_page, :root_item
   
