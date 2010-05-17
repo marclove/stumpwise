@@ -65,6 +65,10 @@ Autotest.add_hook :initialize do |at|
     "test/unit/helpers/liquid_filters_test.rb"
   end
   
+  at.add_mapping %r%^app/drops/base_drop.rb$% do
+    at.files_matching %r%^test/unit/drops/.*_test\.rb$%
+  end
+  
   at.add_mapping %r%^app/drops/(.*)\.rb$% do |_, m|
     "test/unit/drops/#{m[1]}_test.rb"
   end
