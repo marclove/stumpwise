@@ -32,7 +32,7 @@ class Page < Item
   end
 
   def template
-    @template ||= Template.find_by_filename(template_name)
+    @template ||= site.theme.templates.first(:conditions => {:filename => template_name})
   end
   
   def to_liquid

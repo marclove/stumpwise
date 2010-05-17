@@ -35,7 +35,7 @@ class Blog < Item
   end
   
   def template
-    @template ||= site.theme.templates.select{|t| t.filename == template_name}.first
+    @template ||= site.theme.templates.first(:conditions => {:filename => template_name})
   end
   
   def to_liquid
