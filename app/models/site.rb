@@ -120,7 +120,7 @@ class Site < ActiveRecord::Base
   end
   
   def contribute_url
-    protocol = Rails.env == :production ? "https" : "http"
+    protocol = (Rails.env.production? ? "https" : "http")
     "#{protocol}://secure.#{HOST}/#{subdomain}/contribute"
   end
   
