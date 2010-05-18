@@ -13,4 +13,12 @@ class BaseDrop < Liquid::Drop
   def before_method(method)
     @liquid[method.to_s]
   end
+  
+  def eql?(comparison_object)
+    self == (comparison_object)
+  end
+
+  def ==(comparison_object)
+    self.source == (comparison_object.is_a?(self.class) ? comparison_object.source : comparison_object)
+  end
 end

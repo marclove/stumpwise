@@ -44,15 +44,13 @@ class ItemDropTest < ActiveSupport::TestCase
     
     context "with sibling to its left" do
       should "return its left sibling as a drop" do
-        assert @item_drop['previous'].is_a?(Liquid::Drop)
-        assert_equal "Issues", @item_drop['previous']['title']
+        assert_equal items(:root_1).to_liquid, @item_drop['previous']
       end
     end
     
     context "with a sibling to its right" do
       should "return its right sibling as a drop" do
-        assert @item_drop['next'].is_a?(Liquid::Drop)
-        assert_equal "District", @item_drop['next']['title']
+        assert_equal items(:root_3).to_liquid, @item_drop['next']
       end
     end
     
@@ -62,8 +60,7 @@ class ItemDropTest < ActiveSupport::TestCase
       end
       
       should "return its parent as a drop" do
-        assert @item_drop['parent'].is_a?(Liquid::Drop)
-        assert_equal "Issues", @item_drop['parent']['title']
+        assert_equal items(:root_1).to_liquid, @item_drop['parent']
       end
     end
     
@@ -73,14 +70,9 @@ class ItemDropTest < ActiveSupport::TestCase
       end
       
       should "return its children as an array of drops" do
-        assert @item_drop['children'].is_a?(Array)
-        @item_drop['children'].each do |c|
-          assert c.is_a?(Liquid::Drop)
-        end
-        children_drop_names = @item_drop['children'].map{|c| c['title']}
-        assert_contains children_drop_names, "Veterans"
-        assert_contains children_drop_names, "Climate Change"
-        assert_contains children_drop_names, "Healthcare"
+        assert_contains items(:child_1).to_liquid, @item_drop['children'][0]
+        assert_contains items(:child_2).to_liquid, @item_drop['children'][1]
+        assert_contains items(:child_3).to_liquid, @item_drop['children'][2]
       end
     end
     

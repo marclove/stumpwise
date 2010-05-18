@@ -15,8 +15,7 @@ class ArticleDropTest < ActiveSupport::TestCase
     end
     
     should "return its parent blog as a liquid drop" do
-      assert @article_drop['blog'].is_a?(Liquid::Drop)
-      assert_equal "News", @article_drop['blog']['title']
+      assert_equal items(:news_blog).to_liquid, @article_drop['blog']
     end
     
     should "have an html id attribute" do

@@ -104,8 +104,10 @@ class SiteDropTest < ActiveSupport::TestCase
     
     # TODO: Better test
     should "return the site's root navigation items as an array of items" do
-      site_drop = sites(:with_content).to_liquid
-      assert site_drop['navigation'].present?
+      site_drop = sites(:woods).to_liquid
+      assert_equal items(:root_1).to_liquid, site_drop['navigation'][0]
+      assert_equal items(:root_2).to_liquid, site_drop['navigation'][1]
+      assert_equal items(:root_3).to_liquid, site_drop['navigation'][2]
     end
     
     context "for site without custom domain" do
