@@ -1,0 +1,34 @@
+%body.home
+	#wrapper
+		=render 'layouts/marketing_nav'
+		#marketing-display
+			#screenshots
+				=image_tag 'marketing/screenshot.jpg', :alt => 'Screenshot of Stumpwise'
+			-link_to '/signup', :id => "pricing-button" do
+				=image_tag 'marketing/plansnpricing.png', :alt => 'See Plans &amp; Pricing'
+
+		%table{:class => "features"}
+			%tbody
+				%tr
+					%th
+						%h3 Campaign site management
+					%th
+						%h3 Easy supporter management
+					%th
+						%h3 Integrated contribution processing
+				%tr
+					%td Launch your campaign website in just 5 minutes! With the help of our campaign site generator and free, professionally designed templates, anyone can quickly and easily setup a campaign website.
+					%td When you have thousands of supporters, it’s overwhelming to maintain all those relationships. With the help of our integrated CRM, we’ll help you keep track of the who, what, where and why of the lifeblood of your campaign.
+					%td Another thing you don’t have to worry about. Your site comes with online contribution processing built in. You can customize eligibility statements, pre-defined amount choices and contribution limits to whatever is ideal for your race.
+				%tr
+					%th
+						%h3 Email &amp; SMS blasts
+					%th
+						%h3 Social networking
+					%th
+						%h3 Simple, reasonable pricing
+				%tr
+					%td Communicating with your supporters is absolutely critical for fundraising, volunteer organization, and GOTV efforts. Send an email or SMS blast out to all your supporters with the click of a button and get detailed statistics about how successful your message was.
+					%td Social networks are becoming one of the most effective and affordable ways for political campaigns to communicate with and find new supporters. We are tightly integrating these networks with our campaign communications and CRM features.
+					%td Running for office has become unbelievably complex and expensive. We're reversing that trend by making it easier and more affordable using the web. Our monthly fees will always be within reach of anyone running for office and we despise mandatory contracts &amp; hidden fees.
+	=render 'layouts/marketing_footer'

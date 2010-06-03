@@ -1,0 +1,214 @@
+@import url('reset-min.css');
+@import url('fonts-min.css');
+@import url('droid-sans/stylesheet.css');
+@import url('droid-serif/stylesheet.css');
+@import url('inputs.css');
+
+/*
+Copyright (c) 2010, ProgressBound Inc. All rights reserved.
+*/
+* { font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif; }
+a {
+	color:#05F;
+	text-decoration:none;
+}
+strong { font-weight:bold; }
+code { font-family:monospace; }
+#flash_messages p{ margin:0; }
+p.flash_message{
+	text-align:center;
+	background-color:#FFFAAA;
+	border:1px solid #FFFAAA;
+	padding:8px;
+}
+p#error.flash_message {
+	background-color:#FFBBBB;
+	border-color:#FFBBBB;
+}
+
+html {
+	margin:0;
+	padding:0;
+	background-color:#0D0D0D;
+}
+body {
+	background:#DFEBF8 url(../images/marketing/bg.png) 0 0 repeat-x;
+}
+body.home {
+	background:#DFEBF8 url(../images/marketing/bg-home.jpg) 0 0 repeat-x;
+}
+#wrapper {
+	position:relative;
+	margin:0 auto;
+	padding:0;
+	width:960px;
+}
+ul#nav {
+	position:relative;
+	text-align:right;
+	background:url(../images/marketing/logo.png) 0 0 no-repeat;
+}
+ul#nav li {
+	display:inline;
+	font-size:123.1%;
+	line-height:75px;
+}
+ul#nav li a {
+	margin-left:1em;
+	color:#B2CCFF;
+	text-transform:uppercase;
+}
+ul#nav li a:hover {
+	color:#FFF;
+}
+#marketing-display {
+	position:relative;
+	height:335px;
+	background:url(../images/marketing/logo.png) 0 -75px no-repeat;
+}
+#screenshots {
+	position:absolute;
+	top:19px;
+	right:0;
+	width:510px;
+	height:316px;
+}
+#pricing-button {
+	position:absolute;
+	top:276px;
+	left:86px;
+}
+table.features {
+	margin-top:1em;
+	margin-bottom:3em;
+}
+table.features h3 {
+	font-family:Georgia, serif;
+	font-size:138.5%;
+	font-style:italic;
+	letter-spacing:-0.5px;
+	color:#003580;
+}
+table.features th {
+	padding-top:2em;
+	padding-bottom:1em;
+}
+table.features th, table.features td {
+	width:33%;
+	padding-right:2em;
+	vertical-align:top;
+}
+#footer-wrapper {
+	clear:both;
+	background:#0D0D0D;
+	padding:2em 0;
+}
+#footer {
+	color:#CCC;
+	width:960px;
+	margin:0 auto;
+	text-align:center;
+}
+#footer a { color:#CCC; }
+#footer a:hover { color:#FFF; text-decoration:underline; }
+#footer span { margin:0 0.5em;}
+
+#signup {
+	float:left;
+	margin:2em 0;
+	width:620px;
+	background:#FFF;
+	box-shadow: 2px 2px 8px #888;
+	-moz-box-shadow: 2px 2px 8px #888;
+	-webkit-box-shadow: 2px 2px 8px #888;
+}
+#signup h2 {
+	font-size:138.5%;
+	line-height:2.5em;
+	padding:0 20px;
+	background:#3e84dd;
+	border-bottom:1px solid #0059B3;
+	color:#FFF;
+	letter-spacing:-0.5px;
+}
+#signup h3 {
+	font-size:116%;
+	font-weight:bold;
+	color:#002559;
+	margin:0.5em 0;
+}
+#signup form {
+	margin:20px;
+}
+#signup .section {
+	margin:1em 0;
+	padding-bottom:1em;
+	border-bottom:1px solid #BBB;
+}
+#signup p {
+	margin:1em 0;
+}
+#signup input, #signup select {
+	margin:3px 0;
+}
+.field input {
+	width:300px;
+}
+.url-instructions {
+	font-size:93%;
+}
+.url {
+	font-size:116%;
+}
+.url input {
+	width:200px;
+}
+.field .hint {
+	font-size:85%;
+	color:#888;
+}
+.accept-tos label{
+	font-weight:normal;
+	color:inherit;
+}
+#site_subhead { width:400px; }
+#site_campaign_legal_name { width:500px; }
+#pricing {
+	float:right;
+	margin:2em 0;
+	width:310px;
+}
+#pricing h2 {
+	font-family:Georgia, sans-serif;
+	color:#001432;
+	margin-top:1em;
+	font-size:200%;
+	border-bottom:2px solid #7A99B8;
+	padding-bottom:6px;
+	letter-spacing:-1px;
+}
+dl#price-list {
+	line-height:2.25em;
+	background-color:#EBF1F7;
+	background:#FFF;
+}
+dl#price-list dt {
+	float:left;
+	font-weight:bold;
+	margin-right:1em;
+	padding:0 6px 0 8px;
+	border-bottom:1px solid #DFEBF8;
+	width:170px;
+}
+dl#price-list dd {
+	border-bottom:1px solid #DFEBF8;
+	padding:0 6px;
+}
+dl#price-list dt.contribution-details {
+	padding-left:26px;
+	width:150px;
+	font-size:93%;
+}
+dl#price-list dd.contribution-details {
+	font-size:93%;
+}

@@ -1,0 +1,140 @@
+%body
+	#wrapper
+		=render 'layouts/marketing_nav'
+		#signup
+			%h2 Launch your campaign site in less than 5 minutes!
+			-form_tag '/setup' do
+				=flash_messages
+				#user-information.section
+					%h3 Create your Stumpwise user account
+					-fields_for @user do |u|
+						%p.field
+							=u.label :first_name, 'First Name'
+							%br
+							=u.text_field :first_name
+						%p.field
+							=u.label :last_name, 'Last Name'
+							%br
+							=u.text_field :last_name
+						%p.field
+							=u.label :email, 'Email'
+							%br
+							=u.text_field :email
+						%p.field
+							=u.label :password, 'Choose a password'
+							%br
+							=u.password_field :password
+						%p.field
+							=u.label :password_confirmation, 'Please retype your password to confirm'
+							%br
+							=u.password_field :password_confirmation
+						%p.field
+							=u.label :time_zone, 'What time zone are you in?'
+							%br
+							=u.time_zone_select :time_zone, nil, :default => "Pacific Time (US & Canada)"
+				#site-information.section
+					%h3 Tell us about your campaign
+					-fields_for @site do |s|
+						%p.field
+							=s.label :name, 'Candidate name'
+							%br
+							=s.text_field :name
+						%p.field
+							=s.label :subhead, 'What office is the candidate running for?'
+							%br
+							=s.text_field :subhead
+							%br
+							%span.hint Example: "Mayor of New York" or "San Jose City Council, District 1"
+						%p.field
+							=s.label :campaign_legal_name, "What is the legal name of the campaign committee?"
+							%br
+							=s.text_field :campaign_legal_name
+							%br
+							%span.hint Example: "The Committee to Re-elect Carmen Rodriguez"
+						%p.field
+							=s.label :campaign_email, 'Campaign email address'
+							%br
+							=s.text_field :campaign_email
+						%p.field
+							=s.label :time_zone, "What time zone is the campaign operating in?"
+							%br
+							=s.time_zone_select :time_zone, nil, :default => "Pacific Time (US & Canada)"
+						
+					=hidden_field_tag 'site[theme_id]', "1"
+					
+				#site-url.section
+					%h3 Create your campaign site address
+					%p.url-instructions
+						All sites come with a free subdomain-based url like <code>http://janedoe.stumpwise.com</code>.
+						If you wish to use a custom domain like <code>http://www.janedoeforcongress.com</code>,
+						you'll be able to set that up after we create your account. In
+						the meantime please choose a subdomain below.
+						<strong>Letters &amp; numbers only please</strong>.
+						
+					-fields_for @site do |s|
+						%p.url
+							http://
+							=s.text_field :subdomain
+							\.stumpwise.com
+
+				#payment-information.section
+					%h3 Enter your payment information
+					%table
+						%tr
+							%th{:style => "width:150px;"}=label_tag "Card number"
+							%td=text_field_tag "credit_card[number]", '', :style => "width:250px"
+						%tr
+							%th=label_tag "Verification Code"
+							%td=text_field_tag "credit_card[cvv]", '', :style => "width:60px"
+						%tr
+							%th=label_tag "Expiration Date"
+							%td
+								=text_field_tag "credit_card[exp_month]", '', :style => "width:40px"
+								\/
+								=text_field_tag "credit_card[exp_year]", '', :style => "width:80px"
+						%tr
+							%th=label_tag "Billing Address"
+							%td=text_field_tag "credit_card[address]", '', :style => "width:350px"
+						%tr
+							%th=label_tag "Billing City"
+							%td=text_field_tag "credit_card[city]", '', :style => "width:200px"
+						%tr
+							%th=label_tag "Billing State"
+							%td=text_field_tag "credit_card[state]", '', :style => "width:60px"
+						%tr
+							%th=label_tag "Billing Zip Code"
+							%td=text_field_tag "credit_card[zip_code]", '', :style => "width:150px"
+
+				#invite-code.section
+					%h3 We're in invitation-only mode right now. Please enter your invite code.
+					%p
+						=text_field_tag 'invite_code'
+					
+				-fields_for @user do |u|
+					%p.accept-tos
+						=u.check_box :accepted_campaign_terms
+						=u.label :accepted_campaign_terms, 'I agree to the <a href="/info/campaigns" target="_blank">Terms of Service</a>, <a href="/info/privacy" target="_blank">Privacy Policy</a> &amp; <a href="/info/refunds" target="_blank">Refund Policy</a>.'
+				%p=submit_tag 'Create my site'
+				
+		#pricing
+			%h2 Pricing
+			%dl#price-list
+				%dt Monthly Fee
+				%dd $99
+				%dt Users 
+				%dd Unlimited
+				%dt Supporters
+				%dd Unlimited
+				%dt Contribution Processing
+				%dd &nbsp;
+				%dt.contribution-details Transaction Fee
+				%dd.contribution-details 5% + $0.50/ea
+				%dt.contribution-details Chargebacks
+				%dd.contribution-details $20/ea
+				%dt Included Emails
+				%dd 2,500
+				%dt Additional Emails 
+				%dd $10 / 1,000
+				%dt File Storage 
+				%dd 1 GB
+	=render 'layouts/marketing_footer'
