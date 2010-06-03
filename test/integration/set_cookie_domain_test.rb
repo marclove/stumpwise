@@ -34,5 +34,15 @@ class SetCookieDomainTest < ActionController::IntegrationTest
       assert_equal '.localdev.com', @integration_session.controller.request.session_options[:domain]
     end
   end
- 
+  
+  context "when accessing site with an ip address" do
+    setup do
+      host! '192.168.1.10'
+      visit '/'
+    end
+    
+    should "return with a 404" do
+      assert_response(404)
+    end
+  end
 end

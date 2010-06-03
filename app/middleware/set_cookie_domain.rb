@@ -7,13 +7,17 @@ class SetCookieDomain
   end
  
   def call(env)
-    if env["HTTP_HOST"]
+    if request_from_valid_host?(env)
       host = env["HTTP_HOST"].split(':').first
       env["rack.session.options"][:domain] = custom_domain?(host) ? ".#{host}" : "#{@default_domain}"
       @app.call(env)
     else
-      [403, {'Content-Type' => 'text/html', "Content-Length" => "0"}, []]
+      [404, {'Content-Type' => 'text/html', "Content-Length" => "0"}, []]
     end
+  end
+  
+  def request_from_valid_host?(env)
+    env["HTTP_HOST"] && env["HTTP_HOST"] !~ Regexp.new('\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}')
   end
  
   def custom_domain?(host)
