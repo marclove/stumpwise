@@ -14,4 +14,8 @@ class InfoController < ApplicationController
   def supporters
     render :file => File.join(Rails.root, 'public', 'agreements', 'supporters.html'), :layout => 'agreements'
   end
+
+  def refunds
+    render :file => File.join(Rails.root, 'public', 'agreements', 'refunds.html'), :layout => false
+  end
 end

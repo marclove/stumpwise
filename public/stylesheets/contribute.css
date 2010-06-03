@@ -217,6 +217,19 @@ p.thank_you {
 	background:#EEE;
 }
 
+#refund_policy {
+	color:#555;
+	width:600px;
+	margin:2em auto;
+	text-align:left;
+	font-size:11px;
+}
+#refund_policy h2 {
+	font-weight:bold;
+	font-size:14px;
+	text-align:center;
+}
+
 /* flash-messages */
 .flash {
   text-align:center;
