@@ -2,8 +2,6 @@ ActionController::Routing::Routes.draw do |map|
   map.with_options(:conditions => {:subdomain => false, :domain => BASE_URL}) do |base|
     base.connect 'info/:action', :controller => 'info', :conditions => {:method => :get}
     base.connect 'home', :controller => 'home', :action => 'home'
-    base.connect 'signup', :controller => 'home', :action => 'signup'
-    base.connect 'setup', :controller => 'home', :action => 'setup'
     base.root :controller => 'home', :action => 'index'
   end
   
@@ -32,6 +30,9 @@ ActionController::Routing::Routes.draw do |map|
     c.connect ':subdomain/contribute', :controller => 'contributions', :action => 'create', :conditions => {:method => :post}
     # https://secure.stumpwise.com/woods/contribute/thanks/r94473624dj5d78fkfvmvht36
     c.connect ':subdomain/contribute/:action/:order_id', :controller => 'contributions'
+    
+    c.connect 'signup', :controller => 'home', :action => 'signup'
+    c.connect 'setup', :controller => 'home', :action => 'setup'
   end
 
   map.namespace(:admin) do |admin|
