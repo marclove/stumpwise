@@ -4,7 +4,7 @@
 		#marketing-display
 			#screenshots
 				=image_tag 'marketing/screenshot.jpg', :alt => 'Screenshot of Stumpwise'
-			-link_to '/signup', :id => "pricing-button" do
+			-link_to (Rails.env.production? ? "https://secure.#{HOST}/signup" : "http://secure.#{HOST}/signup"), :id => "pricing-button" do
 				=image_tag 'marketing/plansnpricing.png', :alt => 'See Plans &amp; Pricing'
 
 		%table{:class => "features"}
