@@ -40,10 +40,9 @@ config.action_mailer.smtp_settings = {
 config.after_initialize do
   ActiveMerchant::Billing::Base.mode = :production
   ContributionTransaction.gateway =
-    ActiveMerchant::Billing::Base.gateway('paypal').new(
-      :login => 'billing_api1.progressbound.com',
-      :password => 'S3Z8JT73P5UA8H2F',
-      :signature => 'AFcWxV21C7fd0v3bYYYRCpSSRl31AtqRsGGkj3Mi7JF9RjKunsb07YR-'
+    ActiveMerchant::Billing::Base.gateway('braintree').new(
+      :login => 'stumpwise-api',
+      :password => 'uiRtqessLb1p7bPLHfvR'
     )
 end
 

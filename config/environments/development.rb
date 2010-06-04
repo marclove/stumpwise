@@ -37,10 +37,9 @@ end
 
 config.to_prepare do
   ContributionTransaction.gateway = 
-    ActiveMerchant::Billing::Base.gateway('paypal').new(
-      :login => 'marc.l_1270335245_biz_api1.progressbound.com',
-      :password => '54N7TYDQ9R5NLF37',
-      :signature => 'A8WL0ikTQZQx4Ls6r1KBcZl.HnRtAJL0SVlMrAI0F9ecNMv8FfdGQXU6'
+    ActiveMerchant::Billing::Base.gateway('braintree').new(
+      :login => 'demo',
+      :password => 'password'
     )
 end
 
