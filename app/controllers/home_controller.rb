@@ -1,5 +1,7 @@
 class HomeController < ApplicationController
   layout 'marketing'
+  ssl_required :signup, :setup
+  filter_parameter_logging :number, :verification_value
   
   def index
     redirect_to "http://get.stumpwise.com"
