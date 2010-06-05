@@ -41,8 +41,9 @@ config.after_initialize do
   ActiveMerchant::Billing::Base.mode = :production
   ContributionTransaction.gateway =
     ActiveMerchant::Billing::Base.gateway('braintree').new(
-      :login => 'stumpwise-api',
-      :password => 'uiRtqessLb1p7bPLHfvR'
+      :merchant_id => "mvmy94yfkzp3zkq5",
+      :public_key  => "3dcrfwkk5trng5fr",
+      :private_key => "t75vk6k4qjcvvtpc"
     )
 end
 

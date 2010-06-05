@@ -32,7 +32,6 @@ Rails::Initializer.run do |config|
   config.gem 'delayed_job'
   config.gem 'will_paginate', :version => '2.3.12'
   config.gem 'carrierwave'
-  config.gem 'activemerchant', :lib => 'active_merchant'
   config.gem 'shenie-ssl_requirement', :lib => 'ssl_requirement'
   config.gem 'twilio', :version => '2.7.0'
   config.gem 'newrelic_rpm'

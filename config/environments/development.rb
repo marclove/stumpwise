@@ -38,8 +38,9 @@ end
 config.to_prepare do
   ContributionTransaction.gateway = 
     ActiveMerchant::Billing::Base.gateway('braintree').new(
-      :login => 'demo',
-      :password => 'password'
+      :merchant_id => "8jw8y63nqbd3qxyy",
+      :public_key  => "nvpczrn9gxhy4h3w",
+      :private_key => "sy9ymwccmnp5whmd"
     )
 end
 

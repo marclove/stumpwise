@@ -86,9 +86,7 @@
 					#zip.field_element
 						=f.label :zip, {}, :class => 'text_field_label'
 						=f.text_field :zip, :class => 'text_field'
-					#country.field_element
-						=f.label :country, {}, :class => 'text_field_label'
-						=f.country_code_select :country, [['United States','US']]
+						=hidden_field_tag "contribution[country]", 'United States of America'
 					#email.field_element
 						=f.label :email, 'Email', :class => 'text_field_label'
 						=f.text_field :email, :class => 'text_field'
