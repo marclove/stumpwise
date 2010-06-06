@@ -113,7 +113,7 @@
 				-fields_for @user do |u|
 					%p.accept-tos
 						=u.check_box :accepted_campaign_terms
-						=u.label :accepted_campaign_terms, 'I agree to the <a href="/info/campaigns" target="_blank">Terms of Service</a>, <a href="/info/privacy" target="_blank">Privacy Policy</a> &amp; <a href="/info/refunds" target="_blank">Refund Policy</a>.'
+						=u.label :accepted_campaign_terms, "I agree to the <a href=\"http://#{HOST}/info/campaigns\" target=\"_blank\">Terms of Service</a>, <a href=\"http://#{HOST}/info/privacy\" target=\"_blank\">Privacy Policy</a> &amp; <a href=\"http://#{HOST}/info/refunds\" target=\"_blank\">Refund Policy</a>."
 				%p=submit_tag 'Create my site'
 				
 		#pricing
