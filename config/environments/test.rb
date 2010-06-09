@@ -40,11 +40,10 @@ config.gem 'webrat'
 config.gem "fakeweb"
 
 config.after_initialize do
-  ActiveMerchant::Billing::Base.mode = :test
-end
-
-config.to_prepare do
-  ContributionTransaction.gateway = ActiveMerchant::Billing::Base.gateway('bogus').new
+  Braintree::Configuration.environment = :sandbox
+  Braintree::Configuration.merchant_id = "8jw8y63nqbd3qxyy"
+  Braintree::Configuration.public_key  = "nvpczrn9gxhy4h3w"
+  Braintree::Configuration.private_key = "sy9ymwccmnp5whmd"
 end
 
 require 'fakeweb'

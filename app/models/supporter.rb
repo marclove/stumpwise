@@ -1,9 +1,9 @@
 # == Schema Information
-# Schema version: 20100503085721
+# Schema version: 20100612013511
 #
 # Table name: supporters
 #
-#  id                     :integer         not null, primary key
+#  id                     :integer(4)      not null, primary key
 #  created_at             :datetime
 #  updated_at             :datetime
 #  email                  :string(255)     not null

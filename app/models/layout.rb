@@ -1,10 +1,10 @@
 # == Schema Information
-# Schema version: 20100503085721
+# Schema version: 20100612013511
 #
 # Table name: liquid_templates
 #
-#  id         :integer         not null, primary key
-#  theme_id   :integer         not null
+#  id         :integer(4)      not null, primary key
+#  theme_id   :integer(4)      not null
 #  type       :string(255)     not null
 #  filename   :string(255)     not null
 #  content    :text

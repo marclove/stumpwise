@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100517083625) do
+ActiveRecord::Schema.define(:version => 20100617210430) do
 
   create_table "administratorships", :force => true do |t|
     t.integer "administrator_id"
@@ -44,7 +44,6 @@ ActiveRecord::Schema.define(:version => 20100517083625) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "email"
-    t.integer  "amount"
     t.string   "status"
     t.string   "ip"
     t.string   "employer"
@@ -65,6 +64,12 @@ ActiveRecord::Schema.define(:version => 20100517083625) do
     t.string   "zip"
     t.string   "phone"
     t.boolean  "test"
+    t.decimal  "amount",                                :precision => 8, :scale => 2, :default => 0.0
+    t.decimal  "processing_fees",                       :precision => 8, :scale => 2, :default => 0.0
+    t.decimal  "net_amount",                            :precision => 8, :scale => 2, :default => 0.0
+    t.string   "transaction_id",          :limit => 10
+    t.string   "refund_transaction_id",   :limit => 10
+    t.boolean  "legacy",                                                              :default => false
   end
 
   add_index "contributions", ["email"], :name => "index_contributions_on_email"

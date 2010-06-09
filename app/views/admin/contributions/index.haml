@@ -8,7 +8,7 @@
 	%h1 Contributions
 	#total_contributions
 		Total Received
-		=number_to_currency(@contribution_total.to_f / 100)
+		=number_to_currency(@contribution_total)
 	%table{:id => "contributions_table", :class => "tablesorter"}
 		%thead
 			%tr
@@ -31,7 +31,7 @@
 				%td.zip= contribution.zip
 				%td.phone= contribution.phone
 				%td.status= contribution.status.titlecase
-				%td.amount= number_to_currency(contribution.amount.to_f / 100)
+				%td.amount= number_to_currency(contribution.amount)
 				%td.submitted-at= contribution.created_at.strftime('%b %e, %Y %I:%M:%S %p')
 				="</tr>"
 	=will_paginate @contributions

@@ -32,11 +32,13 @@ Rails::Initializer.run do |config|
   config.gem 'delayed_job'
   config.gem 'will_paginate', :version => '2.3.12'
   config.gem 'carrierwave'
+  config.gem 'braintree', :version => '2.2.0'
   config.gem 'shenie-ssl_requirement', :lib => 'ssl_requirement'
   config.gem 'twilio', :version => '2.7.0'
   config.gem 'newrelic_rpm'
   config.gem 'hoptoad_notifier'
   config.gem 'aasm'
+  config.gem 'jnunemaker-validatable', :lib => 'validatable', :version => '>=1.8.4'
   
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
@@ -60,5 +62,3 @@ end
 
 SubdomainFu.tld_size = 1 # all environments
 SubdomainFu.preferred_mirror = "www"
-
-ActiveMerchant::Billing::Gateway.application_id = 'ProgressBound_ActiveMerchant_US'

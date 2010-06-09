@@ -27,7 +27,7 @@
 						%td= @contribution.created_at.strftime('%m/%d/%Y %l:%M %p')
 					%tr
 						%th Amount
-						%td= number_to_currency(@contribution.display_amount)
+						%td= number_to_currency(@contribution.amount)
 					%tr
 						%th Contributor Information
 						%td

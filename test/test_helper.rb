@@ -14,8 +14,6 @@ Webrat.configure do |config|
 end
 
 class ActiveSupport::TestCase
-  include ActiveMerchant::Billing
-
   # Transactional fixtures accelerate your tests by wrapping each test method
   # in a transaction that's rolled back on completion.  This ensures that the
   # test database remains unchanged so your fixtures don't have to be reloaded
@@ -82,19 +80,12 @@ class ActiveSupport::TestCase
     }.update(options)
   end
   
-  def credit_card_hash(options = {})
-    { :number     => '1',
-      :first_name => 'Marc',
-      :last_name  => 'Love',
-      :month      => '1',
-      :year       => "#{ Time.now.year + 1 }",
-      :verification_value => '123',
-      :type       => 'visa' 
-    }.update(options)
-  end
-
   def credit_card(options = {})
-    ActiveMerchant::Billing::CreditCard.new(credit_card_hash(options))
+    { :number           => '4009348888881881',
+      :expiration_month => '1',
+      :expiration_year  => "#{ Time.now.year + 1 }",
+      :cvv => '123'
+    }.update(options)
   end
   
   def setup_session_domain
@@ -109,5 +100,159 @@ class ActiveSupport::TestCase
   
   def on_site(fixture_name)
     @controller.stubs(:current_site).returns(sites(fixture_name))
+  end
+  
+  def gateway_sale_result(result)
+    if result == :success
+      Braintree::SuccessfulResult.new(
+        :transaction => Braintree::Transaction._new({
+          :id => "j26hdw",
+          :type => "sale", 
+          :amount => "100.0", 
+          :status => "authorized", 
+          :created_at => Time.parse("Sun Jun 06 06:33:21 UTC 2010"),
+          :updated_at => Time.parse("Sun Jun 06 06:33:24 UTC 2010"),
+          :credit_card => {
+            :token => nil, 
+            :bin => "400934",
+            :last_4 => "1881",
+            :card_type => "Visa",
+            :expiration_month => "05",
+            :expiration_year => "2012",
+            :cardholder_name => nil,
+            :customer_location => "US"
+          },
+          :customer => {
+            :id => nil,
+            :first_name => nil,
+            :last_name => nil,
+            :email => nil,
+            :company => nil,
+            :website => nil,
+            :phone => nil,
+            :fax => nil
+          }
+        })
+      )
+    else
+      Braintree::ErrorResult.new({
+        :params => {}, 
+        :verification => {}, 
+        :transaction => {}, 
+        :errors => {
+          :scope => {
+            :errors => [{:attribute => "transaction", :code => "81528", :message => "The amount is too large."}]
+          }
+        }
+      })
+    end
+  end
+  
+  def gateway_void_result(result)
+    if result == :success
+      Braintree::SuccessfulResult.new({
+        :transaction => Braintree::Transaction._new({
+          :id => "j26hdw",
+          :type => "sale", 
+          :amount => "100.0", 
+          :status => "voided", 
+          :created_at => Time.parse("Sun Jun 06 06:33:21 UTC 2010"),
+          :updated_at => Time.parse("Sun Jun 06 06:38:18 UTC 2010"),
+          :credit_card => {
+            :token => nil, 
+            :bin => "400934",
+            :last_4 => "1881",
+            :card_type => "Visa",
+            :expiration_month => "05",
+            :expiration_year => "2012",
+            :cardholder_name => nil,
+            :customer_location => "US"
+          },
+          :customer => {
+            :id => nil,
+            :first_name => nil,
+            :last_name => nil,
+            :email => nil,
+            :company => nil,
+            :website => nil,
+            :phone => nil,
+            :fax => nil
+          }
+        })
+      })
+    else
+      Braintree::ErrorResult.new({
+        :params => {}, 
+        :verification => {}, 
+        :transaction => {}, 
+        :errors => {
+          :scope => {
+            :errors => [{:attribute => "transaction", :code => "91504", :message => "Cannot be voided."}]
+          }
+        }
+      })
+    end
+  end
+  
+  def gateway_refund_result(result)
+    if result == :success
+      Braintree::SuccessfulResult.new({
+        :new_transaction => Braintree::Transaction._new({
+          :id => "gxgpyb",
+          :type => "credit", 
+          :amount => "100.0", 
+          :status => "submitted_for_settlement", 
+          :created_at => Time.parse("Sun Jun 06 07:33:21 UTC 2010"),
+          :updated_at => Time.parse("Sun Jun 06 07:38:18 UTC 2010"),
+          :credit_card => {
+            :token => nil, 
+            :bin => "400934",
+            :last_4 => "1881",
+            :card_type => "Visa",
+            :expiration_month => "05",
+            :expiration_year => "2012",
+            :cardholder_name => nil,
+            :customer_location => "US"
+          },
+          :customer => {
+            :id => nil,
+            :first_name => nil,
+            :last_name => nil,
+            :email => nil,
+            :company => nil,
+            :website => nil,
+            :phone => nil,
+            :fax => nil
+          }
+        })
+      })
+    else
+      Braintree::ErrorResult.new({
+        :params => {}, 
+        :verification => {}, 
+        :transaction => {}, 
+        :errors => {
+          :scope => {
+            :errors => [{:attribute => "transaction", :code => "91521", :message => "The refund amount is too large."}]
+          }
+        }
+      })
+    end
+  end
+  
+  def multiple_gateway_error_result
+    Braintree::ErrorResult.new({
+      :params => {}, 
+      :verification => {}, 
+      :transaction => {:processor_response_text => "Processor Declined"}, 
+      :errors => {
+        :scope => {
+          :errors => [{:attribute => "transaction", :code => "81528", :message => "The amount is too large."}],
+          :second_scope => {
+            :errors => [{:attribute => "credit_card", :code => "91701", :message => "The billing address doesn't match."}],
+          }
+        }
+      }
+    })
   end
 end

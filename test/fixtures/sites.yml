@@ -1,14 +1,14 @@
 # == Schema Information
-# Schema version: 20100503085721
+# Schema version: 20100612013511
 #
 # Table name: sites
 #
-#  id                        :integer         not null, primary key
+#  id                        :integer(4)      not null, primary key
 #  created_at                :datetime
 #  updated_at                :datetime
 #  subdomain                 :string(255)
 #  custom_domain             :string(255)
-#  theme_id                  :integer
+#  theme_id                  :integer(4)
 #  name                      :string(255)
 #  subhead                   :string(255)
 #  keywords                  :text
@@ -22,7 +22,7 @@
 #  youtube_username          :string(255)
 #  google_analytics_id       :string(255)
 #  paypal_email              :string(255)
-#  owner_id                  :integer
+#  owner_id                  :integer(4)
 #  campaign_monitor_password :string(255)
 #  supporter_list_id         :string(255)
 #  contributor_list_id       :string(255)

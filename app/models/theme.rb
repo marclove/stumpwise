@@ -1,9 +1,9 @@
 # == Schema Information
-# Schema version: 20100503085721
+# Schema version: 20100612013511
 #
 # Table name: themes
 #
-#  id         :integer         not null, primary key
+#  id         :integer(4)      not null, primary key
 #  name       :string(255)
 #  created_at :datetime
 #  updated_at :datetime

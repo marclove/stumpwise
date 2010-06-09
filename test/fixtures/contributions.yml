@@ -1,27 +1,26 @@
 # == Schema Information
-# Schema version: 20100503085721
+# Schema version: 20100612013511
 #
 # Table name: contributions
 #
-#  id                      :integer         not null, primary key
-#  site_id                 :integer
+#  id                      :integer(4)      not null, primary key
+#  site_id                 :integer(4)
 #  order_id                :string(255)
 #  created_at              :datetime
 #  updated_at              :datetime
 #  email                   :string(255)
-#  amount                  :integer
 #  status                  :string(255)
 #  ip                      :string(255)
 #  employer                :string(255)
 #  occupation              :string(255)
-#  compliance_confirmation :boolean
+#  compliance_confirmation :boolean(1)
 #  compliance_statement    :text
 #  first_name              :string(255)
 #  last_name               :string(255)
 #  card_type               :string(255)
 #  card_display_number     :string(255)
-#  card_month              :integer
-#  card_year               :integer
+#  card_month              :integer(4)
+#  card_year               :integer(4)
 #  address1                :string(255)
 #  address2                :string(255)
 #  city                    :string(255)
@@ -29,7 +28,12 @@
 #  country                 :string(255)
 #  zip                     :string(255)
 #  phone                   :string(255)
-#  test                    :boolean
+#  test                    :boolean(1)
+#  amount                  :decimal(8, 2)   default(0.0)
+#  processing_fees         :decimal(8, 2)   default(0.0)
+#  net_amount              :decimal(8, 2)   default(0.0)
+#  transaction_id          :string(10)
+#  refund_transaction_id   :string(10)
 #
 
 pending:
@@ -37,7 +41,7 @@ pending:
   site_id: 4
   status: pending
   email: me@me.com
-  amount: 2000
+  amount: 20.00
   first_name: Marc
   last_name: Love
   address1: 2400 Market Street
@@ -54,7 +58,7 @@ approved:
   site_id: 4
   status: approved
   email: me@me.com
-  amount: 2000
+  amount: 20.00
   first_name: Marc
   last_name: Love
   address1: 2400 Market Street
@@ -75,13 +79,14 @@ approved:
   card_year: <%= Time.now.year + 1 %>
   card_month: 1
   test: true
+  transaction_id: j26hdw
 
 declined:
   id: 3
   site_id: 4
   status: declined
   email: me@me.com
-  amount: 2000
+  amount: 20.00
   first_name: Marc
   last_name: Love
   address1: 2400 Market Street
@@ -107,7 +112,7 @@ refunded:
   site_id: 4
   status: refunded
   email: me@me.com
-  amount: 2000
+  amount: 20.00
   first_name: Marc
   last_name: Love
   address1: 2400 Market Street
@@ -133,7 +138,7 @@ with_content_approved_1:
   site_id: 6
   status: approved
   email: me@me.com
-  amount: 2000
+  amount: 20.00
   first_name: Marc
   last_name: Love
   address1: 2400 Market Street
@@ -160,7 +165,7 @@ with_content_approved_2:
   site_id: 6
   status: approved
   email: me@me.com
-  amount: 2000
+  amount: 20.00
   first_name: Marc
   last_name: Love
   address1: 2400 Market Street
@@ -187,7 +192,7 @@ with_content_approved_3:
   site_id: 6
   status: approved
   email: me@me.com
-  amount: 2000
+  amount: 20.00
   first_name: Marc
   last_name: Love
   address1: 2400 Market Street
@@ -214,7 +219,7 @@ with_content_declined:
   site_id: 6
   status: declined
   email: me@me.com
-  amount: 2000
+  amount: 20.00
   first_name: Marc
   last_name: Love
   address1: 2400 Market Street
@@ -240,7 +245,7 @@ with_content_refunded:
   site_id: 6
   status: refunded
   email: me@me.com
-  amount: 2000
+  amount: 20.00
   first_name: Marc
   last_name: Love
   address1: 2400 Market Street
@@ -260,3 +265,33 @@ with_content_refunded:
   card_year: <%= Time.now.year + 1 %>
   card_month: 1
   test: true
+
+legacy:
+  id: 10
+  site_id: 6
+  status: settled
+  email: me@me.com
+  amount: 25.00
+  net_amount: 23.25
+  processing_fees: 1.75
+  first_name: Marc
+  last_name: Love
+  address1: 2400 Market Street
+  address2: Suite 1000
+  city: San Francisco
+  state: CA
+  zip: 94114
+  phone: 4085555555
+  country: US
+  employer: ProgressBound
+  occupation: Engineering Bitch
+  compliance_confirmation: true
+  compliance_statement: statement
+  ip: "99.99.99.99"
+  order_id: f3a7aae4f8ff97a19eb547b63b3eca8d
+  card_type: visa
+  card_display_number: XXXX-XXXX-XXXX-1234
+  card_year: <%= Time.now.year + 1 %>
+  card_month: 1
+  test: true
+  legacy: true

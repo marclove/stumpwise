@@ -1,10 +1,10 @@
 # == Schema Information
-# Schema version: 20100503085721
+# Schema version: 20100612013511
 #
 # Table name: assets
 #
-#  id         :integer         not null, primary key
-#  site_id    :integer
+#  id         :integer(4)      not null, primary key
+#  site_id    :integer(4)
 #  file       :string(255)
 #  created_at :datetime
 #  updated_at :datetime

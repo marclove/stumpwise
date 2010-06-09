@@ -27,12 +27,11 @@ class Admin::ContributionsController < AdminController
   
   def refund
     @contribution = current_site.contributions.find(params[:id])
-    response = @contribution.refund
-    if response.success?
-      flash[:notice] = t('contribution.refund.success')
-    else
-      flash[:error] = "#{t('contribution.refund.rejected')} #{response.message}"
-    end
+    @contribution.reverse
+    flash[:notice] = t('contribution.refund.success')
+  rescue => exception
+    flash[:error] = "#{t('contribution.refund.rejected')} #{exception}"
+  ensure
     redirect_to admin_contribution_path(@contribution)
   end
 end

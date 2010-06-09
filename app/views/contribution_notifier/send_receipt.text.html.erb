@@ -14,7 +14,7 @@
 </head>
 <body>
 <p>Dear <%= @contribution.first_name %>,</p>
-<p>Thank you for your generous contribution of <%= number_to_currency(@contribution.display_amount) %> to our campaign!</p>
+<p>Thank you for your generous contribution of <%= number_to_currency(@contribution.amount) %> to our campaign!</p>
 <p>Please keep this receipt for your records.</p>
 <h2>Contribution Receipt</h2>
 <table cellpadding="5" cellspacing="0" border="0">
@@ -37,7 +37,7 @@
 		</tr>
 		<tr>
 			<th align="right" valign="top"><b>Amount:</b></th>
-			<td align="left" valign="top"><%= number_to_currency(@contribution.display_amount) %></td>
+			<td align="left" valign="top"><%= number_to_currency(@contribution.amount) %></td>
 		</tr>
 		<tr>
 			<th align="right" valign="top"><b>Date:</b></th>

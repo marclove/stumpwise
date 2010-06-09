@@ -50,20 +50,18 @@
 					-if flash[:card_error]
 						#card_error.flash.error= flash[:card_error]
 					-fields_for :credit_card, @credit_card do |cc|
-						#type.field_element
-							=cc.label :type, 'Card Type'
-							=cc.select :type, [['Visa','visa'],['Mastercard','master'],['Discover','discover'],['American Express','american_express']]
-						#expiration.field_element
-							=cc.label :month, 'Expiration Date'
-							=cc.select :month, (1..12)
-							=cc.select :year, ((Time.now.year)..(Time.now.year + 10))
 						#number.field_element
 							=cc.label :number, 'Card Number', :class => 'text_field_label'
 							=cc.text_field :number, :class => 'text_field'
 						#verification_value.field_element
-							=cc.label :verification_value, 'Verification No.', :class => 'text_field_label'
-							=cc.text_field :verification_value, :class => 'text_field'
+							=cc.label :cvv, 'Verification No.', :class => 'text_field_label'
+							=cc.text_field :cvv, :class => 'text_field'
 							=link_to "What's this?", '/cvv2.html', :target => '_blank'
+						#expiration.field_element
+							=cc.label :expiration_month, 'Expiration Date', :class => 'text_field_label'
+							=cc.select :expiration_month, (1..12), :selected => @credit_card.expiration_month.to_i
+							=cc.select :expiration_year, ((Time.now.year)..(Time.now.year + 10)), :selected => @credit_card.expiration_year.to_i
+						%br{:clear => 'both'}
 
 				-field_set_tag '<span>Contributor Information</span>', :id => 'contributor', :class => 'fieldset' do
 					#contributor_name

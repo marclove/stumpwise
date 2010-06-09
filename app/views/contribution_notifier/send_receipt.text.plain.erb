@@ -1,6 +1,6 @@
 Dear <%= @contribution.first_name %>,
 
-Thank you for your generous contribution of <%= number_to_currency(@contribution.display_amount) %> to our
+Thank you for your generous contribution of <%= number_to_currency(@contribution.amount) %> to our
 campaign! Please keep this receipt for your records.
 
 
@@ -17,7 +17,7 @@ Contribution Receipt
                    <%= @contribution.city %>, <%= @contribution.state %> <%= @contribution.zip %>
                    <%= @contribution.email %>
 
-          Amount:  <%= number_to_currency(@contribution.display_amount) %>
+          Amount:  <%= number_to_currency(@contribution.amount) %>
             Date:  <%= @contribution.created_at.strftime('%m/%d/%G %I:%M %p') %>
   Transaction ID:  <%= @contribution.order_id %>
 Card Information:  <%= @contribution.card_information %>

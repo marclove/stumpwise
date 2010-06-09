@@ -6,13 +6,13 @@
 	%table.contribution
 		%tr
 			%th Transaction Status
-			%td= @contribution.status
+			%td= @contribution.status.titlecase
 		%tr
 			%th Reference #
 			%td= @contribution.order_id
 		%tr
 			%th Amount
-			%td= number_to_currency(@contribution.amount.to_f / 100)
+			%td= number_to_currency(@contribution.amount)
 		%tr
 			%th Contributor
 			%td
@@ -38,15 +38,25 @@
 		%tr
 			%th Card Information
 			%td
-				=image_tag "payments/#{@contribution.card_type}.png", :class => 'card-logo'
-				%br
-				=@contribution.card_display_number
+				=@contribution.card_information
 				%br
 				="Exp. #{@contribution.card_month}/#{@contribution.card_year}"
 		%tr
 			%th Submitted
 			%td= @contribution.created_at.strftime('%m/%d/%Y %l:%M %p')
+		%tr
+			%th Employer
+			%td= @contribution.employer
+		%tr
+			%th Occupation
+			%td= @contribution.occupation
+		%tr
+			%th Eligibility Statement Agreed To
+			-if @contribution.compliance_confirmation
+				%td= @contribution.compliance_statement
+			-else
+				%td No eligibility statement was required when the contribution was made.
 	
 	#contribution-admin-buttons.buttons
-		-if @contribution.approved?
+		-if @contribution.reversible?
 			=link_to "#{image_tag('icons-shadowless/cross.png', :alt => '')} Refund Contribution", refund_admin_contribution_path(@contribution), :class => 'negative', :method => :put

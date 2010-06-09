@@ -1,13 +1,15 @@
 # == Schema Information
-# Schema version: 20100503085721
+# Schema version: 20100612013511
 #
 # Table name: supporterships
 #
-#  id            :integer         not null, primary key
-#  supporter_id  :integer
-#  site_id       :integer
-#  receive_email :boolean
-#  receive_sms   :boolean
+#  id            :integer(4)      not null, primary key
+#  supporter_id  :integer(4)
+#  site_id       :integer(4)
+#  receive_email :boolean(1)
+#  receive_sms   :boolean(1)
+#  created_at    :datetime
+#  updated_at    :datetime
 #
 
 one:

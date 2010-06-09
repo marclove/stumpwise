@@ -38,13 +38,10 @@ config.action_mailer.smtp_settings = {
 }
 
 config.after_initialize do
-  ActiveMerchant::Billing::Base.mode = :production
-  ContributionTransaction.gateway =
-    ActiveMerchant::Billing::Base.gateway('braintree').new(
-      :merchant_id => "mvmy94yfkzp3zkq5",
-      :public_key  => "3dcrfwkk5trng5fr",
-      :private_key => "t75vk6k4qjcvvtpc"
-    )
+  Braintree::Configuration.environment = :production
+  Braintree::Configuration.merchant_id = "mvmy94yfkzp3zkq5"
+  Braintree::Configuration.public_key  = "3dcrfwkk5trng5fr"
+  Braintree::Configuration.private_key = "t75vk6k4qjcvvtpc"
 end
 
 BASE_URL = "stumpwise.com"

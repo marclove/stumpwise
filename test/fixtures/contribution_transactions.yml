@@ -1,17 +1,17 @@
 # == Schema Information
-# Schema version: 20100503085721
+# Schema version: 20100612013511
 #
 # Table name: contribution_transactions
 #
-#  id              :integer         not null, primary key
-#  contribution_id :integer
-#  amount          :integer
-#  success         :boolean
+#  id              :integer(4)      not null, primary key
+#  contribution_id :integer(4)
+#  amount          :integer(4)
+#  success         :boolean(1)
 #  reference       :string(255)
 #  message         :string(255)
 #  action          :string(255)
 #  params          :text
-#  test            :boolean
+#  test            :boolean(1)
 #  created_at      :datetime
 #  updated_at      :datetime
 #

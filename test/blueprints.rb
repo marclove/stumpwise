@@ -44,7 +44,7 @@ end
 Contribution.blueprint do
   site { Site.make }
   email
-  amount { 2000 }
+  amount { 20.00 }
   first_name { Sham.name }
   last_name { Sham.name }
   address1 { Faker::Address.street_address }

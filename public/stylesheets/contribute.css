@@ -112,13 +112,13 @@ input.text_field, select {
 	width:540px;
 	max-width:540px;
 }
-#first_name, #last_name, #country, #employer, #occupation, #city, #type,
-#expiration, #email, #phone {
+#first_name, #last_name, #country, #employer, #occupation, #city,
+#email, #phone {
 	float:left;
 	width:260px;
 }
 #first_name input, #last_name input, #country select, #employer input,
-#occupation input, #city input, #type select, #contribution_email, #contribution_phone {
+#occupation input, #city input, #contribution_email, #contribution_phone {
 	min-width:260px;
 	width:260px;
 	max-width:260px;
@@ -135,38 +135,58 @@ input.text_field, select {
 	width:80px;
 	max-width:80px;
 }
-#expiration label { display:block; }
-#expiration #credit_card_month {
-	min-width:60px;
-	width:60px;
-	max-width:60px;
+
+
+/* Card Number */
+#number {
+	float:left;
+	width:250px;
+	margin-right:20px;
 }
-#expiration #credit_card_year {
-	min-width:80px;
-	width:80px;
-	max-width:80px;
+#credit_card_number { 
+	min-width:250px;
+	width:250px;
+	max-width:250px;
 }
-#number { float:left; width:360px; }
-#number input { 
-	min-width:360px;
-	width:360px;
-	max-width:360px;
-}
-#verification_value { float:left; width:160px; }
-#verification_value input { 
-	min-width:160px;
-	width:160px;
-	max-width:160px;
+
+/* CVV */
+#verification_value {
+	float:left;
+	width:110px;
+	margin-right:20px;
 }
 #verification_value a {
 	display:block;
 	margin-top:6px;
 	font-size:93%;
 }
-#first_name, #employer, #city, #state, #type, #expiration, #number, #email {
+#credit_card_cvv { 
+	min-width:110px;
+	width:110px;
+	max-width:110px;
+}
+
+/* Expiration Date */
+#expiration {
+	float:left;
+	width:140px;
+}
+#credit_card_expiration_month {
+	min-width:50px;
+	width:50px;
+	max-width:50px;
+}
+#credit_card_expiration_year {
+	min-width:70px;
+	width:70px;
+	max-width:70px;
+}
+
+
+#first_name, #employer, #city, #state, #email {
 	margin-right:20px;
 }
-#street, #city, #country, #email, #number { clear:both; }
+#street, #city, #country, #email { clear:both; }
 .amount_choice {
 	display:block;
 	float:left;

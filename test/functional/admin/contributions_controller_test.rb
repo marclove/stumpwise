@@ -12,7 +12,7 @@ class Admin::ContributionsControllerTest < ActionController::TestCase
       should_render_with :application, :index
       should_not_set_the_flash
       should_paginate :contributions
-      should_assign_to(:contribution_total){ 6000 }
+      should_assign_to(:contribution_total){ 60.00 }
     end
     
     should_eventually "on GET to :search"
@@ -32,9 +32,7 @@ class Admin::ContributionsControllerTest < ActionController::TestCase
     
     context "on PUT to :refund that's successful" do
       setup do
-        response = mock()
-        response.expects(:success?).returns(true).once
-        Contribution.any_instance.expects(:refund).returns(response)
+        Contribution.any_instance.expects(:reverse).returns(true)
         put :refund, :id => contributions(:with_content_approved_1)
       end
       
@@ -44,15 +42,12 @@ class Admin::ContributionsControllerTest < ActionController::TestCase
     
     context "on PUT to :refund that fails" do
       setup do
-        response = mock()
-        response.expects(:success?).returns(false).once
-        response.expects(:message).returns("It failed").once
-        Contribution.any_instance.expects(:refund).returns(response)
+        Contribution.any_instance.expects(:reverse).raises(Stumpwise::Transaction::ReversalError, "Could not be refunded")
         put :refund, :id => contributions(:with_content_approved_1)
       end
       
       should_redirect_to("contribution show page"){ admin_contribution_path(contributions(:with_content_approved_1))}
-      should_set_the_flash_to "#{I18n.t('contribution.refund.rejected')} It failed"
+      should_set_the_flash_to "#{I18n.t('contribution.refund.rejected')} Could not be refunded"
     end
   end
 
@@ -68,7 +63,7 @@ class Admin::ContributionsControllerTest < ActionController::TestCase
       should_render_with :application, :index
       should_not_set_the_flash
       should_paginate :contributions
-      should_assign_to(:contribution_total){ 6000 }
+      should_assign_to(:contribution_total){ 60.00 }
     end
     
     should_eventually "on GET to :search"
@@ -88,9 +83,7 @@ class Admin::ContributionsControllerTest < ActionController::TestCase
     
     context "on PUT to :refund that's successful" do
       setup do
-        response = mock()
-        response.expects(:success?).returns(true).once
-        Contribution.any_instance.expects(:refund).returns(response)
+        Contribution.any_instance.expects(:reverse).returns(true)
         put :refund, :id => contributions(:with_content_approved_1)
       end
       
@@ -100,15 +93,12 @@ class Admin::ContributionsControllerTest < ActionController::TestCase
     
     context "on PUT to :refund that fails" do
       setup do
-        response = mock()
-        response.expects(:success?).returns(false).once
-        response.expects(:message).returns("It failed").once
-        Contribution.any_instance.expects(:refund).returns(response)
+        Contribution.any_instance.expects(:reverse).raises(Stumpwise::Transaction::ReversalError, "Could not be refunded")
         put :refund, :id => contributions(:with_content_approved_1)
       end
       
       should_redirect_to("contribution show page"){ admin_contribution_path(contributions(:with_content_approved_1))}
-      should_set_the_flash_to "#{I18n.t('contribution.refund.rejected')} It failed"
+      should_set_the_flash_to "#{I18n.t('contribution.refund.rejected')} Could not be refunded"
     end
   end
 

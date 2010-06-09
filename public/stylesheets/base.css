@@ -395,7 +395,6 @@ table#supporter_details td {
 	background-color:#D8E4FD;
 	cursor:pointer;
 }
-table.contribution .card-logo { vertical-align:middle; }
 .first-name, .last-name, .city { width:13%; }
 .state { width:4%; text-align:center; }
 .zip, .phone { width:10%; }
