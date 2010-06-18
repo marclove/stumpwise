@@ -1,6 +1,7 @@
 class Admin::ContributionsController < AdminController
+  # TODO: Make the @contribution_total less hackish
   def index
-    @contribution_total = current_site.contributions.approved.sum(:amount)
+    @contribution_total = current_site.contributions.approved.sum(:amount) + current_site.contributions.settled.sum(:amount) + current_site.contributions.paid.sum(:amount)
     @contributions = current_site.contributions.paginate(
       :page     => params[:page] || 1,
       :per_page => params[:per_page] || 20,
