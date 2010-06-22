@@ -12,7 +12,7 @@ class Admin::ContributionsControllerTest < ActionController::TestCase
       should_render_with :application, :index
       should_not_set_the_flash
       should_paginate :contributions
-      should_assign_to(:contribution_total){ 60.00 }
+      should_assign_to(:contribution_total){ 85.00 }
     end
     
     should_eventually "on GET to :search"
@@ -63,7 +63,7 @@ class Admin::ContributionsControllerTest < ActionController::TestCase
       should_render_with :application, :index
       should_not_set_the_flash
       should_paginate :contributions
-      should_assign_to(:contribution_total){ 60.00 }
+      should_assign_to(:contribution_total){ 85.00 }
     end
     
     should_eventually "on GET to :search"
