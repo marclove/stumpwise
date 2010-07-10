@@ -1,0 +1,103 @@
+<!-- POST https://sandbox.braintreegateway.com:443/merchants/8jw8y63nqbd3qxyy/subscriptions -->
+<?xml version="1.0" encoding="UTF-8"?>
+<subscription>
+  <id>9td64b</id>
+  <price>99.00</price>
+  <plan-id>basic</plan-id>
+  <first-billing-date type="date">2010-07-06</first-billing-date>
+  <next-billing-date type="date">2010-08-06</next-billing-date>
+  <billing-period-start-date type="date">2010-07-06</billing-period-start-date>
+  <billing-period-end-date type="date">2010-08-05</billing-period-end-date>
+  <merchant-account-id>ProgressBound</merchant-account-id>
+  <trial-period type="boolean">false</trial-period>
+  <status>Active</status>
+  <failure-count type="integer">0</failure-count>
+  <payment-method-token>7z76</payment-method-token>
+  <trial-duration nil="true"></trial-duration>
+  <trial-duration-unit>day</trial-duration-unit>
+  <transactions type="array">
+    <transaction>
+      <id>299b4b</id>
+      <status>submitted_for_settlement</status>
+      <type>sale</type>
+      <currency-iso-code>USD</currency-iso-code>
+      <amount>99.00</amount>
+      <merchant-account-id>ProgressBound</merchant-account-id>
+      <order-id nil="true"></order-id>
+      <created-at type="datetime">2010-07-06T10:17:18Z</created-at>
+      <updated-at type="datetime">2010-07-06T10:17:37Z</updated-at>
+      <customer>
+        <id>858471</id>
+        <first-name>Charity</first-name>
+        <last-name>Smith</last-name>
+        <company nil="true"></company>
+        <email nil="true"></email>
+        <website nil="true"></website>
+        <phone nil="true"></phone>
+        <fax nil="true"></fax>
+      </customer>
+      <billing>
+        <id nil="true"></id>
+        <first-name nil="true"></first-name>
+        <last-name nil="true"></last-name>
+        <company nil="true"></company>
+        <street-address nil="true"></street-address>
+        <extended-address nil="true"></extended-address>
+        <locality nil="true"></locality>
+        <region nil="true"></region>
+        <postal-code nil="true"></postal-code>
+        <country-name nil="true"></country-name>
+      </billing>
+      <refund-id nil="true"></refund-id>
+      <refunded-transaction-id nil="true"></refunded-transaction-id>
+      <shipping>
+        <id nil="true"></id>
+        <first-name nil="true"></first-name>
+        <last-name nil="true"></last-name>
+        <company nil="true"></company>
+        <street-address nil="true"></street-address>
+        <extended-address nil="true"></extended-address>
+        <locality nil="true"></locality>
+        <region nil="true"></region>
+        <postal-code nil="true"></postal-code>
+        <country-name nil="true"></country-name>
+      </shipping>
+      <custom-fields>
+      </custom-fields>
+      <avs-error-response-code nil="true"></avs-error-response-code>
+      <avs-postal-code-response-code>I</avs-postal-code-response-code>
+      <avs-street-address-response-code>I</avs-street-address-response-code>
+      <cvv-response-code>I</cvv-response-code>
+      <processor-authorization-code>K8C9JD</processor-authorization-code>
+      <processor-response-code>1000</processor-response-code>
+      <processor-response-text>Approved</processor-response-text>
+      <credit-card>
+        <token>7z76</token>
+        <bin>510510</bin>
+        <last-4>5100</last-4>
+        <card-type>MasterCard</card-type>
+        <expiration-month>05</expiration-month>
+        <expiration-year>2012</expiration-year>
+        <customer-location>US</customer-location>
+        <cardholder-name></cardholder-name>
+      </credit-card>
+      <status-history type="array">
+        <status-event>
+          <timestamp type="datetime">2010-07-06T10:17:36Z</timestamp>
+          <status>authorized</status>
+          <amount>99.00</amount>
+          <user>marc.love@progressbound.com</user>
+          <transaction-source>Recurring</transaction-source>
+        </status-event>
+        <status-event>
+          <timestamp type="datetime">2010-07-06T10:17:36Z</timestamp>
+          <status>submitted_for_settlement</status>
+          <amount>99.00</amount>
+          <user>marc.love@progressbound.com</user>
+          <transaction-source>Recurring</transaction-source>
+        </status-event>
+      </status-history>
+      <subscription-id>9td64b</subscription-id>
+    </transaction>
+  </transactions>
+</subscription>

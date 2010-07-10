@@ -1,0 +1,36 @@
+<!-- POST https://sandbox.braintreegateway.com:443/merchants/8jw8y63nqbd3qxyy/customers -->
+<?xml version="1.0" encoding="UTF-8"?>
+<customer>
+  <id>858471</id>
+  <merchant-id>8jw8y63nqbd3qxyy</merchant-id>
+  <first-name>Charity</first-name>
+  <last-name>Smith</last-name>
+  <company nil="true"></company>
+  <email nil="true"></email>
+  <phone nil="true"></phone>
+  <fax nil="true"></fax>
+  <website nil="true"></website>
+  <created-at type="datetime">2010-07-06T10:11:16Z</created-at>
+  <updated-at type="datetime">2010-07-06T10:11:16Z</updated-at>
+  <custom-fields>
+  </custom-fields>
+  <credit-cards type="array">
+    <credit-card>
+      <bin>510510</bin>
+      <cardholder-name></cardholder-name>
+      <card-type>MasterCard</card-type>
+      <created-at type="datetime">2010-07-06T10:11:16Z</created-at>
+      <customer-id>858471</customer-id>
+      <default type="boolean">true</default>
+      <expiration-month>05</expiration-month>
+      <expiration-year>2012</expiration-year>
+      <expired type="boolean">false</expired>
+      <customer-location>US</customer-location>
+      <last-4>5100</last-4>
+      <subscriptions type="array"/>
+      <token>7z76</token>
+      <updated-at type="datetime">2010-07-06T10:11:16Z</updated-at>
+    </credit-card>
+  </credit-cards>
+  <addresses type="array"/>
+</customer>

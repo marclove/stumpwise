@@ -1,0 +1,29 @@
+<!-- POST https://sandbox.braintreegateway.com:443/merchants/8jw8y63nqbd3qxyy/customers -->
+<?xml version="1.0" encoding="UTF-8"?>
+<api-error-response>
+  <params>
+    <customer>
+      <credit-card>
+        <expiration-date>05/2012</expiration-date>
+      </credit-card>
+      <first-name>Charity</first-name>
+      <last-name>Smith</last-name>
+      <email>invalid</email>
+    </customer>
+  </params>
+  <errors>
+    <customer>
+      <errors type="array">
+        <error>
+          <code>81604</code>
+          <message>Email is an invalid format.</message>
+          <attribute type="symbol">email</attribute>
+        </error>
+      </errors>
+      <credit-card>
+        <errors type="array"/>
+      </credit-card>
+    </customer>
+    <errors type="array"/>
+  </errors>
+</api-error-response>

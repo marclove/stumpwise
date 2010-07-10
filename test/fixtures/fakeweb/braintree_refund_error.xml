@@ -1,0 +1,25 @@
+<!-- POST https://sandbox.braintreegateway.com:443/merchants/8jw8y63nqbd3qxyy/transactions/j26hdw/refund -->
+<?xml version="1.0" encoding="UTF-8"?>
+<api-error-response>
+  <errors>
+    <errors type="array"/>
+    <transaction>
+      <errors type="array">
+        <error>
+          <code>91512</code>
+          <message>Transaction has already been refunded.</message>
+          <attribute type="symbol">base</attribute>
+        </error>
+      </errors>
+    </transaction>
+  </errors>
+  <params>
+    <merchant-id>8jw8y63nqbd3qxyy</merchant-id>
+    <transaction>
+      <amount nil="true"></amount>
+    </transaction>
+    <action>refund</action>
+    <id>j26hdw</id>
+    <controller>transactions</controller>
+  </params>
+</api-error-response>

@@ -1,0 +1,91 @@
+<!-- GET https://sandbox.braintreegateway.com:443/merchants/8jw8y63nqbd3qxyy/transactions/j26hdw -->
+<?xml version="1.0" encoding="UTF-8"?>
+<transaction>
+  <id>j26hdw</id>
+  <status>settled</status>
+  <type>sale</type>
+  <currency-iso-code>USD</currency-iso-code>
+  <amount>25.00</amount>
+  <merchant-account-id>ProgressBound</merchant-account-id>
+  <order-id>f94fd6403bc967532a799ea1117278e3</order-id>
+  <created-at type="datetime">2010-06-12T12:59:13Z</created-at>
+  <updated-at type="datetime">2010-06-13T08:07:39Z</updated-at>
+  <customer>
+    <id nil="true"></id>
+    <first-name nil="true"></first-name>
+    <last-name nil="true"></last-name>
+    <company nil="true"></company>
+    <email nil="true"></email>
+    <website nil="true"></website>
+    <phone nil="true"></phone>
+    <fax nil="true"></fax>
+  </customer>
+  <billing>
+    <id nil="true"></id>
+    <first-name nil="true"></first-name>
+    <last-name nil="true"></last-name>
+    <company nil="true"></company>
+    <street-address nil="true"></street-address>
+    <extended-address nil="true"></extended-address>
+    <locality nil="true"></locality>
+    <region nil="true"></region>
+    <postal-code nil="true"></postal-code>
+    <country-name nil="true"></country-name>
+  </billing>
+  <refund-id nil="true"></refund-id>
+  <shipping>
+    <id nil="true"></id>
+    <first-name nil="true"></first-name>
+    <last-name nil="true"></last-name>
+    <company nil="true"></company>
+    <street-address nil="true"></street-address>
+    <extended-address nil="true"></extended-address>
+    <locality nil="true"></locality>
+    <region nil="true"></region>
+    <postal-code nil="true"></postal-code>
+    <country-name nil="true"></country-name>
+  </shipping>
+  <custom-fields>
+  </custom-fields>
+  <avs-error-response-code nil="true"></avs-error-response-code>
+  <avs-postal-code-response-code>I</avs-postal-code-response-code>
+  <avs-street-address-response-code>I</avs-street-address-response-code>
+  <cvv-response-code>M</cvv-response-code>
+  <processor-authorization-code>72873</processor-authorization-code>
+  <processor-response-code>1000</processor-response-code>
+  <processor-response-text>Approved</processor-response-text>
+  <credit-card>
+    <token nil="true"></token>
+    <bin>411111</bin>
+    <last-4>1111</last-4>
+    <card-type>Visa</card-type>
+    <expiration-month>12</expiration-month>
+    <expiration-year>2012</expiration-year>
+    <customer-location>US</customer-location>
+    <cardholder-name nil="true"></cardholder-name>
+  </credit-card>
+  <status-history type="array">
+    <status-event>
+      <timestamp type="datetime">2010-06-12T12:59:16Z</timestamp>
+      <status>authorized</status>
+      <amount>25.00</amount>
+      <user>test@stumpwise.com</user>
+      <transaction-source>API</transaction-source>
+    </status-event>
+    <status-event>
+      <timestamp type="datetime">2010-06-12T12:59:16Z</timestamp>
+      <status>submitted_for_settlement</status>
+      <amount>25.00</amount>
+      <user>test@stumpwise.com</user>
+      <transaction-source>API</transaction-source>
+    </status-event>
+    <status-event>
+      <timestamp type="datetime">2010-06-13T08:07:39Z</timestamp>
+      <status>settled</status>
+      <amount>25.00</amount>
+      <user nil="true"></user>
+      <transaction-source></transaction-source>
+    </status-event>
+  </status-history>
+  <subscription-id nil="true"></subscription-id>
+</transaction>

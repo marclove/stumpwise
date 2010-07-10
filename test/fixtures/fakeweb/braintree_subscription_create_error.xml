@@ -1,0 +1,20 @@
+<!-- POST https://sandbox.braintreegateway.com:443/merchants/8jw8y63nqbd3qxyy/subscriptions -->
+<?xml version="1.0" encoding="UTF-8"?>
+<api-error-response>
+  <params>
+    <payment-method-token>wrong</payment-method-token>
+    <plan-id>basic</plan-id>
+  </params>
+  <errors>
+    <subscription>
+      <errors type="array">
+        <error>
+          <code>91903</code>
+          <message>Payment method token is invalid.</message>
+          <attribute type="symbol">payment_method_token</attribute>
+        </error>
+      </errors>
+    </subscription>
+    <errors type="array"/>
+  </errors>
+</api-error-response>

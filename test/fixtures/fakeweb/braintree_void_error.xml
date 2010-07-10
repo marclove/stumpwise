@@ -1,0 +1,22 @@
+<!-- PUT https://sandbox.braintreegateway.com:443/merchants/8jw8y63nqbd3qxyy/transactions/j26hdw/void -->
+<?xml version="1.0" encoding="UTF-8"?>
+<api-error-response>
+  <errors>
+    <errors type="array"/>
+    <transaction>
+      <errors type="array">
+        <error>
+          <code>91504</code>
+          <message>Transaction can only be voided if status is authorized or submitted_for_settlement.</message>
+          <attribute type="symbol">base</attribute>
+        </error>
+      </errors>
+    </transaction>
+  </errors>
+  <params>
+    <merchant-id>8jw8y63nqbd3qxyy</merchant-id>
+    <action>void</action>
+    <id>j26hdw</id>
+    <controller>transactions</controller>
+  </params>
+</api-error-response>
