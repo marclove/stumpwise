@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100617210430) do
+ActiveRecord::Schema.define(:version => 20100707115934) do
 
   create_table "administratorships", :force => true do |t|
     t.integer "administrator_id"
@@ -158,7 +158,12 @@ ActiveRecord::Schema.define(:version => 20100617210430) do
     t.string   "campaign_city"
     t.string   "campaign_state"
     t.string   "campaign_zip"
-    t.string   "time_zone",                 :default => "Pacific Time (US & Canada)"
+    t.string   "time_zone",                  :default => "Pacific Time (US & Canada)"
+    t.boolean  "active",                     :default => false
+    t.string   "credit_card_token"
+    t.datetime "credit_card_expiration"
+    t.string   "subscription_id"
+    t.integer  "subscription_billing_cycle"
   end
 
   add_index "sites", ["custom_domain"], :name => "index_sites_on_custom_domain", :unique => true

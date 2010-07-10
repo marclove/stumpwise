@@ -32,7 +32,7 @@ ActionController::Routing::Routes.draw do |map|
     c.connect ':subdomain/contribute/:action/:order_id', :controller => 'contributions'
     
     c.connect 'signup', :controller => 'home', :action => 'signup'
-    c.connect 'setup', :controller => 'home', :action => 'setup'
+    c.connect 'create_site', :controller => 'home', :action => 'create_site'
   end
 
   map.namespace(:admin) do |admin|

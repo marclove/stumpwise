@@ -255,4 +255,85 @@ class ActiveSupport::TestCase
       }
     })
   end
+  
+  def gateway_customer_create_result(result)
+    if result == :success
+      Braintree::SuccessfulResult.new({
+        :customer => Braintree::Customer._new({
+          :id => "131866",
+          :first_name => "Charity",
+          :last_name => "Smith",
+          :company => nil,
+          :email => nil,
+          :fax => nil,
+          :phone => nil,
+          :website => nil,
+          :created_at => Time.parse("Tue Jul 06 10:10:12 UTC 2010"),
+          :updated_at => Time.parse("Tue Jul 06 10:10:13 UTC 2010"),
+          :addresses => [],
+          :credit_cards => [
+            {
+              :token => "fydb",
+              :customer_id => "131866",
+              :cardholder_name => "",
+              :card_type => "MasterCard",
+              :bin => "510510",
+              :last_4 => "5100",
+              :expiration_month => "05",
+              :expiration_year => "2012", 
+              :billing_address => nil,
+              :created_at => Time.parse("Tue Jul 06 10:10:12 UTC 2010"),
+              :updated_at => Time.parse("Tue Jul 06 10:10:12 UTC 2010")
+            }
+          ]
+        })
+      })
+    else
+      Braintree::ErrorResult.new({
+        :params => {}, 
+        :verification => {}, 
+        :transaction => {}, 
+        :errors => {
+          :scope => {
+            :errors => [{:attribute => "credit_card", :code => "81706", :message => "CVV is required."}]
+          }
+        }
+      })
+    end
+  end
+  
+  def gateway_subscription_create_result(result)
+    if result == :success
+      Braintree::SuccessfulResult.new({
+        :subscription => Braintree::Subscription._new({
+          :id => "9td64b",
+          :price => "99.00",
+          :plan_id => "basic",
+          :first_billing_date => "2010-07-06",
+          :next_billing_date => "2010-08-06",
+          :billing_period_start_date => "2010-07-06",
+          :billing_period_end_date => "2010-08-05",
+          :merchant_account_id => "ProgressBound",
+          :trial_period => false,
+          :status => "Active",
+          :failure_count => 0,
+          :payment_method_token => "7z76",
+          :trial_duration => nil,
+          :trial_duration_unit => "day",
+          :transactions => []
+        })
+      })
+    else
+      Braintree::ErrorResult.new({
+        :params => {}, 
+        :verification => {}, 
+        :transaction => {}, 
+        :errors => {
+          :scope => {
+            :errors => [{:attribute => "subscription", :code => "91903", :message => "Payment method token is invalid."}]
+          }
+        }
+      })
+    end
+  end
 end

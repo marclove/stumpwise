@@ -3,7 +3,7 @@
 		=render 'layouts/marketing_nav'
 		#signup
 			%h2 Launch your campaign site in less than 5 minutes!
-			-form_tag '/setup' do
+			-form_tag '/create_site' do
 				=flash_messages
 				#user-information.section
 					%h3 Create your Stumpwise user account
@@ -81,7 +81,10 @@
 					%h3 Enter your payment information
 					%table
 						%tr
-							%th{:style => "width:150px;"}=label_tag "Card number"
+							%th{:style => "width:150px;"}=label_tag "Cardholder Name"
+							%td=text_field_tag "credit_card[cardholder_name]", '', :style => "width:250px"
+						%tr
+							%th=label_tag "Card number"
 							%td=text_field_tag "credit_card[number]", '', :style => "width:250px"
 						%tr
 							%th=label_tag "Verification Code"
@@ -89,21 +92,9 @@
 						%tr
 							%th=label_tag "Expiration Date"
 							%td
-								=text_field_tag "credit_card[exp_month]", '', :style => "width:40px"
+								=text_field_tag "credit_card[expiration_month]", '', :style => "width:40px"
 								\/
-								=text_field_tag "credit_card[exp_year]", '', :style => "width:80px"
-						%tr
-							%th=label_tag "Billing Address"
-							%td=text_field_tag "credit_card[address]", '', :style => "width:350px"
-						%tr
-							%th=label_tag "Billing City"
-							%td=text_field_tag "credit_card[city]", '', :style => "width:200px"
-						%tr
-							%th=label_tag "Billing State"
-							%td=text_field_tag "credit_card[state]", '', :style => "width:60px"
-						%tr
-							%th=label_tag "Billing Zip Code"
-							%td=text_field_tag "credit_card[zip_code]", '', :style => "width:150px"
+								=text_field_tag "credit_card[expiration_year]", '', :style => "width:80px"
 
 				#invite-code.section
 					%h3 We're in invitation-only mode right now. Please enter your invite code.

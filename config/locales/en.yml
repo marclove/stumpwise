@@ -32,6 +32,7 @@ en:
     create:
       success: "The site has been created."
       fail: "There was an error. The site could not be created."
+      invalid_card: "There was a problem processing your credit card."
     update:
       success: "Your changes have been saved."
       fail: "There was an error. Your changes could not be saved."
