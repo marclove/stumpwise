@@ -190,7 +190,7 @@ input.text_field, select {
 .amount_choice {
 	display:block;
 	float:left;
-	width:140px;
+	width:185px;
 	height:32px;
 	line-height:32px;
 }

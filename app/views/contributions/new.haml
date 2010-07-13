@@ -21,6 +21,9 @@
 						#amount_error.flash.error= t('contribution.process.fail.amount')
 					#amount.field_element
 						.amount_choice
+							=radio_button_tag 'amount_choice','10', @amount_choice == "10"
+							=label_tag 'amount_choice_10', '$10.00'
+						.amount_choice
 							=radio_button_tag 'amount_choice','25', @amount_choice == "25"
 							=label_tag 'amount_choice_25', '$25.00'
 						.amount_choice
@@ -32,15 +35,6 @@
 						.amount_choice
 							=radio_button_tag 'amount_choice','250', @amount_choice == "250"
 							=label_tag 'amount_choice_250', '$250.00'
-						.amount_choice
-							=radio_button_tag 'amount_choice','500', @amount_choice == "500"
-							=label_tag 'amount_choice_500', '$500.00'
-						.amount_choice
-							=radio_button_tag 'amount_choice','1000', @amount_choice == "1000"
-							=label_tag 'amount_choice_1000', '$1,000.00'
-						.amount_choice
-							=radio_button_tag 'amount_choice','2500', @amount_choice == "2500"
-							=label_tag 'amount_choice_2500', '$2,500.00'
 						.amount_choice.other_amount
 							=radio_button_tag 'amount_choice','other', @amount_choice == "other"
 							=label_tag 'amount_choice_other', 'Other:'
