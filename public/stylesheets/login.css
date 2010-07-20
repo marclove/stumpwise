@@ -1,7 +1,5 @@
 @import url('reset-min.css');
 @import url('fonts-min.css');
-@import url('droid-sans/stylesheet.css');
-@import url('droid-serif/stylesheet.css');
 @import url('buttons.css');
 @import url('inputs.css');
 
@@ -9,7 +7,7 @@ p { margin:1em 0; }
 strong { font-weight:bold; }
 a { color:#0050F0; text-decoration:none; }
 html, body{ 
-  font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+  font-family:"Lucida Grande","Lucida Sans Unicode","Lucida Sans",Tahoma,Arial,sans-serif;
 	background-color:#041D49;
 }
 #container{
@@ -21,6 +19,11 @@ html, body{
 	position:relative;
 }
 #header h1 {
+	background:url(../images/logo_big.png);
+	margin:0 auto;
+	width:273px;
+	height:58px;
+	text-indent:-999999px;
 	color:#FFF;
 	text-align:center;
 	font-size:400%;

@@ -3,7 +3,7 @@
 @import url('inputs.css');
 
 html, body {
-  font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+  font-family:"Lucida Grande","Lucida Sans Unicode","Lucida Sans",Tahoma,Arial,sans-serif;
 	background-color:#002E8A;
 }
 p { margin:1em 0; }
