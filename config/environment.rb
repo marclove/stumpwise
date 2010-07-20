@@ -34,7 +34,7 @@ Rails::Initializer.run do |config|
   config.gem 'carrierwave'
   config.gem 'braintree', :version => '2.2.0'
   config.gem 'shenie-ssl_requirement', :lib => 'ssl_requirement'
-  config.gem 'twilio', :version => '2.7.0'
+  config.gem 'twilio', :version => '2.8.0'
   config.gem 'newrelic_rpm'
   config.gem 'hoptoad_notifier'
   config.gem 'aasm'
