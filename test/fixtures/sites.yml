@@ -152,3 +152,13 @@ cannot_accept_contributions:
   time_zone: "Pacific Time (US & Canada)"
   active: true
   can_accept_contributions: false
+
+with_supporters:
+  id: 10
+  owner_id: 1
+  subdomain: with-supporters
+  theme_id: 1
+  name: With Supporters
+  campaign_legal_name: With Supporters
+  campaign_email: person@me.com
+  time_zone: "Pacific Time (US & Canada)"

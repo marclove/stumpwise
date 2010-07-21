@@ -58,7 +58,7 @@ class SiteTest < ActiveSupport::TestCase
     should_belong_to :owner, :theme
     should_have_many :administratorships, :administrators, :supporterships,
                      :supporters, :contributions, :layouts, :templates,
-                     :items, :pages, :blogs, :articles, :assets
+                     :items, :pages, :blogs, :articles, :assets, :sms_campaigns
     
     should "be able to be transformed into a liquid drop" do
       assert_instance_of SiteDrop, Site.new.to_liquid
@@ -113,6 +113,37 @@ class SiteTest < ActiveSupport::TestCase
     end
     
     should_eventually "return a list of mobile numbers for sms messaging"
+
+    should_eventually "return a gateway for use in contributions"
+
+    should "know if its credit card is expired" do
+      site = Site.make(:credit_card_expiration => Time.now.utc)
+      assert site.credit_card_expired?
+      site = Site.make(:credit_card_expiration => Time.now.utc + 1.minute)
+      assert !site.credit_card_expired?
+    end
+    
+    should "know if it has a valid payment method on file" do
+      # Expired card
+      site = Site.make(:credit_card_token => "abc123", :credit_card_expiration => Time.now.utc)
+      assert !site.valid_payment_method_on_file?
+      # No card on file
+      site = Site.make(:credit_card_token => nil, :credit_card_expiration => nil)
+      assert !site.valid_payment_method_on_file?
+      # Valid card on file
+      site = Site.make(:credit_card_token => "abc123", :credit_card_expiration => Time.now.utc + 1.minute)
+      assert site.valid_payment_method_on_file?
+    end
+    
+    should "return a list of supporters that want sms messages" do
+      assert_same_elements [supporters(:sms_only), supporters(:email_and_sms)], sites(:with_supporters).supporters.wanting_sms
+    end
+    
+    should "know the number of supporters that want sms messages" do
+      assert_equal 2, sites(:with_supporters).supporters.wanting_sms_count
+    end
+
+    should_eventually "render templates? (call_render)"
     
     should "verify that a super admin is an authorized user" do
       site = Site.make

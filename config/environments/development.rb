@@ -36,6 +36,7 @@ config.after_initialize do
   Braintree::Configuration.merchant_id = "8jw8y63nqbd3qxyy"
   Braintree::Configuration.public_key  = "nvpczrn9gxhy4h3w"
   Braintree::Configuration.private_key = "sy9ymwccmnp5whmd"
+  Twilio.connect('AC290b369fef9ffa8920ca99314daa329d', '3754013e10389ded382a62d5f2830b43')
 end
 
 SslRequirement.disable_ssl_check = true

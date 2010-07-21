@@ -144,4 +144,9 @@ User.blueprint(:admin) do
   password_confirmation { "test1234" }
   time_zone { "Pacific Time (US & Canada)" }
   super_admin { true }
-end  
+end
+
+SmsCampaign.blueprint do
+  site { Site.make }
+  message { Sham.name }
+end

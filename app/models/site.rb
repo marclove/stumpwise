@@ -63,8 +63,16 @@ class Site < ActiveRecord::Base
   has_many    :administratorships
   has_many    :administrators, :through => :administratorships
   has_many    :supporterships
-  has_many    :supporters, :through => :supporterships
+  has_many    :supporters, :through => :supporterships do
+    def wanting_sms
+      find(:all, :conditions => ["supporterships.receive_sms = ?", true])
+    end
+    def wanting_sms_count
+      count(:conditions => ["supporterships.receive_sms = ?", true])
+    end
+  end
   has_many    :contributions
+  has_many    :sms_campaigns, :order => 'created_at DESC'
   
   has_many    :items,     :order => 'lft ASC'
   has_many    :pages,     :order => 'lft ASC'
@@ -184,6 +192,14 @@ class Site < ActiveRecord::Base
   
   def theme_customization
     ThemeCustomization.first({:id => self.mongo_theme_customization_id})
+  end
+
+  def valid_payment_method_on_file?
+    credit_card_token.present? && !credit_card_expired?
+  end
+  
+  def credit_card_expired?
+    Time.now.utc >= credit_card_expiration.utc
   end
   
   protected
