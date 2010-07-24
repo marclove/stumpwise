@@ -3,7 +3,9 @@
 		=render 'layouts/marketing_nav'
 		#marketing-display
 			#screenshots
-				=image_tag 'marketing/screenshot.jpg', :alt => 'Screenshot of Stumpwise'
+				<object width="510" height="311"><param name="movie" value="http://www.youtube.com/v/KbT3xdkzZCM&amp;hl=en_US&amp;fs=1?hd=1"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/KbT3xdkzZCM&amp;hl=en_US&amp;fs=1?hd=1" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="510" height="311"></embed></object>
+				/
+					=image_tag 'marketing/screenshot.jpg', :alt => 'Screenshot of Stumpwise'
 			-link_to (Rails.env.production? ? "https://secure.#{HOST}/signup" : "http://secure.#{HOST}/signup"), :id => "pricing-button" do
 				=image_tag 'marketing/plansnpricing.png', :alt => 'See Plans &amp; Pricing'
 
@@ -31,4 +33,16 @@
 					%td Communicating with your supporters is absolutely critical for fundraising, volunteer organization, and GOTV efforts. Send an email or SMS blast out to all your supporters with the click of a button and get detailed statistics about how successful your message was.
 					%td Social networks are becoming one of the most effective and affordable ways for political campaigns to communicate with and find new supporters. We are tightly integrating these networks with our campaign communications and CRM features.
 					%td Running for office has become unbelievably complex and expensive. We're reversing that trend by making it easier and more affordable using the web. Our fees will always be within reach of anyone running for office and we despise mandatory contracts &amp; hidden fees.
+		
+		%div{:style => "margin:0 auto; margin-bottom:2em; padding:10px; border:1px solid #CCC; line-height:3em; text-align:center; width:500px; background:#FFF;"}
+			%span{:style => "font-weight:bold; font-size:125%;"} Sign up for our newsletter
+			<form action="http://email.stumpwise.com/t/r/s/hkkyuj/" method="post" id="subForm">
+			<label for="name">Name:</label>
+			<input type="text" name="cm-name" id="name" style="margin-right:1em;" />
+				
+			<label for="hkkyuj-hkkyuj">Email:</label>
+			<input type="text" name="cm-hkkyuj-hkkyuj" id="hkkyuj-hkkyuj" />
+				
+			<input type="submit" value="Subscribe" />
+			</form>
 	=render 'layouts/marketing_footer'

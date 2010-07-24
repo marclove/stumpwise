@@ -79,6 +79,10 @@
 
 				#payment-information.section
 					%h3 Enter your payment information
+					%p
+						%strong Your card will not be charged to set up your site.
+						Your card will only be charged if you send out emails or SMS messages to your supporters.
+						In those situations, we will always ask for your permission first.
 					%table
 						%tr
 							%th{:style => "width:150px;"}=label_tag "Cardholder Name"
@@ -96,11 +100,6 @@
 								\/
 								=text_field_tag "credit_card[expiration_year]", '', :style => "width:80px"
 
-				#invite-code.section
-					%h3 We're in invitation-only mode right now. Please enter your invite code.
-					%p
-						=text_field_tag 'invite_code'
-					
 				-fields_for @user do |u|
 					%p.accept-tos
 						=u.check_box :accepted_campaign_terms
