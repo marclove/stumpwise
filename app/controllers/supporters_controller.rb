@@ -1,5 +1,5 @@
 class SupportersController < ApplicationController
-  before_filter :handle_invalid_site
+  before_filter :handle_invalid_site, :reject_inactive_site
   
   def create
     supporter = params[:supporter]

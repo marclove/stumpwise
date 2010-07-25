@@ -2,6 +2,17 @@ require 'test_helper'
 
 class SupportersControllerTest < ActionController::TestCase
   context "Supporters Controller" do
+    context "on POST to :create for inactive site" do
+      setup do
+        @request.env["HTTP_REFERER"] = "http://demo.localdev.com"
+        setup_session_domain
+        on_site(:inactive)
+        post :create, :supporter => {:email => "newsupporter@stumpwise.com", :postal_code => '95123'}
+      end
+      
+      should_respond_with(404)
+    end
+    
     context "on POST to :create" do
       setup do
         @request.env["HTTP_REFERER"] = "http://demo.localdev.com"

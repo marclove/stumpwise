@@ -24,6 +24,8 @@ class Manage::SitesController < ManageController
     end
     
     if @user_saved && @site_saved && @administratorship_created
+      @site.update_attribute(:active, params[:site][:active])
+      @site.update_attribute(:can_accept_contributions, params[:site][:can_accept_contributions])
       redirect_to manage_sites_path
     else
       flash.now[:error] = t("site.create.fail")
@@ -36,6 +38,8 @@ class Manage::SitesController < ManageController
   
   def update
     if @site.update_attributes(params[:site])
+      @site.update_attribute(:active, params[:site][:active])
+      @site.update_attribute(:can_accept_contributions, params[:site][:can_accept_contributions])
       flash[:notice] = t("site.update.success")
       redirect_to manage_sites_path
     else

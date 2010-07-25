@@ -22,7 +22,9 @@ class SiteDropTest < ActiveSupport::TestCase
         :campaign_state => 'CA',
         :campaign_zip => '95111'
       }
-      @site_drop = Site.new(@attrs).to_liquid
+      site = Site.new(@attrs)
+      site.can_accept_contributions = true
+      @site_drop = Factory(:site).to_liquid
     end
     
     should "have name attribute" do
@@ -70,7 +72,11 @@ class SiteDropTest < ActiveSupport::TestCase
     end
     
     should "have a contribute url" do
-      assert_equal "http://secure.localdev.com:3000/woods/contribute", @site_drop['contribute_url']
+      assert_equal "http://secure.localdev.com:3000/tonywoods/contribute", @site_drop['contribute_url']
+    end
+    
+    should "return true for accepts_contributions?" do
+      assert @site_drop['accepts_contributions?']
     end
     
     should "have a campaign legal name" do
@@ -111,21 +117,15 @@ class SiteDropTest < ActiveSupport::TestCase
     end
     
     context "for site without custom domain" do
-      setup do
-        @attrs.merge!(:custom_domain => nil)
-        @site_drop = Site.new(@attrs).to_liquid
-      end
-      
       should "have root_url that uses the subdomain" do
-        assert_equal "http://woods.localdev.com", @site_drop['root_url']
+        assert_equal "http://tonywoods.localdev.com", @site_drop['root_url']
       end
       
       context "and with Google Analytics ID" do
         setup do
-          @attrs.merge!(:google_analytics_id  => 'UA-99999-1')
-          @site_drop = Site.new(@attrs).to_liquid
+          @site_drop = Factory(:site_with_analytics).to_liquid
         end
-
+        
         should "have a google analytics id attribute" do
           assert_equal "UA-99999-1", @site_drop['google_analytics_id']
         end
@@ -152,12 +152,11 @@ class SiteDropTest < ActiveSupport::TestCase
     
     context "for site with custom domain" do
       setup do
-        @attrs.merge!(:custom_domain => 'anthonywoods.com')
-        @site_drop = Site.new(@attrs).to_liquid
+        @site_drop = Factory(:site_with_custom_domain).to_liquid
       end
       
       should "have root_url that uses the custom domain" do
-        assert_equal "http://anthonywoods.com", @site_drop['root_url']
+        assert_equal "http://anthonywoods1.com", @site_drop['root_url']
       end
       
       should "return embed code for Google Analytics without site-specific code" do
@@ -180,8 +179,7 @@ class SiteDropTest < ActiveSupport::TestCase
       
       context "and with Google Analytics ID set" do
         setup do
-          @attrs.merge!(:google_analytics_id  => 'UA-99999-1')
-          @site_drop = Site.new(@attrs).to_liquid
+          @site_drop = Factory(:site_with_custom_domain_and_analytics).to_liquid
         end
         
         should "have a Google Analytics ID attribute" do
@@ -196,9 +194,9 @@ class SiteDropTest < ActiveSupport::TestCase
             _gaq.push(['_setDomainName', 'none']);
             _gaq.push(['_setAllowLinker', true])
             _gaq.push(['_trackPageview']);
-            if ('woods.stumpwise.com' != document.location.hostname) {
+            if ('tonywoods4.stumpwise.com' != document.location.hostname) {
               _gaq.push(['b._setAccount', 'UA-99999-1']);
-              _gaq.push(['b._setDomainName', '.anthonywoods.com']);
+              _gaq.push(['b._setDomainName', '.anthonywoods2.com']);
               _gaq.push(['b._trackPageview']);
             }
             (function() {
@@ -210,6 +208,20 @@ class SiteDropTest < ActiveSupport::TestCase
           CODE
           assert_html_equal result, @site_drop['google_analytics_code']
         end
+      end
+    end
+    
+    context "for site that can't accept contributions" do
+      setup do
+        @site_drop = sites(:cannot_accept_contributions).to_liquid
+      end
+      
+      should "return nothing for contribute_url" do
+        assert_equal nil, @site_drop['contribute_url']
+      end
+      
+      should "return false for accepts_contributions?" do
+        assert !@site_drop['accepts_contributions?']
       end
     end
   end

@@ -19,6 +19,10 @@ class SiteDrop < BaseDrop
     @source.navigation.map(&:to_liquid)
   end
   
+  def accepts_contributions?
+    @source.can_accept_contributions?
+  end
+  
   def google_analytics_code
     result = <<-CODE
     <script type="text/javascript">

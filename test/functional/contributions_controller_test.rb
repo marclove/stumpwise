@@ -14,6 +14,24 @@ class ContributionsControllerTest < ActionController::TestCase
     should_render_template :new
     should_not_set_the_flash
   end
+  
+  context "on GET to :new for inactive site" do
+    setup do
+      setup_session_domain
+      get :new, :subdomain => "inactive"
+    end
+    
+    should_respond_with(404)
+  end
+  
+  context "on GET to :new for site that can't accept contributions" do
+    setup do
+      setup_session_domain
+      get :new, :subdomain => "cannot-accept-contributions"
+    end
+    
+    should_respond_with(404)
+  end
 
   context "on POST to :create" do
     setup { setup_session_domain }

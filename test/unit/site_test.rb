@@ -43,6 +43,15 @@ class SiteTest < ActiveSupport::TestCase
       assert_equal "a"*63, Site.generate_subdomain("A"*100)
       assert_equal "a_b_c_d", Site.generate_subdomain("!a@b$c&d")
     end
+    
+    should "have an active named scope that does not return inactive sites" do
+      assert !Site.active.include?(sites(:inactive))
+    end
+    
+    should "have a contributable named scope that does not return inactive sites or sites marked as not eligible to accept contributions" do
+      assert !Site.contributable.include?(sites(:inactive))
+      assert !Site.contributable.include?(sites(:cannot_accept_contributions))
+    end
   end
   
   context "A site" do
@@ -65,6 +74,14 @@ class SiteTest < ActiveSupport::TestCase
     
     should "set its custom domain to nil if set to be an empty string" do
       assert_nil Site.make(:custom_domain => "").custom_domain
+    end
+    
+    should "default to inactive on initialization" do
+      assert !Site.new.active?
+    end
+    
+    should "default to not being unable to accept contributions" do
+      assert !Site.new.can_accept_contributions?
     end
     
     should "return its root item" do

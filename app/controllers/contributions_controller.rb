@@ -38,7 +38,7 @@ class ContributionsController < ApplicationController
   
   private
     def get_site
-      unless @site = Site.find_by_subdomain(params[:subdomain])
+      unless @site = Site.contributable.find_by_subdomain(params[:subdomain])
         render :file => 'public/404.html', :status => 404
       end
     end

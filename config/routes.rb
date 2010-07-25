@@ -2,7 +2,6 @@ ActionController::Routing::Routes.draw do |map|
   map.with_options(:conditions => {:subdomain => false, :domain => BASE_URL}) do |base|
     base.connect 'info/:action', :controller => 'info', :conditions => {:method => :get}
     base.connect 'home', :controller => 'home', :action => 'home'
-    base.connect 'thank_you', :controller => 'home', :action => 'thank_you'
     base.root :controller => 'home', :action => 'index'
   end
   

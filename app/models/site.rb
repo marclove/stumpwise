@@ -1,39 +1,45 @@
 # == Schema Information
-# Schema version: 20100612013511
+# Schema version: 20100725234858
 #
 # Table name: sites
 #
-#  id                        :integer(4)      not null, primary key
-#  created_at                :datetime
-#  updated_at                :datetime
-#  subdomain                 :string(255)
-#  custom_domain             :string(255)
-#  theme_id                  :integer(4)
-#  name                      :string(255)
-#  subhead                   :string(255)
-#  keywords                  :text
-#  description               :text
-#  disclaimer                :text
-#  campaign_email            :string(255)
-#  campaign_phone            :string(255)
-#  twitter_username          :string(255)
-#  facebook_page_id          :string(255)
-#  flickr_username           :string(255)
-#  youtube_username          :string(255)
-#  google_analytics_id       :string(255)
-#  paypal_email              :string(255)
-#  owner_id                  :integer(4)
-#  campaign_monitor_password :string(255)
-#  supporter_list_id         :string(255)
-#  contributor_list_id       :string(255)
-#  candidate_photo           :string(255)
-#  eligibility_statement     :text
-#  campaign_legal_name       :string(255)
-#  campaign_street           :string(255)
-#  campaign_city             :string(255)
-#  campaign_state            :string(255)
-#  campaign_zip              :string(255)
-#  time_zone                 :string(255)     default("Pacific Time (US & Canada)")
+#  id                         :integer(4)      not null, primary key
+#  created_at                 :datetime
+#  updated_at                 :datetime
+#  subdomain                  :string(255)
+#  custom_domain              :string(255)
+#  theme_id                   :integer(4)
+#  name                       :string(255)
+#  subhead                    :string(255)
+#  keywords                   :text
+#  description                :text
+#  disclaimer                 :text
+#  campaign_email             :string(255)
+#  campaign_phone             :string(255)
+#  twitter_username           :string(255)
+#  facebook_page_id           :string(255)
+#  flickr_username            :string(255)
+#  youtube_username           :string(255)
+#  google_analytics_id        :string(255)
+#  paypal_email               :string(255)
+#  owner_id                   :integer(4)
+#  campaign_monitor_password  :string(255)
+#  supporter_list_id          :string(255)
+#  contributor_list_id        :string(255)
+#  candidate_photo            :string(255)
+#  eligibility_statement      :text
+#  campaign_legal_name        :string(255)
+#  campaign_street            :string(255)
+#  campaign_city              :string(255)
+#  campaign_state             :string(255)
+#  campaign_zip               :string(255)
+#  time_zone                  :string(255)     default("Pacific Time (US & Canada)")
+#  active                     :boolean(1)
+#  credit_card_token          :string(255)
+#  credit_card_expiration     :datetime
+#  subscription_id            :string(255)
+#  subscription_billing_cycle :integer(4)
+#  can_accept_contributions   :boolean(1)
 #
 
 class Site < ActiveRecord::Base
@@ -44,9 +50,13 @@ class Site < ActiveRecord::Base
                   :paypal_email, :eligibility_statement, :candidate_photo,
                   :campaign_legal_name, :campaign_street, :campaign_city,
                   :campaign_state, :campaign_zip, :time_zone, :credit_card_token,
-                  :credit_card_expiration, :subscription_id, :subscription_billing_cycle
+                  :credit_card_expiration, :subscription_id, :subscription_billing_cycle,
+                  :active
   
   RESERVED_SUBDOMAINS = %w( www support blog billing help api cdn asset assets chat mail calendar docs documents apps app calendars mobile mobi static admin administration administrator moderator official store buy pages page ssl contribute )
+  
+  named_scope :active, :conditions => {:active => true}
+  named_scope :contributable, :conditions => {:active => true, :can_accept_contributions => true}
   
   belongs_to  :owner, :class_name => 'User'
   has_many    :administratorships
@@ -121,8 +131,10 @@ class Site < ActiveRecord::Base
   end
   
   def contribute_url
-    protocol = (Rails.env.production? ? "https" : "http")
-    "#{protocol}://secure.#{HOST}/#{subdomain}/contribute"
+    if can_accept_contributions?
+      protocol = (Rails.env.production? ? "https" : "http")
+      "#{protocol}://secure.#{HOST}/#{subdomain}/contribute"
+    end
   end
   
   def call_render(object, default_layout = nil, assigns = {}, controller = nil, options = {})

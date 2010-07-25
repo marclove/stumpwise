@@ -1,6 +1,16 @@
 require 'test_helper'
 
 class StumpwiseControllerTest < ActionController::TestCase
+  context "for an inactive site on GET to :show" do
+    setup do
+      setup_session_domain
+      on_site(:inactive)
+      get :show, :path => []
+    end
+    
+    should_respond_with(404)
+  end  
+    
   context "for site with content on GET to :show with a path" do
     setup do
       setup_session_domain

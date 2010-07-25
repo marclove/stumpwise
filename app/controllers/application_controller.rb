@@ -22,6 +22,10 @@ class ApplicationController < ActionController::Base
       render_404 unless current_site
     end
     
+    def reject_inactive_site
+      render_404 if !current_site.active?
+    end
+    
     # called from the non-administrative controllers instead of ActionController::Base#render
     def render_liquid_template_for(object, assigns = {})
       render_404 unless object

@@ -4,6 +4,15 @@ class Admin::BlogsControllerTest < ActionController::TestCase
   context "with administrator logged in" do
     setup { login_as(:admin) }
     
+    context "on GET to :index on inactive site" do
+      setup do
+        on_site(:inactive)
+        get :index
+      end
+      
+      should_respond_with :success
+    end
+    
     context "on GET to :index on site with no blogs" do
       setup do
         on_site(:without_content)

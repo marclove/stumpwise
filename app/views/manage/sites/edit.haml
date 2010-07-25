@@ -17,7 +17,13 @@
 		=f.label :campaign_email, 'Campaign Email', {:class => 'on-top'}
 		=f.text_field :campaign_email, :class => 'text_field wide'
 		=f.label :time_zone, 'Timezone', {:class => 'on-top'}
-		=f.time_zone_select :time_zone, nil, :default => "Pacific Time (US & Canada)"			
+		=f.time_zone_select :time_zone, nil, :default => "Pacific Time (US & Canada)"	
+		%p
+			=f.check_box :can_accept_contributions
+			=f.label :can_accept_contributions, 'Can Accept Contributions'
+		%p
+			=f.check_box :active
+			=f.label :active, 'Site Activated'
 		
 		.buttons
 			%button.positive{:type => 'submit'}

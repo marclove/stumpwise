@@ -1,5 +1,5 @@
 class StumpwiseController < ApplicationController
-  before_filter :handle_invalid_site
+  before_filter :handle_invalid_site, :reject_inactive_site
   
   def show
     if @item = find_item(params[:path])

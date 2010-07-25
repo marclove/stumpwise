@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100612013511
+# Schema version: 20100725234858
 #
 # Table name: items
 #
@@ -259,3 +259,16 @@ unpublished_page:
   show_in_navigation: false
   lft: 15
   rgt: 16
+
+inactive_site_page:
+  id: 17
+  site_id: 8
+  type: Page
+  title: Inactive Site Page
+  slug: inactive
+  permalink: inactive
+  template_name: page.tpl
+  published: true
+  show_in_navigation: true
+  lft: 1
+  rgt: 2

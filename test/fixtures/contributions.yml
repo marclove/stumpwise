@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100612013511
+# Schema version: 20100725234858
 #
 # Table name: contributions
 #
@@ -34,6 +34,7 @@
 #  net_amount              :decimal(8, 2)   default(0.0)
 #  transaction_id          :string(10)
 #  refund_transaction_id   :string(10)
+#  legacy                  :boolean(1)
 #
 
 pending:
