@@ -51,7 +51,7 @@ class Site < ActiveRecord::Base
                   :campaign_legal_name, :campaign_street, :campaign_city,
                   :campaign_state, :campaign_zip, :time_zone, :credit_card_token,
                   :credit_card_expiration, :subscription_id, :subscription_billing_cycle,
-                  :active
+                  :active, :max_contribution_amount
   
   RESERVED_SUBDOMAINS = %w( www support blog billing help api cdn asset assets chat mail calendar docs documents apps app calendars mobile mobi static admin administration administrator moderator official store buy pages page ssl contribute )
   

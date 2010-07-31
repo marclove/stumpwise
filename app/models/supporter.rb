@@ -22,6 +22,8 @@
 #
 
 class Supporter < ActiveRecord::Base
+  attr_accessor :address
+  
   has_many :supporterships, :foreign_key => 'supporter_id'
   has_many :sites, :through => :supporterships
   
@@ -34,6 +36,8 @@ class Supporter < ActiveRecord::Base
                                 :message => 'must include the area code and be 10 digits long'
   validates_length_of   :mobile_phone, :is => 10, :allow_blank => true,
                                 :message => 'must include the area code and be 10 digits long'
+  
+  before_save :geocode
   
   def email=(new_email)
     new_email.downcase! unless new_email.nil?
@@ -72,4 +76,21 @@ class Supporter < ActiveRecord::Base
   def area_and_postal_code
     "#{administrative_area} #{postal_code}"
   end
+  
+  private
+    def geocode
+      if address.present?
+        result = Geokit::Geocoders::MultiGeocoder.geocode(address)
+        if result.success? && result.accuracy > 4
+          self[:thoroughfare]            = result.street_address
+          self[:locality]                = result.city
+          self[:subadministrative_area]  = result.province
+          self[:administrative_area]     = result.state
+          self[:country]                 = result.country_code
+          self[:postal_code]             = result.zip
+          self[:lat]                     = result.lat
+          self[:lng]                     = result.lng
+        end
+      end
+    end
 end

@@ -10,23 +10,37 @@ class ContributionsController < ApplicationController
   end
   
   def create
+    params[:contribution][:amount].gsub!('$','')
     @contribution = @site.contributions.build(params[:contribution])
     @contribution.ip = request.ip
     @credit_card = CreditCard.new(params[:credit_card])
-    @amount_choice, @amount_other = params[:amount_choice], params[:amount_other]
-    @contribution.amount = (@amount_choice == 'other' ? @amount_other : @amount_choice)
 
     if @credit_card.valid? && @contribution.save
       @contribution.approve!(:approved, @credit_card.to_hash)
       if @contribution.approved?
-        redirect_to "/#{@site.subdomain}/contribute/thanks/#{@contribution.order_id}"
+        respond_to do |format|
+          format.html { redirect_to "/#{@site.subdomain}/contribute/thanks/#{@contribution.order_id}" }
+          format.js { render :nothing => true }
+        end
       else
-        flash.now[:error] = "#{t('contribution.process.fail.rejected')} #{@contribution.transaction_errors}"
-        render :action => 'new'
+        @error = "#{t('contribution.process.fail.rejected')} #{@contribution.transaction_errors}"
+        respond_to do |format|
+          format.html do
+            flash.now[:error] = @error
+            render :action => 'new'
+          end
+          format.js { render :text => @error, :status => :unprocessable_entity }
+        end
       end
     else
-      flash.now[:error] = t('contribution.process.fail.invalid_record')
-      render :action => 'new'
+      @error = t('contribution.process.fail.invalid_record')
+      respond_to do |format|
+        format.html do
+          flash.now[:error] = @error
+          render :action => 'new'
+        end
+        format.js { render :text => @error, :status => :unprocessable_entity }
+      end
     end
   end
   

@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Contribute To This Campaign</title>
+		<!--[if lt IE 9]>
+      <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta3)/IE9.js" type="text/javascript"></script>
+    <![endif]-->
+		<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' %>
+		<%= javascript_include_tag 'contribute','stumpwise' %>
+		<%= stylesheet_link_tag '/javascripts/jquery-ui/jquery-ui-1.8.2.custom.css' %>
+		<%= stylesheet_link_tag 'contribute' %>
+		<script type="text/javascript">
+			$(document).ready(function(){Stumpwise.initContribution(<%= current_site.max_contribution_amount %>)});
+		</script>
+	</head>
+
+	<body>
+		<div id="header">
+			<h1>stumpwise</h1>
+			<h2>Contribute To This Campaign</h2>
+			<%= image_tag "secure.png", :alt => "This is a secure form" %>
+		</div>
+		<% form_for @contribution, :url => "/#{@site.subdomain}/contribute", :html => {:id => 'contribution_form', :method => :post} do |f| %>
+			<div id="form-body">
+				<div id="errors"></div>
+				<%= flash_messages %>
+				<div id="contribution-amount">
+					<div id="contribution-select">
+						<div id="contribution-min"></div>
+						<div id="slider"></div>
+						<div id="contribution-max"></div>
+					</div>
+					<%= f.label :amount, 'How much would you like to donate?' %>
+					<%= f.text_field :amount, :id => "amount", :class => "required", :value => "$0" %>
+					<div id="max-amount-warning">
+						You may contribute a maximum of $<%= current_site.max_contribution_amount %>.
+					</div>
+				</div>
+				<div id="card-information">
+					<h3>Card Information</h3>
+					<% fields_for :credit_card, @credit_card do |cc| %>
+						<p id="card-number">
+							<%= cc.label :number, "Card Number" %>
+							<%= cc.text_field :number, :class => 'required creditcard' %>
+						</p>
+						<p id="card-expiration">
+							<%= cc.label :expiration_month, 'Expires <span class="format">(XX/XXXX)</span>' %>
+							<%= cc.text_field :expiration_month, :class => 'required digits' %> / 
+							<%= cc.text_field :expiration_year, :class => 'required digits' %>
+						</p>
+						<p id="card-cvv">
+							<%= cc.label :cvv, 'Security Code' %>
+							<%= cc.text_field :cvv, :class => 'required digits' %>
+						</p>
+						<div style="clear:both"></div>
+					<% end %>
+				</div>
+				<div id="billing-details">
+					<h3>Billing Information</h3>
+					<div class="container">
+						<p id="first-name">
+							<%= f.label :first_name, 'First Name' %>
+							<%= f.text_field :first_name, :class => 'required' %>
+						</p>
+						<p id="last-name">
+							<%= f.label :last_name, 'Last Name' %>
+							<%= f.text_field :last_name, :class => 'required' %>
+						</p>
+					</div>
+					<div class="container">
+						<p id="address-1">
+							<%= f.label :address1, 'Address 1' %>
+							<%= f.text_field :address1, :class => 'required' %>
+						</p>
+						<p id="address-2">
+							<%= f.label :address2, 'Address 2' %>
+							<%= f.text_field :address2 %>
+						</p>
+					</div>
+					<div id="city-state-zip">
+						<p id="city">
+							<%= f.label :city %>
+							<%= f.text_field :city, :class => 'required' %>
+						</p>
+						<p id="state">
+							<%= f.label :state %>
+							<%= f.text_field :state, :class => 'required' %>
+						</p>
+						<p id="zip-code">
+							<%= f.label :zip %>
+							<%= f.text_field :zip, :class => 'required digits' %>
+						</p>
+						<%= f.hidden_field :country, :value => 'United States of America' %>
+					</div>
+					<p id="email">
+						<%= f.label :email %>
+						<%= f.text_field :email, :class => 'required email' %>
+						<span class="confirm">
+							<input type="checkbox" name="send_email" value="0" />
+							<label for="">Send me email updates</label>
+						</span>
+					</p>
+					<p id="mobile-phone">
+						<%= f.label :phone, 'Mobile Phone <span class="optional">(Optional)</span>' %>
+						<%= f.text_field :phone %>
+						<span class="confirm">
+							<input type="checkbox" name="send_sms" value="0" />
+							<label for="">Send me text messages</label>
+						</span>
+					</p>
+					<div style="clear:both"></div>
+				</div>
+				<div id="employment-info">
+					<h3>Employment Information</h3>
+					<p class="instructions">Campaign finance law requires us to collect and report your occupation and employer. In some cases, without this information we will be forced to refund your contribution. Please do not leave blank or enter "N/A".</p>
+					<p id="employer">
+						<%= f.label :employer %>
+						<%= f.text_field :employer, :class => 'required' %>
+						<span class="instructions">
+							If not employed, please enter "None".<br/>
+							If self-employed, please enter "Self".<br/>
+							If retired, please enter "Retired".
+						</span>
+					</p>
+					<p id="occupation">
+						<%= f.label :occupation %>
+						<%= f.text_field :occupation, :class => 'required' %>
+						<span class="instructions">
+							If not employed, please enter "Not employed".<br/>
+							Complete even if self-employed.<br/>
+							If retired, please enter "Retired".
+						</span>
+					</p>
+					<div style="clear:both"></div>
+				</div>
+				<div id="confirm-eligibility">
+					<h3>Confirm Eligibility</h3>
+					<%= f.check_box :compliance_confirmation, :class => 'required' %>
+					<%= f.label :compliance_confirmation, "Check this box to confirm the following statements are true and correct:" %>
+					<div id="eligibility-statement"><%= current_site.eligibility_statement %></div>
+					<div style="clear:both"></div>
+				</div>
+				<div style="clear:both"></div>
+				<div id="refund-policy">
+					<h3>Contribution Refund Policy</h3>
+					<p>All contributions processed using the Stumpwise platform are considered final. Contributor assumes full responsibility for any fees resulting from dispute and/or refund.</p>
+					<p>ProgressBound, Inc., operating as Stumpwise, and its agents assume no responsibility or obligation to verify (i) whether the particular organization to which you are contributing is legally organized and conducted or (ii) whether the use of or application of any moneys contributed are used for proper and/or lawful purposes. Contact information provided will be transmitted to the organization/committee receiving the contribution.</p>
+					<p>Stumpwise assumes no responsibility or obligation for the protection of the privacy of this information by the organization/committee. Credit card information will be used for processing only and will not be shared with the organization/committee or any third party except for the express purposes of processing or as required by law. This site utilizes full 128-bit encryption to protect your privacy.</p>
+				</div>
+			</div>
+			<div class="buttons">
+				<button id="submit" type="submit" class="positive">Process Contribution</button>
+				<a id="cancel" href="#" class="negative">Cancel</a>
+			</div>
+		<% end %>
+	</body>
+</html>

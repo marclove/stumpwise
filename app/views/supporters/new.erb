@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Join The Anthony Woods For Congress Campaign</title>
+		<!--[if lt IE 9]>
+      <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta3)/IE9.js" type="text/javascript"></script>
+    <![endif]-->
+		<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' %>
+		<%= javascript_include_tag 'stumpwise' %>
+		<%= stylesheet_link_tag 'join' %>
+		<script type="text/javascript">
+			$(document).ready(function(){Stumpwise.initJoin()});
+		</script>
+	</head>
+	<body>
+		<div id="header">
+			<h1>stumpwise</h1>
+			<h2>Join This Campaign</h2>			
+		</div>
+		<% form_for @supporter do |f| %>
+			<div id="form-body">
+				<div id="errors"></div>
+				<%= flash_messages %>
+				<div>
+					<p id="first-name">
+						<%= f.label :first_name %>
+						<%= f.text_field :first_name, :class => 'required' %>
+					</p>
+					<p id="last-name">
+						<%= f.label :last_name %>
+						<%= f.text_field :last_name, :class => 'required' %>
+					</p>
+					<div style="clear:both"></div>
+				</div>
+				
+				<div>
+					<p id="address">
+						<%= f.label :address, 'Street Address &amp; Zip' %>
+						<%= f.text_field :address, :class => 'required' %>
+					</p>
+					<div style="clear:both"></div>
+				</div>
+				
+				<div>
+					<p id="email">
+						<%= f.label :email %>
+						<%= f.text_field :email, :class => 'required' %>					
+						<span class="confirm">
+							<input name="receive_email" type="hidden" value="0" />
+							<input name="receive_email" type="checkbox" value="1" id="receive_email" />
+							<label for="receive_email">Send me email updates</label>
+						</span>
+					</p>
+					<p id="mobile-phone">
+						<%= f.label :mobile_phone, 'Mobile Phone <span class="optional">(Optional)</span>' %>
+						<%= f.text_field :mobile_phone %>
+						<span class="confirm">
+							<input name="receive_sms" type="hidden" value="0" />
+							<input name="receive_sms" type="checkbox" value="1" id="receive_sms" />
+							<label for="receive_sms">Send me text messages</label>
+						</span>
+					</p>
+					<div style="clear:both"></div>
+				</div>
+			</div>
+			
+			<div class="buttons">
+				<button id="submit" type="submit" class="positive">Join</button>
+				<a id="cancel" href="#" class="negative">Cancel</a>
+			</div>
+		<% end %>
+	</body>
+</html>

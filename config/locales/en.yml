@@ -15,7 +15,7 @@ en:
   contribution:
     process:
       fail:
-        invalid_record: "Your contribution could not be processed. Please correct the highlighted fields and try again."
+        invalid_record: "Your contribution could not be processed. Please check that you have entered all the required fields and that your credit card is valid."
         amount: "The contribution amount given was invalid."
         invalid_card: "The credit card information you entered is not valid. Please check the card type and number and try again."
         rejected: "The transaction was rejected. The reason given was:"

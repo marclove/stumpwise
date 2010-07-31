@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100725234858) do
+ActiveRecord::Schema.define(:version => 20100801033007) do
 
   create_table "administratorships", :force => true do |t|
     t.integer "administrator_id"
@@ -165,6 +165,7 @@ ActiveRecord::Schema.define(:version => 20100725234858) do
     t.string   "subscription_id"
     t.integer  "subscription_billing_cycle"
     t.boolean  "can_accept_contributions",   :default => false
+    t.integer  "max_contribution_amount"
   end
 
   add_index "sites", ["custom_domain"], :name => "index_sites_on_custom_domain", :unique => true
@@ -200,6 +201,8 @@ ActiveRecord::Schema.define(:version => 20100725234858) do
     t.string   "country"
     t.string   "postal_code"
     t.string   "mobile_phone"
+    t.float    "lat"
+    t.float    "lng"
   end
 
   add_index "supporters", ["email"], :name => "index_supporters_on_email", :unique => true

@@ -4,12 +4,17 @@ class StumpwiseController < ApplicationController
   def show
     if @item = find_item(params[:path])
       send("render_#{@item.class.to_s.underscore}")
+      set_navbar_headers
     else
       render_404
     end
   end
   
   private
+    def set_navbar_headers
+      request.env[:navbar] = Stumpwise::Navbar.new(current_site)
+    end
+    
     def find_item(path)
       if path.blank?
         current_site.root_item

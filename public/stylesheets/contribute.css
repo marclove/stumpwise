@@ -1,280 +1,165 @@
-@import url('droid-serif/stylesheet.css');
-@import url('buttons.css');
-@import url('inputs.css');
-
-html, body {
-  font-family:"Lucida Grande","Lucida Sans Unicode","Lucida Sans",Tahoma,Arial,sans-serif;
-	background-color:#002E8A;
-}
-p { margin:1em 0; }
-.instructions { color:#555; }
-p.instructions {
-	margin:0 0 1em 0;
-	font-size:93%;
-}
-span.instructions {
-	margin:0.25em 0;
-	font-size:85%;
-}
-p.fields_required {
-	color:#C00;
-	font-weight:bold;
-}
-strong { font-weight:bold; }
-i { font-style:italic; }
-a { color:#0050F0; text-decoration:none; }
-blockquote { background:#EEE; border:1px solid #CCC; padding:1em; }
-div, form, fieldset { position:relative; }
-input {
-	box-sizing:content-box;
-	-moz-box-sizing:content-box;
-}
-#eligibility_statement { margin:0 2em; color:#555; }
-#eligibility_statement ol, #eligibility_statement ul { margin:1em; }
-#eligibility_statement li { margin:1em 0 1em 1.5em; }
-#eligibility_statement ol li { list-style-type:decimal; }
-#contribution {
-	position:relative;
-	width:740px;
-	margin:20px auto;
-	padding:10px;
-	background:#FFF;
-	box-shadow: 0 0 10px #05132E;
-	-moz-box-shadow: 0 0 10px #05132E;
-	-webkit-box-shadow: 0 0 10px #05132E;
-	text-align:center;
-}
-#contribution_form {
-	position:relative;
-	width:740px;
-	margin:0 auto;
-}
-h1 {
-	font-family:'DroidSerifBold','Times New Roman', Times, serif;
-	text-align:center;
-	font-size:182%;
-	padding:1em 0;
-	background-color:#BACFF7;
-	margin-bottom:1em;
-	color:#081C45;
-}
-fieldset {
-	position:relative;
+*{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; position:relative; }
+html { margin:0; padding:0; }
+body { margin:0; padding:0; font-family:sans-serif; font-size:14px; background:#EEE;}
+.buttons {
+	padding:20px 1em 0 1em;
 	clear:both;
-	margin:0 auto;
-	border:none;
-	margin-bottom:2em;
-	padding:0 20px 1em 20px;
-	text-align:left;
-	width:520px;
-	background-color:#EEE;
+	border-top:1px solid #CCC;
 }
-fieldset#eligibility_confirmation { margin-bottom:0; }
-legend {
-	position:relative;
-	display:block;
-	color:#FFF; /* add color for IE6+7 */
-	font-family:'DroidSerifBold','Times New Roman', Times, serif;
-	font-size:123.1%;
-	padding-bottom:1em;  /* best consistent bottom spacing */
+.buttons:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
 }
-legend span {
-	position:relative;
-	display: block; /* needs to be here to work in Safari, FF, Camino */
-	width: 560px; /* set width for Safari, FF, Camino */
-	margin:0 -20px;
-	padding:0.5em 20px;
-	background-color:#103070;
+.buttons a, .buttons button{
+    display:block;
+    float:right;
+    margin:0 0 0 7px;
+    background-color:#FFF;
+    border:1px solid #CCC;
+    border-top:1px solid #DEDEDE;
+    border-left:1px solid #DEDEDE;
+		-webkit-border-radius: 5px;
+		-moz-border-radius: 5px;
+		border-radius: 5px;
+
+    font-size:100%;
+    line-height:130%;
+    text-decoration:none;
+    font-weight:bold;
+    color:#565656;
+    cursor:pointer;
+    padding:5px 10px 6px 10px; /* Links */
+		-moz-box-shadow: 2px 2px 2px #EEE;
 }
-.field_element { padding:4px 0; }
-.text_field_label {
-	display:block;
-	text-align:left;
+.buttons button{
+    width:auto;
+    overflow:visible;
+    padding:4px 10px 3px 10px; /* IE6 */
 }
-button.contribute[type] {
-	font-size:167%;
-	margin:0.25em auto;
-	float:none;
-	padding:8px 18px;
-	-webkit-border-radius: 15px;
-	-moz-border-radius: 15px;
-	border-radius: 15px;
-	background-color:#C00;
+.buttons button[type]{
+    padding:4px 10px 5px 10px; /* Firefox */
+    line-height:17px; /* Safari */
+}
+*:first-child+html button[type]{
+    padding:4px 10px 3px 10px; /* IE7 */
+}
+.buttons button img, .buttons a img{
+    margin:0 3px -3px -3px !important;
+    padding:0;
+    border:none;
+    width:16px;
+    height:16px;
+}
+/* STANDARD */
+button:hover, .buttons a:hover{
+    background-color:#DFF4FF;
+    border:1px solid #C2E1EF;
+    color:#336699;
+}
+.buttons a:active{
+    background-color:#6299C5;
+    border:1px solid #6299C5;
+    color:#FFF;
+}
+/* POSITIVE */
+button.positive, .buttons a.positive{
+    color:#529214;
+}
+.buttons a.positive:hover, button.positive:hover{
+    background-color:#E6EFC2;
+    border:1px solid #C6D880;
+    color:#529214;
+}
+.buttons a.positive:active{
+    background-color:#529214;
+    border:1px solid #529214;
+    color:#FFF;
+}
+/* NEGATIVE */
+.buttons a.negative, button.negative{
+    color:#D12F19;
+}
+.buttons a.negative:hover, button.negative:hover{
+    background:#FBE3E4;
+    border:1px solid #FBC2C4;
+    color:#D12F19;
+}
+.buttons a.negative:active{
+    background-color:#D12F19;
+    border:1px solid #D12F19;
+    color:#FFF;
+}
+#header {
+	margin:0; 
+	padding:10px 5px;
+	height:40px; 
+	background:#36C url(/images/modal-headers.png) 0 -60px no-repeat;
 	color:#FFF;
-	border:3px solid #900;
-  border-bottom:3px solid #600;
-  border-right:3px solid #600;
 }
-button.contribute[type]:hover { background-color:#900; }
-input.text_field, select {
-	margin-top:4px;
-	min-width:540px;
-	width:540px;
-	max-width:540px;
-}
-#first_name, #last_name, #country, #employer, #occupation, #city,
-#email, #phone {
+h1, h2{ 
+	height:40px;
 	float:left;
-	width:260px;
+	text-indent:-999999px;
 }
-#first_name input, #last_name input, #country select, #employer input,
-#occupation input, #city input, #contribution_email, #contribution_phone {
-	min-width:260px;
-	width:260px;
-	max-width:260px;
-}
-#state { float:left; width:150px; }
-#state select {
-	min-width:150px;
-	width:150px;
-	max-width:150px;
-}
-#zip { float:left; width:80px; }
-#zip input {
-	min-width:80px;
-	width:80px;
-	max-width:80px;
-}
-
-
-/* Card Number */
-#number {
-	float:left;
-	width:250px;
-	margin-right:20px;
-}
-#credit_card_number { 
-	min-width:250px;
-	width:250px;
-	max-width:250px;
-}
-
-/* CVV */
-#verification_value {
-	float:left;
-	width:110px;
-	margin-right:20px;
-}
-#verification_value a {
-	display:block;
-	margin-top:6px;
-	font-size:93%;
-}
-#credit_card_cvv { 
-	min-width:110px;
-	width:110px;
-	max-width:110px;
-}
-
-/* Expiration Date */
-#expiration {
-	float:left;
-	width:140px;
-}
-#credit_card_expiration_month {
-	min-width:50px;
-	width:50px;
-	max-width:50px;
-}
-#credit_card_expiration_year {
-	min-width:70px;
-	width:70px;
-	max-width:70px;
-}
-
-
-#first_name, #employer, #city, #state, #email {
-	margin-right:20px;
-}
-#street, #city, #country, #email { clear:both; }
-.amount_choice {
-	display:block;
-	float:left;
-	width:185px;
-	height:32px;
-	line-height:32px;
-}
-#amount_other {
-	min-width:60px;
-	width:60px;
-	max-width:60px;
-	padding:5px;
-}
-#email_subscribe, #sms_subscribe {
-	font-size:93%;
-}
-#email_subscribe label, #sms_subscribe label {
-	margin:0;
-	font-weight:normal;
-}
-
-#credit-card-logos {
+#header img {
 	position:absolute;
-	top:7px;
-	right:10px;
+	top:18px;
+	right:18px;
 }
-
-p.thank_you {
-	font-weight:bold;
-}
-#receipt table {
-	width:80%;
+h3 { text-transform:uppercase; font-size:12px; margin:0 0 6px 0; color:#666; }
+#form-body {
+	padding:18px;
+	padding-bottom:20px;
 	background:#FFF;
-	margin:0.5em auto;
 }
-#receipt th, #receipt td {
-	padding:4px 8px;
-	border:2px solid #FFF;
-	vertical-align:top;
+p { margin:0; }
+label { display:block; color:#333; font-size:13px; padding-left:3px; padding-top:0.5em; font-weight:bold; }
+input[type="text"] { 
+	border:1px solid #CCC; 
+	font-size:16px; 
+	padding:4px;
+	border-radius:4px;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
 }
-#receipt th {
-	font-weight:bold;
-	text-align:right;
-	background:#DDD;
-}
-#receipt td {
-	text-align:left;
-	background:#EEE;
-}
-
-#refund_policy {
-	color:#555;
-	width:600px;
-	margin:2em auto;
-	text-align:left;
-	font-size:11px;
-}
-#refund_policy h2 {
-	font-weight:bold;
-	font-size:14px;
-	text-align:center;
-}
-
-/* flash-messages */
-.flash {
-  text-align:center;
-  margin:0 auto 5px;
-	padding:8px;
-}
-.flash.error {
-  border: 1px solid #F66;
-  background-color: #FDD;
-}
-.flash.warning {
-  border: 1px solid #FFFAAA;
-  background-color: #FFFFCC;
-}
-.flash.notice {
-  border: 1px solid #DDF;
-  background-color: #EEF;
-}
-div.fieldWithErrors { display:inline; }
-.fieldWithErrors label { color:#C00; }
-.fieldWithErrors input, .fieldWithErrors select {
-	background:#FDD;
-	border-color:#F66;
-}
-.formError {
-	color:#C00;
-	font-weight:bold;
-}
+div.container{ display:block; clear:both; width:100%; }
+#amount { font-weight:bold; text-align:center; font-size:36px; }
+#card-information, #billing-details, #employment-info, #confirm-eligibility, #refund-policy { width:600px; margin:1em auto; margin-bottom:2em; padding:4px; border-top:3px double #CCC; }
+#refund-policy { margin-bottom:0; }
+#first-name, #last-name, #address-1, #address-2, #city-state-zip, #city, #state, #zip-code, #card-number, #card-expiration, #card-cvv, #email, #mobile-phone, #employer, #occupation, #eligibility-statement { float:left; margin-right:9px; }
+#first-name input, #last-name input, #address-1 input, #address-2 input, #city input, #card-number input, #employer input, #occupation input { width:250px; }
+#state input { width:45px; }
+#zip-code input { width:85px; }
+input#credit_card_expiration_month { width:30px; }
+input#credit_card_expiration_year { width:60px; }
+#card-cvv input { width:90px; }
+#email input[type="text"], #mobile-phone input[type="text"] { width:250px; }
+#city-state-zip { float:left; clear:both; }
+.confirm { display:none; padding-top:2px; }
+.confirm label { display:inline; padding:0; font-weight:normal; }
+#confirm-eligibility label { display:inline; padding:0; }
+#eligibility-statement { padding:0.5em 2em; }
+.why-link { display:block; float:right; font-size:10px; font-weight:normal; }
+.why { display:none; float:left; font-size:12px; padding:5px 0;}
+#address .why { width:425px; }
+.optional, .format { display:block; float:right; color:#666; font-size:10px; font-weight:normal; }
+.instructions { color:#333; font-size:12px; }
+span.instructions { display:block; padding-top:2px; }
+#contribution-amount { width:100%; text-align:center; padding-top:0.5em; }
+#contribution-amount label { padding-top:0; font-size:16px; }
+#slider { width:500px; margin:1em auto; }
+#contribution-select { width:620px; margin:0 auto; }
+#contribution-min, #contribution-max { position:absolute; width:50px; font-weight:bold; }
+#contribution-min { left:0; bottom:0; text-align:right; margin-right:1em; }
+#contribution-max { right:0; bottom:0; text-align:left; margin-left:1em; }
+.ui-slider { border-color:#AAA;}
+.ui-slider-handle { border-color:#36C !important; background:#9BF url(/images/grab.png) center center no-repeat !important; }
+#refund-policy p { color:#666; font-size:11px; margin:1em 0; }
+label.error { color:#F00; }
+input.error { background:#FFE5E5; border-color:#C00; }
+#error, #errors { width:580px; margin:1em auto; margin-bottom:2em; border:1px solid #C00; color:#A00; font-weight:bold; background:#FFE5E5; padding:10px; text-align:center; }
+#errors { display:none; }
+.fieldWithErrors { display:inline; }
