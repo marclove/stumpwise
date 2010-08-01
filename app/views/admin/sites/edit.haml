@@ -41,6 +41,9 @@
 		=f.label :disclaimer, 'Site Legal Disclaimer <span>(i.e. "Paid for and maintained by THE COMMITTEE TO ELECT JOHN DOE")</span>', {:class => 'on-top'}
 		=f.text_field :disclaimer, :class => 'text_field wide'
 
+		=f.label :max_contribution_amount, 'Maximum Allowed Contribution Amount', {:class => 'on-top'}
+		$
+		=f.text_field :max_contribution_amount, :class => 'text_field'
 		=f.label :eligibility_statement, "Contributor Eligibility Statement<br/><span>If provided, a contributor will be required to confirm that these statement(s) are true and correct. Please consult the campaign finance regulations applicable to your campaign. They will likely provide a list of contributor eligibility requirements (i.e. age, legal residency, source of money is personal funds, etc.)</span>", {:class => 'on-top'}
 		=f.text_area :eligibility_statement, :class => 'wide tinymce', :rows => 8
 		=f.label :candidate_photo, '', {:class => 'on-top'}
