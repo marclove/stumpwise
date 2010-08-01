@@ -131,9 +131,9 @@ input[type="text"] {
 }
 div.container{ display:block; clear:both; width:100%; }
 #first-name, #last-name, #address, #email, #mobile-phone { float:left; margin-right:12px; }
-#first-name input, #last-name input { width:200px; }
-#address input[type="text"] { width:425px; }
-#email input[type="text"], #mobile-phone input[type="text"] { width:200px; }
+#first-name input, #last-name input { width:190px; }
+#address input[type="text"] { width:405px; }
+#email input[type="text"], #mobile-phone input[type="text"] { width:190px; }
 .confirm { display:block; padding-top:2px; }
 .confirm label { display:inline; padding:0; font-weight:normal ; }
 .why-link { display:none; float:right; font-size:10px; font-weight:normal; }

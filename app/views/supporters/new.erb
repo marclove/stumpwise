@@ -9,6 +9,11 @@
 		<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' %>
 		<%= javascript_include_tag 'stumpwise' %>
 		<%= stylesheet_link_tag 'join' %>
+		<!--[if lt IE 9]>
+      <style type="text/css" media="screen">
+      	.optional { display:inline; float:none; }
+      </style>
+    <![endif]-->
 		<script type="text/javascript">
 			$(document).ready(function(){Stumpwise.initJoin()});
 		</script>
@@ -22,7 +27,7 @@
 			<div id="form-body">
 				<div id="errors"></div>
 				<%= flash_messages %>
-				<div>
+				<div style="clear:both;">
 					<p id="first-name">
 						<%= f.label :first_name %>
 						<%= f.text_field :first_name, :class => 'required' %>

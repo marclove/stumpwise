@@ -32,8 +32,8 @@ Stumpwise.thankJoin = function(){
 Stumpwise.initCampaignSite = function(contribute_url, domain){
 	domain = domain || 'https://secure.stumpwise.com'
 	var contribute_url = contribute_url + "#" + encodeURIComponent(document.location.href);
-	$("#stumpwise-bar-join").colorbox({iframe:true,width:"550px",height:"430px"});
-	$("#stumpwise-bar-contribute").colorbox({iframe:true,width:"700px",height:"95%",href:contribute_url});
+	$("#stumpwise-bar-join").colorbox({iframe:true,width:"560px",height:"440px"});
+	$("#stumpwise-bar-contribute").colorbox({iframe:true,width:"700px",height:"95%"});
 	function thankYou(){
 		$.colorbox({iframe:true,width:"400px",height:"175px",href:"/thanks_contribute.html"});
 		window.setTimeout("$.colorbox.close()", 5000);
