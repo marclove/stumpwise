@@ -267,11 +267,11 @@ class Contribution < ActiveRecord::Base
     # We only add the transaction amount to the net_amount after the
     # transaction has been settled and we know we'll be collecting the money.
     def add_amount_to_net
-      increment(:net_amount, amount)
+      increment!(:net_amount, amount)
     end
     
     def subtract_amount_from_net
-      decrement(:net_amount, amount)
+      decrement!(:net_amount, amount)
     end
     
     def requires_compliance_confirmation?

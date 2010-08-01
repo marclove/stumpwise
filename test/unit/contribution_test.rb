@@ -77,9 +77,17 @@ class ContributionTest < ActiveSupport::TestCase
       end
     end
     
+    should "increase the net amount by the amount" do
+      assert_difference 'contributions(:pending).net_amount', 20.0 do
+        contributions(:pending).send(:add_amount_to_net)
+        contributions(:pending).reload
+      end
+    end
+    
     should "decrease the net amount by the amount" do
       assert_difference 'contributions(:pending).net_amount', -20.0 do
         contributions(:pending).send(:subtract_amount_from_net)
+        contributions(:pending).reload
       end
     end
     
