@@ -2,7 +2,7 @@ class Navbar
   def initialize(app)
     @app = app
   end
- 
+  
   def call(env)
     status, headers, response = @app.call(env)
     if env[:navbar]
@@ -25,13 +25,17 @@ class Navbar
     new_headers["Content-Length"] = body.length.to_s
     new_headers
   end
-
+  
   def insert_navbar(body, navbar)
     head_content = <<-BLOCK
-      <link type="text/css" rel="Stylesheet" href="#{navbar.stylesheet}" charset="utf-8" media="all" />
-    	<script src="#{navbar.javascript}" type="text/javascript" charset="utf-8"></script>
+      #{navbar.stylesheet}
+      #{navbar.javascript}
+      <!--[if lt IE 9]>
+        #{navbar.ie_stylesheet}
+        #{navbar.ie_javascript}
+      <![endif]-->
       <script type="text/javascript">
-      	$(document).ready(function(){Stumpwise.initCampaignSite('#{navbar.contribute_url}',#{navbar.domain})});
+        $(document).ready(function(){Stumpwise.initCampaignSite('#{navbar.contribute_url}',#{navbar.domain})});
       </script>
     BLOCK
     
