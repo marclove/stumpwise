@@ -4,8 +4,10 @@
 		%meta{:charset => "utf-8"}
 		%title= "stumpwise :: #{current_site.name}"
 		=authenticity_token
-		/[if lt IE 9]
-			=javascript_include_tag "http://ie7-js.googlecode.com/svn/version/2.1(beta3)/IE9.js"
+		:plain_text
+			<!--[if lt IE 9]>
+				<script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js" type="text/javascript">IE7_PNG_SUFFIX=".png";</script>
+			<![endif]-->
 		=stylesheet_link_tag 'master.css'
 		=javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js'
 		=javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js'
