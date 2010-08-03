@@ -42,13 +42,13 @@ class Navbar
     body_content = <<-CONTRIBUTIONS_BLOCK
     		<!-- Stumpwise Navigation Bar -->
     			<div id="stumpwise-bar">
-    				<a id="stumpwise-bar-logo" class="stumpwise-bar-button" href="http://stumpwise.com"><img src="/images/navbar/logo.png"/></a>
-    				<a id="stumpwise-bar-join" class="stumpwise-bar-button" href="/join"><img src="/images/navbar/join.png"/></a>
+    				<a id="stumpwise-bar-logo" class="stumpwise-bar-button" href="http://stumpwise.com"><img class="stumpwise-bar-button-img" src="/images/navbar/logo.png"/></a>
+    				<a id="stumpwise-bar-join" class="stumpwise-bar-button" href="/join"><img class="stumpwise-bar-button-img" src="/images/navbar/join.png"/></a>
     CONTRIBUTIONS_BLOCK
     
     if navbar.accepts_contributions
     	body_content << <<-CONTRIBUTIONS_BLOCK
-    	      <a id="stumpwise-bar-contribute" class="stumpwise-bar-button" href="#{navbar.contribute_url}"><img src="/images/navbar/contribute.png"/></a>
+    	      <a id="stumpwise-bar-contribute" class="stumpwise-bar-button" href="#{navbar.contribute_url}"><img class="stumpwise-bar-button-img" src="/images/navbar/contribute.png"/></a>
       CONTRIBUTIONS_BLOCK
   	end
   	
