@@ -21,8 +21,8 @@ eval(function(p,a,c,k,e,r){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a
 /* Stumpwise v0.0.1
  * Copyright (c) 2010 ProgressBound, Inc.
  * All Rights Reserved */
-$.ajaxSettings.accepts._default = "text/javascript, text/html, application/xml, text/xml, */*"
-var Stumpwise = Stumpwise || {}
+$.ajaxSettings.accepts._default = "text/javascript, text/html, application/xml, text/xml, */*";
+var Stumpwise = Stumpwise || {};
 
 Stumpwise.thankJoin = function(){
   $.colorbox({iframe:true,width:"450px",height:"120px",href:"/thanks_join.html"});
@@ -30,23 +30,27 @@ Stumpwise.thankJoin = function(){
 };
 
 Stumpwise.initCampaignSite = function(contribute_url, domain){
-	domain = domain || 'https://secure.stumpwise.com'
-	var contribute_url = contribute_url + "#" + encodeURIComponent(document.location.href);
+	domain = domain || 'https://secure.stumpwise.com';
+	var url = contribute_url + "#" + encodeURIComponent(document.location.href);
 	$("#stumpwise-bar-join").colorbox({iframe:true,width:"560px",height:"440px"});
-	$("#stumpwise-bar-contribute").attr("href",contribute_url).colorbox({iframe:true,width:"700px",height:"95%"});
+	if($.browser.msie){
+		$("#stumpwise-bar-contribute").openIEContributePopup(url);
+	} else {
+		$("#stumpwise-bar-contribute").attr("href",url).colorbox({iframe:true,width:"700px",height:"95%"});
+	}
 	function thankYou(){
 		$.colorbox({iframe:true,width:"400px",height:"175px",href:"/thanks_contribute.html"});
 		window.setTimeout("$.colorbox.close()", 5000);
-	};
+	}
 	$.receiveMessage(function(message){
-		if(message.data == "close")$.colorbox.close();
-		if(message.data == "thankYou")thankYou();
+		if(message.data == "close"){$.colorbox.close();}
+		if(message.data == "thankYou"){thankYou();}
 	}, domain);
 };
 
 Stumpwise.initJoin = function(){
 	// keep error messages from breaking float placement
-	$("#cancel").click(function(){parent.$.fn.colorbox.close(); return false});
+	$("#cancel").click(function(){parent.$.fn.colorbox.close(); return false;});
 	$("#new_supporter").validate({
 		submitHandler: function(form){
 			$.ajax({
@@ -64,21 +68,21 @@ Stumpwise.initJoin = function(){
 
 Stumpwise.initContribution = function(max){
 	var campaign_site = decodeURIComponent(document.location.hash.replace(/^#/, ''));
-	function closeModal(){$.postMessage('close', campaign_site, parent)};
-	$('#cancel').click(function(){closeModal();return false});
+	function closeModal(){$.postMessage('close', campaign_site, parent);}
+	$('#cancel').click(function(){closeModal();return false;});
 	
 	$("#amount").css({'border':0, 'padding':0});
 	$("#max-amount-warning").hide();
 	$("#contribution-min").html('$' + 5);
 	$("#contribution-max").html('$' + max);
 	var start = max / 2.0;
-	if(start<5)start=5;
+	if(start<5){start=5;}
 	$("#slider").slider({
 		value:start,
 		min:5,
 		max:max,
 		step:5,
-		slide: function(event, ui) { $("#amount").val('$' + ui.value) }
+		slide: function(event, ui){$("#amount").val('$' + ui.value);}
 	});
 	$("#amount").val('$' + $("#slider").slider("value"));
 	
@@ -90,10 +94,11 @@ Stumpwise.initContribution = function(max){
 			expirationDate: "credit_card[expiration_month] credit_card[expiration_year]"
 		},
 		errorPlacement: function(error, element) {
-			if(element.attr("name") == "credit_card[expiration_month]" || element.attr("name") == "credit_card[expiration_year]")
+			if(element.attr("name") == "credit_card[expiration_month]" || element.attr("name") == "credit_card[expiration_year]"){
 				error.insertAfter("#credit_card_expiration_year");
-			else
+			} else {
 				error.insertAfter(element);
+			}
 		},
 		submitHandler: function(form){
 			$.ajax({
@@ -115,3 +120,19 @@ Stumpwise.initContribution = function(max){
 		}
 	});
 };
+
+
+(function($){
+	$.fn.openIEContributePopup = function(url){
+		this.each(function(){
+			$(this).click(function(){
+				var height  = screen.height - 200;
+				var width   = 700;
+				var centerY = (window.screenTop - 120) + ((((document.documentElement.clientHeight + 120)/2) - (height/2)));
+				var centerX = window.screenLeft + ((((document.body.offsetWidth + 20)/2) - (width/2)));
+				window.open(url, 'contribute', 'height=' + height + ',width=' + width + ',left=' + centerX + ',top=' + centerY + ',toolbar=0,scrollbars=1,status=0,resizable=1,location=0,menubar=0').focus();
+				return false;				
+			});
+		});
+	};
+})(jQuery);

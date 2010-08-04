@@ -24,7 +24,7 @@ module Stumpwise
     end
     
     def javascript
-      '<script src="https://secure.stumpwise.com/javascripts/stumpwise.js?1280825985" type="text/javascript"></script>'
+      javascript_include_tag('stumpwise.js')
     end
     
     def ie_javascript
