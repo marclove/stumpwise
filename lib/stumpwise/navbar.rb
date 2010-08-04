@@ -24,7 +24,7 @@ module Stumpwise
     end
     
     def javascript
-      '<script src="https://stumpwise.com/javascripts/stumpwise.js?1280825985" type="text/javascript"></script>'
+      '<script src="https://secure.stumpwise.com/javascripts/stumpwise.js?1280825985" type="text/javascript"></script>'
     end
     
     def ie_javascript
