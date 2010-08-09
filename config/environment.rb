@@ -26,7 +26,7 @@ Rails::Initializer.run do |config|
   # config.gem "sqlite3-ruby", :lib => "sqlite3"
   # config.gem "aws-s3", :lib => "aws/s3"
   config.gem 'RedCloth'
-  config.gem 'liquid', :version => '2.0.0'
+  config.gem 'liquid', :version => '2.1.2'
   config.gem 'bcrypt-ruby', :lib => 'bcrypt', :version => '2.1.2'
   config.gem 'authlogic'
   config.gem 'delayed_job'

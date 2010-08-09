@@ -41,3 +41,12 @@
 					=image_tag "icons-shadowless/arrow-090.png", :alt => ''
 					Upload
 
+	.theme_section
+		%h2 Theme Code
+		-form_for @theme, :url => manage_theme_path(@theme), :html => {:multipart => true} do |f|
+			=f.label :code, 'Code', :class => 'on-top'
+			=f.text_area :code, :class => 'wide', :rows => 40
+			.buttons
+				%button.positive{:type => 'submit'}
+					=image_tag "icons-shadowless/tick.png", :alt => ''
+					Save Changes

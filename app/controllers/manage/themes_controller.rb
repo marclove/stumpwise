@@ -59,6 +59,7 @@ class Manage::ThemesController < ManageController
   # PUT /themes/1.xml
   def update
     @theme = Theme.find(params[:id])
+    @theme_asset = ThemeAsset.new
 
     respond_to do |format|
       if @theme.update_attributes(params[:theme])
@@ -66,7 +67,7 @@ class Manage::ThemesController < ManageController
         format.html { redirect_to manage_theme_path(@theme) }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
+        format.html { render :action => "show" }
         format.xml  { render :xml => @theme.errors, :status => :unprocessable_entity }
       end
     end

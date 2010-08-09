@@ -14,6 +14,11 @@
 	width:920px;
 	max-width:920px;
 }
+#theme_code {
+	min-width:900px;
+	width:900px;
+	max-width:900px;
+}
 .theme_section {
 	margin:1em 0;
 	padding-bottom:0.5em;

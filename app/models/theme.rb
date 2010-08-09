@@ -18,4 +18,9 @@ class Theme < ActiveRecord::Base
   has_many :assets, :class_name => 'ThemeAsset'
   
   validates_presence_of :name
+  validates_proper_liquid_syntax :code
+
+  def parsed
+    Liquid::Template.parse(self.code)
+  end
 end

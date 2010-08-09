@@ -6,6 +6,8 @@ class ActionController::Dispatcher
       Liquid::Template.register_tag('facebook_widget', Stumpwise::Liquid::Tags::FacebookWidget)
       Liquid::Template.register_tag('link_to', Stumpwise::Liquid::Tags::ItemLink)
       Liquid::Template.register_tag('pagination', Stumpwise::Liquid::Tags::Pagination)
+      Liquid::Template.register_tag('blog', Stumpwise::Liquid::Tags::Blog)
+      Liquid::Template.register_tag('page', Stumpwise::Liquid::Tags::Page)
     end
 
     def cleanup_application_with_liquid
