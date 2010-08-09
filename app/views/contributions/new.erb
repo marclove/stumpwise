@@ -131,14 +131,16 @@
 					</p>
 					<div style="clear:both"></div>
 				</div>
-				<div id="confirm-eligibility">
-					<h3>Confirm Eligibility</h3>
-					<%= f.check_box :compliance_confirmation, :class => 'required' %>
-					<%= f.label :compliance_confirmation, "Check this box to confirm the following statements are true and correct:" %>
-					<div id="eligibility-statement"><%= current_site.eligibility_statement %></div>
+				<% if current_site.eligibility_statement.present? %>
+					<div id="confirm-eligibility">
+						<h3>Confirm Eligibility</h3>
+						<%= f.check_box :compliance_confirmation, :class => 'required' %>
+						<%= f.label :compliance_confirmation, "Check this box to confirm the following statements are true and correct:" %>
+						<div id="eligibility-statement"><%= current_site.eligibility_statement %></div>
+						<div style="clear:both"></div>
+					</div>
 					<div style="clear:both"></div>
-				</div>
-				<div style="clear:both"></div>
+				<% end %>
 				<div id="refund-policy">
 					<h3>Contribution Refund Policy</h3>
 					<p>All contributions processed using the Stumpwise platform are considered final. Contributor assumes full responsibility for any fees resulting from dispute and/or refund.</p>
