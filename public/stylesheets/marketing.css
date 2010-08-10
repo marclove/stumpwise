@@ -191,6 +191,7 @@ dl#price-list {
 	line-height:2.25em;
 	background-color:#EBF1F7;
 	background:#FFF;
+	font-size:12px;
 }
 dl#price-list dt {
 	float:left;
@@ -207,8 +208,6 @@ dl#price-list dd {
 dl#price-list dt.contribution-details {
 	padding-left:26px;
 	width:150px;
-	font-size:93%;
 }
 dl#price-list dd.contribution-details {
-	font-size:93%;
 }
