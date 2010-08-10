@@ -17,7 +17,7 @@ class LiquidFiltersTest < ActionView::TestCase
   
   context "Custom Liquid filters" do
     setup do 
-      @context = Context.new({},{:site => Site.new(:theme_id => 1)})
+      @context = Context.new({},{},{:site => Site.new(:theme_id => 1)})
       
       def setup_vars(vars)
         vars.each_pair do |k,v|

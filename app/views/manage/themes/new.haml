@@ -1,0 +1,30 @@
+- @body_class = 'no-sidebar'
+- @menu 			= 'themes'
+
+#main
+	%h1 New Theme
+	-form_for @theme, :url => manage_themes_path, :html => {:multipart => true} do |t|
+		=t.label :name, 'Name', :class => 'on-top'
+		=t.text_field :name, :class => 'text_field big wide'
+
+		-fields_for @theme_version do |v|
+			=v.label :thumbnail, 'Thumbnail Image', :class => 'on-top'
+			=v.file_field :thumbnail
+
+			=hidden_field_tag 'theme_version[active]', false
+
+			=v.label :code, "Template Code", :class => 'on-top'
+			=v.text_area :code, {:style => 'width:900px; height:400px;'}
+
+			%h2{:style => 'margin:40px 0 0 0;'} Static File Assets
+			%p <input class="image_file" id="theme_assets" name="theme_assets[]" type="file" />
+			%p <input class="image_file" id="theme_assets" name="theme_assets[]" type="file" />
+			%p <input class="image_file" id="theme_assets" name="theme_assets[]" type="file" />
+			%p <input class="image_file" id="theme_assets" name="theme_assets[]" type="file" />
+			%p <input class="image_file" id="theme_assets" name="theme_assets[]" type="file" />
+			%p <input class="image_file" id="theme_assets" name="theme_assets[]" type="file" />
+			%p <input class="image_file" id="theme_assets" name="theme_assets[]" type="file" />
+			%p <input class="image_file" id="theme_assets" name="theme_assets[]" type="file" />
+			%p <input class="image_file" id="theme_assets" name="theme_assets[]" type="file" />
+			%p <input class="image_file" id="theme_assets" name="theme_assets[]" type="file" />
+		%p=submit_tag

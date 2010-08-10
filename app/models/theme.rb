@@ -1,26 +1,27 @@
-# == Schema Information
-# Schema version: 20100725234858
-#
-# Table name: themes
-#
-#  id         :integer(4)      not null, primary key
-#  name       :string(255)
-#  created_at :datetime
-#  updated_at :datetime
-#
-
-class Theme < ActiveRecord::Base
-  has_many :sites
+class Theme
+  include MongoMapper::Document
   
-  has_many :liquid_templates
-  has_many :layouts
-  has_many :templates
-  has_many :assets, :class_name => 'ThemeAsset'
+  key :name,        String, :required => true
+  key :version_ids, Array
+  key :listed,      Boolean, :default => false
+  timestamps!
   
-  validates_presence_of :name
-  validates_proper_liquid_syntax :code
-
-  def parsed
-    Liquid::Template.parse(self.code)
+  many :versions, :class_name => 'ThemeVersion',
+                  :dependent => :destroy
+  
+  many :customizations, :class_name => 'ThemeCustomization',
+                        :dependent => :destroy
+  
+  def latest_version
+    versions.first({:active => true, :order => 'created_at desc'})
   end
+  
+  def destroy
+    in_use? ? false : super
+  end
+  
+  private
+    def in_use?
+      Site.find(:all, :conditions => {:mongo_theme_id => self.id.to_s}).size > 0
+    end
 end

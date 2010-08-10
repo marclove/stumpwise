@@ -1,0 +1,20 @@
+- @body_class = 'sidebar-right-240'
+- @menu 			= 'website'
+- @submenu 		= 'theme'
+
+=render 'layouts/sub_menu'
+#main
+	%h1 Theme
+	%p Select a theme for your site.
+	#themes
+		-form_for current_site, :url => set_theme_admin_theme_path do |f|
+			-for theme in @themes
+				.theme
+					.theme_name
+						=f.radio_button :mongo_theme_id, theme.id
+						=theme.name
+					=gridfs_image_tag(theme.latest_version.try(:thumbnail_id).to_s, :class => 'theme_thumbnail')
+#sidebar
+	%h2 Theme Options
+	#theme_customization_options
+		=render :partial => 'theme_customization', :object => current_site.theme_customization

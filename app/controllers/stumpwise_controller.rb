@@ -4,7 +4,6 @@ class StumpwiseController < ApplicationController
   def show
     if @item = find_item(params[:path])
       send("render_#{@item.class.to_s.underscore}")
-      set_navbar_headers
     else
       render_404
     end
@@ -24,7 +23,7 @@ class StumpwiseController < ApplicationController
     end
     
     def render_page
-      render_liquid_template_for(@item)
+      render_liquid(@item)
     end
     
     def render_blog
@@ -33,7 +32,7 @@ class StumpwiseController < ApplicationController
         :page => params[:page], 
         :per_page => params[:per_page]
       )
-      render_liquid_template_for(@item, {
+      render_liquid(@item, {
         'articles' => @articles.map(&:to_liquid),
         'page' => @articles.current_page,
         'total_pages' => @articles.total_pages,
@@ -45,6 +44,14 @@ class StumpwiseController < ApplicationController
     end
     
     def render_article
-      render_liquid_template_for(@item)
+      render_liquid(@item, {'blog' => true})
+    end
+    
+    def render_liquid(object, assigns = {})
+      set_navbar_headers
+      @tpl, theme_assigns = current_site.template
+      assigns.update('site' => current_site.to_liquid, object.liquid_name => object.to_liquid, 'theme' => theme_assigns)
+      result = @tpl.render(assigns, :registers => {:controller => self, :site => current_site})
+      render :text => result, :status => :ok, :content_type => 'text/html;charset=utf-8'
     end
 end

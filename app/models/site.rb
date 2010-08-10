@@ -51,7 +51,8 @@ class Site < ActiveRecord::Base
                   :campaign_legal_name, :campaign_street, :campaign_city,
                   :campaign_state, :campaign_zip, :time_zone, :credit_card_token,
                   :credit_card_expiration, :subscription_id, :subscription_billing_cycle,
-                  :active, :max_contribution_amount
+                  :active, :max_contribution_amount, :mongo_theme_id,
+                  :mongo_theme_version_id, :mongo_theme_customization_id
   
   RESERVED_SUBDOMAINS = %w( www support blog billing help api cdn asset assets chat mail calendar docs documents apps app calendars mobile mobi static admin administration administrator moderator official store buy pages page ssl contribute )
   
@@ -64,10 +65,6 @@ class Site < ActiveRecord::Base
   has_many    :supporterships
   has_many    :supporters, :through => :supporterships
   has_many    :contributions
-  
-  belongs_to  :theme
-  has_many    :layouts,     :through => :theme
-  has_many    :templates,   :through => :theme
   
   has_many    :items,     :order => 'lft ASC'
   has_many    :pages,     :order => 'lft ASC'
@@ -94,6 +91,7 @@ class Site < ActiveRecord::Base
   validates_presence_of   :name, :campaign_legal_name, :time_zone, :owner_id
   
   after_create :add_to_campaign_monitor
+  before_destroy :destroy_theme_customizations
   
   def campaign_email=(new_email)
     new_email.downcase! unless new_email.nil?
@@ -137,17 +135,6 @@ class Site < ActiveRecord::Base
     end
   end
   
-  def call_render(object, default_layout = nil, assigns = {}, controller = nil, options = {})
-    assigns.update('site' => to_liquid, object.liquid_name => object.to_liquid)
-    options.reverse_merge!(:layout => true)
-    handler = Stumpwise::Liquid::LiquidTemplate.new(self)
-    if options[:layout]
-      handler.render(object.template, default_layout, assigns, controller)
-    else
-      handler.parse_inner_template(object.template, assigns, controller)
-    end
-  end
-  
   def to_liquid
     SiteDrop.new(self)
   end
@@ -168,7 +155,49 @@ class Site < ActiveRecord::Base
     user.super_admin? || administratorships.first(:conditions => {:administrator_id => user})
   end
   
+  def set_theme!(theme_id)
+    if (theme_id != self.mongo_theme_id) && # theme is being changed
+       (theme = Theme.find(theme_id)) && # theme requested actually exists
+       (customization = ThemeCustomization.generate(self.id, theme_id)) # customization successfully created
+
+      # store the old customization_id
+      old_customization = self.mongo_theme_customization_id
+      
+      if save_new_theme(theme_id, theme.versions.last.id.to_s, customization.id.to_s)
+        # only delete the old customization if we successfully switched to the new theme
+        ThemeCustomization.destroy(old_customization) if old_customization.present?
+      else
+        # switching to the new theme failed, cleanup & delete the newly generated customization
+        customization.destroy
+      end
+    end
+  end
+  
+  def template
+    return nil unless theme = ThemeVersion.find(mongo_theme_version_id)
+    theme_assigns = theme.to_liquid
+    if mongo_theme_customization_id.present? && tc = ThemeCustomization.find(mongo_theme_customization_id)
+      theme_assigns.deep_merge!(tc.to_liquid)
+    end
+    [Liquid::Template.parse(theme.code), theme_assigns]
+  end
+  
+  def theme_customization
+    ThemeCustomization.first({:id => self.mongo_theme_customization_id})
+  end
+  
   protected
+    def destroy_theme_customizations
+      ThemeCustomization.find_each({:site_id => self.id}) { |c| c.destroy }
+    end
+    
+    def save_new_theme(theme_id, version_id, customization_id)
+      self.mongo_theme_id = theme_id
+      self.mongo_theme_version_id = version_id
+      self.mongo_theme_customization_id = customization_id
+      save
+    end
+    
     def downcase_subdomain
       self.subdomain.downcase! if self.subdomain
     end

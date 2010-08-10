@@ -40,12 +40,21 @@ Rails::Initializer.run do |config|
   config.gem 'aasm'
   config.gem 'jnunemaker-validatable', :lib => 'validatable', :version => '>=1.8.4'
   config.gem 'geokit'
+  config.gem 'mongo_mapper', :version => '0.8.3'
+  config.gem 'joint', :version => '0.3.2'
   
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
   # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
   
   config.middleware.use "Navbar"
+  
+  require 'app/middleware/gridfs'
+  mongo = YAML.load_file(Rails.root.join('config', 'mongo.yml'))[Rails.env]
+  config.middleware.use "Rack::GridFS", 
+    :hostname => mongo['host'], :port => mongo['port'],
+    :username => mongo['username'], :password => mongo['password'],
+    :database => mongo['database'], :prefix => 'gridfs'
   
   # Skip frameworks you're not going to use. To use Rails without a database,
   # you must remove the Active Record framework.

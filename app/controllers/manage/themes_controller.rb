@@ -1,87 +1,69 @@
 class Manage::ThemesController < ManageController
-  # GET /themes
-  # GET /themes.xml
   def index
     @themes = Theme.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @themes }
-    end
   end
 
-  # GET /themes/1
-  # GET /themes/1.xml
   def show
-    @theme = Theme.find(params[:id], :include => [:layouts, :templates, :assets])
-    @theme_asset = ThemeAsset.new
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @theme }
-    end
+    @theme = Theme.find(params[:id])
+    @theme_version = @theme.versions.last
   end
 
-  # GET /themes/new
-  # GET /themes/new.xml
   def new
     @theme = Theme.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @theme }
-    end
+    @theme_version = ThemeVersion.new
   end
 
-  # GET /themes/1/edit
-  def edit
-    @theme = Theme.find(params[:id])
-  end
-
-  # POST /themes
-  # POST /themes.xml
   def create
-    @theme = Theme.new(params[:theme])
-
-    respond_to do |format|
-      if @theme.save
-        flash[:notice] = 'Theme was successfully created.'
-        format.html { redirect_to manage_theme_path(@theme) }
-        format.xml  { render :xml => @theme, :status => :created, :location => @theme }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @theme.errors, :status => :unprocessable_entity }
+    if @theme = Theme.create(params[:theme])
+      @theme_version = @theme.versions.create(params[:theme_version])
+      
+      if params[:theme_assets].present?
+        params[:theme_assets].each{|a| @theme_version.theme_assets << ThemeAsset.new(:file => a)}
+        @theme_version.save
       end
+      
+      #extract_vars(params[:theme_variables])
+      flash[:notice] = 'Theme was successfully created.'
+      redirect_to manage_theme_path(@theme)
+    else
+      flash[:notice] = 'Theme failed to save.'
+      render :action => "new"
     end
   end
 
-  # PUT /themes/1
-  # PUT /themes/1.xml
   def update
     @theme = Theme.find(params[:id])
-    @theme_asset = ThemeAsset.new
-
-    respond_to do |format|
-      if @theme.update_attributes(params[:theme])
-        flash[:notice] = 'Theme was successfully updated.'
-        format.html { redirect_to manage_theme_path(@theme) }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "show" }
-        format.xml  { render :xml => @theme.errors, :status => :unprocessable_entity }
+    @theme_version = @theme.versions.last
+    if @theme.update_attributes(params[:theme]) &&
+       @theme_version.update_attributes(params[:theme_version]) &&
+       extract_vars(params[:theme_variables])
+      
+      if params[:theme_assets].present?
+        params[:theme_assets].each{|a| @theme_version.theme_assets << ThemeAsset.new(:file => a)}
+        @theme_version.save
       end
+      
+      flash[:notice] = 'Theme was successfully updated.'
+      redirect_to manage_theme_path(@theme)
+    else
+      render :action => "show"
     end
   end
-
-  # DELETE /themes/1
-  # DELETE /themes/1.xml
-  def destroy
-    @theme = Theme.find(params[:id])
-    @theme.destroy
-
-    respond_to do |format|
-      format.html { redirect_to manage_themes_path }
-      format.xml  { head :ok }
+  
+  private
+    def extract_vars(vars)
+      vars.each do |v|
+        case v[:type]
+        when 'texts'
+          @theme_version.texts[v[:name]] = v[:value] if v[:name].present?
+        when 'colors'
+          @theme_version.colors[v[:name]] = v[:value] if v[:name].present?
+        when 'ifs'
+          @theme_version.ifs[v[:name]] = (v[:value] == 'true') if v[:name].present?
+        when 'images'
+          @theme_version.images[v[:name]] = v[:value] if v[:name].present?
+        end
+      end
+      @theme_version.save
     end
-  end
 end

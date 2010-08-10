@@ -46,6 +46,7 @@ ActionController::Routing::Routes.draw do |map|
 
     admin.resource :site
     admin.resource :navigation
+    admin.resource :theme, :member => { :set_theme => :put, :reset_customization => :put }
 
     admin.resources :assets
     admin.resources :pages, :member => { :publish => :put, :unpublish => :put }

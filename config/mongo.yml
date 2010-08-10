@@ -1,0 +1,23 @@
+development:
+  database: stumpwise_development
+  host: 127.0.0.1
+  port: 27017
+
+test:
+  database: stumpwise_test
+  host: 127.0.0.1
+  port: 27017
+  
+staging:
+  database: stumpwise
+  host: flame.mongohq.com
+  port: 27058
+  username: stumpwise_admin
+  password: unGMV4U6skyV
+
+production:
+  database: stumpwise
+  host: flame.mongohq.com
+  port: 27058
+  username: stumpwise_admin
+  password: unGMV4U6skyV

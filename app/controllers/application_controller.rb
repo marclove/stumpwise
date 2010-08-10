@@ -26,14 +26,6 @@ class ApplicationController < ActionController::Base
       render_404 if !current_site.active?
     end
     
-    # called from the non-administrative controllers instead of ActionController::Base#render
-    def render_liquid_template_for(object, assigns = {})
-      render_404 unless object
-      headers["Content-Type"] ||= 'text/html; charset=utf-8'
-      status = (assigns.delete(:status) || :ok)
-      render :status => status, :text => current_site.call_render(object, nil, assigns)
-    end
-    
     def render_404
       render :file => 'public/404.html', :status => 404
       return

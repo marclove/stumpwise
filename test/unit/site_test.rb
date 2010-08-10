@@ -113,8 +113,6 @@ class SiteTest < ActiveSupport::TestCase
     end
     
     should_eventually "return a list of mobile numbers for sms messaging"
-    should_eventually "return a gateway for use in contributions"
-    should_eventually "render templates? (call_render)"
     
     should "verify that a super admin is an authorized user" do
       site = Site.make

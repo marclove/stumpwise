@@ -37,4 +37,10 @@ module ApplicationHelper
   def authenticity_token
     javascript_tag "window._token = \"#{form_authenticity_token}\""
   end
+  
+  def gridfs_image_tag(id, *args)
+    return '' unless id.present?
+    args.unshift("/gridfs/#{id}")
+    image_tag(*args)
+  end
 end

@@ -121,23 +121,5 @@ class LiquidTagsTest < ActionView::TestCase
       assert_template_result(default_result, "{% facebook_widget %}", {'site' => {'facebook_page_id' => '1234567890'}})
       assert_template_result(custom_result, "{% facebook_widget stream:true connections:20 header:false width:400 height:500 %}", {'site' => {'facebook_page_id' => 'Anthony.Woods'}})
     end
-
-    should "have a blog tag that only displays its content if currently rendering a blog" do
-      expected = "this is expected"
-      assert_template_result(expected, "this is{% blog %} expected{% end_blog %}", {'displaying' => 'blog'})
-      expected = "this is"
-      assert_template_result(expected, "this is{% blog %} expected{% end_blog %}", {'displaying' => 'page'})
-      expected = "this is"
-      assert_template_result(expected, "this is{% blog %} expected{% end_blog %}", {})
-    end
-    
-    should "have a page tag that only displays its content if currently rendering a page" do
-      expected = "this is expected"
-      assert_template_result(expected, "this is{% page %} expected{% end_page %}", {'displaying' => 'page'})
-      expected = "this is"
-      assert_template_result(expected, "this is{% page %} expected{% end_page %}", {'displaying' => 'blog'})
-      expected = "this is"
-      assert_template_result(expected, "this is{% page %} expected{% end_page %}", {})
-    end
   end
 end

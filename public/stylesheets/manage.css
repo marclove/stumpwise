@@ -71,4 +71,15 @@ form.edit_user th { width:30%; text-align:right; }
 form.edit_user td { padding:1em; }
 
 
+#static_assets, #theme_variables{ margin:1em 0; background:#EEE; width:100%; }
+#static_assets th, #theme_variables th { padding:0.5em 1em; background:#333; color:#FFF; }
+#static_assets td, #theme_variables td { padding:0.5em 1em; border-bottom:1px solid #AAA; }
+#theme_variables th:nth-child(1){ width:20%; }
+#theme_variables th:nth-child(2){ width:35%; }
+#theme_variables th:nth-child(3){ width:35%; }
+#theme_variables th:nth-child(4){ width:10%; }
+.theme_variable select, .theme_variable input { margin-right:2em; }
+#static_assets input { width:550px; }
+
+
 .formError { font-size:93%; color:#C00; }

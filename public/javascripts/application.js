@@ -1,3 +1,4 @@
+$.ajaxSettings.accepts._default = "text/javascript, text/html, application/xml, text/xml, */*";
 $(document).ready(function() {
 
 	// TinyMCE Textareas
@@ -65,4 +66,13 @@ $(document).ready(function() {
 	});
 	
 	$('#notice.flash_message').delay(3000).slideToggle(600);
+	
+	// Theme Changing
+	$("input[name='site[mongo_theme_id]']").bind("click",function(){
+		$.post("/admin/theme/set_theme?id=" + $(this).val(), {"_method":'put'},
+			function(data){
+				$("#theme_customization_options").html(data);
+			}
+		);
+	});	
 });

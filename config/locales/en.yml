@@ -71,6 +71,14 @@ en:
     create:
       success: "Your asset has been uploaded."
       fail: "There was an error. Your asset could not be uploaded."
+  
+  theme:
+    change:
+      fail: "There was an error. Your site's theme could not be changed."
+  
+  theme_customization:
+    update:
+      fail: "There was an error. Your customizations could not be saved."
 
 
   # Attributes names common to most models

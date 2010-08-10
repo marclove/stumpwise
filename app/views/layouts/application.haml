@@ -4,10 +4,10 @@
 		%meta{:charset => "utf-8"}
 		%title= "stumpwise :: #{current_site.name}"
 		=authenticity_token
-		=stylesheet_link_tag 'master.css'
+		=stylesheet_link_tag 'colorpicker.css','master.css'
 		=javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js'
 		=javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js'
-		=javascript_include_tag 'jrails.js','tiny_mce/jquery.tinymce.js','jquery.tablesorter.min.js','jquery.tablesorter.pager.js','application.js'
+		=javascript_include_tag 'jrails.js','tiny_mce/jquery.tinymce.js','jquery.tablesorter.min.js','jquery.tablesorter.pager.js','colorpicker.js','application.js'
 		=yield :head
 	%body{:class => @body_class}
 		#container

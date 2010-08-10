@@ -2,51 +2,63 @@
 - @menu 			= 'themes'
 
 #main.edit_theme
-	%h1= @theme.name
+	-form_for @theme, :url => manage_theme_path(@theme), :html => {:multipart => true} do |t|
+		%h1 Edit Theme
+		=t.label :name, 'Name', :class => 'on-top'
+		=t.text_field :name, :class => 'text_field big wide'
+		
+		-fields_for @theme_version do |v|
+			=hidden_field_tag 'theme_version[active]', true
+			
+			=v.label :code, "Template Code", :class => 'on-top'
+			=v.text_area :code, {:style => 'width:900px; height:400px;'}
+			
+			%h2{:style => 'margin:40px 0 0 0;'} Static File Assets
+			%table#static_assets
+				%tr
+					%th Filename
+					%th URL
+				-@theme_version.theme_assets.each do |i|
+					%tr
+						%td=i.file_name
+						%td="<input type=\"text\" size=\"80\" value=\"#{i.url}\" />"
+			%p <input class="image_file" id="theme_assets" name="theme_assets[]" type="file" />
 
-	.theme_section
-		%h2 Layouts
-		%ul{:id => "layouts", :class => "layouts"}
-			-for template in @theme.layouts
-				%li{:class => "layout"}
-					=link_to(image_tag('icons-shadowless/bin-metal-full.png', :class => "inline_image"), manage_theme_template_path(@theme, template), :method => :delete, :confirm => "Are you sure you want to delete this layout? This cannot be undone and could break any sites using this theme.")
-					=link_to template.filename, edit_manage_theme_template_path(@theme, template)
-		/
-			.buttons
-				=link_to "#{image_tag('icons-shadowless/plus-circle.png', :alt => '')} New Layout", new_manage_theme_layout_path(@theme), :class => 'positive'
-
-	.theme_section
-		%h2 Templates
-		%ul{:id => "templates", :class => "templates"}
-			-for template in @theme.templates
-				%li{:class => "template"}
-					=link_to(image_tag('icons-shadowless/bin-metal-full.png', :class => "inline_image"), manage_theme_template_path(@theme, template), :method => :delete, :confirm => "Are you sure you want to delete this template? This cannot be undone and could break any sites using this theme.")
-					=link_to template.filename, edit_manage_theme_template_path(@theme, template)
-		/
-			.buttons
-				=link_to "#{image_tag('icons-shadowless/plus-circle.png', :alt => '')} New Template", new_manage_theme_template_path(@theme), :class => 'positive'
-
-	.theme_section
-		%h2 Static Assets
-		%ul{:id => "assets", :class => "assets"}
-			-for asset in @theme.assets
-				%li{:class => "asset"}
-					=link_to(image_tag('icons-shadowless/bin-metal-full.png', :class => "inline_image"), manage_theme_asset_path(@theme, asset), :method => :delete, :confirm => "Are you sure you want to delete this asset? This cannot be undone and could break any sites using this theme.")
-					=link_to asset['file'], asset.file.url
-		-form_for @theme_asset, :url => manage_theme_assets_path(@theme), :html => {:multipart => true} do |f|
-			=f.label :file, 'New Asset'
-			=f.file_field :file
-			.buttons
-				%button{:type => 'submit'}
-					=image_tag "icons-shadowless/arrow-090.png", :alt => ''
-					Upload
-
-	.theme_section
-		%h2 Theme Code
-		-form_for @theme, :url => manage_theme_path(@theme), :html => {:multipart => true} do |f|
-			=f.label :code, 'Code', :class => 'on-top'
-			=f.text_area :code, :class => 'wide', :rows => 40
-			.buttons
-				%button.positive{:type => 'submit'}
-					=image_tag "icons-shadowless/tick.png", :alt => ''
-					Save Changes
+			%h2{:style => 'margin:40px 0 0 0;'} Customizable Variables
+			%table#theme_variables
+				%tr
+					%th Type
+					%th Name
+					%th Value
+					%th
+				-@theme_version.texts.each_pair do |key,value|
+					%tr.theme_variable
+						%td Text
+						%td=key
+						%td=text_field_tag "theme_version[texts][#{key}]", value
+						%td
+				-@theme_version.colors.each_pair do |key,value|
+					%tr.theme_variable
+						%td Color
+						%td=key
+						%td=text_field_tag "theme_version[colors][#{key}]", value
+						%td
+				-@theme_version.ifs.each_pair do |key,value|
+					%tr.theme_variable
+						%td Boolean
+						%td=key
+						%td=check_box_tag "theme_version[ifs][#{key}]", nil, value, :disabled => true
+						%td
+				-@theme_version.images.each_pair do |key,value|
+					%tr.theme_variable
+						%td Image
+						%td=key
+						%td=text_field_tag "theme_version[images][#{key}]", value
+						%td
+			=link_to 'Add Variable', '#', :id => "add_variable"
+			
+			%h2{:style => 'margin:50px 0 0 0;'} Theme Thumbnail
+			=v.label :thumbnail, 'Select a thumbnail image...', :class => 'on-top'
+			=v.file_field :thumbnail
+			%p=gridfs_image_tag(@theme_version.thumbnail_id)
+		%p=submit_tag
