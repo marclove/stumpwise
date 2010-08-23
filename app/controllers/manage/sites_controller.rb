@@ -26,6 +26,7 @@ class Manage::SitesController < ManageController
     if @user_saved && @site_saved && @administratorship_created
       @site.update_attribute(:active, params[:site][:active])
       @site.update_attribute(:can_accept_contributions, params[:site][:can_accept_contributions])
+      @site.set_theme!(Theme.first.id.to_s)
       redirect_to manage_sites_path
     else
       flash.now[:error] = t("site.create.fail")

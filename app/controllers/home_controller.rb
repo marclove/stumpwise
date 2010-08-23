@@ -39,7 +39,7 @@ class HomeController < ApplicationController
           end
         end
       end
-      
+      @site.set_theme!(Theme.first.id.to_s)
       UserSession.create(@user)
       redirect_to "http://#{@site.subdomain}.#{HOST}/admin/site/edit"
     else
