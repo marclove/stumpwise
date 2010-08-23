@@ -5,7 +5,16 @@
 =render 'layouts/sub_menu'
 #main
 	%h1 Theme
-	%p Select a theme for your site.
+	%p
+		Select a theme for your site below. If the currently selected theme
+		has any customization options, they will be displayed in the sidebar.
+	%p
+		<strong>Please note:</strong> any changes you make will be reflected on
+		your site <strong>immediately</strong>. If you want to see how your site
+		looks with the changes you're making,
+		=link_to 'open your site in another window', current_site.root_url, :target => '_blank'
+		and press refresh after each change you make.
+	%br
 	#themes
 		-form_for current_site, :url => set_theme_admin_theme_path do |f|
 			-for theme in @themes
