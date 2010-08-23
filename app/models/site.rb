@@ -54,7 +54,7 @@ class Site < ActiveRecord::Base
                   :active, :max_contribution_amount, :mongo_theme_id,
                   :mongo_theme_version_id, :mongo_theme_customization_id
   
-  RESERVED_SUBDOMAINS = %w( www support blog billing help api cdn asset assets chat mail calendar docs documents apps app calendars mobile mobi static admin administration administrator moderator official store buy pages page ssl contribute )
+  RESERVED_SUBDOMAINS = %w( www support blog billing help api cdn asset assets chat mail email calendar docs documents apps app calendars mobile mobi static admin administration administrator moderator official store buy pages page ssl contribute secure )
   
   named_scope :active, :conditions => {:active => true}
   named_scope :contributable, :conditions => {:active => true, :can_accept_contributions => true}
