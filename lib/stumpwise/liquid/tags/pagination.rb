@@ -10,7 +10,7 @@ module Stumpwise
         end
         
         def render(context)
-          if context['page']
+          if context['current_page']
             prev_content = link_to_if(context['previous_page'], "&laquo; Previous", prev_link(context), :class => "prev_page") do
               content_tag :span, "&laquo; Previous", :class => "prev_page disabled"
             end

@@ -34,7 +34,7 @@ class StumpwiseController < ApplicationController
       )
       render_liquid(@item, {
         'articles' => @articles.map(&:to_liquid),
-        'page' => @articles.current_page,
+        'current_page' => @articles.current_page,
         'total_pages' => @articles.total_pages,
         'previous_page' => @articles.previous_page,
         'next_page' => @articles.next_page,
