@@ -102,7 +102,7 @@ class LiquidTagsTest < ActionView::TestCase
             </div>
             CUSTOM_RESULT
       assert_template_result(default_result, "{% twitter_widget %}", {'site' => {'twitter_username' => 'marcslove'}})
-      assert_template_result(custom_result, "{% twitter_widget tweets:10, avatars:false, timestamps:false, hashtags:false, loop:true, live:true, interval:3000, shell_bg:#444444, shell_text:#CCCCCC, tweet_bg:#111111, tweet_text:#DDDDDD, links:#AAAAAA, width:400, height:700 %}", {'site' => {'twitter_username' => 'marcslove'}})
+      assert_template_result(custom_result, "{% twitter_widget tweets:10, avatars:false, timestamps:false, hashtags:false, loop:true, live:true, interval:3000, shell_bg:'#444444', shell_text:'#CCCCCC', tweet_bg:'#111111', tweet_text:'#DDDDDD', links:'#AAAAAA', width:400, height:700 %}", {'site' => {'twitter_username' => 'marcslove'}})
     end
     
     should "render a Facebook widget" do

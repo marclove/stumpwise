@@ -47,7 +47,3 @@ Factory.define :site_with_custom_domain_and_analytics, :parent => :site do |s|
   s.google_analytics_id 'UA-99999-1'
   s.custom_domain 'anthonywoods2.com'
 end
-
-Factory.define :theme do |t|
-  t.name "Theme 1"
-end

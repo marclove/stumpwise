@@ -61,17 +61,6 @@ Item.blueprint do
   site { Site.make }
 end
 
-Layout.blueprint do
-  filename
-  content { Sham.body }
-  theme { Theme.make }
-end
-
-LiquidTemplate.blueprint do
-  filename
-  theme { Theme.make }
-end 
-
 Page.blueprint do
   title
   template_name
@@ -82,7 +71,7 @@ end
 Site.blueprint do
   owner { User.make }
   subdomain
-  theme { Theme.make }
+  theme_id { 1 }
   name
   campaign_legal_name { Faker::Company.name }
   campaign_email { Sham.email }
@@ -94,7 +83,7 @@ Site.blueprint(:complete) do
 
   subdomain
   custom_domain
-  theme { Theme.make }
+  theme_id { 1 }
   name
   subhead { Faker::Company.catch_phrase }
   keywords { Sham.word_list }
@@ -136,21 +125,6 @@ end
 Supportership.blueprint do
   supporter { Supporter.make }
   site { Site.make }
-end
-
-Template.blueprint do
-  filename
-  content { Sham.body }
-  theme { Theme.make }
-end
-
-Theme.blueprint do
-  name
-end
-
-ThemeAsset.blueprint do
-  theme { Theme.make }
-  file { Sham.image }
 end
 
 User.blueprint do

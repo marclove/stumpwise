@@ -11,11 +11,11 @@ module Stumpwise
             'loop'        => 'false',
             'live'        => 'false',
             'interval'    => '6000',
-            'shell_bg'    => '#002266',
-            'shell_text'  => '#FFFFFF',
-            'tweet_bg'    => '#001122',
-            'tweet_text'  => '#FFFFFF',
-            'links'       => '#6699FF',
+            'shell_bg'    => '"#002266"',
+            'shell_text'  => '"#FFFFFF"',
+            'tweet_bg'    => '"#001122"',
+            'tweet_text'  => '"#FFFFFF"',
+            'links'       => '"#6699FF"',
             'width'       => 'auto',
             'height'      => '300'
           }
@@ -25,7 +25,7 @@ module Stumpwise
         end
         
         def width
-          @attributes['width'] == 'auto' ? "'auto'" : @attributes['width']
+          @attributes['width'] == 'auto' ? '"\'auto\'"' : @attributes['width']
         end
         
         def render(context)
@@ -37,28 +37,28 @@ module Stumpwise
               new TWTR.Widget({
                 version: 2,
                 type: 'profile',
-                rpp: #{@attributes['tweets']},
-                interval: #{@attributes['interval']},
-                width: #{width},
-                height: #{@attributes['height']},
+                rpp: #{context[@attributes['tweets']]},
+                interval: #{context[@attributes['interval']]},
+                width: #{context[width]},
+                height: #{context[@attributes['height']]},
                 theme: {
                   shell: {
-                    background: '#{@attributes['shell_bg']}',
-                    color: '#{@attributes['shell_text']}'
+                    background: '#{context[@attributes['shell_bg']]}',
+                    color: '#{context[@attributes['shell_text']]}'
                   },
                   tweets: {
-                    background: '#{@attributes['tweet_bg']}',
-                    color: '#{@attributes['tweet_text']}',
-                    links: '#{@attributes['links']}'
+                    background: '#{context[@attributes['tweet_bg']]}',
+                    color: '#{context[@attributes['tweet_text']]}',
+                    links: '#{context[@attributes['links']]}'
                   }
                 },
                 features: {
                   scrollbar: false,
-                  loop: #{@attributes['loop']},
-                  live: #{@attributes['live']},
-                  hashtags: #{@attributes['hashtags']},
-                  timestamp: #{@attributes['timestamps']},
-                  avatars: #{@attributes['avatars']},
+                  loop: #{context[@attributes['loop']]},
+                  live: #{context[@attributes['live']]},
+                  hashtags: #{context[@attributes['hashtags']]},
+                  timestamp: #{context[@attributes['timestamps']]},
+                  avatars: #{context[@attributes['avatars']]},
                   behavior: 'all'
                 }
               }).render().setUser('#{username}').start();
