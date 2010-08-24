@@ -9,9 +9,9 @@ test:
   port: 27017
   
 staging:
-  database: stumpwise
+  database: stumpwise_staging
   host: flame.mongohq.com
-  port: 27058
+  port: 27078
   username: stumpwise_admin
   password: unGMV4U6skyV
 
