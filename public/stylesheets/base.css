@@ -460,6 +460,9 @@ legend {
 	border:6px solid #DDD;
 	margin:10px 0 0 0;
 }
+#theme_customization_options {
+	padding-bottom:2em;
+}
 .theme_customization_option {
 	margin:1em 0;
 	position:relative;

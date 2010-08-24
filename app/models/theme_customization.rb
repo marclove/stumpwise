@@ -31,19 +31,19 @@ class ThemeCustomization
   end
   
   def color_keys
-    theme_version.colors.keys
+    theme_version.colors.keys.sort
   end
   
   def text_keys
-    theme_version.texts.keys
+    theme_version.texts.keys.sort
   end
   
   def if_keys
-    theme_version.ifs.keys
+    theme_version.ifs.keys.sort
   end
   
   def image_keys
-    theme_version.images.keys
+    theme_version.images.keys.sort
   end
   
   def merged_texts
