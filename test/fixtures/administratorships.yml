@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100817131545
+# Schema version: 20100825194538
 #
 # Table name: administratorships
 #

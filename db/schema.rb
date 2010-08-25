@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100817131545) do
+ActiveRecord::Schema.define(:version => 20100825194538) do
 
   create_table "administratorships", :force => true do |t|
     t.integer "administrator_id"
@@ -158,17 +158,18 @@ ActiveRecord::Schema.define(:version => 20100817131545) do
     t.string   "campaign_city"
     t.string   "campaign_state"
     t.string   "campaign_zip"
-    t.string   "time_zone",                    :default => "Pacific Time (US & Canada)"
-    t.boolean  "active",                       :default => false
+    t.string   "time_zone",                     :default => "Pacific Time (US & Canada)"
+    t.boolean  "active",                        :default => false
     t.string   "credit_card_token"
     t.datetime "credit_card_expiration"
     t.string   "subscription_id"
     t.integer  "subscription_billing_cycle"
-    t.boolean  "can_accept_contributions",     :default => false
+    t.boolean  "can_accept_contributions",      :default => false
     t.integer  "max_contribution_amount"
     t.string   "mongo_theme_id"
     t.string   "mongo_theme_version_id"
     t.string   "mongo_theme_customization_id"
+    t.integer  "suggested_contribution_amount"
   end
 
   add_index "sites", ["custom_domain"], :name => "index_sites_on_custom_domain", :unique => true

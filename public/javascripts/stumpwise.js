@@ -61,7 +61,7 @@ Stumpwise.initJoin = function(){
 	});
 };
 
-Stumpwise.initContribution = function(max){
+Stumpwise.initContribution = function(max, suggested){
 	var campaign_site = decodeURIComponent(document.location.hash.replace(/^#/, ''));
 	function closeModal(){$.postMessage('close', campaign_site, parent);}
 	$('#cancel').click(function(){closeModal();return false;});
@@ -71,6 +71,7 @@ Stumpwise.initContribution = function(max){
 	$("#contribution-min").html('$' + 5);
 	$("#contribution-max").html('$' + max);
 	var start = max / 2.0;
+	if(suggested){start=suggested};
 	if(start<5){start=5;}
 	$("#slider").slider({
 		value:start,

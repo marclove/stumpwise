@@ -8,7 +8,7 @@
 		<%= stylesheet_link_tag '/javascripts/jquery-ui/jquery-ui-1.8.2.custom.css' %>
 		<%= stylesheet_link_tag 'contribute' %>
 		<script type="text/javascript">
-			$(document).ready(function(){Stumpwise.initContribution(<%= current_site.max_contribution_amount %>)});
+			$(document).ready(function(){Stumpwise.initContribution(<%= current_site.max_contribution_amount %>, <%= current_site.suggested_contribution_amount.present? ? current_site.suggested_contribution_amount : "null" %>)});
 		</script>
 	</head>
 
@@ -22,6 +22,7 @@
 			<div id="form-body">
 				<div id="errors"></div>
 				<%= flash_messages %>
+				<p style="font-size:90%; text-align:center;">Drag the slider to adjust amount</p>
 				<div id="contribution-amount">
 					<div id="contribution-select">
 						<div id="contribution-min"></div>
