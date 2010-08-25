@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100725234858
+# Schema version: 20100817131545
 #
 # Table name: supporters
 #
@@ -19,6 +19,8 @@
 #  country                :string(255)
 #  postal_code            :string(255)
 #  mobile_phone           :string(255)
+#  lat                    :float
+#  lng                    :float
 #
 
 class Supporter < ActiveRecord::Base

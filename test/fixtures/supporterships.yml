@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100725234858
+# Schema version: 20100817131545
 #
 # Table name: supporterships
 #

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100720222608
+# Schema version: 20100817131545
 #
 # Table name: sms_campaigns
 #
