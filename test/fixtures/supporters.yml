@@ -38,3 +38,23 @@ other_site_supporter:
   email: me@other.com
   first_name: John
   last_name: Doe
+
+email_only:
+  id: 4
+  email: me1@other.com
+  first_name: John
+  last_name: Doe
+  
+sms_only:
+  id: 5
+  email: me2@other.com
+  mobile_phone: 4088888888
+  first_name: John
+  last_name: Doe
+
+email_and_sms:
+  id: 6
+  email: me3@other.com
+  mobile_phone: 4088888888
+  first_name: John
+  last_name: Doe

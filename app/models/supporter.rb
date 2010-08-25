@@ -26,6 +26,8 @@ class Supporter < ActiveRecord::Base
   
   has_many :supporterships, :foreign_key => 'supporter_id'
   has_many :sites, :through => :supporterships
+  has_many :sms_messages, :foreign_key => 'recipient_id'
+  has_many :sms_campaigns, :through => :sms_messages
   
   validates_length_of     :email, :within => 6..100,   :allow_blank => true
   validates_format_of     :email, :with => RegEmailOk, :allow_blank => true

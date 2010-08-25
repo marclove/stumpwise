@@ -57,6 +57,7 @@ ActionController::Routing::Routes.draw do |map|
         
     admin.resources :supporters, :only => [:index, :show, :destroy], :collection => {:export => :get}
     admin.resources :contributions, :only => [:index, :show], :member => {:refund => :put}
+    admin.resources :sms_campaigns
     admin.root :controller => 'blogs', :action => 'index'
   end
   

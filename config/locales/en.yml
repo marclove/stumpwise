@@ -80,6 +80,11 @@ en:
     update:
       fail: "There was an error. Your customizations could not be saved."
 
+  sms_campaign:
+    create:
+      success: "Your SMS message has been sent to your supporters."
+      fail: "There was a problem sending this SMS message to your supporters. Please contact support for assistance."
+
 
   # Attributes names common to most models
   #attributes:

@@ -23,3 +23,24 @@ two:
   supporter_id: 2
   site_id: 6
   receive_email: true
+
+email_only:
+  id: 3
+  supporter_id: 4
+  site_id: 10
+  receive_email: true
+  receive_sms: false
+
+sms_only:
+  id: 4
+  supporter_id: 5
+  site_id: 10
+  receive_email: false
+  receive_sms: true
+
+email_and_sms:
+  id: 5
+  supporter_id: 6
+  site_id: 10
+  receive_email: true
+  receive_sms: true

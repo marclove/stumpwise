@@ -42,6 +42,7 @@ config.after_initialize do
   Braintree::Configuration.merchant_id = "mvmy94yfkzp3zkq5"
   Braintree::Configuration.public_key  = "3dcrfwkk5trng5fr"
   Braintree::Configuration.private_key = "t75vk6k4qjcvvtpc"
+  Twilio.connect('AC290b369fef9ffa8920ca99314daa329d', '3754013e10389ded382a62d5f2830b43')
 end
 
 BASE_URL = "stumpwise.com"

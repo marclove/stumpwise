@@ -1,0 +1,55 @@
+- @body_class = 'no-sidebar'
+- @menu 			= 'sms'
+
+#main
+	%h1 SMS Messaging
+	#sms-campaigns
+		#new-message
+			%h2 Compose a new message
+			-form_for @sms_campaign, :url => admin_sms_campaigns_path do |f|
+				#new-message-details
+					.detail
+						#number-of-supporters.figure=pluralize(current_site.supporters.wanting_sms_count, "supporter")
+						will receive your message
+					.detail
+						#cost.figure=number_to_currency(current_site.supporters.wanting_sms_count * SmsCampaign::COST_PER_SMS)
+						="is your cost to send (#{number_to_currency(SmsCampaign::COST_PER_SMS)}/ea)"
+					.buttons
+						%button.positive{:type => 'submit', :id => 'send-sms'}
+							%span#send-message-button
+								=image_tag "icons-shadowless/mobile-phone-cast.png", :alt => ''
+								Send Message Now
+							%span#sending-message-button
+								=image_tag "loading.gif", :alt => ''
+								Sending&hellip;
+						/
+							%button{:type => 'submit'}
+								Save As Draft
+				#compose-message
+					=f.text_area :message, :id => "compose-message-text"
+					:javascript
+						$('#compose-message-text').charCount({
+							allowed: 160,
+							warning: 25,
+							counterElement: 'div',
+							counterText: ' remaining characters'
+						})
+		- if @sms_campaigns.size > 0
+			%table
+				%thead
+					%tr
+						%th.message Message Text
+						%th.status Status
+						%th.recipients-count Recipients
+						%th.recipients-count Paid
+				%tbody
+					- for s in @sms_campaigns
+						%tr.sms-campaign
+							%td.message=s.message
+							%td.status
+								=if s.status == 'sent'; s.status.titlecase; else; 'Unsent'; end
+								%span.time
+									=time_ago_in_words(s.created_at)
+									ago
+							%td.recipients-count=s.recipients_count
+							%td.cost=number_to_currency(s.recipients_count * SmsCampaign::COST_PER_SMS)
