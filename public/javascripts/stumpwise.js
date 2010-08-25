@@ -38,13 +38,8 @@ Stumpwise.initCampaignSite = function(contribute_url, domain){
 	} else {
 		$("#stumpwise-bar-contribute").attr("href",url).colorbox({iframe:true,width:"700px",height:"95%"});
 	}
-	function thankYou(){
-		$.colorbox({iframe:true,width:"400px",height:"175px",href:"/thanks_contribute.html"});
-		window.setTimeout("$.colorbox.close()", 5000);
-	}
 	$.receiveMessage(function(message){
 		if(message.data == "close"){$.colorbox.close();}
-		if(message.data == "thankYou"){thankYou();}
 	}, domain);
 };
 
@@ -113,7 +108,8 @@ Stumpwise.initContribution = function(max){
 					$('html, body').animate({scrollTop:0}, 'slow');
 				},
 				success:function(m){
-					$.postMessage('thankYou', campaign_site, parent);
+					$("body").append('<div id="thank-you-overlay"><div id="thank-you">Thank you for your contribution!<p id="receipt">A receipt will be emailed to you shortly.</p></div></div>');
+					window.setTimeout(closeModal(), 8000);
 				},
 				url:$(form).attr("action")
 			});

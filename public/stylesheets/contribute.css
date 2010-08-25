@@ -163,3 +163,25 @@ input.error { background:#FFE5E5; border-color:#C00; }
 #error, #errors { width:580px; margin:1em auto; margin-bottom:2em; border:1px solid #C00; color:#A00; font-weight:bold; background:#FFE5E5; padding:10px; text-align:center; }
 #errors { display:none; }
 .fieldWithErrors { display:inline; }
+
+#thank-you-overlay {
+	background:url(/images/dimming-bg.png) repeat;
+	position:absolute;
+	left:0;
+	top:0;
+	width:100%;
+	height:100%;
+	text-align:center;
+	z-index:1000;
+}
+#thank-you {
+	text-shadow: 0 0 5px #000;
+	position:absolute;
+	bottom:300px;
+	left:0;
+	width:100%;
+	color:#FFF;
+	font-size:30px;
+	font-weight:bold;
+}
+#receipt{ font-size:18px; }
