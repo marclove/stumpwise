@@ -5,7 +5,7 @@ class StumpwiseController < ApplicationController
     if @item = find_item(params[:path])
       send("render_#{@item.class.to_s.underscore}")
     else
-      render_404
+      render :file => 'public/indevelopment.html', :status => 404
     end
   end
   
