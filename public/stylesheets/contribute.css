@@ -127,7 +127,7 @@ input[type="text"] {
 }
 div.container{ display:block; clear:both; width:100%; }
 #amount { font-weight:bold; text-align:center; font-size:36px; }
-#card-information, #billing-details, #employment-info, #confirm-eligibility, #refund-policy { width:600px; margin:1em auto; margin-bottom:2em; padding:4px; border-top:3px double #CCC; }
+#card-information, #billing-details, #employment-info, #confirm-eligibility, #refund-policy, #cc-statement-disclaimer { width:600px; margin:1em auto; margin-bottom:2em; padding:4px; border-top:3px double #CCC; }
 #refund-policy { margin-bottom:0; }
 #first-name, #last-name, #address-1, #address-2, #city-state-zip, #city, #state, #zip-code, #card-number, #card-expiration, #card-cvv, #email, #mobile-phone, #employer, #occupation, #eligibility-statement { float:left; margin-right:9px; }
 #first-name input, #last-name input, #address-1 input, #address-2 input, #city input, #card-number input, #employer input, #occupation input { width:250px; }
@@ -185,3 +185,4 @@ input.error { background:#FFE5E5; border-color:#C00; }
 	font-weight:bold;
 }
 #receipt{ font-size:18px; }
+#cc-statement-disclaimer { color:#A00; font-size:13px; text-align:center; padding-top:1em; }
