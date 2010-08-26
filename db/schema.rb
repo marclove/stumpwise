@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100825194538) do
+ActiveRecord::Schema.define(:version => 20100826143408) do
 
   create_table "administratorships", :force => true do |t|
     t.integer "administrator_id"
@@ -165,7 +165,7 @@ ActiveRecord::Schema.define(:version => 20100825194538) do
     t.string   "subscription_id"
     t.integer  "subscription_billing_cycle"
     t.boolean  "can_accept_contributions",      :default => false
-    t.integer  "max_contribution_amount"
+    t.integer  "max_contribution_amount",       :default => 2400
     t.string   "mongo_theme_id"
     t.string   "mongo_theme_version_id"
     t.string   "mongo_theme_customization_id"
