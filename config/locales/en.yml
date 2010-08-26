@@ -11,6 +11,15 @@ en:
     update:
       success: "Your profile information has been updated."
       fail: "There was a problem updating your profile information."
+  create:
+    success: "User created successfully"
+    fail: "There was an error. The user could not be created."
+  update:
+    success: "User updated successfully"
+    fail: "There was an error. The user could not be updated."
+  destroy:
+    success: "User deleted successfully"
+    fail: "There was an error. The user could not be deleted."
 
   contribution:
     process:
