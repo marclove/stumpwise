@@ -2,10 +2,15 @@ class StumpwiseController < ApplicationController
   before_filter :handle_invalid_site, :reject_inactive_site
   
   def show
-    if @item = find_item(params[:path])
-      send("render_#{@item.class.to_s.underscore}")
-    else
+    find_item(params[:path])
+
+    case @item
+    when :in_development
       render :file => 'public/indevelopment.html', :status => 404
+    when :not_found, nil
+      render_404
+    else
+      send("render_#{@item.class.to_s.underscore}")
     end
   end
   
@@ -16,9 +21,13 @@ class StumpwiseController < ApplicationController
     
     def find_item(path)
       if path.blank?
-        current_site.root_item
+        unless @item = current_site.root_item
+          @item = :in_development
+        end
       else
-        current_site.items.published.find_by_permalink(path.join('/'))
+        unless @item = current_site.items.published.find_by_permalink(path.join('/'))
+          @item = :not_found
+        end
       end
     end
     
