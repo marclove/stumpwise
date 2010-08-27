@@ -75,11 +75,11 @@ class Contribution < ActiveRecord::Base
     transitions :from => :approved, :to => :voided, :on_transition => :process_void, :guard => :voidable?
   end
   
-  aasm_event :settle, :success => :add_amount_to_net do
+  aasm_event :settle, :after => :add_amount_to_net do
     transitions :from => :approved, :to => :settled, :guard => :settleable?
   end
 
-  aasm_event :refund, :before => :increment_processing_fees, :success => :subtract_amount_from_net do
+  aasm_event :refund, :before => :increment_processing_fees, :after => :subtract_amount_from_net do
     transitions :from => :settled, :to => :refunded, :on_transition => :process_refund, :guard => :refundable?
   end
   
@@ -252,7 +252,7 @@ class Contribution < ActiveRecord::Base
     end
   
     def schedule_settlement_check
-      Delayed::Job.enqueue(SettlementCheckJob.new(transaction_id), 0, 24.hours.from_now.getutc)
+      Delayed::Job.enqueue(SettlementCheckJob.new(self.id), 0, 24.hours.from_now.getutc)
     end
   
     # Increment's the Contribution's processing fees by 1 transaction. This
@@ -261,17 +261,19 @@ class Contribution < ActiveRecord::Base
     def increment_processing_fees
       increment(:processing_fees, transaction_processing_fee)
       decrement(:net_amount, transaction_processing_fee)
-      save
+      save!
     end
   
     # We only add the transaction amount to the net_amount after the
     # transaction has been settled and we know we'll be collecting the money.
     def add_amount_to_net
-      increment!(:net_amount, amount)
+      increment(:net_amount, amount)
+      save!
     end
     
     def subtract_amount_from_net
-      decrement!(:net_amount, amount)
+      decrement(:net_amount, amount)
+      save!
     end
     
     def requires_compliance_confirmation?

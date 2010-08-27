@@ -334,6 +334,7 @@ class ContributionTest < ActiveSupport::TestCase
           should "not change the net amount" do
             assert_no_difference '@contribution.net_amount' do
               @contribution.settle!
+              @contribution.reload
             end
           end
           
@@ -434,6 +435,7 @@ class ContributionTest < ActiveSupport::TestCase
           should "increase the net amount by the contribution amount" do
             assert_difference '@contribution.net_amount', +100.0 do
               @contribution.settle!
+              @contribution.reload
             end
           end
           

@@ -1,13 +1,7 @@
-class SettlementCheckJob < Struct.new(:transaction_id)
+class SettlementCheckJob < Struct.new(:contribution_id)
   def perform
-    # if not found, raises a Braintree NotFoundError
-    transaction = Braintree::Transaction.find(transaction_id)
-    
-    if transaction.status == "settled"
-      contribution = Contribution.first(:conditions => {:transaction_id => transaction_id})
-      raise ActiveRecord::RecordNotFound unless contribution
-      contribution.settle!
-    else
+    @contribution = Contribution.find(contribution_id)
+    unless @contribution.settle!
       raise Stumpwise::Transaction::NotSettledError
     end
   end
