@@ -33,8 +33,8 @@
 	
 	#sidebar
 		%h2 Owner
-		=mail_to(@site.owner.email, icon_tag("mail", :overlay => "arrow")) + "&nbsp;"
-		=@site.owner.name
+		=mail_to(@site.owner.try(:email), icon_tag("mail", :overlay => "arrow")) + "&nbsp;"
+		=@site.owner.try(:name)
 		
 		%h2 Authorized Users
 		None
