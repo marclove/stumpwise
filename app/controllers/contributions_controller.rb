@@ -2,7 +2,7 @@ class ContributionsController < ApplicationController
   layout nil
   before_filter :get_site
   ssl_required :new, :create, :thanks
-  filter_parameter_logging :number, :verification_value
+  filter_parameter_logging :number, :cvv
   
   def new
     @contribution = Contribution.new
