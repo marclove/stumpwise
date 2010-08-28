@@ -36,7 +36,7 @@ Rails::Initializer.run do |config|
   config.gem 'shenie-ssl_requirement', :lib => 'ssl_requirement'
   config.gem 'twilio', :version => '2.8.0'
   config.gem 'newrelic_rpm'
-  config.gem 'hoptoad_notifier'
+  #config.gem 'hoptoad_notifier'
   config.gem 'aasm'
   config.gem 'jnunemaker-validatable', :lib => 'validatable', :version => '>=1.8.4'
   config.gem 'geokit'
