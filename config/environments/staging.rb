@@ -33,7 +33,7 @@ config.action_mailer.smtp_settings = {
   :port => '25',
   :domain => "stumpwise.com",
   :authentication => :plain,
-  :user_name => "marc.love@progressbound.com",
+  :user_name => "marc@stumpwise.com",
   :password => "ioQkyaaavKb1njYX6KEJ"
 }
 
