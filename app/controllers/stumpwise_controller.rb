@@ -1,16 +1,28 @@
 class StumpwiseController < ApplicationController
   before_filter :handle_invalid_site, :reject_inactive_site
+  layout nil
   
   def show
     find_item(params[:path])
 
     case @item
+    when :sitemap
+      render :action => :sitemap
+    when :robots
+      render :text => "Sitemap: #{current_site.root_url}/sitemap.xml"
     when :in_development
       render :file => 'public/indevelopment.html', :status => 404
     when :not_found, nil
       render_404
     else
       send("render_#{@item.class.to_s.underscore}")
+    end
+  end
+  
+  def sitemap
+    last_item = current_site.items.last
+    if stale?(:etag => last_item, :last_modified => last_item.updated_at.utc)
+      @items = current_site.items
     end
   end
   
@@ -24,6 +36,10 @@ class StumpwiseController < ApplicationController
         unless @item = current_site.root_item
           @item = :in_development
         end
+      elsif path == ["sitemap.xml"]
+        @item = :sitemap
+      elsif path == ["robots.txt"]
+        @item = :robots
       else
         unless @item = current_site.items.published.find_by_permalink(path.join('/'))
           @item = :not_found

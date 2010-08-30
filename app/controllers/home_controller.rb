@@ -51,4 +51,14 @@ class HomeController < ApplicationController
     flash.now[:error] = t("site.create.fail")
     render :action => 'signup'
   end
+  
+  # Can't use robots.txt because it will interfere w/campaign sites' auto-generated robots.txt files
+  def robots
+    render :file => File.join(Rails.root, 'public', '_robots.txt'), :layout => false
+  end
+  
+  # Can't use sitemap.xml because it will interfere w/campaign sites' auto-generated sitemap.xml files
+  def sitemap
+    render :layout => false
+  end
 end
