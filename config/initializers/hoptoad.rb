@@ -1,3 +1,4 @@
-#HoptoadNotifier.configure do |config|
-#  config.api_key = 'dddcfda6f1db5bbfcc3e8e2b5d2451a4'
-#end
+HoptoadNotifier.configure do |config|
+  config.api_key = '61b68f7dd9d00f0789dba1dc298a39f8'
+  config.params_filters << "number" << "cvv" << "password" << "password_confirmation" << "token"
+end
