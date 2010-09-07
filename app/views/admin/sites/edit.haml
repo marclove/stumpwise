@@ -2,7 +2,7 @@
 - @menu 			= 'website'
 - @submenu 		= 'settings'
 
-=render 'layouts/sub_menu'
+=render 'admin/layouts/site_menu'
 -form_for @site, :url => admin_site_path, :html => {:multipart => true} do |f|
 	#main
 		%h1 Site Settings
@@ -18,9 +18,12 @@
 		=f.text_area :keywords, :class => 'wide', :rows => 3
 		=f.label :description, 'Brief Description of Site <span>(1-2 sentence summary of the site, to be displayed in search engine results)</span>', {:class => 'on-top'}
 		=f.text_area :description, :class => 'wide', :rows => 3
+		=f.label :disclaimer, 'Site Legal Disclaimer <span>(i.e. "Paid for and maintained by THE COMMITTEE TO ELECT JOHN DOE")</span>', {:class => 'on-top'}
+		=f.text_field :disclaimer, :class => 'text_field wide'
 		=f.label :google_analytics_id, "Google Analytics Tracking ID <span>(UA-XXXXXXX-X)</span>", {:class => 'on-top'}
 		=f.text_field :google_analytics_id, :class => 'text_field wide'
 
+		%h2{:style => "margin-top:2em;"} Campaign Information
 		=f.label :campaign_legal_name, 'Legal Name of the Campaign', {:class => 'on-top'}
 		=f.text_field :campaign_legal_name, :class => 'text_field wide'
 		=f.label :campaign_street, 'Campaign Street Address', {:class => 'on-top'}
@@ -37,22 +40,10 @@
 		=f.text_field :campaign_phone, :class => 'text_field wide'
 		=f.label :time_zone, 'Timezone', {:class => 'on-top'}
 		=f.time_zone_select :time_zone, nil, :default => "Pacific Time (US & Canada)"
-		
-		=f.label :disclaimer, 'Site Legal Disclaimer <span>(i.e. "Paid for and maintained by THE COMMITTEE TO ELECT JOHN DOE")</span>', {:class => 'on-top'}
-		=f.text_field :disclaimer, :class => 'text_field wide'
-
-		=f.label :max_contribution_amount, 'Maximum Allowed Contribution Amount', {:class => 'on-top'}
-		$
-		=f.text_field :max_contribution_amount, :class => 'text_field'
-		=f.label :suggested_contribution_amount, 'Suggested Contribution Amount', {:class => 'on-top'}
-		$
-		=f.text_field :suggested_contribution_amount, :class => 'text_field'
-		=f.label :eligibility_statement, "Contributor Eligibility Statement<br/><span>If provided, a contributor will be required to confirm that these statement(s) are true and correct. Please consult the campaign finance regulations applicable to your campaign. They will likely provide a list of contributor eligibility requirements (i.e. age, legal residency, source of money is personal funds, etc.)</span>", {:class => 'on-top'}
-		=f.text_area :eligibility_statement, :class => 'wide tinymce', :rows => 8
 		=f.label :candidate_photo, '', {:class => 'on-top'}
 		=f.file_field :candidate_photo
 		
-		.buttons
+		.buttons{:style => "margin-top:2em;"}
 			%button.positive{:type => 'submit'}
 				=image_tag "icons-shadowless/tick.png", :alt => ''
 				Save Changes

@@ -54,11 +54,13 @@ class Contribution < ActiveRecord::Base
                             :zip, :country, :occupation, :employer
   validates_acceptance_of   :compliance_confirmation, :accept => true,
                             :if => :requires_compliance_confirmation?
-
+  
+  named_scope :raised, :conditions => 'contributions.status IN ("approved", "settled", "paid")'
+  
   include AASM
   aasm_column :status
   aasm_initial_state :pending
-
+  
   aasm_state :pending,  :enter => :prepare
   aasm_state :approved
   aasm_state :declined
@@ -66,11 +68,11 @@ class Contribution < ActiveRecord::Base
   aasm_state :settled
   aasm_state :refunded
   aasm_state :paid
-
+  
   aasm_event :approve, :before => :increment_processing_fees, :success => [:send_receipt, :schedule_settlement_check], :error => :decline do
     transitions :from => :pending, :to => :approved, :on_transition => :process_approval
   end
-
+  
   aasm_event :void, :before => :increment_processing_fees do
     transitions :from => :approved, :to => :voided, :on_transition => :process_void, :guard => :voidable?
   end
@@ -78,7 +80,7 @@ class Contribution < ActiveRecord::Base
   aasm_event :settle, :after => :add_amount_to_net do
     transitions :from => :approved, :to => :settled, :guard => :settleable?
   end
-
+  
   aasm_event :refund, :before => :increment_processing_fees, :after => :subtract_amount_from_net do
     transitions :from => :settled, :to => :refunded, :on_transition => :process_refund, :guard => :refundable?
   end
@@ -86,7 +88,7 @@ class Contribution < ActiveRecord::Base
   aasm_event :payout do
     transitions :from => :settled, :to => :paid
   end
-    
+  
   def reversible?
     return false unless (approved? || settled?) # local check
     voidable? || refundable? # remote check
@@ -123,7 +125,7 @@ class Contribution < ActiveRecord::Base
   def refundable?
     remote_status == "settled"
   end
-
+  
   def email=(new_email)
     new_email.downcase! unless new_email.nil?
     write_attribute(:email, new_email)
@@ -160,7 +162,7 @@ class Contribution < ActiveRecord::Base
       nil
     end
   end
-    
+  
   # Error callback for the #approve state event.
   # Should be a private method, but AASM is broken and waiting for my commit to be pulled.
   def decline(errors)
@@ -246,15 +248,15 @@ class Contribution < ActiveRecord::Base
         :compliance_statement => (compliance_confirmation? ? site.eligibility_statement : nil)
       )
     end
-  
+    
     def send_receipt
       ContributionNotifier.deliver_send_receipt(self)
     end
-  
+    
     def schedule_settlement_check
       Delayed::Job.enqueue(SettlementCheckJob.new(self.id), 0, 24.hours.from_now.getutc)
     end
-  
+    
     # Increment's the Contribution's processing fees by 1 transaction. This
     # allows us to easily add to the processing fees each time a transaction
     # is submitted to the gateway.
@@ -263,7 +265,7 @@ class Contribution < ActiveRecord::Base
       decrement(:net_amount, transaction_processing_fee)
       save!
     end
-  
+    
     # We only add the transaction amount to the net_amount after the
     # transaction has been settled and we know we'll be collecting the money.
     def add_amount_to_net

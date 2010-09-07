@@ -2,11 +2,16 @@
 - @menu 			= 'website'
 - @submenu 		= 'pages'
 
-=render 'layouts/sub_menu'
+=render 'admin/layouts/site_menu'
 #main
 	%h1 Pages
-	%ul#pages
-		-for page in @pages
-			%li= link_to page.title, edit_admin_page_path(page)
-	#add-page-button.buttons
-		=link_to "#{image_tag('icons-shadowless/plus-circle.png', :alt => '')} New Page", new_admin_page_path, :class => 'positive'
+	-if @pages.size > 0
+		%ul#pages
+			-for page in @pages
+				%li= link_to page.title, edit_admin_page_path(page)
+		#add-page-button.buttons
+			=link_to "#{image_tag('icons-shadowless/plus-circle.png', :alt => '')} New Page", new_admin_page_path, :class => 'positive'
+	-else 
+		%p 
+			You have not created any pages for your site yet.
+			=link_to "Click here to create one.", new_admin_page_path

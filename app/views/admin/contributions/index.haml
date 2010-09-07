@@ -1,40 +1,54 @@
 - @body_class = 'no-sidebar'
 - @menu 			= 'contributions'
+- @submenu 		= 'browse'
 
-- content_for :head do
+-content_for :head do
 	=stylesheet_link_tag 'tablesorter.css','tablesorter.pager.css'
 
-#main
+=render 'admin/layouts/contributions_menu'
+
+#main.contributions-index
 	%h1 Contributions
-	#total_contributions
-		Total Received
-		=number_to_currency(@contribution_total)
-	%table{:id => "contributions_table", :class => "tablesorter"}
-		%thead
-			%tr
-				%th.first-name First Name
-				%th.last-name Last Name
-				%th.city City
-				%th.state State
-				%th.zip Zip
-				%th.phone Phone
-				%th.status Status
-				%th.amount Amount
-				%th.submitted-at Submitted
-		%tbody
-			-for contribution in @contributions
-				="<tr class='contribution_row #{cycle("odd","even")}' data-url='#{admin_contribution_path(contribution)}'>"
-				%td.first-name= link_to contribution.first_name, admin_contribution_path(contribution)
-				%td.last-name= link_to contribution.last_name, admin_contribution_path(contribution)
-				%td.city= contribution.city
-				%td.state= contribution.state
-				%td.zip= contribution.zip
-				%td.phone= contribution.phone
-				%td.status= contribution.status.titlecase
-				%td.amount= number_to_currency(contribution.amount)
-				%td.submitted-at= contribution.created_at.strftime('%b %e, %Y %I:%M:%S %p')
-				="</tr>"
-	=will_paginate @contributions
-	/
+	
+	#todays-contributions
+		%h2 Today's Contributions
+		%p.amount=number_to_currency(@todays_contributions)
+	#pending-distribution
+		%h2 Pending Distribution
+		%p.amount=number_to_currency(@pending_distribution)
+	#total-raised
+		%h2 Total Raised To Date
+		%p.amount=number_to_currency(@total_raised)
+
+	-if @contributions.size > 0
+		%table{:id => "contributions_table", :class => "tablesorter"}
+			%thead
+				%tr
+					%th.name Contributor Name
+					%th.location Location
+					%th.status Status
+					%th.submitted-at Submitted
+					%th.amount Amount
+					%th.processing-fee Fee
+					%th.net-amount Net Amount
+			%tbody
+				-for contribution in @contributions
+					="<tr class='contribution_row #{cycle("odd","even")}' data-url='#{admin_contribution_path(contribution)}'>"
+					%td.name= link_to contribution.contributor_name, admin_contribution_path(contribution)
+					%td.location="#{contribution.address1}, #{contribution.city},&nbsp;#{contribution.state}&nbsp;#{contribution.zip}"
+					%td.status= contribution.status.titlecase
+					%td.submitted-at=timeago(contribution.created_at)
+					%td.amount= number_to_currency(contribution.amount)
+					%td.processing-fee
+						-unless contribution.approved?
+							=number_to_currency(contribution.processing_fees)
+					%td.net-amount
+						-unless contribution.approved?
+							=number_to_currency(contribution.amount - contribution.processing_fees)
+					="</tr>"
+		=will_paginate @contributions
+
 		#export-supporters-button.buttons
-			=link_to "#{image_tag('icons-shadowless/document-excel-csv.png', :alt => '')} Download CSV File", export_admin_supporters_path
+			=link_to "#{image_tag('icons-shadowless/document-excel-csv.png', :alt => '')} Download CSV File", export_admin_contributions_path
+	-else
+		%p{:style => 'clear:both; padding-top:2em;' } Your site hasn't received any contributions yet.

@@ -3,13 +3,13 @@
 	%head
 		%meta{:charset => "utf-8"}
 		%title= "stumpwise :: #{current_site.name}"
-		=authenticity_token
+		=csrf_meta_tag
 		=stylesheet_link_tag 'colorpicker.css','master.css'
 		=javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js'
 		=javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js'
-		=javascript_include_tag 'jrails.js','tiny_mce/jquery.tinymce.js','jquery.tablesorter.min.js','jquery.tablesorter.pager.js','colorpicker.js','application.js'
+		=javascript_include_tag 'jrails.js','modernizr-1.5.min.js','tiny_mce/jquery.tinymce.js','jquery.timeago.min.js','jquery.tablesorter.min.js','jquery.tablesorter.pager.js','colorpicker.js','application.js'
 		=yield :head
-	%body{:class => @body_class}
+	%body{:class => "#{@body_class} no-js"}
 		#container
 			#header
 				%h1 Stumpwise
@@ -29,6 +29,7 @@
 					=link_to 'Log Out', admin_logout_path
 				%div{:style => "clear:both;"}
 				#menu
+					=link_to 'Get Started', admin_welcome_path, :class => @menu == 'welcome' ? 'current' : ''
 					=link_to 'Web Site', admin_root_path, :class => @menu == 'website' ? 'current' : ''
 					=link_to 'Supporters', admin_supporters_path, :class => @menu == 'supporters' ? 'current' : ''
 					=link_to 'Contributions', admin_contributions_path, :class => @menu == 'contributions' ? 'current' : ''

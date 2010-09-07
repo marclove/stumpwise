@@ -2,13 +2,13 @@
 - @menu 			= 'website'
 - @submenu 		= 'blogs'
 
-=render 'layouts/sub_menu'
+=render 'admin/layouts/site_menu'
 -form_for :blog, :url => admin_blogs_path do |f|
 	#main
 		%h1 New Blog
 		=f.label :title, {}, {:class => 'on-top'}
 		=f.text_field :title, :class => 'text_field big wide'
-		=f.label :slug, {}, {:class => 'on-top'}
+		=f.label :slug, "Slug <span>(optional)</span>", {:class => 'on-top'}
 		=f.text_field :slug, :class => 'text_field wide'
 		.buttons
 			%button.positive{:type => 'submit'}

@@ -1,0 +1,17 @@
+<%
+@body_class = "no-sidebar"
+@menu 			= "welcome"
+%>
+
+
+<div id="main" class="welcome-message">
+	<h1>Welcome to Stumpwise!</h1>
+	<p>
+		Here's how to get started:
+	</p>
+	<ol>
+		<li><%= link_to "Give us some more details about your campaign.", edit_admin_site_path %></li>
+		<li><%= link_to "Introduce yourself and welcome visitors in your first blog post.", admin_blogs_path %></li>
+		<li><%= link_to "Choose a theme for your site.", admin_theme_path %></li>
+	</ol>
+</div>

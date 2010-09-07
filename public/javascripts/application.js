@@ -91,6 +91,8 @@ $(document).ready(function() {
 			e.preventDefault();
 		}
 	});
+	
+	$("time.timeago").timeago();
 });
 
 

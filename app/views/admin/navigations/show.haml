@@ -2,15 +2,22 @@
 - @menu 			= 'website'
 - @submenu 		= 'navigation'
 
-=render 'layouts/sub_menu'
+=render 'admin/layouts/site_menu'
 #main
-	%h1 Site Navigation
-	%p Drag and drop items to reorder the navigation of your site:
-	%ul{:id => "site_navigation"}
-		-for item in @items
-			%li{:id => "item_#{item.id}"}
-				%span{:class => "handle"}
-				=item.title
+	%h1 Navigation Menu
+	-if @items.size > 0
+		%p Drag and drop items to reorder the navigation of your site:
+		%ul{:id => "site_navigation"}
+			-for item in @items
+				%li{:id => "item_#{item.id}"}
+					%span{:class => "handle"}
+					=item.title
+	-else
+		%p
+			Your site currently has no content to reorder. Come back when you've created some
+			=link_to 'blog posts', admin_blogs_path
+			or
+			=link_to 'pages.', admin_pages_path 
 
 -content_for :javascript do
 	:plain

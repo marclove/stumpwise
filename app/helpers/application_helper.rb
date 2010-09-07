@@ -34,13 +34,19 @@ module ApplicationHelper
     EOF
   end
   
-  def authenticity_token
-    javascript_tag "window._token = \"#{form_authenticity_token}\""
+  # Remove when upgrading to Rails 3.0
+  def csrf_meta_tag
+    %(<meta name="csrf-param" content="authenticity_token"/>\n<meta name="csrf-token" content="#{Rack::Utils.escape_html(form_authenticity_token)}"/>)
   end
   
   def gridfs_image_tag(id, *args)
     return '' unless id.present?
     args.unshift("/gridfs/#{id}")
     image_tag(*args)
+  end
+
+  def timeago(time, options={})
+    options.reverse_merge!({:format => :default, :class => 'timeago'})
+    content_tag(:time, time.to_s(options.delete(:format)), options.merge(:datetime => time.getutc.iso8601)) if time
   end
 end

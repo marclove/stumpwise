@@ -76,7 +76,7 @@ class Site < ActiveRecord::Base
       count(:conditions => ["supporterships.receive_sms = ?", true])
     end
   end
-  has_many    :contributions
+  has_many    :contributions, :order => 'created_at DESC'
   has_many    :sms_campaigns, :order => 'created_at DESC'
   
   has_many    :items,     :order => 'lft ASC'

@@ -2,7 +2,7 @@
 - @menu 			= 'website'
 - @submenu 		= 'media'
 
-=render 'layouts/sub_menu'
+=render 'admin/layouts/site_menu'
 #main
 	%h1 Upload New Image
 	-form_for :asset, :url => admin_assets_path, :html => {:multipart => true} do |f|

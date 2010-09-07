@@ -5,44 +5,47 @@
 	=stylesheet_link_tag 'tablesorter.css','tablesorter.pager.css'
 
 #main
-	%h1 Campaign Supporters
-	%table{:id => "supporters_table", :class => "tablesorter"}
-		%thead
-			%tr
-				%th Email
-				%th First Name
-				%th Last Name
-				%th City
-				%th State
-				%th Zip Code
-				%th Phone
-				%th Joined On
-		%tbody
-			-for s in @supporterships
-				="<tr class='supporter_row' data-url='#{admin_supporter_path(s.supporter)}'>"
-				%td= link_to s.supporter.email, admin_supporter_path(s.supporter)
-				%td= link_to_unless s.supporter.first_name.blank?, s.supporter.first_name, admin_supporter_path(s.supporter)
-				%td= link_to_unless s.supporter.last_name.blank?, s.supporter.last_name, admin_supporter_path(s.supporter)
-				%td= s.supporter.locality
-				%td= s.supporter.administrative_area
-				%td= s.supporter.postal_code
-				%td= s.supporter.phone
-				%td= s.created_at.strftime('%b %d, %Y %I:%M %p')
-				="</tr>"
-		%tfoot{:id => "pager", :class => "pager"}
-			%tr
-				%td{:colspan => "8"}
-					%form
-						%img{:src => "/images/tablesorterpager/first.png", :class => "first"}
-						%img{:src => "/images/tablesorterpager/prev.png", :class => "prev"}
-						%input{:type => "text", :class => "pagedisplay"}
-						%img{:src => "/images/tablesorterpager/next.png", :class => "next"}
-						%img{:src => "/images/tablesorterpager/last.png", :class => "last"}
-						&nbsp;&nbsp;
-						%select{:class => "pagesize"}
-							%option{:selected => true, :value => "20"} 20
-							%option{:value => "40"} 40
-							%option{:value => "60"} 60
+	%h1 Supporters
+	-if @supporterships.size > 0
+		%table{:id => "supporters_table", :class => "tablesorter"}
+			%thead
+				%tr
+					%th Email
+					%th First Name
+					%th Last Name
+					%th City
+					%th State
+					%th Zip Code
+					%th Phone
+					%th Joined On
+			%tbody
+				-for s in @supporterships
+					="<tr class='supporter_row' data-url='#{admin_supporter_path(s.supporter)}'>"
+					%td= link_to s.supporter.email, admin_supporter_path(s.supporter)
+					%td= link_to_unless s.supporter.first_name.blank?, s.supporter.first_name, admin_supporter_path(s.supporter)
+					%td= link_to_unless s.supporter.last_name.blank?, s.supporter.last_name, admin_supporter_path(s.supporter)
+					%td= s.supporter.locality
+					%td= s.supporter.administrative_area
+					%td= s.supporter.postal_code
+					%td= s.supporter.phone
+					%td= s.created_at.strftime('%b %d, %Y %I:%M %p')
+					="</tr>"
+			%tfoot{:id => "pager", :class => "pager"}
+				%tr
+					%td{:colspan => "8"}
+						%form
+							%img{:src => "/images/tablesorterpager/first.png", :class => "first"}
+							%img{:src => "/images/tablesorterpager/prev.png", :class => "prev"}
+							%input{:type => "text", :class => "pagedisplay"}
+							%img{:src => "/images/tablesorterpager/next.png", :class => "next"}
+							%img{:src => "/images/tablesorterpager/last.png", :class => "last"}
+							&nbsp;&nbsp;
+							%select{:class => "pagesize"}
+								%option{:selected => true, :value => "20"} 20
+								%option{:value => "40"} 40
+								%option{:value => "60"} 60
 	
-	#export-supporters-button.buttons
-		=link_to "#{image_tag('icons-shadowless/document-excel-csv.png', :alt => '')} Download CSV File", export_admin_supporters_path
+		#export-supporters-button.buttons
+			=link_to "#{image_tag('icons-shadowless/document-excel-csv.png', :alt => '')} Download CSV File", export_admin_supporters_path
+	-else
+		%p Your site doesn't have any supporters yet.

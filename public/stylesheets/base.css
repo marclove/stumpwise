@@ -5,6 +5,8 @@ html, body{
   font-family:"Lucida Grande","Lucida Sans Unicode","Lucida Sans",Tahoma,Arial,sans-serif;
 	background-color:#041D49;
 }
+ol { margin:1em 2em; }
+ol li { list-style-type: decimal; padding:0.5em 0; }
 #flash_messages p{ margin:0; }
 p.flash_message{
 	text-align:center;
@@ -15,6 +17,10 @@ p.flash_message{
 p#error.flash_message {
 	background-color:#FFBBBB;
 	border-color:#FFBBBB;
+}
+.fieldWithErrors label { color:#A00; }
+.fieldWithErrors input, .fieldWithErrors select, .fieldWithErrors textarea {
+	background:#FFBBBB;
 }
 img.fugue-icon { vertical-align:text-bottom; }
 .buttons img.fugue-icon { vertical-align:baseline; }
@@ -371,15 +377,6 @@ table#supporter_details td {
 /* =============== */
 /*  Contributions  */
 /* =============== */
-#total_contributions {
-	position:absolute;
-	top:0.25em;
-	right:20px;
-	font-size:138.5%;
-	font-weight:bold;
-	line-height:3em;
-	color:#061;
-}
 .contribution {
 	width:100%;
 	background:#FFF;
@@ -400,16 +397,60 @@ table#supporter_details td {
 	text-align:left;
 	background:#EEE;
 }
+#contributions_table {
+	clear:both;
+	margin-top:2em;
+}
 #contributions_table tr.contribution_row:hover td {
 	background-color:#D8E4FD;
 	cursor:pointer;
 }
-.first-name, .last-name, .city { width:13%; }
-.state { width:4%; text-align:center; }
-.zip, .phone { width:10%; }
-.status { width:9%; }
-.amount { width:10%; text-align:right; }
-.submitted-at { text-align:right; }
+#contributions_table .name { width:15%; }
+#contributions_table .location { width:30%;}
+#contributions_table .phone { width:15%; }
+#contributions_table .status { width:10%; text-align:center; }
+#contributions_table .amount, #contributions_table .processing-fee, #contributions_table .net-amount { width:10%; text-align:right; }
+
+/* Summary */
+.contributions-index h1{
+	padding-bottom:0.5em;
+}
+#todays-contributions, #pending-distribution, #total-raised{ 
+	float:left; 
+	width:296px; 
+	border:1px solid #9CAFC9;
+}
+#todays-contributions h2, #pending-distribution h2, #total-raised h2 {
+	padding:10px 15px; 
+	background:#E7F0FD;
+	text-shadow:1px 1px 0 #FFF;
+	font-size:18px;
+}
+#todays-contributions .amount, #pending-distribution .amount, #total-raised .amount {
+	margin:10px 15px; 
+	font-family:tahoma, 'lucida grande', sans-serif;
+	font-size:24px;
+}
+#todays-contributions, #pending-distribution { margin-right:12px; }
+#recent-contributions {
+	clear:both;
+	padding-top:2em;
+}
+#recent-contributions h2 { padding-bottom:0.25em; }
+.recent-contribution td {
+	padding:0.5em 1em;
+	border-top:1px dotted #CCC;
+	position:relative;
+	color:#888;
+	vertical-align:top;
+}
+.recent-contribution .contributor-name {
+	color:#000;
+}
+.recent-contribution .amount {
+	color:#000;
+	text-align:right;
+}
 
 #site_navigation { width:50%; margin:1em 0; }
 #site_navigation li {
@@ -591,3 +632,12 @@ border-top-right-radius: 10px;
 }
 #sms-campaigns td.cost { text-align:right; }
 .unsent td { background:#FFF9E5 !important; }
+
+
+#main.welcome-message p, #main.welcome-message ol {
+	font-size:116%;
+}
+#main.welcome-message a:visited {
+	color:#000;
+	text-decoration:line-through;
+}
