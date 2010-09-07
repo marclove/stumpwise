@@ -44,6 +44,7 @@ config.after_initialize do
   Braintree::Configuration.private_key = "sy9ymwccmnp5whmd"
 end
 
+SslRequirement.disable_ssl_check = true
 BASE_URL = "stumpwise-staging.info"
 HOST = "stumpwise-staging.info"
 
