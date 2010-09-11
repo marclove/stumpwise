@@ -41,7 +41,7 @@ class HomeController < ApplicationController
       end
       @site.set_theme!(Theme.first.id.to_s)
       UserSession.create(@user)
-      redirect_to "http://#{@site.subdomain}.#{HOST}/admin/welcome"
+      redirect_to "http://#{@site.subdomain}.#{HOST}/admin/site/edit"
     else
       flash.now[:error] = t("site.create.invalid_card")
       render :action => 'signup'
