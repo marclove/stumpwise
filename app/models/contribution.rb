@@ -69,7 +69,7 @@ class Contribution < ActiveRecord::Base
   aasm_state :refunded
   aasm_state :paid
   
-  aasm_event :approve, :before => :increment_processing_fees, :success => [:send_receipt, :schedule_settlement_check], :error => :decline do
+  aasm_event :approve, :before => :increment_processing_fees, :success => [:schedule_sending_receipt, :schedule_settlement_check], :error => :decline do
     transitions :from => :pending, :to => :approved, :on_transition => :process_approval
   end
   
@@ -251,6 +251,10 @@ class Contribution < ActiveRecord::Base
     
     def send_receipt
       ContributionNotifier.deliver_send_receipt(self)
+    end
+    
+    def schedule_sending_receipt
+      Delayed::Job.enqueue(SendContributionReceiptJob.new(self.id))
     end
     
     def schedule_settlement_check
