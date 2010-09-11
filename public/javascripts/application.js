@@ -59,10 +59,16 @@ $(document).ready(function() {
 		if (href) { window.location = href;}
 	});
 
-	// Sortable Data Table Clickable Rows
-	$('#contributions_table tr').click(function() {
-		var href = $(this).find("a").attr("href");
-		if (href) { window.location = href;}
+	$('#contributions_table tr').each(function(){
+		var href = $(this).attr('data-url');
+		if(href){
+			var link = $(this).find('a'),
+					contents = link.text();
+			link.replaceWith(contents);
+			$(this).click(function(){
+				window.location = href;
+			});
+		}
 	});
 	
 	$('#notice.flash_message').delay(3000).slideToggle(600);
