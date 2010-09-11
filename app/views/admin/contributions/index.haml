@@ -44,7 +44,7 @@
 							=number_to_currency(contribution.processing_fees)
 					%td.net-amount
 						-unless contribution.approved?
-							=number_to_currency(contribution.amount - contribution.processing_fees)
+							=number_to_currency(contribution.net_amount)
 					="</tr>"
 		=will_paginate @contributions
 
