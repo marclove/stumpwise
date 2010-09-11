@@ -1,0 +1,30 @@
+- @body_class = 'no-sidebar'
+- @menu 			= 'contributions'
+
+-content_for :head do
+	=stylesheet_link_tag 'tablesorter.css','tablesorter.pager.css'
+
+#main
+	%h1 Contributions
+	%table{:id => "contributions_table", :class => "tablesorter"}
+		%thead
+			%tr
+				%th.campaign-name Campaign
+				%th.name Contributor Name
+				%th.status Status
+				%th.submitted-at Submitted
+				%th.amount Amount
+				%th.processing-fee Fee
+				%th.net-amount Net Amount
+		%tbody
+			-for contribution in @contributions
+				="<tr class='contribution_row #{cycle("odd","even")}' data-url='#{manage_contribution_path(contribution)}'>"
+				%td.campaign-name= contribution.site.name
+				%td.name= link_to contribution.contributor_name, manage_contribution_path(contribution)
+				%td.status= contribution.status.titlecase
+				%td.submitted-at=contribution.created_at.strftime("%Y-%m-%d %r")
+				%td.amount= number_with_precision(contribution.amount, :precision => 2)
+				%td.processing-fee=number_with_precision(contribution.processing_fees, :precision => 2)
+				%td.net-amount=number_with_precision(contribution.net_amount, :precision => 2)
+				="</tr>"
+	=will_paginate @contributions

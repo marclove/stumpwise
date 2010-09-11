@@ -1,0 +1,62 @@
+- @body_class = 'no-sidebar'
+- @menu 			= 'contributions'
+
+#main
+	%h1 Contribution Detail
+	%table.contribution
+		%tr
+			%th Transaction Status
+			%td= @contribution.status.titlecase
+		%tr
+			%th Reference #
+			%td= @contribution.order_id
+		%tr
+			%th Amount
+			%td= number_to_currency(@contribution.amount)
+		%tr
+			%th Contributor
+			%td
+				=@contribution.first_name
+				=@contribution.last_name
+		%tr
+			%th Email
+			%td= mail_to(@contribution.email)
+		%tr
+			%th Phone Number
+			%td= @contribution.phone
+		%tr
+			%th Billing Address
+			%td
+				=@contribution.address1
+				-unless @contribution.address2.blank?
+					%br
+					=@contribution.address2
+				%br
+				="#{@contribution.city}, #{@contribution.state} #{@contribution.zip}"
+				%br
+				=@contribution.country
+		%tr
+			%th Card Information
+			%td
+				=@contribution.card_information
+				%br
+				="Exp. #{@contribution.card_month}/#{@contribution.card_year}"
+		%tr
+			%th Submitted
+			%td= @contribution.created_at.strftime('%m/%d/%Y %l:%M %p')
+		%tr
+			%th Employer
+			%td= @contribution.employer
+		%tr
+			%th Occupation
+			%td= @contribution.occupation
+		%tr
+			%th Eligibility Statement Agreed To
+			-if @contribution.compliance_confirmation
+				%td= @contribution.compliance_statement
+			-else
+				%td No eligibility statement was required when the contribution was made.
+	
+	#contribution-admin-buttons.buttons
+		-if @contribution.reversible?
+			=link_to "#{image_tag('icons-shadowless/cross.png', :alt => '')} Refund Contribution", refund_manage_contribution_path(@contribution), :class => 'negative', :method => :put
