@@ -69,7 +69,7 @@ class Contribution < ActiveRecord::Base
   aasm_state :refunded
   aasm_state :paid
   
-  aasm_event :approve, :before => :increment_processing_fees, :success => [:schedule_sending_receipt, :schedule_settlement_check], :error => :decline do
+  aasm_event :approve, :before => :increment_processing_fees, :after => [:schedule_sending_receipt, :schedule_settlement_check], :error => :decline do
     transitions :from => :pending, :to => :approved, :on_transition => :process_approval
   end
   
