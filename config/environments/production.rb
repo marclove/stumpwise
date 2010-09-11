@@ -49,3 +49,5 @@ BASE_URL = "stumpwise.com"
 HOST = "stumpwise.com"
 
 config.middleware.use "SetCookieDomain", ".stumpwise.com"
+
+Delayed::Worker.destroy_failed_jobs = false
