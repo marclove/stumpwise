@@ -47,7 +47,8 @@ class HomeController < ApplicationController
       render :action => 'signup'
     end
     
-  rescue ActiveRecord::RecordInvalid
+  rescue ActiveRecord::RecordInvalid => e
+    notify_hoptoad(e)
     flash.now[:error] = t("site.create.fail")
     render :action => 'signup'
   end
