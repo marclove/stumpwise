@@ -104,7 +104,7 @@ class ContributionTest < ActiveSupport::TestCase
         contributions(:approved).send(:schedule_settlement_check)
       end
       job = Delayed::Job.last
-      assert_equal contributions(:approved).transaction_id, job.payload_object[:transaction_id]
+      assert_equal contributions(:approved).id, job.payload_object[:contribution_id]
     end
     
     should "on #transaction_errors return a string list of errors when the current transaction failed" do
@@ -217,7 +217,7 @@ class ContributionTest < ActiveSupport::TestCase
           end
           
           should "send a receipt to the contributor" do
-            @contribution.expects(:send_receipt).once.returns(true)
+            @contribution.expects(:schedule_sending_receipt).once.returns(true)
             @contribution.approve! :approved, credit_card
           end
           
@@ -268,9 +268,16 @@ class ContributionTest < ActiveSupport::TestCase
             Braintree::Transaction.expects(:sale).once.returns(gateway_sale_result(:error))
           end
           
-          should "increment the processing fees" do
-            @contribution.expects(:increment_processing_fees).once.returns(true)
-            @contribution.approve! :approved, credit_card
+          should "set the processing fees to $0.30" do
+            assert_difference "@contribution.processing_fees", BigDecimal("0.30") do
+              @contribution.approve! :approved, credit_card
+            end
+          end
+          
+          should "set the net amount to -$0.30" do
+            assert_difference "@contribution.net_amount", BigDecimal("-0.30") do
+              @contribution.approve! :approved, credit_card
+            end
           end
 
           should "change the state to declined" do

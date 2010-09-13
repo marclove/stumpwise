@@ -167,7 +167,7 @@ class Contribution < ActiveRecord::Base
   # Should be a private method, but AASM is broken and waiting for my commit to be pulled.
   def decline(errors)
     if pending?
-      update_attribute(:status, 'declined')
+      update_attributes(:status => 'declined', :processing_fees => BigDecimal("0.30"), :net_amount => BigDecimal("-0.30"))
     else
       raise errors
     end
