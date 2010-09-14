@@ -6,25 +6,25 @@
 
 #main
 	%h1 Contributions
-	%table{:id => "contributions_table", :class => "tablesorter"}
+	%table{:id => "admin_contributions_table", :class => "tablesorter"}
 		%thead
 			%tr
 				%th.campaign-name Campaign
 				%th.name Contributor Name
 				%th.status Status
-				%th.submitted-at Submitted
 				%th.amount Amount
 				%th.processing-fee Fee
 				%th.net-amount Net Amount
+				%th.submitted-at Submitted At
 		%tbody
 			-for contribution in @contributions
 				="<tr class='contribution_row #{cycle("odd","even")}' data-url='#{manage_contribution_path(contribution)}'>"
-				%td.campaign-name= contribution.site.name
+				%td.campaign-name= contribution.site.try(:name)
 				%td.name= link_to contribution.contributor_name, manage_contribution_path(contribution)
 				%td.status= contribution.status.titlecase
-				%td.submitted-at=contribution.created_at.strftime("%Y-%m-%d %r")
 				%td.amount= number_with_precision(contribution.amount, :precision => 2)
 				%td.processing-fee=number_with_precision(contribution.processing_fees, :precision => 2)
 				%td.net-amount=number_with_precision(contribution.net_amount, :precision => 2)
+				%td.submitted-at=contribution.created_at.strftime("%a, %b %d %Y %I:%M %p")
 				="</tr>"
 	=will_paginate @contributions

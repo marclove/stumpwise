@@ -27,17 +27,16 @@
 					%th.name Contributor Name
 					%th.location Address
 					%th.status Status
-					%th.submitted-at Submitted
 					%th.amount Amount
 					%th.processing-fee Fee
 					%th.net-amount Net Amount
+					%th.submitted-at Submitted At
 			%tbody
 				-for contribution in @contributions
 					="<tr class='contribution_row #{cycle("odd","even")}' data-url='#{admin_contribution_path(contribution)}'>"
 					%td.name= link_to contribution.contributor_name, admin_contribution_path(contribution)
 					%td.location="#{contribution.address1}, #{contribution.city},&nbsp;#{contribution.state}&nbsp;#{contribution.zip}"
 					%td.status= contribution.status.titlecase
-					%td.submitted-at=timeago(contribution.created_at)
 					%td.amount= number_to_currency(contribution.amount)
 					%td.processing-fee
 						-unless contribution.approved?
@@ -45,6 +44,7 @@
 					%td.net-amount
 						-unless contribution.approved?
 							=number_to_currency(contribution.net_amount)
+					%td.submitted-at=contribution.created_at.strftime('%a, %b %d %Y %I:%M %p')
 					="</tr>"
 		=will_paginate @contributions
 

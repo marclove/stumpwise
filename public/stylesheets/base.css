@@ -401,15 +401,26 @@ table#supporter_details td {
 	clear:both;
 	margin-top:2em;
 }
-#contributions_table tr.contribution_row:hover td {
+#contributions_table tr.contribution_row:hover td, #admin_contributions_table tr.contribution_row:hover td {
 	background-color:#D8E4FD;
 	cursor:pointer;
 }
-#contributions_table .name { width:15%; }
+#contributions_table .name { width:17%; }
 #contributions_table .location { width:30%;}
-#contributions_table .phone { width:15%; }
 #contributions_table .status { width:10%; text-align:center; }
-#contributions_table .amount, #contributions_table .processing-fee, #contributions_table .net-amount { width:10%; text-align:right; }
+#contributions_table .submitted-at { width:18%; text-align:right; }
+#contributions_table .amount { width:9%; text-align:right; }
+#contributions_table .processing-fee { width:7%; text-align:right; }
+#contributions_table .net-amount { width:9%; text-align:right; }
+
+#admin_contributions_table .campaign-name { width:20%; }
+#admin_contributions_table .name { width:20%; }
+#admin_contributions_table .status { width:10%; text-align:center; }
+#admin_contributions_table .submitted-at { width:20%; text-align:right; }
+#admin_contributions_table .amount { width:10%; text-align:right; }
+#admin_contributions_table .processing-fee { width:10%; text-align:right; }
+#admin_contributions_table .net-amount { width:10%; text-align:right; }
+
 
 /* Summary */
 .contributions-index h1{

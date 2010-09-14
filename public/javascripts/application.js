@@ -59,7 +59,7 @@ $(document).ready(function() {
 		if (href) { window.location = href;}
 	});
 
-	$('#contributions_table tr').each(function(){
+	$('#contributions_table tr, #admin_contributions_table tr').each(function(){
 		var href = $(this).attr('data-url');
 		if(href){
 			var link = $(this).find('a'),
