@@ -2,7 +2,7 @@ class Admin::ContributionsController < AdminController
   # TODO: Make the @contribution_total less hackish
   def index
     @todays_contributions = current_site.contributions.raised.sum(:amount, :conditions => ["contributions.created_at >= ?", Time.now.beginning_of_day.utc])
-    @pending_distribution = current_site.contributions.settled.sum(:net_amount)
+    @pending_disbursement = current_site.contributions.pending_disbursement.sum(:net_amount)
     @total_raised         = current_site.contributions.raised.sum(:amount)
     @contributions = current_site.contributions.paginate(
       :page     => params[:page] || 1,
@@ -60,7 +60,6 @@ class Admin::ContributionsController < AdminController
       render :action => 'settings'
     end
   end
-
   
   def export
     report = StringIO.new
