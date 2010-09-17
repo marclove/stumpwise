@@ -1,0 +1,32 @@
+=================================================================
+STUMPWISE WEEKLY STATEMENT: <%= @statement.starting.strftime("%m/%d/%Y") %> - <%= @statement.ending.strftime("%m/%d/%Y") %>
+=================================================================
+
+<%= @statement.site.name %>,
+
+We have begun processing the contributions you received for the
+week ending <%= @statement.ending.strftime("%a, %b %d, %Y") %>, which are listed below.
+
+We will direct deposit the funds into your bank account and the
+funds will be available on or before <%= @statement.funds_available.strftime("%a, %b %d, %Y") %>.
+
+=================================================================
+Date   Contributor       Status       Amount       Fee    Net Due
+-----------------------------------------------------------------
+<% if @statement.contributions.size > 0 -%>
+<% for contribution in @statement.contributions -%>
+<%= contribution.created_at.strftime("%m-%d") %>  <%= "#{contribution.last_name}, #{contribution.first_name}"[0..15].ljust(16) %>  <%= "#{contribution.status}".titleize[0..7].ljust(8) %>  <%= "#{number_with_precision(contribution.amount, :precision => 2)}".rjust(9) %>  <%= "#{number_with_precision(contribution.processing_fees, :precision => 2)}".rjust(8) %>  <%= "#{number_with_precision(contribution.net_amount, :precision => 2)}".rjust(9) %>
+<%- end %><%- else %><%= "--- No Contributions Received ---".center(65) %>
+<%- end %>-----------------------------------------------------------------
+TOTAL                                         <%= "#{number_with_precision(@statement.total_fees, :precision => 2)}".rjust(8) %>  <%= "#{number_with_precision(@statement.total_due, :precision => 2)}".rjust(9) %>
+-----------------------------------------------------------------
+TOTAL RAISED                                            <%= "#{number_with_precision(@statement.total_raised, :precision => 2)}".rjust(9) %>
+=================================================================
+
+Please note: This disbursement includes only transactions that
+have settled by the end of the day <%= @statement.ending.strftime("%A") %> (<%= Time.now.strftime('%Z') %>). Any
+transactions that have been approved, but not yet been settled,
+will be disbursed next week.
+
+-----------------------------------------------------------------
+Copyright <%= Time.zone.now.year %> ProgressBound, Inc. All Rights Reserved.

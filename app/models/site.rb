@@ -77,6 +77,7 @@ class Site < ActiveRecord::Base
     end
   end
   has_many    :contributions, :order => 'created_at DESC'
+  has_many    :campaign_statements, :order => 'disbursed_on DESC'
   has_many    :sms_campaigns, :order => 'created_at DESC'
   
   has_many    :items,     :order => 'lft ASC'
@@ -205,6 +206,37 @@ class Site < ActiveRecord::Base
   
   def credit_card_expired?
     Time.now.utc >= credit_card_expiration.utc
+  end
+  
+  def generate_weekly_statement(disbursement_date)
+    @contributions = self.contributions.disbursed_on(disbursement_date)
+    statement = campaign_statements.create(
+      :disbursed_on       => disbursement_date,
+      :funds_available    => disbursement_date + 5,
+      :starting           => (disbursement_date - 7).to_time.end_of_day,
+      :ending             => (disbursement_date - 1).to_time,
+      :total_raised       => self.contributions.paid.disbursed_on(disbursement_date).sum(:amount),
+      :total_fees         => @contributions.sum(:processing_fees),
+      :total_due          => @contributions.sum(:net_amount),
+      :contributions      => @contributions
+    )
+    Delayed::Job.enqueue(WeeklyContributionsCampaignStatementJob.new(statement.id))
+  rescue => e # don't want errors stopping the statement rake process
+    HoptoadNotifier.notify(
+      :error_class   => "Weekly Campaign Statement Generation Error",
+      :error_message => "Error: #{e.message}",
+      :parameters    => { 'site_id' => id, 'disbursement_date' => disbursement_date }
+    )
+  end
+  
+  def self.generate_weekly_summary_statement(disbursement_date)
+    Delayed::Job.enqueue(WeeklyContributionsSummaryStatementJob.new(disbursement_date))
+  rescue => e # don't want errors stopping the statement rake process
+    HoptoadNotifier.notify(
+      :error_class   => "Weekly Summary Statement Generation Error",
+      :error_message => "Error: #{e.message}",
+      :parameters    => { 'disbursement_date' => disbursement_date }
+    )
   end
   
   protected

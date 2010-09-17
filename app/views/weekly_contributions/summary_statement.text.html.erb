@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; width:600px; text-align:left;">
+		<h1 style="font-size:24px; line-height:30px;">
+			Batch Report
+			<span style="float:right; font-size:16px; line-height:30px; font-weight:normal">Disbursed <%= @disbursement_date %></span>
+		</h1>
+		<table cellpadding="0" cellspacing="0" style="border-collapse:collapse; margin:0; font-size:13px; width:100%;">
+			<thead>
+				<tr>
+					<th style="border:1px solid #A3DAF5; padding:3px 6px; background-color:#CFEDFC; font-weight:bold; width:40px; text-align:right">ID</th>
+					<th style="border:1px solid #A3DAF5; padding:3px 6px; background-color:#CFEDFC; font-weight:bold;">Campaign Name</th>
+					<th style="border:1px solid #A3DAF5; padding:3px 6px; background-color:#CFEDFC; font-weight:bold; width:70px; text-align:right;">Due</th>
+					<th style="border:1px solid #A3DAF5; padding:3px 6px; background-color:#CFEDFC; font-weight:bold; width:70px; text-align:right;">Fees</th>
+					<th style="border:1px solid #A3DAF5; padding:3px 6px; background-color:#CFEDFC; font-weight:bold; width:70px; text-align:right;">Raised</th>
+				</tr>
+			</thead>
+			<tbody>
+			<% for statement in @statements -%>
+				<tr style="<%= cycle "", "background-color:#EDF3FE" %>">
+					<td style="border:1px solid #A3DAF5; padding:3px 6px; text-align:right"><%= statement.site.id %></td>
+					<td style="border:1px solid #A3DAF5; padding:3px 6px;"><%= statement.site.name %></td>
+					<td style="border:1px solid #A3DAF5; padding:3px 6px; text-align:right"><%= number_with_precision(statement.total_due, :precision => 2) %></td>
+					<td style="border:1px solid #A3DAF5; padding:3px 6px; text-align:right"><%= number_with_precision(statement.total_fees, :precision => 2) %></td>
+					<td style="border:1px solid #A3DAF5; padding:3px 6px; text-align:right"><%= number_with_precision(statement.total_raised, :precision => 2) %></td>
+				</tr>
+			<%- end %>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td style="border:1px solid #A3DAF5; padding:3px 6px; font-weight:bold; background-color:#CFEDFC; border-top:2px solid #408ABF;" colspan="2">TOTAL</td>
+					<td style="border:1px solid #A3DAF5; padding:3px 6px; font-weight:bold; background-color:#CFEDFC; border-top:2px solid #408ABF; text-align:right"><%= number_with_precision(@total_due, :precision => 2) %></td>
+					<td style="border:1px solid #A3DAF5; padding:3px 6px; font-weight:bold; background-color:#CFEDFC; border-top:2px solid #408ABF; text-align:right"><%= number_with_precision(@total_fees, :precision => 2) %></td>
+					<td style="border:1px solid #A3DAF5; padding:3px 6px; font-weight:bold; background-color:#CFEDFC; border-top:2px solid #408ABF; text-align:right"><%= number_with_precision(@total_raised, :precision => 2) %></td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</body>
+</html>

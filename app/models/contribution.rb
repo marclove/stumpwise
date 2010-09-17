@@ -43,6 +43,7 @@ class Contribution < ActiveRecord::Base
   attr_reader :transaction_result
 
   belongs_to :site
+  belongs_to :campaign_statement
   has_many :transactions, :class_name => 'ContributionTransaction',
                           :dependent => :destroy
   
@@ -56,6 +57,8 @@ class Contribution < ActiveRecord::Base
                             :if => :requires_compliance_confirmation?
   
   named_scope :raised, :conditions => 'contributions.status IN ("approved", "settled", "paid")'
+  named_scope :disbursed_on, lambda {|disbursed_on| {:conditions => {:disbursed_on => disbursed_on}}}
+  named_scope :pending_disbursement, :conditions => "disbursed_on IS NULL AND status IN ('declined', 'voided', 'settled', 'refunded')"
   
   include AASM
   aasm_column :status

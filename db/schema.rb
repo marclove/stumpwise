@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100826143408) do
+ActiveRecord::Schema.define(:version => 20100916062732) do
 
   create_table "administratorships", :force => true do |t|
     t.integer "administrator_id"
@@ -24,6 +24,22 @@ ActiveRecord::Schema.define(:version => 20100826143408) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "campaign_statements", :force => true do |t|
+    t.integer  "site_id"
+    t.date     "disbursed_on"
+    t.date     "funds_available"
+    t.datetime "starting"
+    t.datetime "ending"
+    t.decimal  "total_raised",    :precision => 8, :scale => 2, :default => 0.0
+    t.decimal  "total_fees",      :precision => 8, :scale => 2, :default => 0.0
+    t.decimal  "total_due",       :precision => 8, :scale => 2, :default => 0.0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "campaign_statements", ["disbursed_on"], :name => "index_campaign_statements_on_disbursed_on"
+  add_index "campaign_statements", ["site_id"], :name => "index_campaign_statements_on_site_id"
 
   create_table "contribution_transactions", :force => true do |t|
     t.integer  "contribution_id"
@@ -70,8 +86,12 @@ ActiveRecord::Schema.define(:version => 20100826143408) do
     t.string   "transaction_id",          :limit => 10
     t.string   "refund_transaction_id",   :limit => 10
     t.boolean  "legacy",                                                              :default => false
+    t.integer  "campaign_statement_id"
+    t.date     "disbursed_on"
   end
 
+  add_index "contributions", ["campaign_statement_id"], :name => "index_contributions_on_campaign_statement_id"
+  add_index "contributions", ["disbursed_on"], :name => "index_contributions_on_disbursed_on"
   add_index "contributions", ["email"], :name => "index_contributions_on_email"
   add_index "contributions", ["last_name", "first_name"], :name => "index_contributions_on_last_name_and_first_name"
   add_index "contributions", ["order_id"], :name => "index_contributions_on_order_id", :unique => true

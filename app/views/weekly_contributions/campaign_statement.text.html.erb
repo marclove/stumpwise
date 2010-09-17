@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Stumpwise Weekly Statement: <%= @statement.starting.strftime("%m/%d/%Y") %> - <%= @statement.ending.strftime("%m/%d/%Y") %></title>
+</head>
+<body>
+	<div style="text-align:center">
+		<div style="font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:13px; width:600px; margin:0 auto; text-align:left">
+			<img src="http://assets.stumpwise.com/email/statement-header.gif" style="" alt="" />
+			<p style="font-size:16px; color:#555; margin:0">
+				<%= @statement.site.name %>
+				<span style="font-size:13px; float:right"><%= @statement.starting.strftime("%m/%d/%Y") %> - <%= @statement.ending.strftime("%m/%d/%Y") %></span>
+			</p>
+			<p style="margin:1.5em 0">
+				We have begun processing the contributions you received for the week ending
+				<%= @statement.ending.strftime("%A, %B %d, %Y") %>, which are listed below.
+				We will direct deposit the funds into your bank account and the funds will be
+				available on or before <%= @statement.funds_available.strftime("%A, %B %d, %Y") %>.
+			</p>
+			<table cellpadding="0" cellspacing="0" style="border-collapse:collapse; margin:0;">
+				<thead>
+					<tr>
+						<th style="width:72px;  text-align:left;   border:1px solid #CCC; padding:2px 4px; background-color:#EEE; font-size:12px;">Submitted</th>
+						<th style="width:207px; text-align:left;   border:1px solid #CCC; padding:2px 4px; background-color:#EEE; font-size:12px;">Contributor</th>
+						<th style="width:60px;  text-align:center; border:1px solid #CCC; padding:2px 4px; background-color:#EEE; font-size:12px;">Status</th>
+						<th style="width:70px;  text-align:right;  border:1px solid #CCC; padding:2px 4px; background-color:#EEE; font-size:12px;">Amount</th>
+						<th style="width:60px;  text-align:right;  border:1px solid #CCC; padding:2px 4px; background-color:#EEE; font-size:12px;">Fee</th>
+						<th style="width:75px;  text-align:right;  border:1px solid #CCC; padding:2px 4px; background-color:#EEE; font-size:12px;">Net Due</th>
+					</tr>
+				</thead>
+				<tbody>
+				<% for contribution in @statement.contributions -%>
+					<tr>
+						<td style="font-family:'Lucida Console', 'Monaco', monospace; font-size:10px; border:1px solid #CCC; padding:2px 4px;"><%= contribution.created_at.strftime("%Y-%m-%d") %></td>
+						<td style="font-family:'Lucida Console', 'Monaco', monospace; font-size:10px; border:1px solid #CCC; padding:2px 4px;"><%= "#{contribution.last_name}, #{contribution.first_name}"[0..32] %></td>
+						<td style="font-family:'Lucida Console', 'Monaco', monospace; font-size:10px; border:1px solid #CCC; padding:2px 4px; text-align:center"><%= contribution.status.try(:titleize) %></td>
+						<td style="font-family:'Lucida Console', 'Monaco', monospace; font-size:10px; border:1px solid #CCC; padding:2px 4px; text-align:right">
+							<span style="<%= unless contribution.paid?; 'color:#999'; end %>">
+								<%= number_with_precision(contribution.amount, :precision => 2) %>
+							</span>
+						</td>
+						<td style="font-family:'Lucida Console', 'Monaco', monospace; font-size:10px; border:1px solid #CCC; padding:2px 4px; text-align:right"><%= number_with_precision(contribution.processing_fees, :precision => 2) %></td>
+						<td style="font-family:'Lucida Console', 'Monaco', monospace; font-size:10px; border:1px solid #CCC; padding:2px 4px; text-align:right"><%= number_with_precision(contribution.net_amount, :precision => 2) %></td>
+					</tr>
+				<%- end %>
+					<tr>
+						<td colspan="4" style="font-family:'Lucida Console', 'Monaco', monospace; font-size:10px; border:1px solid #CCC; padding:2px 4px; font-weight:bold">Total</td>
+						<td style="font-family:'Lucida Console', 'Monaco', monospace; font-size:10px; border:1px solid #CCC; padding:2px 4px; font-weight:bold; text-align:right"><%= number_with_precision(@statement.total_fees, :precision => 2) %></td>
+						<td style="font-family:'Lucida Console', 'Monaco', monospace; font-size:10px; border:1px solid #CCC; padding:2px 4px;font-weight:bold; text-align:right"><%= number_with_precision(@statement.total_due, :precision => 2) %></td>
+					</tr>
+					<tr>
+						<td colspan="6" style="font-family:'Lucida Console', 'Monaco', monospace; font-size:10px; border:1px solid #CCC; padding:2px 4px; background-color:#EEE">&nbsp;</td>
+					</tr>
+					<tr>
+						<td colspan="5" style="font-family:'Lucida Console', 'Monaco', monospace; font-size:10px; border:1px solid #CCC; padding:2px 4px; font-weight:bold">Total Raised</td>
+						<td style="font-family:'Lucida Console', 'Monaco', monospace; font-size:10px; border:1px solid #CCC; padding:2px 4px; font-weight:bold; text-align:right"><%= number_with_precision(@statement.total_raised, :precision => 2) %></td>
+					</tr>
+				</tbody>
+			</table>
+			<p style="font-style:italic; margin:1.5em 0">
+				<span style="font-weight:bold; font-style:normal;">Please note:</span>
+				This weekly disbursement includes only transactions that have settled by
+				the end of the day <%= @statement.ending.strftime("%A") %> (<%= Time.now.strftime('%Z') %>).
+				Any transactions that have been approved, but not yet been settled, will be disbursed next week.
+			</p>
+			<div style="text-align:center; font-size:11px; margin-top:36px;">
+				<img src="http://assets.stumpwise.com/email/statement-footer.gif" style="" alt="" />
+				<span style="color:#666;">Copyright &copy; <%= Time.zone.now.year %> ProgressBound, Inc. All rights reserved.</span>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
