@@ -1,57 +1,60 @@
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title></title>
-	<style type="text/css" media="screen">
-		body{margin:1em; font-family:"Lucida Sans",Verdana,Arial,Helvetica,sans-serif; font-size:14px; line-height:18px;}
-		h2{margin:0; margin-top:1.5em; font-size:18px; font-weight:bold;}
-		p, table{margin:1em 0;}
-		table{margin-bottom:1.5em;}
-		table,th,td{border:0; background-color:#E2F1F8; font-family:monospace;}
-		th,td{padding:8px 16px; border-top:1px solid #FFF; vertical-align:top;}
-		th{text-align:right; padding-right:8px;}
-		b{font-weight:bold;}
-	</style>
-</head>
-<body>
-<p>Dear <%= @contribution.first_name %>,</p>
-<p>Thank you for your generous contribution of <%= number_to_currency(@contribution.amount) %> to our campaign!</p>
-<p>The charge will appear on your statement as "<b>Stumpwise Campaign Svcs</b>". Please keep this receipt for your records.</p>
-<h2>Contribution Receipt</h2>
-<table cellpadding="5" cellspacing="0" border="0">
-	<tbody>
-		<tr>
-			<th align="right" valign="top"><b>Contribution To:</b></th>
-			<td align="left" valign="top"><%= @contribution.site.campaign_legal_name %></td>
-		</tr>
-		<tr>
-			<th align="right" valign="top"><b>Billed To:</b></th>
-			<td align="left" valign="top">
-				<%= @contribution.contributor_name %><br/>
-				<%= @contribution.address1 %><br/>
-				<% unless @contribution.address2.blank? %>
-					<%= @contribution.address2 %><br/>
-				<% end %>
-				<%= @contribution.city %>, <%= @contribution.state %> <%= @contribution.zip %><br/>
-				<%= @contribution.email %>
-			</td>
-		</tr>
-		<tr>
-			<th align="right" valign="top"><b>Amount:</b></th>
-			<td align="left" valign="top"><%= number_to_currency(@contribution.amount) %></td>
-		</tr>
-		<tr>
-			<th align="right" valign="top"><b>Date:</b></th>
-			<td align="left" valign="top"><%= @contribution.created_at.strftime('%m/%d/%G %I:%M %p') %></td>
-		</tr>
-		<tr>
-			<th align="right" valign="top"><b>Transaction ID:</b></th>
-			<td align="left" valign="top"><%= @contribution.order_id %></td>
-		</tr>
-		<tr>
-			<th align="right" valign="top"><b>Card Information:</b></th>
-			<td align="left" valign="top"><%= @contribution.card_information %></td>
-		</tr>
-	</tbody>
-</table>
-<p>Thank you,<br/><%= @contribution.site.name %></p>
+<!DOCTYPE HTML>
+<html>
+	<head>
+	  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title></title>
+		<style type="text/css" media="screen">
+			body{margin:1em; font-family:"Lucida Sans",Verdana,Arial,Helvetica,sans-serif; font-size:14px; line-height:18px;}
+			h2{margin:0; margin-top:1.5em; font-size:18px; font-weight:bold;}
+			p, table{margin:1em 0;}
+			table{margin-bottom:1.5em;}
+			table,th,td{border:0; background-color:#E2F1F8; font-family:monospace;}
+			th,td{padding:8px 16px; border-top:1px solid #FFF; vertical-align:top;}
+			th{text-align:right; padding-right:8px;}
+			b{font-weight:bold;}
+		</style>
+	</head>
+	<body>
+		<p>Dear <%= @contribution.first_name %>,</p>
+		<p>Thank you for your generous contribution of <%= number_to_currency(@contribution.amount) %> to our campaign!</p>
+		<p>The charge will appear on your statement as "<b>Stumpwise Campaign Svcs</b>". Please keep this receipt for your records.</p>
+		<h2>Contribution Receipt</h2>
+		<table cellpadding="5" cellspacing="0" border="0">
+			<tbody>
+				<tr>
+					<th align="right" valign="top"><b>Contribution To:</b></th>
+					<td align="left" valign="top"><%= @contribution.site.campaign_legal_name %></td>
+				</tr>
+				<tr>
+					<th align="right" valign="top"><b>Billed To:</b></th>
+					<td align="left" valign="top">
+						<%= @contribution.contributor_name %><br/>
+						<%= @contribution.address1 %><br/>
+						<% unless @contribution.address2.blank? %>
+							<%= @contribution.address2 %><br/>
+						<% end %>
+						<%= @contribution.city %>, <%= @contribution.state %> <%= @contribution.zip %><br/>
+						<%= @contribution.email %>
+					</td>
+				</tr>
+				<tr>
+					<th align="right" valign="top"><b>Amount:</b></th>
+					<td align="left" valign="top"><%= number_to_currency(@contribution.amount) %></td>
+				</tr>
+				<tr>
+					<th align="right" valign="top"><b>Date:</b></th>
+					<td align="left" valign="top"><%= @contribution.created_at.strftime('%m/%d/%G %I:%M %p') %></td>
+				</tr>
+				<tr>
+					<th align="right" valign="top"><b>Transaction ID:</b></th>
+					<td align="left" valign="top"><%= @contribution.order_id %></td>
+				</tr>
+				<tr>
+					<th align="right" valign="top"><b>Card Information:</b></th>
+					<td align="left" valign="top"><%= @contribution.card_information %></td>
+				</tr>
+			</tbody>
+		</table>
+		<p>Thank you,<br/><%= @contribution.site.name %></p>
+	</body>
 </html>
