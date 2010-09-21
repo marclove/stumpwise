@@ -64,7 +64,7 @@ class Admin::ContributionsController < AdminController
   def export
     report = StringIO.new
     CSV::Writer.generate(report,',') do |r|
-      r << ['ID','Email','First Name','Last Name','Address 1','Address 2','City','State','Zip Code','Phone','Employer','Occupation','Status','Amount','Fee','Net Amount','Contributed At']
+      r << ['Contribution ID','Email','First Name','Last Name','Address 1','Address 2','City','State','Zip Code','Phone','Employer','Occupation','Status','Amount','Fee','Net Amount','Contributed At']
       current_site.contributions.find(:all, :order => 'created_at asc').each do |c|
         r << [
           c.order_id,
