@@ -268,14 +268,14 @@ class ContributionTest < ActiveSupport::TestCase
             Braintree::Transaction.expects(:sale).once.returns(gateway_sale_result(:error))
           end
           
-          should "set the processing fees to $0.30" do
-            assert_difference "@contribution.processing_fees", BigDecimal("0.30") do
+          should "set the processing fees to $0.50" do
+            assert_difference "@contribution.processing_fees", BigDecimal("0.50") do
               @contribution.approve! :approved, credit_card
             end
           end
           
-          should "set the net amount to -$0.30" do
-            assert_difference "@contribution.net_amount", BigDecimal("-0.30") do
+          should "set the net amount to -$0.50" do
+            assert_difference "@contribution.net_amount", BigDecimal("-0.50") do
               @contribution.approve! :approved, credit_card
             end
           end
@@ -365,9 +365,17 @@ class ContributionTest < ActiveSupport::TestCase
         
         context "when reversed (voided)" do
           context "and is approved by the gateway" do
-            should "increment the processing fees" do
-              @contribution.expects(:increment_processing_fees).once.returns(true)
-              @contribution.reverse
+            
+            should "not change the processing fees" do
+              assert_no_difference "@contribution.processing_fees" do
+                @contribution.reverse
+              end
+            end
+            
+            should "not change the net amount" do
+              assert_no_difference "@contribution.net_amount" do
+                @contribution.reverse
+              end
             end
             
             should "change the state to voided" do
@@ -394,10 +402,19 @@ class ContributionTest < ActiveSupport::TestCase
               Braintree::Transaction.any_instance.stubs(:void).returns(gateway_void_result(:error))
             end
 
-            should "increment the processing fees" do
+            should "not change the processing fees" do
               assert_raise(Stumpwise::Transaction::RejectedError) do
-                @contribution.expects(:increment_processing_fees).once.returns(true)
-                @contribution.reverse
+                assert_no_difference "@contribution.processing_fees" do
+                  @contribution.reverse
+                end
+              end
+            end
+
+            should "not change the net amount" do
+              assert_raise(Stumpwise::Transaction::RejectedError) do
+                assert_no_difference "@contribution.net_amount" do
+                  @contribution.reverse
+                end
               end
             end
             
@@ -483,12 +500,12 @@ class ContributionTest < ActiveSupport::TestCase
               assert @contribution.refunded?
             end
             
-            should "increment the processing fees" do
-              @contribution.expects(:increment_processing_fees).once.returns(true)
+            should "increase the processing fees by $0.50" do
+              @contribution.expects(:increment_transaction_fees).once.returns(true)
               @contribution.reverse
             end
             
-            should "reduce the net amount by the amount" do
+            should "decrease the amount from the net amount" do
               @contribution.expects(:subtract_amount_from_net).once.returns(true)
               @contribution.reverse
             end
@@ -527,7 +544,7 @@ class ContributionTest < ActiveSupport::TestCase
             
             should "increment the processing fees" do
               assert_raise(Stumpwise::Transaction::RejectedError) do
-                @contribution.expects(:increment_processing_fees).once.returns(true)
+                @contribution.expects(:increment_transaction_fees).once.returns(true)
                 @contribution.reverse
               end
             end
@@ -692,7 +709,7 @@ class ContributionTest < ActiveSupport::TestCase
           end
           
           should "increment the processing fees" do
-            @contribution.expects(:increment_processing_fees).once.returns(true)
+            @contribution.expects(:increment_transaction_fees).once.returns(true)
             @contribution.reverse
           end
           
@@ -735,7 +752,7 @@ class ContributionTest < ActiveSupport::TestCase
           
           should "increment the processing fees" do
             assert_raise(Stumpwise::Transaction::RejectedError) do
-              @contribution.expects(:increment_processing_fees).once.returns(true)
+              @contribution.expects(:increment_transaction_fees).once.returns(true)
               @contribution.reverse
             end
           end

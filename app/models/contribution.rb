@@ -76,7 +76,7 @@ class Contribution < ActiveRecord::Base
     transitions :from => :pending, :to => :approved, :on_transition => :process_approval
   end
   
-  aasm_event :void, :before => :increment_processing_fees do
+  aasm_event :void do
     transitions :from => :approved, :to => :voided, :on_transition => :process_void, :guard => :voidable?
   end
   
@@ -84,7 +84,7 @@ class Contribution < ActiveRecord::Base
     transitions :from => :approved, :to => :settled, :guard => :settleable?
   end
   
-  aasm_event :refund, :before => :increment_processing_fees, :after => :subtract_amount_from_net do
+  aasm_event :refund, :before => :increment_transaction_fees, :after => :subtract_amount_from_net do
     transitions :from => :settled, :to => :refunded, :on_transition => :process_refund, :guard => :refundable?
   end
   
@@ -148,7 +148,15 @@ class Contribution < ActiveRecord::Base
   
   # 5% + 0.50
   def transaction_processing_fee
-    @transaction_processing_fee ||= (amount.quo(20).round(2) + BigDecimal("0.50"))
+    @transaction_processing_fee ||= (discount_rate + transaction_fee)
+  end
+  
+  def transaction_fee
+    BigDecimal("0.50")
+  end
+  
+  def discount_rate
+    @discount_rate ||= amount.quo(20).round(2)
   end
   
   def transaction_errors
@@ -170,7 +178,7 @@ class Contribution < ActiveRecord::Base
   # Should be a private method, but AASM is broken and waiting for my commit to be pulled.
   def decline(errors)
     if pending?
-      update_attributes(:status => 'declined', :processing_fees => BigDecimal("0.30"), :net_amount => BigDecimal("-0.30"))
+      update_attributes(:status => 'declined', :processing_fees => transaction_fee, :net_amount => -transaction_fee)
     else
       raise errors
     end
@@ -270,6 +278,12 @@ class Contribution < ActiveRecord::Base
     def increment_processing_fees
       increment(:processing_fees, transaction_processing_fee)
       decrement(:net_amount, transaction_processing_fee)
+      save!
+    end
+    
+    def increment_transaction_fees
+      increment(:processing_fees, transaction_fee)
+      decrement(:net_amount, transaction_fee)
       save!
     end
     
