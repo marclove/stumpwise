@@ -20,6 +20,7 @@
 		</div>
 		<% form_for @contribution, :url => "/#{@site.subdomain}/contribute", :html => {:id => 'contribution_form', :method => :post} do |f| %>
 			<div id="form-body">
+				<div style="font-weight:bold; font-size:24px; text-align:center; margin-bottom:1em"><%= current_site.name %></div>
 				<div id="errors"></div>
 				<%= flash_messages %>
 				<div style="font-size:90%; text-align:center; clear:both;">Drag the slider to adjust amount</div>
