@@ -21,14 +21,15 @@ config.action_controller.perform_caching             = false
 config.action_mailer.raise_delivery_errors = true
 config.action_mailer.perform_deliveries = true
 config.action_mailer.default_charset = "utf-8"
+config.action_mailer.delivery_method = :smtp 
 config.action_mailer.smtp_settings = {
-  :address => "smtp.gmail.com",
-  :port => '587',
-  :enable_starttls_auto => true,
-  :domain => "progressbound.com",
+  :address => "smtp.sendgrid.net",
+  :port => 587,
+  :domain => "stumpwise.com",
   :authentication => :plain,
-  :user_name => "dev-server@progressbound.com",
-  :password => "0xZ2NSqrGcZrSPBqseTN"
+  :user_name => "marc@stumpwise.com",
+  :password => "ioQkyaaavKb1njYX6KEJ",
+  :enable_starttls_auto => true
 }
 
 config.after_initialize do
