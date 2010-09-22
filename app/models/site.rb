@@ -143,10 +143,7 @@ class Site < ActiveRecord::Base
   end
   
   def contribute_url
-    if can_accept_contributions?
-      protocol = (Rails.env.production? ? "https" : "http")
-      "#{protocol}://secure.#{HOST}/#{subdomain}/contribute"
-    end
+    "https://secure.#{HOST}/#{subdomain}/contribute" if can_accept_contributions?
   end
   
   def to_liquid

@@ -12,7 +12,7 @@ module Stumpwise
     end
 
     def domain
-      Rails.env.production? ? "null" : "'http://secure.stumpwise-local.com'"
+      Rails.env.production? ? "null" : "'https://secure.stumpwise-local.com'"
     end
     
     def stylesheet
