@@ -8,23 +8,25 @@
 			%th Full Name
 			%td= "#{@supporter.name} #{@supporter.name_suffix}"
 		%tr
-			%th Email
-			%td= mail_to(@supporter.email)
-		%tr
-			%th Phone Number
-			%td= @supporter.phone
-		%tr
 			%th Address
 			%td= @supporter.full_address
 		%tr
-			%th Joined
-			%td= @supporter.created_at.strftime('%B %e, %Y at %l:%M %p')
-		%tr
-			%th Signed up to
+			%th Email
 			%td
-				=check_box_tag('email_updates', '1', @supportership.receive_email, {:disabled => true})
-				Receive email updates
-				/
-					%br
+				=mail_to(@supporter.email)
+				%div{:style => "margin-top:6px;"}
+					=check_box_tag('email_updates', '1', @supportership.receive_email, {:disabled => true})
+					Receives email updates
+		%tr
+			%th Primary Phone
+			%td= @supporter.phone
+		%tr
+			%th Mobile Phone
+			%td
+				=number_to_phone(@supporter.mobile_phone)
+				%div{:style => "margin-top:6px;"}
 					=check_box_tag('sms_updates', '1', @supportership.receive_sms, {:disabled => true})
-					Receive SMS updates
+					Receives SMS updates
+		%tr
+			%th Joined
+			%td= timeago(@supportership.created_at)

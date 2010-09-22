@@ -17,6 +17,7 @@
 					%th State
 					%th Zip Code
 					%th Phone
+					%th Mobile
 					%th Joined On
 			%tbody
 				-for s in @supporterships
@@ -27,7 +28,8 @@
 					%td= s.supporter.locality
 					%td= s.supporter.administrative_area
 					%td= s.supporter.postal_code
-					%td= s.supporter.phone
+					%td= number_to_phone(s.supporter.phone)
+					%td= number_to_phone(s.supporter.mobile_phone)
 					%td= s.created_at.strftime('%b %d, %Y %I:%M %p')
 					="</tr>"
 			%tfoot{:id => "pager", :class => "pager"}
