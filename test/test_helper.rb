@@ -89,7 +89,7 @@ class ActiveSupport::TestCase
   end
   
   def setup_session_domain
-    @request.env['rack.session.options'] = {:domain => ".localdev.com"}
+    @request.env['rack.session.options'] = {:domain => ".stumpwise-local.com"}
   end
   
   def login_as(fixture_name)

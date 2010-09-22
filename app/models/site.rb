@@ -130,7 +130,7 @@ class Site < ActiveRecord::Base
   end
   
   def domain
-    custom_domain.blank? ? "#{subdomain}.#{BASE_URL}" : custom_domain
+    custom_domain.blank? ? "#{subdomain}.#{HOST}" : custom_domain
   end
   
   def root_item

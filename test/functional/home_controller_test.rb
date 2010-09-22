@@ -40,7 +40,7 @@ class HomeControllerTest < ActionController::TestCase
             should_change("the number of sites", :by => 1) { Site.count }
             should_change("the number of administratorships", :by => 1) { Administratorship.count }
             
-            should_redirect_to("the admin of the newly created site"){ "http://tonywoods.localdev.com:3000/admin/site/edit" }
+            should_redirect_to("the admin of the newly created site"){ "http://tonywoods.stumpwise-local.com/admin/site/edit" }
             
             should "create the site with an initial status of active" do
               assert assigns(:site).active?

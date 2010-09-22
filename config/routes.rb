@@ -1,5 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-  map.with_options(:conditions => {:subdomain => false, :domain => BASE_URL}) do |base|
+  map.with_options(:conditions => {:subdomain => false, :domain => HOST}) do |base|
     base.connect 'info/:action', :controller => 'info', :conditions => {:method => :get}
     base.connect 'home', :controller => 'home', :action => 'home'
     base.connect 'robots.txt', :controller => 'home', :action => 'robots'
@@ -7,7 +7,7 @@ ActionController::Routing::Routes.draw do |map|
     base.root :controller => 'home', :action => 'index'
   end
   
-  map.with_options(:conditions => {:subdomain => 'admin', :domain => BASE_URL}) do |a|
+  map.with_options(:conditions => {:subdomain => 'admin', :domain => HOST}) do |a|
     a.namespace(:manage) do |manage|
       manage.resources :sites
       manage.resources :contributions, :only => [:index, :show], :member => {:refund => :put}
@@ -26,7 +26,7 @@ ActionController::Routing::Routes.draw do |map|
     end
   end
   
-  map.with_options(:conditions => {:subdomain => 'secure', :domain => BASE_URL}) do |c|
+  map.with_options(:conditions => {:subdomain => 'secure', :domain => HOST}) do |c|
     # https://secure.stumpwise.com/woods/contribute
     c.connect ':subdomain/contribute', :controller => 'contributions', :action => 'new', :conditions => {:method => :get}
     # https://secure.stumpwise.com/woods/contribute

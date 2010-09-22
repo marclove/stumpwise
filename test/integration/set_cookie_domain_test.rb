@@ -2,14 +2,14 @@ require 'test_helper'
  
 class SetCookieDomainTest < ActionController::IntegrationTest
  
-  context "when accessing site at localdev.com" do
+  context "when accessing site at stumpwise-local.com" do
     setup do
-      host! 'localdev.com'
+      host! 'stumpwise-local.com'
       visit '/'
     end
  
     should "set cookie_domain to .example.org" do
-      assert_equal '.localdev.com', @integration_session.controller.request.session_options[:domain]
+      assert_equal '.stumpwise-local.com', @integration_session.controller.request.session_options[:domain]
     end
   end
  
@@ -24,14 +24,14 @@ class SetCookieDomainTest < ActionController::IntegrationTest
     end
   end
  
-  context "when accessing site at site.localdev.com" do
+  context "when accessing site at site.stumpwise-local.com" do
     setup do
-      host! 'site.localdev.com'
+      host! 'site.stumpwise-local.com'
       visit '/'
     end
  
-    should "set cookie_domain to .localdev.com" do
-      assert_equal '.localdev.com', @integration_session.controller.request.session_options[:domain]
+    should "set cookie_domain to .stumpwise-local.com" do
+      assert_equal '.stumpwise-local.com', @integration_session.controller.request.session_options[:domain]
     end
   end
   

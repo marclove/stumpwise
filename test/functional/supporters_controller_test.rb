@@ -4,7 +4,7 @@ class SupportersControllerTest < ActionController::TestCase
   context "Supporters Controller" do
     context "on POST to :create for inactive site" do
       setup do
-        @request.env["HTTP_REFERER"] = "http://demo.localdev.com"
+        @request.env["HTTP_REFERER"] = "http://demo.stumpwise-local.com"
         setup_session_domain
         on_site(:inactive)
         post :create, :supporter => {:email => "newsupporter@stumpwise.com", :postal_code => '95123'}
@@ -15,7 +15,7 @@ class SupportersControllerTest < ActionController::TestCase
     
     context "on POST to :create" do
       setup do
-        @request.env["HTTP_REFERER"] = "http://demo.localdev.com"
+        @request.env["HTTP_REFERER"] = "http://demo.stumpwise-local.com"
         setup_session_domain
         on_site(:with_content)
       end

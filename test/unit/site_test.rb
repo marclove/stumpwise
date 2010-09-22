@@ -165,11 +165,11 @@ class SiteTest < ActiveSupport::TestCase
       end
       
       should "know its domain is subdomain.stumpwise.com" do
-        assert_equal "test.localdev.com", @without.domain
+        assert_equal "test.stumpwise-local.com", @without.domain
       end
       
       should "know its root url is http://subdomain.stumpwise.com" do
-        assert_equal "http://test.localdev.com", @without.root_url
+        assert_equal "http://test.stumpwise-local.com", @without.root_url
       end
     end
 

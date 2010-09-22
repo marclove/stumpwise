@@ -45,7 +45,6 @@ config.after_initialize do
 end
 
 SslRequirement.disable_ssl_check = true
-BASE_URL = "stumpwise-staging.info"
 HOST = "stumpwise-staging.info"
 
 config.middleware.use "SetCookieDomain", ".stumpwise-staging.info"

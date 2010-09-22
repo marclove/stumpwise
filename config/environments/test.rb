@@ -28,10 +28,9 @@ config.action_mailer.delivery_method = :test
 # config.active_record.schema_format = :sql
 
 SslRequirement.disable_ssl_check = true
-BASE_URL = "localdev.com"
-HOST = "localdev.com:3000"
+HOST = "stumpwise-local.com"
 
-config.middleware.use "SetCookieDomain", ".localdev.com"
+config.middleware.use "SetCookieDomain", ".stumpwise-local.com"
 
 config.gem 'machinist'
 config.gem 'shoulda', '2.10.3'

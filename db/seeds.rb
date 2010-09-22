@@ -73,7 +73,7 @@ site = candidate.owned_sites.create(
   :campaign_city => "San Francisco",
   :campaign_state => "CA",
   :campaign_zip => "94114",
-  :campaign_email => "info@localdev.com",
+  :campaign_email => "info@stumpwise-local.com",
   :campaign_phone => "415-555-1234",
   :time_zone => "Pacific Time (US & Canada)"
 )

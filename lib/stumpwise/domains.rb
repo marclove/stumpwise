@@ -17,7 +17,7 @@ module Stumpwise
       end
       
       def custom_domain?
-        current_domain != BASE_URL
+        current_domain != HOST
       end
   end
 end

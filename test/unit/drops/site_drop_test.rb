@@ -72,7 +72,7 @@ class SiteDropTest < ActiveSupport::TestCase
     end
     
     should "have a contribute url" do
-      assert_equal "http://secure.localdev.com:3000/tonywoods/contribute", @site_drop['contribute_url']
+      assert_equal "http://secure.stumpwise-local.com/tonywoods/contribute", @site_drop['contribute_url']
     end
     
     should "return true for accepts_contributions?" do
@@ -118,7 +118,7 @@ class SiteDropTest < ActiveSupport::TestCase
     
     context "for site without custom domain" do
       should "have root_url that uses the subdomain" do
-        assert_equal "http://tonywoods.localdev.com", @site_drop['root_url']
+        assert_equal "http://tonywoods.stumpwise-local.com", @site_drop['root_url']
       end
       
       context "and with Google Analytics ID" do
