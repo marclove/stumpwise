@@ -16,7 +16,7 @@ class SupportersController < ApplicationController
     )
     respond_to do |format|
       format.html{ redirect_to current_site.root_url }
-      format.js{ render :js => 'parent.Stumpwise.thankJoin();' }
+      format.js{ render :nothing => true }
     end
   rescue
     respond_to do |format|

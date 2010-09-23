@@ -4,7 +4,18 @@
 		<meta charset="utf-8">
 		<title>Join The Anthony Woods For Congress Campaign</title>
 		<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' %>
-		<%= javascript_include_tag 'stumpwise' %>
+		
+    <%= javascript_include_tag(
+      "externals/mootools-1.2.4-base",
+      "externals/Class.Mutators.jQuery",
+      "externals/jquery.colorbox",
+      "externals/jquery.ba-postmessage",
+      "externals/jquery.timeago",
+      "externals/jquery.validate",
+      :cache => "stumpwise.externals"
+    ) %>
+    <%= javascript_include_tag("stumpwise") %>
+				
 		<%= stylesheet_link_tag 'join' %>
 		<!--[if lt IE 9]>
       <style type="text/css" media="screen">
@@ -12,13 +23,15 @@
       </style>
     <![endif]-->
 		<script type="text/javascript">
-			$(document).ready(function(){Stumpwise.initJoin()});
+			$(document).ready(function(){
+				$('#new_supporter').joinForm();
+			});
 		</script>
 	</head>
 	<body>
 		<div id="header">
 			<h1>stumpwise</h1>
-			<h2>Join This Campaign</h2>			
+			<h2>Join This Campaign</h2>
 		</div>
 		<% form_for @supporter do |f| %>
 			<div id="form-body">

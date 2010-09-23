@@ -4,11 +4,28 @@
 		<meta charset="utf-8">
 		<title>Contribute To This Campaign</title>
 		<%= javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' %>
-		<%= javascript_include_tag 'contribute','stumpwise' %>
+		<%= javascript_include_tag 'contribute' %>
+		
+    <%= javascript_include_tag(
+      "externals/mootools-1.2.4-base",
+      "externals/Class.Mutators.jQuery",
+      "externals/jquery.colorbox",
+      "externals/jquery.ba-postmessage",
+      "externals/jquery.timeago",
+      "externals/jquery.validate",
+      :cache => "stumpwise.externals"
+    ) %>
+    <%= javascript_include_tag("stumpwise") %>
+		
 		<%= stylesheet_link_tag '/javascripts/jquery-ui/jquery-ui-1.8.2.custom.css' %>
 		<%= stylesheet_link_tag 'contribute' %>
 		<script type="text/javascript">
-			$(document).ready(function(){Stumpwise.initContribution(<%= current_site.max_contribution_amount %>, <%= current_site.suggested_contribution_amount.present? ? current_site.suggested_contribution_amount : "null" %>)});
+			$(document).ready(function(){
+				$('#contribution_form').contributionForm({
+					suggested: <%= current_site.suggested_contribution_amount.present? ? current_site.suggested_contribution_amount : "null" %>,
+					max: <%= current_site.max_contribution_amount %>
+				});
+			});
 		</script>
 	</head>
 

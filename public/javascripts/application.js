@@ -1,4 +1,5 @@
 $.ajaxSettings.accepts._default = "text/javascript, text/html, application/xml, text/xml, */*";
+
 $(document).ready(function() {
 
 	// TinyMCE Textareas
@@ -17,12 +18,45 @@ $(document).ready(function() {
 		theme_advanced_toolbar_location: "top",
 		content_css: "/stylesheets/custom_tinymce.css",
 		plugins: "spellchecker,safari,pagebreak,paste",
-		paste_auto_cleanup_on_paste: false,
+		paste_auto_cleanup_on_paste: true,
+		paste_strip_class_attributes: "mso",
+		cleanup_callback: function(type, value) {
+			var value = value + '';
+			return value.replace(/<!--.*?-->/g,''); // due to MS Word's BS
+		},
 		convert_urls: false,
 		process_html: true,
 		inline_styles: false,
 		gecko_spellcheck: true,
-		valid_elements: "-p[class],-a[name|id|title|target|href],-blockquote[class],br,-code[class]," + "-dd[*],-dl[*],-dt[*],-del[*],-i/em[class],-ins[*],-li[*],-ol[*],-pre[class]," + "-q[*],-b/strong[class],-u[*],-ul[*],-s[*],img[*],hr[*],-sub[*]," + "-sup[*],-strike[*],-small[*],-big[*],-h1[id|class],-h2[id|class],-h3[id|class]," + "-h4[id|class],-h5[id|class],-h6[id|class],object[*],embed[*],param[*],iframe[*]," + "script[type|src|language|charset|defer],span[*]",
+		
+		valid_elements: "@[id|class|style|lang|dir|title]," +
+		// Sections
+		"-h1,-h2,-h3,-h4,-h5,-h6,-hgroup,-header,-footer,-address," +
+		// Grouping content
+		"#p,hr,-pre,-blockquote[cite],-ol[reversed|start],-ul,-li[value]," +
+		"-dl,-dt,-dd,-figure,-figcaption,-div," +
+		// Text-level semantics
+		"-em/i,-strong/b,-small,-cite,-q[cite],-dfn,-abbr,-time[datetime|pubdate]," +
+		"-code,-var,-samp,-kbd,-sub,-sup,-mark,-ruby,-rt,-rp,-bdo,span,br,wbr," +
+		"+a[name|target|href|rel]," + // Not HTML5: name (use id instead)
+		// Edits
+		"-ins[cite|datetime],-del[cite|datetime]," +
+		// Embedded content
+		"img[alt|src|usemap|ismap|width|height]," +
+		"iframe[src|srcdoc|name|sandbox|seamless|width|height|frameborder]," + // Not HTML5: frameborder
+		"embed[src|type|width|height|allowscriptaccess|allowfullscreen]," + // Not HTML5: allowscriptaccess, allowfullscreen
+		"object[classid|codebase|data|type|name|usemap|form|width|height]," + // Not HTML5: classid, codebase
+		"param[name|value]," + 
+		"video[src|poster|preload|autoplay|loop|controls|width|height]," +
+		"audio[src|preload|autoplay|loop|controls]," +
+		"source[src|type|media]," +
+		"canvas[width|height]," +
+		"area[alt|coords|shape|href|target|rel|media|hreflang|type]," +
+		"map[name]," +
+		// Tabular data
+		"table[cellpadding=0|cellspacing=0|summary],caption,colgroup[span],col[span]," + // Not HTML5: cellpadding, cellspacing
+		"tbody,thead,tfoot,tr,td[colspan|rowspan|headers],th[colspan|rowspan|headers|scope]",
+			
 		theme_advanced_buttons1: "bold,italic,strikethrough,separator,blockquote,formatselect,separator,bullist,numlist,separator,outdent,indent,separator,image,link,unlink,pasteword,separator,code",
 		theme_advanced_blockformats : "h1,h2,h3,p",
 		width: '100%',
@@ -30,7 +64,34 @@ $(document).ready(function() {
 			ed.onPaste.add(function (ed) {
 				if (ed.getContent().length < 30) {
 					setTimeout(function () {
-						ed.serializer.setRules("-p,-a[title],-blockquote,br,-code,-dd,-dl,-dt," + "-del,-i/em,-ins,-li,-ol,-pre,-q,-b/strong,-u," + "-ul,-s,img[width|height|alt],hr,-sub,-sup,-strike," + "-small,-big,object[*],embed[*],param[*]," + "-p/h1,-p/h2,-p/h3,-p/h4,-p/h5,-p/h6");
+						ed.serializer.setRules(
+							// Grouping content
+							"-p,hr,-pre,-blockquote[cite],-ol[reversed|start],-ul,-li[value]," +
+							"-dl,-dt,-dd,-figure,-figcaption," +
+							// Text-level semantics
+							"-em/i,-strong/b,-small,-cite,-q[cite],-dfn,-abbr,-time[datetime|pubdate]," +
+							"-code,-var,-samp,-kbd,-sub,-sup,-mark,-ruby,-rt,-rp,-bdo,span,br,wbr," +
+							"+a[title|href]," +
+							// Edits
+							"-ins[cite|datetime],-del[cite|datetime]," +
+							// Sections
+							"-p/h1,-p/h2,-p/h3,-p/h4,-p/h5,-p/h6" +
+							// Embedded content
+							"img[alt|src|width|height]," +
+							"iframe[src|srcdoc|name|sandbox|seamless|width|height|frameborder]," + // Not HTML5: frameborder
+							"embed[src|type|width|height|allowscriptaccess|allowfullscreen]," + // Not HTML5: allowscriptaccess, allowfullscreen
+							"object[classid|codebase|data|type|name|usemap|form|width|height]," + // Not HTML5: classid, codebase
+							"param[name|value]," + 
+							"video[src|poster|preload|autoplay|loop|controls|width|height]," +
+							"audio[src|preload|autoplay|loop|controls]," +
+							"source[src|type|media]," +
+							"canvas[width|height]," +
+							"area[alt|coords|shape|href|target|rel|media|hreflang|type]," +
+							"map[name]," + 
+							// Tabular data
+							"table[cellpadding=0|cellspacing=0|summary],caption,colgroup[span],col[span]," + // Not HTML5: cellpadding, cellspacing
+							"tbody,thead,tfoot,tr,td[colspan|rowspan|headers],th[colspan|rowspan|headers|scope]"
+						);
 						ed.setContent(ed.getContent());
 						var content = ed.getContent().replace(/\<p\>\&nbsp\;<\/p>/g, '');
 						ed.setContent(content);
@@ -158,5 +219,7 @@ $(document).ready(function() {
 		});
 	  
 	};
+
+
 
 })(jQuery);

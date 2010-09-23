@@ -27,38 +27,8 @@ class Navbar
   end
   
   def insert_navbar(body, navbar)
-    head_content = <<-BLOCK
-      #{navbar.stylesheet}
-      #{navbar.javascript}
-      <!--[if lt IE 9]>
-        #{navbar.ie_stylesheet}
-        #{navbar.ie_javascript}
-      <![endif]-->
-      <script type="text/javascript">
-        $(document).ready(function(){Stumpwise.initCampaignSite('#{navbar.contribute_url}',#{navbar.domain})});
-      </script>
-    BLOCK
-    
-    body_content = <<-CONTRIBUTIONS_BLOCK
-    		<!-- Stumpwise Navigation Bar -->
-    			<div id="stumpwise-bar">
-    				<a id="stumpwise-bar-logo" class="stumpwise-bar-button" href="http://stumpwise.com"><img class="stumpwise-bar-button-img" src="/images/navbar/logo.png"/></a>
-    				<a id="stumpwise-bar-join" class="stumpwise-bar-button" href="/join"><img class="stumpwise-bar-button-img" src="/images/navbar/join.png"/></a>
-    CONTRIBUTIONS_BLOCK
-    
-    if navbar.accepts_contributions
-    	body_content << <<-CONTRIBUTIONS_BLOCK
-    	      <a id="stumpwise-bar-contribute" class="stumpwise-bar-button" href="#{navbar.contribute_url}"><img class="stumpwise-bar-button-img" src="/images/navbar/contribute.png"/></a>
-      CONTRIBUTIONS_BLOCK
-  	end
-  	
-  	body_content << <<-CONTRIBUTIONS_BLOCK
-    			</div>
-    		<!-- END Stumpwise Navigation Bar -->
-    CONTRIBUTIONS_BLOCK
-    
-    body.gsub!(/<\/head>/, head_content + "\n</head>")
-    body.gsub!(/<\/body>/, body_content + "\n</body>")
+    body.gsub!(/<\/head>/, navbar.header_markup + "\n</head>")
+    body.gsub!(/<\/body>/, navbar.body_markup + "\n</body>")
     body
   end
 end
