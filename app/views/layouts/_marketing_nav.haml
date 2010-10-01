@@ -1,4 +1,4 @@
 %ul#nav
 	%li=link_to 'Home', "http://#{HOST}/home"
-	%li=link_to 'Pricing', Rails.env.production? ? "https://secure.#{HOST}/signup" : "http://secure.#{HOST}/signup"
-	%li=link_to 'Sign Up', Rails.env.production? ? "https://secure.#{HOST}/signup" : "http://secure.#{HOST}/signup"
+	%li=link_to 'Pricing', "https://secure.#{HOST}/signup"
+	%li=link_to 'Sign Up', "https://secure.#{HOST}/signup"
