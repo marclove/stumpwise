@@ -108,7 +108,7 @@ class Contribution < ActiveRecord::Base
       settle! if approved? # settled remotely, but we haven't settled it locally yet
       refund! if settled? # don't refund it unless we successfully settled it locally
     else
-      raise Stumpwise::Transaction::ReversalError, "This transaction's status is currently \"#{remote_status.gsub('_',' ')}\" and cannot be reversed."
+      raise Stumpwise::Transaction::ReversalError, "This transaction's status is currently \"#{remote_status.tr('_',' ')}\" and cannot be reversed."
     end
   end
   

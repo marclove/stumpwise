@@ -14,7 +14,7 @@
 			<div class="theme_customization_option">
 				<%= hidden_field_tag "theme_customization[ifs][#{if_key}]", 'false' %>
 				<%= check_box_tag "theme_customization[ifs][#{if_key}]", 'true', theme_customization.merged_ifs[if_key], :class => 'theme_customization_if' %>
-				<label for="theme_customization_ifs_<%= if_key.gsub(' ','_') %>"><%= if_key %></label>
+				<label for="theme_customization_ifs_<%= if_key.tr(' ','_') %>"><%= if_key %></label>
 			</div>
 		<% end %>
 
@@ -27,14 +27,14 @@
 
 		<% for text_key in theme_customization.text_keys %>
 			<div class="theme_customization_option">
-				<label for="theme_customization_texts_<%= text_key.gsub(' ','_') %>"><%= text_key %>:</label>
+				<label for="theme_customization_texts_<%= text_key.tr(' ','_') %>"><%= text_key %>:</label>
 				<%= text_field_tag "theme_customization[texts][#{text_key}]", theme_customization.merged_texts[text_key], :class => 'theme_customization_text' %>
 			</div>
 		<% end %>
 
 		<% for image_key in theme_customization.image_keys %>
 			<div class="theme_customization_option">
-				<label for="theme_customization_images_<%= image_key.gsub(' ','_') %>"><%= image_key %>:</label>
+				<label for="theme_customization_images_<%= image_key.tr(' ','_') %>"><%= image_key %>:</label>
 				<%= file_field_tag "theme_customization_images[#{image_key}]", :class => 'theme_customization_file', :size => 10 %>
 			</div>
 		<% end %>

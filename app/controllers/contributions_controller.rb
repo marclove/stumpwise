@@ -10,7 +10,7 @@ class ContributionsController < ApplicationController
   end
   
   def create
-    params[:contribution][:amount].gsub!('$','')
+    params[:contribution][:amount].delete!('$')
     @contribution = @site.contributions.build(params[:contribution])
     @contribution.ip = request.ip
     @credit_card = CreditCard.new(params[:credit_card])
