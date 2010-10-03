@@ -107,11 +107,12 @@ $(document).ready(function() {
 	// Sortable Data Table
 	$("#supporters_table").tablesorter({
 		headers:{
-			6:{sorter:false}
+			6:{sorter:false},
+			7:{sorter:false}
 		},
 		widgets: ['zebra'],
 		widthFixed: true,
-		sortList:[[7,1]]
+		sortList:[[8,1]]
 	}).tablesorterPager({container:$("#pager"), size:20});
 
 	// Sortable Data Table Clickable Rows
