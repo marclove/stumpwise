@@ -153,8 +153,10 @@
 				<% if current_site.eligibility_statement.present? %>
 					<div id="confirm-eligibility">
 						<h3>Confirm Eligibility</h3>
-						<%= f.check_box :compliance_confirmation, :class => 'required' %>
-						<%= f.label :compliance_confirmation, "Check this box to confirm the following statements are true and correct:" %>
+						<div id="compliance_confirmation">
+							<input class="required" id="contribution_compliance_confirmation" name="contribution[compliance_confirmation]" type="checkbox" value="1" />
+							<%= f.label :compliance_confirmation, "Check this box to confirm the following statements are true and correct:" %>
+						</div>
 						<div id="eligibility-statement"><%= current_site.eligibility_statement %></div>
 						<div style="clear:both"></div>
 					</div>

@@ -293,12 +293,17 @@ if (!window.SW) {
 				
 				// form validations
 				$("#contribution_form").validate({
+					messages: {
+						"contribution[compliance_confirmation]": "You must confirm that you are eligible to contribute by checking this box."
+					},
 					groups: {
 						expirationDate: "credit_card[expiration_month] credit_card[expiration_year]"
 					},
 					errorPlacement: function(error, element){
 						if(element.attr("name") == "credit_card[expiration_month]" || element.attr("name") == "credit_card[expiration_year]"){
 							error.insertAfter("#credit_card_expiration_year");
+						} else if(element.attr("name") == "contribution[compliance_confirmation]") {
+							error.insertBefore("#compliance_confirmation");
 						} else {
 							error.insertAfter(element);
 						}

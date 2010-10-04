@@ -55,7 +55,7 @@ class Contribution < ActiveRecord::Base
   validates_numericality_of :amount, :greater_than => 0.99
   validates_presence_of     :first_name, :last_name, :address1, :city, :state,
                             :zip, :country, :occupation, :employer
-  validates_acceptance_of   :compliance_confirmation, :accept => true,
+  validates_acceptance_of   :compliance_confirmation, :accept => true, :allow_nil => false,
                             :if => :requires_compliance_confirmation?
   
   named_scope :raised, :conditions => 'contributions.status IN ("approved", "settled", "paid")'
