@@ -68,14 +68,42 @@ class Site < ActiveRecord::Base
   has_many    :administratorships
   has_many    :administrators, :through => :administratorships
   has_many    :supporterships
+  
   has_many    :supporters, :through => :supporterships do
+    def add(attrs={})
+      attrs = attrs.symbolize_keys
+      receive_email = attrs.delete(:receive_email) || false
+      receive_sms   = attrs.delete(:receive_sms)   || false
+      
+      if @supporter = Supporter.first(:conditions => {:email => attrs[:email]})
+        @supporter.update_attributes!(attrs)
+      else
+        @supporter = Supporter.create(attrs)
+      end
+      
+      if @supporter
+        if supportership = Supportership.first(:conditions => {:site_id => proxy_owner.id, :supporter_id => @supporter.id})
+          supportership.update_attributes(:receive_email => receive_email, :receive_sms => receive_sms)
+        else
+          Supportership.create(
+            :site_id        => proxy_owner.id,
+            :supporter_id   => @supporter.id,
+            :receive_email  => receive_email,
+            :receive_sms    => receive_sms
+          )
+        end
+      end
+    end
+    
     def wanting_sms
       find(:all, :conditions => ["supporterships.receive_sms = ?", true])
     end
+    
     def wanting_sms_count
       count(:conditions => ["supporterships.receive_sms = ?", true])
     end
   end
+  
   has_many    :contributions, :order => 'created_at DESC'
   has_many    :campaign_statements, :order => 'disbursed_on DESC'
   has_many    :sms_campaigns, :order => 'created_at DESC'

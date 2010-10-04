@@ -62,18 +62,18 @@
 						<%= f.label :email %>
 						<%= f.text_field :email, :class => 'required' %>					
 						<span class="confirm">
-							<input name="receive_email" type="hidden" value="0" />
-							<input name="receive_email" type="checkbox" value="1" id="receive_email" />
-							<label for="receive_email">Send me email updates</label>
+							<input name="supporter[receive_email]" type="hidden" value="0" />
+							<input name="supporter[receive_email]" type="checkbox" value="1" id="supporter_receive_email" />
+							<label for="supporter_receive_email">Send me email updates</label>
 						</span>
 					</p>
 					<p id="mobile-phone">
 						<%= f.label :mobile_phone, 'Mobile Phone <span class="optional">(Optional)</span>' %>
 						<%= f.text_field :mobile_phone %>
 						<span class="confirm">
-							<input name="receive_sms" type="hidden" value="0" />
-							<input name="receive_sms" type="checkbox" value="1" id="receive_sms" />
-							<label for="receive_sms">Send me text messages</label>
+							<input name="supporter[receive_sms]" type="hidden" value="0" />
+							<input name="supporter[receive_sms]" type="checkbox" value="1" id="supporter_receive_sms" />
+							<label for="supporter_receive_sms">Send me text messages</label>
 						</span>
 					</p>
 					<div style="clear:both"></div>

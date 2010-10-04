@@ -72,7 +72,7 @@ class SiteDropTest < ActiveSupport::TestCase
     end
     
     should "have a contribute url" do
-      assert_equal "http://secure.stumpwise-local.com/tonywoods/contribute", @site_drop['contribute_url']
+      assert_equal "https://secure.stumpwise-local.com/tonywoods/contribute", @site_drop['contribute_url']
     end
     
     should "return true for accepts_contributions?" do

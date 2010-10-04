@@ -7,13 +7,7 @@ class SupportersController < ApplicationController
   end
   
   def create
-    @supporter = Supporter.find_by_email(params[:supporter][:email]) || Supporter.create!(params[:supporter])
-    Supportership.create!(
-      :site => current_site,
-      :supporter => @supporter,
-      :receive_email => params[:receive_email],
-      :receive_sms => params[:receive_sms]
-    )
+    current_site.supporters.add(params[:supporter])
     respond_to do |format|
       format.html{ redirect_to current_site.root_url }
       format.js{ render :nothing => true }

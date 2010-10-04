@@ -55,11 +55,105 @@ class SiteTest < ActiveSupport::TestCase
   end
   
   context "A site" do
-    should_belong_to :owner, :theme
+    should_belong_to :owner
     should_have_many :administratorships, :administrators, :supporterships,
-                     :supporters, :contributions, :layouts, :templates,
-                     :items, :pages, :blogs, :articles, :assets, :sms_campaigns
+                     :supporters, :contributions, :items, :pages, :blogs,
+                     :articles, :assets, :sms_campaigns
     
+    
+    context "when adding a new supporter whose info doesn't exist in the database" do
+      setup do 
+        @new_supporter = {
+          :first_name => "New",
+          :last_name => "Supporter",
+          :mobile_phone => "4081111111",
+          :email => "new.supporter@stumpwise.com",
+          :receive_email => true,
+          :receive_sms => true
+        }
+      end
+      
+      should "create a new supporter record" do
+        assert_difference 'sites(:with_supporters).supporters.count', 1 do
+          sites(:with_supporters).supporters.add(@new_supporter)
+        end
+      end
+      
+      should "create a new supportership record" do
+        assert_difference 'sites(:with_supporters).supporterships.count', 1 do
+          sites(:with_supporters).supporters.add(@new_supporter)
+          supportership = sites(:with_supporters).supporterships.last
+          assert_equal true, supportership.receive_email
+          assert_equal true, supportership.receive_sms
+        end
+      end
+    end
+
+    context "when adding a supporter who already supports another site but with updated data" do
+      setup do
+        @updated_supporter = {
+          :email => supporters(:other_site_supporter).email,
+          :last_name => "Does",
+          :receive_email => true,
+          :receive_sms => true
+        }
+      end
+      
+      should "not create a new supporter record" do
+        assert_no_difference 'Supporter.count' do
+          sites(:with_supporters).supporters.add(@updated_supporter)
+        end
+      end
+      
+      should "update the existing supporter record" do
+        assert_equal "Doe", supporters(:other_site_supporter).last_name
+        sites(:with_supporters).supporters.add(@updated_supporter)
+        assert_equal "Does", supporters(:other_site_supporter).reload.last_name
+      end
+            
+      should "create a new supportership record" do
+        assert_difference 'Supportership.count', 1 do
+          sites(:with_supporters).supporters.add(@updated_supporter)
+        end
+      end
+    end
+    
+    context "when attempting to add a supporter that already supports this site but with updated data" do
+      setup do
+        @updated_supporter = {
+          :email => supporters(:email_only).email,
+          :last_name => "Does",
+          :receive_email => true,
+          :receive_sms => true
+        }
+      end
+      
+      should "not create a new supporter record" do
+        assert_no_difference 'Supporter.count' do
+          sites(:with_supporters).supporters.add(@updated_supporter)
+        end
+      end
+      
+      should "not create a new supportership record" do
+        assert_no_difference 'Supportership.count' do
+          sites(:with_supporters).supporters.add(@updated_supporter)
+        end
+      end
+      
+      should "update the existing supporter record" do
+        assert_equal "Doe", supporters(:email_only).last_name
+        sites(:with_supporters).supporters.add(@updated_supporter)
+        assert_equal "Does", supporters(:email_only).reload.last_name
+      end
+      
+      should "update the existing supportership record" do
+        supportership = Supportership.first(:conditions => {:site_id => sites(:with_supporters).id, :supporter_id => supporters(:email_only).id})
+        assert_equal false, supportership.receive_sms
+        sites(:with_supporters).supporters.add(@updated_supporter)
+        assert_equal true, supportership.reload.receive_sms
+      end
+    end
+        
     should "be able to be transformed into a liquid drop" do
       assert_instance_of SiteDrop, Site.new.to_liquid
     end
@@ -112,9 +206,7 @@ class SiteTest < ActiveSupport::TestCase
       assert !sites(:woods).navigation.include?(items(:root_2))
     end
     
-    should_eventually "return a list of mobile numbers for sms messaging"
-
-    should_eventually "return a gateway for use in contributions"
+    should_eventually "return a list of mobile numbers of supporters wanting sms messages"
 
     should "know if its credit card is expired" do
       site = Site.make(:credit_card_expiration => Time.now.utc)
@@ -142,8 +234,6 @@ class SiteTest < ActiveSupport::TestCase
     should "know the number of supporters that want sms messages" do
       assert_equal 2, sites(:with_supporters).supporters.wanting_sms_count
     end
-
-    should_eventually "render templates? (call_render)"
     
     should "verify that a super admin is an authorized user" do
       site = Site.make
