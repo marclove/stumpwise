@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100825194538
+# Schema version: 20100916062732
 #
 # Table name: contribution_transactions
 #

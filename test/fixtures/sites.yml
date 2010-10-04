@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100825194538
+# Schema version: 20100916062732
 #
 # Table name: sites
 #
@@ -40,7 +40,7 @@
 #  subscription_id               :string(255)
 #  subscription_billing_cycle    :integer(4)
 #  can_accept_contributions      :boolean(1)
-#  max_contribution_amount       :integer(4)
+#  max_contribution_amount       :integer(4)      default(2400)
 #  mongo_theme_id                :string(255)
 #  mongo_theme_version_id        :string(255)
 #  mongo_theme_customization_id  :string(255)

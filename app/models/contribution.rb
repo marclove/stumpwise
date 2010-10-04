@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100825194538
+# Schema version: 20100916062732
 #
 # Table name: contributions
 #
@@ -35,6 +35,8 @@
 #  transaction_id          :string(10)
 #  refund_transaction_id   :string(10)
 #  legacy                  :boolean(1)
+#  campaign_statement_id   :integer(4)
+#  disbursed_on            :date
 #
 
 require 'digest/md5'
