@@ -186,3 +186,11 @@ input.error { background:#FFE5E5; border-color:#C00; }
 }
 #receipt{ font-size:18px; }
 #cc-statement-disclaimer { color:#A00; font-size:13px; text-align:center; padding-top:1em; }
+
+#confirm-eligibility label.error {
+	display:block;
+	background-color:#FFE5E5;
+	border:1px solid #CC0000;
+	padding:6px 10px;
+	margin:0.75em 0;
+}
