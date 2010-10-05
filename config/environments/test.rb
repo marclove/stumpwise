@@ -33,6 +33,7 @@ HOST = "stumpwise-local.com"
 config.middleware.use "SetCookieDomain", ".stumpwise-local.com"
 
 config.gem 'machinist'
+config.gem "machinist_mongo", :lib => "machinist/mongo_mapper"
 config.gem 'shoulda', '2.10.3'
 config.gem 'factory_girl'
 config.gem 'webrat'

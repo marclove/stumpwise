@@ -12,10 +12,10 @@ class Admin::ContributionsControllerTest < ActionController::TestCase
       should_render_with :application, :index
       should_not_set_the_flash
       should_paginate :contributions
-      should_assign_to(:contribution_total){ 85.00 }
+      should_assign_to(:todays_contributions){ BigDecimal("85.00") }
+      should_assign_to(:pending_disbursement){ BigDecimal("23.25") }
+      should_assign_to(:total_raised){ BigDecimal("85.00") }
     end
-    
-    should_eventually "on GET to :search"
     
     context "on GET to :show" do
       setup { get :show, :id => contributions(:with_content_approved_1) }
@@ -63,7 +63,9 @@ class Admin::ContributionsControllerTest < ActionController::TestCase
       should_render_with :application, :index
       should_not_set_the_flash
       should_paginate :contributions
-      should_assign_to(:contribution_total){ 85.00 }
+      should_assign_to(:todays_contributions){ BigDecimal("85.00") }
+      should_assign_to(:pending_disbursement){ BigDecimal("23.25") }
+      should_assign_to(:total_raised){ BigDecimal("85.00") }
     end
     
     should_eventually "on GET to :search"

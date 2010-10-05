@@ -44,42 +44,19 @@ class ContributionsControllerTest < ActionController::TestCase
         Contribution.any_instance.expects(:approved?).returns(true)
         Contribution.any_instance.stubs(:order_id).returns("a84be")
         @request.env['REMOTE_ADDR'] = "99.99.99.99"
-        @opts = {:subdomain => "with-content", :credit_card => credit_card, :contribution => {}, :amount_choice => "20.0", :amount_other => ""}
+        post :create, {:subdomain => "with-content", :credit_card => credit_card, :contribution => {:amount => "$20.00"}}
       end
-    
-      context "and amount from given choices" do
-        setup do
-          post :create, @opts.merge!(:amount_choice => "20.0")
-        end
-        should_assign_to :contribution, :class => Contribution
-        should_assign_to :credit_card, :class => CreditCard
-        should_assign_to(:site){ sites(:with_content) }
-        should_redirect_to("the contribution receipt page"){ "/with-content/contribute/thanks/a84be" }
-        should "set the contribution amount to 20.00" do
-          assert_equal 20.0, assigns(:contribution).amount
-        end
-        should "set the contribution ip address to 99.99.99.99" do
-          assert_equal "99.99.99.99", assigns(:contribution).ip
-        end
-        should_filter_params :number, :verification_value
+      should_assign_to :contribution, :class => Contribution
+      should_assign_to :credit_card, :class => CreditCard
+      should_assign_to(:site){ sites(:with_content) }
+      should_redirect_to("the contribution receipt page"){ "/with-content/contribute/thanks/a84be" }
+      should "set the contribution amount to 20.00" do
+        assert_equal BigDecimal("20.00"), assigns(:contribution).amount
       end
-    
-      context "and other amount given" do
-        setup do
-          post :create, @opts.merge!(:amount_choice => "other", :amount_other => "12.34")
-        end
-        should_assign_to :contribution, :class => Contribution
-        should_assign_to :credit_card, :class => CreditCard
-        should_assign_to(:site){ sites(:with_content) }
-        should_redirect_to("the contribution receipt page"){ "/with-content/contribute/thanks/a84be" }
-        should "set the contribution amount to 12.34" do
-          assert_equal 12.34, assigns(:contribution).amount
-        end
-        should "set the contribution ip address to 99.99.99.99" do
-          assert_equal "99.99.99.99", assigns(:contribution).ip
-        end
-        should_filter_params :number, :verification_value
+      should "set the contribution ip address to 99.99.99.99" do
+        assert_equal "99.99.99.99", assigns(:contribution).ip
       end
+      should_filter_params :number, :cvv
     end
     
     context "with an invalid credit card" do
@@ -87,7 +64,7 @@ class ContributionsControllerTest < ActionController::TestCase
         CreditCard.any_instance.expects(:valid?).returns(false)
         Contribution.any_instance.expects(:save).never
         @request.env['REMOTE_ADDR'] = "99.99.99.99"
-        post :create, {:subdomain => "with-content", :credit_card => credit_card, :contribution => {}}
+        post :create, {:subdomain => "with-content", :credit_card => credit_card, :contribution => {:amount => "$20.00"}}
       end
       should_assign_to :contribution, :class => Contribution
       should_assign_to :credit_card, :class => CreditCard
@@ -96,7 +73,7 @@ class ContributionsControllerTest < ActionController::TestCase
       should_render_without_layout
       should_render_template :new
       should_set_the_flash_to I18n.t('contribution.process.fail.invalid_record')
-      should_filter_params :number, :verification_value
+      should_filter_params :number, :cvv
     end
   
     context "with an invalid contribution" do
@@ -104,7 +81,7 @@ class ContributionsControllerTest < ActionController::TestCase
         CreditCard.any_instance.expects(:valid?).returns(true)
         Contribution.any_instance.expects(:save).returns(false).once
         @request.env['REMOTE_ADDR'] = "99.99.99.99"
-        post :create, {:subdomain => "with-content", :credit_card => credit_card, :contribution => {}}
+        post :create, {:subdomain => "with-content", :credit_card => credit_card, :contribution => {:amount => "$20.00"}}
       end
       should_assign_to :contribution, :class => Contribution
       should_assign_to :credit_card, :class => CreditCard
@@ -113,7 +90,7 @@ class ContributionsControllerTest < ActionController::TestCase
       should_render_without_layout
       should_render_template :new
       should_set_the_flash_to I18n.t('contribution.process.fail.invalid_record')
-      should_filter_params :number, :verification_value
+      should_filter_params :number, :cvv
     end
   
     context "with everything valid and contribution rejected" do
@@ -127,9 +104,7 @@ class ContributionsControllerTest < ActionController::TestCase
         post :create, {
           :subdomain => "with-content", 
           :credit_card => credit_card, 
-          :contribution => {}, 
-          :amount_choice => "20.0", 
-          :amount_other => ""
+          :contribution => {:amount => "$20.00"}
         }
       end
       should_assign_to :contribution, :class => Contribution
@@ -139,7 +114,7 @@ class ContributionsControllerTest < ActionController::TestCase
       should_render_without_layout
       should_render_template :new
       should_set_the_flash_to "#{I18n.t('contribution.process.fail.rejected')} The processing error"
-      should_filter_params :number, :verification_value
+      should_filter_params :number, :cvv
     end
   end
 

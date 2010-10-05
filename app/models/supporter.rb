@@ -63,14 +63,14 @@ class Supporter < ActiveRecord::Base
   end
   
   def full_address
-    returning result = [] do
+    [].tap do |result|
       result << thoroughfare unless thoroughfare.blank?
       result << last_address_line if last_address_line
     end.join("<br/>")
   end
   
   def last_address_line
-    returning result = [] do
+    result = [].tap do |result|
       result << locality unless locality.blank?
       result << area_and_postal_code unless area_and_postal_code.blank?
     end

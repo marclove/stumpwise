@@ -6,7 +6,7 @@
 config.cache_classes = false
 
 #config.after_initialize {
-#  ActiveSupport::Dependencies.load_once_paths.delete(File.join(Rails.root, 'lib'))
+#  ActiveSupport::Dependencies.autoload_once_paths.delete(File.join(Rails.root, 'lib'))
 #}
 
 # Log error messages when you accidentally call methods on nil.

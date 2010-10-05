@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class Manage::ThemesControllerTest < ActionController::TestCase
+=begin    
   context "with administrator logged in" do
     setup { login_as(:admin) }
     
@@ -28,7 +29,6 @@ class Manage::ThemesControllerTest < ActionController::TestCase
       should_assign_to :theme
     end
 
-=begin    
     context "on GET to :new" do
       setup { get :new }
       
@@ -101,8 +101,8 @@ class Manage::ThemesControllerTest < ActionController::TestCase
       
       should_redirect_to("themes listing"){ manage_themes_path }
     end
-=end
   end
+=end
   
   context "with authorized user but non-administrator logged in" do
     setup { login_as(:authorized) }

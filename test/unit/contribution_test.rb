@@ -2,7 +2,8 @@ require 'test_helper'
 
 class ContributionTest < ActiveSupport::TestCase
   context "Contribution" do
-    should_have_class_methods :pending, :approved, :declined, :refunded
+    should_have_class_methods :pending, :approved, :declined, :voided,
+                              :settled, :refunded, :paid
     should_belong_to :site
     should_have_many :transactions
     

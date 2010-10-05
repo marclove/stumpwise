@@ -87,7 +87,7 @@ class CreditCardTest < ActiveSupport::TestCase
     end
     
     should "mark card as invalid when card expiration date is last month" do
-      last_month = Time.now.utc.last_month
+      last_month = Time.now.utc.prev_month
       @cc.expiration_month = last_month.month.to_s
       @cc.expiration_year = last_month.year.to_s
       assert !@cc.valid?

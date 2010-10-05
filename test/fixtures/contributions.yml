@@ -55,6 +55,8 @@ pending:
   country: US
   employer: ProgressBound
   occupation: Engineering Bitch
+  compliance_confirmation: true
+  compliance_statement: statement
 
 approved:
   id: 2

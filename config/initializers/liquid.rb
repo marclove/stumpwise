@@ -9,7 +9,7 @@ class ActionController::Dispatcher
     end
 
     def cleanup_application_with_liquid
-      returning cleanup_application_without_liquid do
+      cleanup_application_without_liquid.tap do
         register_liquid_tags
       end
     end

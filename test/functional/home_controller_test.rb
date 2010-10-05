@@ -26,11 +26,13 @@ class HomeControllerTest < ActionController::TestCase
           context "and valid administratorship" do
             setup do
               Administratorship.any_instance.stubs(:valid?).returns(true)
+              Theme.stubs(:first).returns(mock(:id => "randomid"))
+              Site.any_instance.expects(:set_theme!).once.returns(true)
               post :create_site, :site => Factory.attributes_for(:site), :user => Factory.attributes_for(:user), :credit_card => credit_card(:cardholder_name => "John Doe")
             end
             
             should_not_set_the_flash
-            should_filter_params :number, :verification_value
+            should_filter_params :number, :cvv
             should_assign_to :user, :class => User
             should_assign_to :site, :class => Site
             should "sign the new user in" do
@@ -66,7 +68,7 @@ class HomeControllerTest < ActionController::TestCase
             end
             
             should_set_the_flash_to I18n.t("site.create.fail")
-            should_filter_params :number, :verification_value
+            should_filter_params :number, :cvv
             should_assign_to :user, :class => User
             should_assign_to :site, :class => Site
             should_render_with :marketing, :signup
@@ -98,7 +100,7 @@ class HomeControllerTest < ActionController::TestCase
           end
             
           should_set_the_flash_to I18n.t("site.create.fail")
-          should_filter_params :number, :verification_value
+          should_filter_params :number, :cvv
           should_assign_to :user, :class => User
           should_assign_to :site, :class => Site
           should_render_with :marketing, :signup
@@ -130,7 +132,7 @@ class HomeControllerTest < ActionController::TestCase
         end
         
         should_set_the_flash_to I18n.t("site.create.fail")
-        should_filter_params :number, :verification_value
+        should_filter_params :number, :cvv
         should_assign_to :user, :class => User
         should_assign_to :site, :class => Site
         should_render_with :marketing, :signup
@@ -162,7 +164,7 @@ class HomeControllerTest < ActionController::TestCase
       end
         
       should_set_the_flash_to I18n.t("site.create.invalid_card")
-      should_filter_params :number, :verification_value
+      should_filter_params :number, :cvv
       should_assign_to :user, :class => User
       should_assign_to :site, :class => Site
       should_render_with :marketing, :signup

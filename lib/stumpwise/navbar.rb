@@ -89,7 +89,7 @@ module Stumpwise
       end
     
       def initialization_opts
-        returning "subdomain:'#{@site.subdomain}'" do |opts|
+        "subdomain:'#{@site.subdomain}'".tap do |opts|
           opts << ", customDomain:'#{@site.custom_domain}'" if @site.custom_domain.present?
           opts << ", analytics:'#{@site.google_analytics_id}'" if @site.google_analytics_id.present?
         end

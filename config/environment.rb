@@ -1,7 +1,7 @@
 # Be sure to restart your server when you modify this file
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.9' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -17,7 +17,7 @@ Rails::Initializer.run do |config|
   # Add additional load paths for your own custom dirs
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
   %w(middleware uploaders drops observers mailers jobs).each do |dir|
-    config.load_paths << "#{RAILS_ROOT}/app/#{dir}"
+    config.autoload_paths << "#{RAILS_ROOT}/app/#{dir}"
   end
 
   # Specify gems that this application depends on and have them installed with rake gems:install
@@ -28,24 +28,24 @@ Rails::Initializer.run do |config|
   config.gem 'RedCloth'
   config.gem 'liquid', :version => '2.1.2'
   config.gem 'bcrypt-ruby', :lib => 'bcrypt', :version => '2.1.2'
-  config.gem 'authlogic'
-  config.gem 'delayed_job'
+  config.gem 'authlogic', :version => '2.1.6'
+  config.gem 'delayed_job', :version => '2.0.3'
   config.gem 'will_paginate', :version => '2.3.12'
-  config.gem 'carrierwave', :version => '0.4.5'
+  config.gem 'carrierwave', :version => '0.4.5' # 0.5.0 for Rails 3
   config.gem 'braintree', :version => '2.2.0'
-  config.gem 'shenie-ssl_requirement', :lib => 'ssl_requirement'
+  config.gem 'shenie-ssl_requirement', :version => '1.1.3', :lib => 'ssl_requirement'
   config.gem 'twilio', :version => '2.8.0'
-  config.gem 'newrelic_rpm'
-  config.gem 'hoptoad_notifier'
-  config.gem 'aasm'
+  config.gem 'newrelic_rpm', :version => '2.13.2'
+  config.gem 'hoptoad_notifier', :version => '2.3.8'
+  config.gem 'aasm', :version => '2.2.0'
   config.gem 'jnunemaker-validatable', :lib => 'validatable', :version => '>=1.8.4'
-  config.gem 'geokit'
+  config.gem 'geokit', :version => '1.5.0'
   config.gem 'bson', :version => '1.0.9'
   config.gem 'bson_ext', :version => '1.0.9'
   config.gem 'mongo', :version => '1.0.9'
   config.gem 'mongo_mapper', :version => '0.8.3'
   config.gem 'joint', :version => '0.3.2'
-  config.gem 'haml', :version => '2.2.20'
+  config.gem 'haml', :version => '3.0.21'
   
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named

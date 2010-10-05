@@ -30,6 +30,8 @@ class Manage::SitesControllerTest < ActionController::TestCase
     
     context "on POST to :create with a valid site and user" do
       setup do
+        Theme.stubs(:first).returns(mock(:id => "randomid"))
+        Site.any_instance.expects(:set_theme!).once.returns(true)
         post :create, {
           :site => Factory.attributes_for(:site),
           :user => Factory.attributes_for(:user)
