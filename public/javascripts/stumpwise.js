@@ -24,6 +24,7 @@ if (!window.SW) {
 		www: 					function(){ return (this.ssl() ? 'https://secure.' : 'http://') + this.host(); },
 		secure: 			function(){ return 'https://secure.' + this.host(); },
 		customDomain: function(){ return window.location.hostname.match(/stumpwise(?:-local)?\.com$/) ? false : true; },
+		customAnalytics: false,
 		
 		trackPageview: function(pathName){
 	    var event = ['_trackPageview'];
@@ -31,6 +32,14 @@ if (!window.SW) {
 	      event.push(pathName);
 	    }
 	    _gaq.push(event);
+
+      if(SW.customAnalytics){
+        var event = ['customerTracker._trackPageview'];
+        if (pathName) {
+          event.push(pathName);
+        }
+        _gaq.push(event);
+      }
 		},
 		
 		thanksForJoining: function(){
@@ -369,8 +378,9 @@ if (!window.SW) {
 				$('#stumpwise-bar').navbar({subdomain:this.options.subdomain});
 				
 				if (this.options.analytics && this.options.customDomain && SW.customDomain()){
-	        _gaq.push(['b._setAccount', this.options.analytics]);
-	        _gaq.push(['b._setDomainName', this.options.customDomain]);
+          SW.customAnalytics = true;
+          _gaq.push(['customerTracker._setAccount', this.options.analytics]);
+          _gaq.push(['customerTracker._setDomainName', this.options.customDomain]);
 				}
 			}
 		})
