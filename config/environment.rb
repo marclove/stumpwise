@@ -42,6 +42,7 @@ Rails::Initializer.run do |config|
   config.gem 'geokit'
   config.gem 'bson', :version => '1.0.7'
   config.gem 'bson_ext', :version => '1.0.7'
+  config.gem 'mongo', :version => '1.0.7'
   config.gem 'mongo_mapper', :version => '0.8.3'
   config.gem 'joint', :version => '0.3.2'
   

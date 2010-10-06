@@ -38,7 +38,7 @@ module Rack
     end
 
     def gridfs_request(id)
-      file = Mongo::Grid.new(db).get(BSON::ObjectID.from_string(id))
+      file = Mongo::Grid.new(db).get(BSON::ObjectId.from_string(id))
       [
         200, 
         {
