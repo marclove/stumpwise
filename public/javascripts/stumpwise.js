@@ -330,9 +330,9 @@ if (!window.SW) {
 								$('html, body').animate({scrollTop:0}, 'slow');
 							},
 							success:function(m){
+								$("#submit").html('Thank you for your contribution!');
 								$.postMessage('thanksForContributing', that.campaignSite(), window.opener);
 								window.close();
-								$("#submit").html('Thank you for your contribution!');
 							},
 							url: $(form).attr("action")
 						});
