@@ -31,7 +31,7 @@ Rails::Initializer.run do |config|
   config.gem 'authlogic'
   config.gem 'delayed_job'
   config.gem 'will_paginate', :version => '2.3.12'
-  config.gem 'carrierwave'
+  config.gem 'carrierwave', :version => '0.4.5'
   config.gem 'braintree', :version => '2.2.0'
   config.gem 'shenie-ssl_requirement', :lib => 'ssl_requirement'
   config.gem 'twilio', :version => '2.8.0'
@@ -45,6 +45,7 @@ Rails::Initializer.run do |config|
   config.gem 'mongo', :version => '1.0.9'
   config.gem 'mongo_mapper', :version => '0.8.3'
   config.gem 'joint', :version => '0.3.2'
+  config.gem 'haml', :version => '2.2.20'
   
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
