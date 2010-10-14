@@ -57,7 +57,7 @@ $(document).ready(function() {
 		"table[cellpadding=0|cellspacing=0|summary],caption,colgroup[span],col[span]," + // Not HTML5: cellpadding, cellspacing
 		"tbody,thead,tfoot,tr,td[colspan|rowspan|headers],th[colspan|rowspan|headers|scope]",
 			
-		theme_advanced_buttons1: "bold,italic,strikethrough,separator,blockquote,formatselect,separator,bullist,numlist,separator,outdent,indent,separator,image,link,unlink,pasteword,separator,code",
+		theme_advanced_buttons1: "bold,italic,underline,strikethrough,separator,blockquote,formatselect,separator,bullist,numlist,separator,outdent,indent,separator,image,link,unlink,pasteword,separator,code",
 		theme_advanced_blockformats : "h1,h2,h3,p",
 		width: '100%',
 		setup: function (ed) {
