@@ -1,5 +1,8 @@
 require 'timeout'
+gem 'mongo', :version => '1.0.9'
+gem 'bson', :version => '1.0.9'
 require 'mongo'
+require 'bson'
 
 module Rack
   class GridFSConnectionError < StandardError ; end
