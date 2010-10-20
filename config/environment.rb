@@ -40,11 +40,12 @@ Rails::Initializer.run do |config|
   config.gem 'aasm', :version => '2.2.0'
   config.gem 'jnunemaker-validatable', :lib => 'validatable', :version => '>=1.8.4'
   config.gem 'geokit', :version => '1.5.0'
-  config.gem 'bson', :version => '1.0.9'
-  config.gem 'bson_ext', :version => '1.0.9'
-  config.gem 'mongo', :version => '1.0.9'
-  config.gem 'mongo_mapper', :version => '0.8.3'
-  config.gem 'joint', :version => '0.3.2'
+  config.gem 'mongo', :version => '1.1.1'
+  config.gem 'bson', :version => '1.1.1'
+  config.gem 'bson_ext', :version => '1.1.1'
+  config.gem 'plucky', :version => '0.3.6'
+  config.gem 'mongo_mapper', :version => '0.8.6'
+  config.gem 'joint', :version => '0.4.0'
   config.gem 'haml', :version => '3.0.21'
   
   # Only load the plugins named here, in the order given (default is alphabetical).
