@@ -21,11 +21,8 @@ class CreateCampaignMonitorClientJob < Struct.new(:site)
     @client["Username"] = site.subdomain
     @client["Password"] = site.campaign_monitor_password
     @client["AccessLevel"] = 47
-    @client["BillingType"] = "ClientPaysWithMarkup"
+    @client["BillingType"] = "ClientPaysAtStandardRate"
     @client["Currency"] = "USD"
-    @client["DeliveryFee"] = "25.0"
-    @client["CostPerRecipient"] = "1.0"
-    @client["DesignAndSpamTestFee"] = "5.0"
     @client.UpdateAccessAndBilling
   end
   
