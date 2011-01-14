@@ -132,7 +132,7 @@ class Site < ActiveRecord::Base
   validates_format_of     :campaign_email, :with => RegEmailOk, :allow_blank => false
   validates_presence_of   :name, :campaign_legal_name, :time_zone, :owner_id
   
-  after_create :add_to_campaign_monitor
+  after_create :send_welcome_email, :add_to_campaign_monitor
   before_destroy :destroy_theme_customizations
   
   def campaign_email=(new_email)
@@ -286,5 +286,9 @@ class Site < ActiveRecord::Base
     
     def add_to_campaign_monitor
       Delayed::Job.enqueue CreateCampaignMonitorClientJob.new(self)
+    end
+    
+    def send_welcome_email
+      Delayed::Job.enqueue SendWelcomeEmailJob.new(self.id)
     end
 end
