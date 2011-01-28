@@ -18,7 +18,16 @@ class HomeController < ApplicationController
   def create_site
     @user = User.new(params[:user])
     site = params[:site].merge(:active => true)
-    @site = Site.new(params[:site])
+    
+    # split candidate name and add to user model
+    name = site[:name].split(' ')
+    @user.first_name, @user.last_name = name[0], name[1..-1].join(' ')
+
+    # copy user.email to the site.campaign_email
+    site[:campaign_email] = @user.email
+    
+    # set the default campaign legal name
+    site[:campaign_legal_name] = "#{site[:name]} for #{site[:subhead]}"
     
     User.transaction do
       Site.transaction do

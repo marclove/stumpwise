@@ -130,7 +130,7 @@ class Site < ActiveRecord::Base
                           :message => 'is invalid. Please use the following format: "example.com"'
   validates_length_of     :campaign_email, :within => 6..100,   :allow_blank => false
   validates_format_of     :campaign_email, :with => RegEmailOk, :allow_blank => false
-  validates_presence_of   :name, :campaign_legal_name, :time_zone, :owner_id
+  validates_presence_of   :name, :subhead, :time_zone, :owner_id
   
   after_create :send_welcome_email, :add_to_campaign_monitor
   before_destroy :destroy_theme_customizations
