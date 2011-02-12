@@ -58,7 +58,7 @@ module Stumpwise
             end
             self.output_buffer << "\n"
             link_to @site.contribute_url, :class => "stumpwise-bar-button", :id => "stumpwise-bar-contribute" do
-              image_tag "navbar/contribute.png", :class => "stumpwise-bar-button-img"
+              image_tag "navbar/contribute-red.png", :class => "stumpwise-bar-button-img"
             end
             self.output_buffer << "\n"
           end
