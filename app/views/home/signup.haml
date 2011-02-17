@@ -3,7 +3,7 @@
 		=render 'layouts/marketing_nav'
 		#signup
 			%h2 Launch your campaign site in less than 5 minutes!
-			-form_tag '/create_site' do
+			-form_tag '/create_site', :id => 'signup-form' do
 				=flash_messages
 				#site-information.section
 					-fields_for @site do |s|
