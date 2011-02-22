@@ -9,10 +9,15 @@ module Stumpwise
     attr_reader :accepts_contributions, :contribute_url
     attr_accessor :output_buffer
 
-    def initialize(site)
+    def initialize(site, logged_in)
       @site = site
       @accepts_contributions = site.can_accept_contributions?
       @contribute_url = site.contribute_url
+      @logged_in = logged_in
+    end
+    
+    def logged_in?
+      !!@logged_in
     end
     
     def header_markup
@@ -51,6 +56,14 @@ module Stumpwise
             self.output_buffer << "\n"
             link_to 'http://stumpwise.com', :class => "stumpwise-bar-button", :id => "stumpwise-bar-logo" do
               image_tag "navbar/logo.png", :class => "stumpwise-bar-button-img", :alt => "Powered by Stumpwise"
+            end
+            self.output_buffer << "\n"
+            link_to '/admin', :class => "stumpwise-bar-button", :id => "stumpwise-bar-admin" do
+              if logged_in?
+                image_tag "navbar/dashboard.png", :class => "stumpwise-bar-button-img"
+              else
+                image_tag "navbar/login.png", :class => "stumpwise-bar-button-img"
+              end
             end
             self.output_buffer << "\n"
             link_to '/join', :class => "stumpwise-bar-button", :id => "stumpwise-bar-join" do

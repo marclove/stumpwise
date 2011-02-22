@@ -28,7 +28,7 @@ class StumpwiseController < ApplicationController
   
   private
     def set_navbar_headers
-      request.env[:navbar] = Stumpwise::Navbar.new(current_site)
+      request.env[:navbar] = Stumpwise::Navbar.new(current_site, current_user.present?)
     end
     
     def find_item(path)
