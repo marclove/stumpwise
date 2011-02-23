@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+	<script src="externals/jquery.colorbox.js" type="text/javascript"></script>
+	
+	<style type="text/css" media="screen">
+		body{
+			padding:1em;
+			background:#FFF;
+			font-family:'Helvetica Neue',helvetica,arial,sans-serif;
+			line-height:1.5em;
+			color:#222;
+			font-size:16px;
+		}
+		#wrapper{
+			margin:80px auto;
+			width:400px;
+			padding:40px;
+			background:#FFF;
+			border:1px solid #DDD;
+			-webkit-border-radius:8px;
+			-moz-border-radius:8px;
+			border-radius:8px;
+		}
+		h1{
+			margin:0 0 0.5em 0;
+			border-bottom:1px solid #DDD;
+			padding-bottom:0.5em;
+			font-weight:bold;
+			line-height:1.2em;
+			font-size:24px;
+			letter-spacing:-1px;
+			color:#36C;
+		}
+		p { margin:1em 0 0 0; }
+		
+		/* BUTTONS */
+
+		.buttons {
+			padding:1em 0;
+		}
+		.buttons:after {
+		    content: ".";
+		    display: block;
+		    height: 0;
+		    clear: both;
+		    visibility: hidden;
+		}
+
+		.buttons a, .buttons button{
+		    display:block;
+		    float:right;
+		    margin:7px 0 0 0;
+		    background-color:#F5F5F5;
+		    border:1px solid #CCC;
+		    border-top:1px solid #DEDEDE;
+		    border-left:1px solid #DEDEDE;
+				-webkit-border-radius: 5px;
+				-moz-border-radius: 5px;
+				border-radius: 5px;
+
+		    font-family:"Lucida Grande","Lucida Sans Unicode","Lucida Sans",Tahoma,Arial,sans-serif;
+		    font-size:100%;
+		    line-height:130%;
+		    text-decoration:none;
+		    font-weight:bold;
+		    color:#565656;
+		    cursor:pointer;
+		    padding:5px 10px 6px 10px; /* Links */
+				-moz-box-shadow: 2px 2px 2px #EEE;
+		}
+		.buttons button{
+		    width:auto;
+		    overflow:visible;
+		    padding:4px 10px 3px 10px; /* IE6 */
+		}
+		.buttons button[type]{
+		    padding:5px 10px 5px 10px; /* Firefox */
+		    line-height:17px; /* Safari */
+		}
+		*:first-child+html button[type]{
+		    padding:4px 10px 3px 10px; /* IE7 */
+		}
+		.buttons button img, .buttons a img{
+		    margin:0 3px -3px -3px !important;
+		    padding:0;
+		    border:none;
+		    width:16px;
+		    height:16px;
+		}
+
+		/* STANDARD */
+
+		button:hover, .buttons a:hover{
+		    background-color:#DFF4FF;
+		    border:1px solid #C2E1EF;
+		    color:#336699;
+		}
+		.buttons a:active{
+		    background-color:#6299C5;
+		    border:1px solid #6299C5;
+		    color:#FFF;
+		}
+
+		/* POSITIVE */
+
+		button.positive, .buttons a.positive{
+		    background-color:#e3f1fc;
+				color:#2e6e9e;
+				border-color:#7f9fb8;
+		}
+		.buttons a.positive:hover, button.positive:hover{
+		    background-color:#dcebf7;
+		    border:1px solid #79b7e7;
+		    color:#1d5987;
+		}
+		.buttons a.positive:active{
+		    background-color:#1d5987;
+		    border:1px solid #1d5987;
+		    color:#FFF;
+		}
+
+		/* NEGATIVE */
+
+		.buttons a.negative, button.negative{
+		    color:#D12F19;
+		}
+		.buttons a.negative:hover, button.negative:hover{
+		    background:#FBE3E4;
+		    border:1px solid #FBC2C4;
+		    color:#D12F19;
+		}
+		.buttons a.negative:active{
+		    background-color:#D12F19;
+		    border:1px solid #D12F19;
+		    color:#FFF;
+		}
+	</style>
+	
+</head>
+<body>
+	<h1>Welcome to your campaign site!</h1>
+	<p>You’ll be able to personalize it by adding content, changing layout &amp; customizing appearance.</p>
+	<p>Feel free to take a look around. When you’re ready, click "Dashboard" on the navigation bar at the top of your screen to get started!</p>
+	<div class="buttons"><a id="ok" href="#" class="positive">Okay</a></div>
+	<script>
+		$("#ok").click(function(e){
+			e.preventDefault();
+			window.parent.$.fn.colorbox.close();
+		});
+	</script>
+</body>
+</html>

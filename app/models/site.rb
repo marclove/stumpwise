@@ -132,7 +132,7 @@ class Site < ActiveRecord::Base
   validates_format_of     :campaign_email, :with => RegEmailOk, :allow_blank => false
   validates_presence_of   :name, :subhead, :time_zone, :owner_id
   
-  after_create :send_welcome_email, :add_to_campaign_monitor
+  after_create :send_welcome_email, :add_to_campaign_monitor, :add_default_content
   before_destroy :destroy_theme_customizations
   
   def campaign_email=(new_email)
@@ -290,5 +290,14 @@ class Site < ActiveRecord::Base
     
     def send_welcome_email
       Delayed::Job.enqueue SendWelcomeEmailJob.new(self.id)
+    end
+    
+    def add_default_content
+      update_attributes(:twitter_username => 'stumpwise', :facebook_page_id => 'stumpwise')
+      blog = self.blogs.create({:title => "Blog", :slug => 'blog', :published => true, :show_in_navigation => true})
+      blog.articles.create({:title => "Welcome!", :slug => 'welcome', :published => true, :show_in_navigation => true, :body => "<p>My name is #{self.name} and I am running for #{self.subhead}. Thank you for visiting my campaign site.</p><p>The site is currently under construction. Please check back regularly for updates on the campaign and ways to get involved!</p>"})
+      self.pages.create({:title => "About", :slug => 'about', :published => true, :show_in_navigation => true, :body => "Coming soon!"})
+      self.pages.create({:title => "Issues", :slug => 'issues', :published => true, :show_in_navigation => true, :body => "Coming soon!"})
+      self.pages.create({:title => "Contact", :slug => 'contact', :published => true, :show_in_navigation => true, :body => "Email: <a href=\"mailto:#{self.campaign_email}\">#{self.campaign_email}</a>"})
     end
 end

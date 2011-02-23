@@ -382,6 +382,10 @@ if (!window.SW) {
           _gaq.push(['customerTracker._setAccount', this.options.analytics]);
           _gaq.push(['customerTracker._setDomainName', this.options.customDomain]);
 				}
+				
+				if (window.location.search == '?welcome=true'){
+				  $.colorbox({open:true, iframe:true, href:'/stumpwise-new-site-welcome.html', width:'600px', height:'320px'});
+				}
 			}
 		})
 		

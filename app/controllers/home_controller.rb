@@ -41,7 +41,7 @@ class HomeController < ApplicationController
     end
     @site.set_theme!(Theme.first.id.to_s)
     UserSession.create(@user)
-    redirect_to "http://#{@site.subdomain}.#{HOST}/admin/site/edit"
+    redirect_to "http://#{@site.subdomain}.#{HOST}/?welcome=true"
   rescue ActiveRecord::RecordInvalid => e
     notify_hoptoad(e)
     flash.now[:error] = t("site.create.fail")
