@@ -82,6 +82,14 @@ module Stumpwise
               image_tag "navbar/logo.png", :class => "stumpwise-bar-button-img", :alt => "Powered by Stumpwise"
             end
             self.output_buffer << "\n"
+            link_to '/admin', :class => "stumpwise-bar-button", :id => "stumpwise-bar-admin" do
+              if logged_in?
+                image_tag "navbar/dashboard.png", :class => "stumpwise-bar-button-img"
+              else
+                image_tag "navbar/login.png", :class => "stumpwise-bar-button-img"
+              end
+            end
+            self.output_buffer << "\n"
             link_to '/join', :class => "stumpwise-bar-button", :id => "stumpwise-bar-join" do
               image_tag "navbar/join.png", :class => "stumpwise-bar-button-img"
             end
