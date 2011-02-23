@@ -1,10 +1,10 @@
-Hello <%= site.owner.try(:name) %>,
+Hello <%= @site.owner.try(:name) %>,
 
 Welcome to Stumpwise! Here's some important account information:
 
 LOGIN
 You can log in to your account at:
-http://<%= site.subdomain %>.stumpwise.com/admin
+http://<%= @site.subdomain %>.stumpwise.com/admin
 We recommend that you bookmark this page for future reference.
 
 CONTRIBUTION PROCESSING
