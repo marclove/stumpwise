@@ -4,6 +4,7 @@ class Theme
   key :name,        String, :required => true
   key :version_ids, Array
   key :listed,      Boolean, :default => false
+  key :default,     Boolean, :default => false
   timestamps!
   
   many :versions, :class_name => 'ThemeVersion',
