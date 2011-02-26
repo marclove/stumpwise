@@ -1,7 +1,11 @@
 class CandidatePhotoUploader < CarrierWave::Uploader::Base
   include CarrierWave::RMagick
   storage :s3
-
+  
+  def default_url
+    "/images/fallback/" + [version_name, "profile.png"].compact.join('_')
+  end
+  
   def store_dir
     "sites/#{model.id}/candidate"
   end
