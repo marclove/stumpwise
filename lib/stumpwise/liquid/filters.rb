@@ -33,6 +33,12 @@ module Stumpwise
         content_tag(:a, link_text || item['title'], :href => item['permalink'])
       end
       
+      def feed_link_tag(item)
+        if item.has_key?('feed_url')
+          tag(:link, {:href => item['feed_url'], :rel => "alternate", :title => item['title'], :type => "application/atom+xml"})
+        end
+      end
+      
       def widont(text)
         text = text.to_s
         text[text.rindex(" ")] = "&nbsp;"

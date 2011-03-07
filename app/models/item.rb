@@ -56,6 +56,14 @@ class Item < ActiveRecord::Base
     parent_id.nil? && lft == 1
   end
   
+  def to_param
+    self.permalink
+  end
+  
+  def to_url
+    site.root_url + '/' + self.permalink
+  end
+  
   def to_liquid
     ItemDrop.new(self)
   end

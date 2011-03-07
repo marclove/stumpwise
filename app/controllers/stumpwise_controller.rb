@@ -32,16 +32,22 @@ class StumpwiseController < ApplicationController
     end
     
     def find_item(path)
-      if path.blank?
+      @path = path
+      if @path.last == "feed"
+        @is_feed = true
+        @path = @path[0..-2]
+      end
+      
+      if @path.blank?
         unless @item = current_site.root_item
           @item = :in_development
         end
-      elsif path == ["sitemap.xml"]
+      elsif @path == ["sitemap.xml"]
         @item = :sitemap
-      elsif path == ["robots.txt"]
+      elsif @path == ["robots.txt"]
         @item = :robots
       else
-        unless @item = current_site.items.published.find_by_permalink(path.join('/'))
+        unless @item = current_site.items.published.find_by_permalink(@path.join('/'))
           @item = :not_found
         end
       end
@@ -57,19 +63,23 @@ class StumpwiseController < ApplicationController
         :page => params[:page], 
         :per_page => params[:per_page]
       )
-      render_liquid(@item, {
-        'articles' => @articles.map(&:to_liquid),
-        'current_page' => @articles.current_page,
-        'total_pages' => @articles.total_pages,
-        'previous_page' => @articles.previous_page,
-        'next_page' => @articles.next_page,
-        'per_page' => @articles.per_page,
-        'path' => request.path
-      })
+      if @is_feed
+        render :template => 'stumpwise/show.atom.builder'
+      else
+        render_liquid(@item, {
+          'articles' => @articles.map(&:to_liquid),
+          'current_page' => @articles.current_page,
+          'total_pages' => @articles.total_pages,
+          'previous_page' => @articles.previous_page,
+          'next_page' => @articles.next_page,
+          'per_page' => @articles.per_page,
+          'path' => request.path
+        })
+      end
     end
     
     def render_article
-      render_liquid(@item, {'blog' => true})
+      render_liquid(@item, {'blog' => @item.blog})
     end
     
     def render_liquid(object, assigns = {})

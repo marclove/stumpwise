@@ -1,7 +1,7 @@
 class ItemDrop < BaseDrop
   liquid_attributes.push(*[
     :title, :slug, :show_in_navigation, :created_at, :updated_at,
-    :root?, :child?, :leaf?, :landing_page?
+    :root?, :child?, :leaf?, :landing_page?, :to_url
   ])
   
   def previous

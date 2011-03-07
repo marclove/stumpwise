@@ -6,4 +6,8 @@ class BlogDrop < ItemDrop
   def html_id
     "blog-#{@source.id}"
   end
+  
+  def feed_url
+    @source.to_url + '/feed'
+  end
 end
