@@ -1,0 +1,48 @@
+<% @body_class = 'no-sidebar' %>
+<% @menu = 'dashboard' %>
+
+<div id="main">
+	<div style="padding:1em 2em;">
+		<h1>Welcome to your campaign dashboard!</h1>
+		<p>
+			We’ve laid out 7 quick &amp; easy steps to guide you through the setup process.
+			Some steps are optional &amp; you can always come back to update your settings…instantly!
+		</p>
+		<ul id="checklist">
+			<li<% if @progress_tracker.contact_info_entered %> class='completed'<% end %>>
+				<%= link_to_unless(@progress_tracker.contact_info_entered, 'Campaign Info', edit_admin_site_path + "?highlight=true#campaign_info") %>
+				<p>Update your contact information so your supporters know how to get in touch with you.</p>
+			</li>
+
+			<li<% if @progress_tracker.candidate_photo_uploaded %> class='completed'<% end %>>
+				<%= link_to_unless(@progress_tracker.candidate_photo_uploaded, 'Candidate Photo', edit_admin_site_path + "?highlight=true#site_candidate_photo") %>
+				<p>Upload your picture so visitors know who you are.</p>
+			</li>
+
+			<li<% if @progress_tracker.social_networks_added %> class='completed'<% end %>>
+				<%= link_to_unless(@progress_tracker.social_networks_added, 'Social Media', edit_admin_site_path + "?highlight=true#social_networks") %>
+				<p>Connect your social networks to engage your followers.</p>
+			</li>
+
+			<li<% if @progress_tracker.fundraising_activated %> class='completed'<% end %>>
+				<%= link_to_unless(@progress_tracker.fundraising_activated, 'Fundraising', admin_contributions_path) %>
+				<p>Provide proof of your candidacy &amp; tell us where to send funds so you can begin accepting credit contributions today!</p>
+			</li>
+
+			<li<% if @progress_tracker.custom_domain_setup %> class='completed'<% end %>>
+				<%= link_to_unless(@progress_tracker.custom_domain_setup, 'Custom URL', edit_admin_site_path + "?highlight=true#site_subdomain") %>
+				<p>Link your custom domain (e.g. Lincoln4prez.com) if you’d like to use your own web address.</p>
+			</li>
+
+			<li<% if @progress_tracker.theme_customized %> class='completed'<% end %>>
+				<%= link_to_unless(@progress_tracker.theme_customized, 'Design', admin_theme_path) %>
+				<p>Customize the appearance of your site to make it your own.</p>
+			</li>
+
+			<li<% if @progress_tracker.content_created %> class='completed'<% end %>>
+				<%= link_to_unless(@progress_tracker.content_created, 'Site Content', admin_blogs_path) %>
+				<p>Write a blog article or an issues page to start building out your site.</p>
+			</li>
+		</ul>		
+	</div>
+</div>

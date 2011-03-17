@@ -29,9 +29,8 @@
 					=link_to 'Log Out', admin_logout_path
 				%div{:style => "clear:both;"}
 				#menu
-					/
-						=link_to 'Get Started', admin_welcome_path, :class => @menu == 'welcome' ? 'current' : ''
-					=link_to 'Web Site', admin_root_path, :class => @menu == 'website' ? 'current' : ''
+					=link_to 'Dashboard', admin_root_path, :class => @menu == 'dashboard' ? 'current' : ''
+					=link_to 'Web Site', admin_blogs_path, :class => @menu == 'website' ? 'current' : ''
 					=link_to 'Supporters', admin_supporters_path, :class => @menu == 'supporters' ? 'current' : ''
 					=link_to 'Contributions', admin_contributions_path, :class => @menu == 'contributions' ? 'current' : ''
 					-if current_site.campaign_monitor_password

@@ -41,7 +41,6 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace(:admin) do |admin|
     admin.terms 'terms', :controller => 'info', :action => 'terms'
     admin.accept_terms 'accept_terms', :controller => 'info', :action => 'accept_terms'
-    admin.welcome 'welcome', :controller => 'info', :action => 'welcome'
     
     admin.resources :sessions, :only => [:new, :create, :destroy]
     admin.login  'login',  :controller => 'sessions', :action => 'new'
@@ -62,7 +61,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :supporters, :only => [:index, :show, :destroy], :collection => {:export => :get}
     admin.resources :contributions, :only => [:index, :show], :collection => {:summary => :get, :export => :get, :settings => :get, :update_settings => :put}, :member => {:refund => :put}
     admin.resources :sms_campaigns
-    admin.root :controller => 'blogs', :action => 'index'
+    admin.root :controller => 'dashboard', :action => 'index'
   end
   
   map.resources :supporters, :only => [:new, :create]

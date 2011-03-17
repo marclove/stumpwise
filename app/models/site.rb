@@ -104,6 +104,7 @@ class Site < ActiveRecord::Base
     end
   end
   
+  has_one     :progress_tracker
   has_many    :contributions, :order => 'created_at DESC'
   has_many    :campaign_statements, :order => 'disbursed_on DESC'
   has_many    :sms_campaigns, :order => 'created_at DESC'
@@ -132,7 +133,7 @@ class Site < ActiveRecord::Base
   validates_format_of     :campaign_email, :with => RegEmailOk, :allow_blank => false
   validates_presence_of   :name, :subhead, :time_zone, :owner_id
   
-  after_create :send_welcome_email, :add_to_campaign_monitor, :add_default_content
+  after_create :send_welcome_email, :add_to_campaign_monitor, :set_default_theme, :add_default_content
   before_destroy :destroy_theme_customizations
   
   def campaign_email=(new_email)
@@ -299,5 +300,9 @@ class Site < ActiveRecord::Base
       self.pages.create({:title => "About", :slug => 'about', :published => true, :show_in_navigation => true, :body => "Coming soon!"})
       self.pages.create({:title => "Issues", :slug => 'issues', :published => true, :show_in_navigation => true, :body => "Coming soon!"})
       self.pages.create({:title => "Contact", :slug => 'contact', :published => true, :show_in_navigation => true, :body => "Email: <a href=\"mailto:#{self.campaign_email}\">#{self.campaign_email}</a>"})
+    end
+    
+    def set_default_theme
+      self.set_theme!(Theme.first({:default => true}).id.to_s)
     end
 end

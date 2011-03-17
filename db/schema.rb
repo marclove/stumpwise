@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100916062732) do
+ActiveRecord::Schema.define(:version => 20110309223238) do
 
   create_table "administratorships", :force => true do |t|
     t.integer "administrator_id"
@@ -147,6 +147,19 @@ ActiveRecord::Schema.define(:version => 20100916062732) do
   end
 
   add_index "liquid_templates", ["theme_id", "filename"], :name => "index_liquid_templates_on_theme_id_and_filename"
+
+  create_table "progress_trackers", :force => true do |t|
+    t.integer  "site_id"
+    t.boolean  "theme_customized",         :default => false
+    t.boolean  "contact_info_entered",     :default => false
+    t.boolean  "candidate_photo_uploaded", :default => false
+    t.boolean  "social_networks_added",    :default => false
+    t.boolean  "custom_domain_setup",      :default => false
+    t.boolean  "content_created",          :default => false
+    t.boolean  "fundraising_activated",    :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "sites", :force => true do |t|
     t.datetime "created_at"

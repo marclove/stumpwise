@@ -39,7 +39,6 @@ class HomeController < ApplicationController
         end
       end
     end
-    @site.set_theme!(Theme.first({:default => true}).id.to_s)
     UserSession.create(@user)
     redirect_to "http://#{@site.subdomain}.#{HOST}/?welcome=true"
   rescue ActiveRecord::RecordInvalid => e

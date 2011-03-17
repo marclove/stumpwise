@@ -161,6 +161,29 @@ $(document).ready(function() {
 	});
 	
 	$("time.timeago").timeago();
+	
+	
+	
+	// Progress Tracker Action Highlights
+	if (window.location.search == '?highlight=true' && window.location.hash == '#campaign_info'){
+	  $('#site_campaign_legal_name').css({'background-color':'#FFC', 'background-image':'none'});
+	  $('#site_campaign_street').css({'background-color':'#FFC', 'background-image':'none'});
+	  $('#site_campaign_city').css({'background-color':'#FFC', 'background-image':'none'});
+	  $('#site_campaign_state').css({'background-color':'#FFC', 'background-image':'none'});
+	  $('#site_campaign_zip').css({'background-color':'#FFC', 'background-image':'none'});
+	  $('#site_campaign_email').css({'background-color':'#FFC', 'background-image':'none'});
+	}
+	if (window.location.search == '?highlight=true' && window.location.hash == '#site_candidate_photo'){
+	  $('#site_candidate_photo').css({'background-color':'#FFC', 'background-image':'none'});
+	}
+	if (window.location.search == '?highlight=true' && window.location.hash == '#social_networks'){
+	  $('#site_twitter_username').css({'background-color':'#FFC', 'background-image':'none'});
+	  $('#site_facebook_page_id').css({'background-color':'#FFC', 'background-image':'none'});
+	}
+	if (window.location.search == '?highlight=true' && window.location.hash == '#site_subdomain'){
+	  $('#site_custom_domain').css({'background-color':'#FFC', 'background-image':'none'});
+	}	
+	
 });
 
 

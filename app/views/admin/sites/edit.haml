@@ -23,7 +23,7 @@
 		=f.label :google_analytics_id, "Google Analytics Tracking ID <span>(UA-XXXXXXX-X)</span>", {:class => 'on-top'}
 		=f.text_field :google_analytics_id, :class => 'text_field wide'
 
-		%h2{:style => "margin-top:2em;"} Campaign Information
+		%h2{:id => 'campaign_info', :style => "margin-top:2em;"} Campaign Information
 		=f.label :campaign_legal_name, 'Legal Name of the Campaign', {:class => 'on-top'}
 		=f.text_field :campaign_legal_name, :class => 'text_field wide'
 		=f.label :campaign_street, 'Campaign Street Address', {:class => 'on-top'}

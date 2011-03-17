@@ -652,3 +652,35 @@ border-top-right-radius: 10px;
 	color:#000;
 	text-decoration:line-through;
 }
+
+ul#checklist {
+  margin:14px;
+  padding-left:0.2em;
+  font-size:18px;
+  font-weight:bold;
+}
+ul#checklist a:link, ul#checklist a:visited {
+  color:#000;
+  text-decoration:none;
+}
+ul#checklist a:hover {
+  color:#006;
+  text-decoration:none;
+}
+ul#checklist p {
+  font-weight:normal;
+  font-size:13px;
+  color:#333;
+  margin-top:0;
+  font-family:"Lucida Grande","Lucida Sans Unicode","Lucida Sans",Tahoma,Arial,sans-serif;
+}
+ul#checklist li {
+  background:url(../images/checklist-unchecked.png) 0em 0em no-repeat;
+  line-height:26px;
+  padding-left:32px;
+  list-style:none;
+  margin-top:1em;
+}
+ul#checklist li.completed {
+  background:url(../images/checklist-checked.png) 0em 0em no-repeat;
+}
