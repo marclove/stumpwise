@@ -4,7 +4,15 @@ class WeeklyContributions < ActionMailer::Base
     from        "Stumpwise <support@stumpwise.com>"
     bcc         "statements@stumpwise.com"
     subject     "Weekly Statement - #{statement.disbursed_on}"
-    body        :statement => statement
+    content_type "multipart/alternative"
+    
+    part :content_type => "text/html",
+         :body => render_message("campaign_statement.text.html.erb", :statement => statement)
+          
+    part "text/plain" do |p|
+      p.body = render_message("campaign_statement.text.plain.erb", :statement => statement)
+      p.transfer_encoding = "base64"
+    end
   end
   
   def summary_statement(disbursement_date)
@@ -14,6 +22,7 @@ class WeeklyContributions < ActionMailer::Base
     from        "billing@stumpwise.com"
     bcc         "statements@stumpwise.com"
     subject     "Batch Report - #{disbursement_date}"
+    content_type "text/html"
     body        :disbursement_date => disbursement_date,
                 :statements => statements,
                 :total_raised => statements.sum(&:total_raised),
