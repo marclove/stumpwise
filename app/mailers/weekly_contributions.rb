@@ -18,7 +18,7 @@ class WeeklyContributions < ActionMailer::Base
   def summary_statement(disbursement_date)
     statements = CampaignStatement.all(:conditions => {:disbursed_on => disbursement_date}, :include => :site)
     
-    recipients  "send.grid.test@gmail.com"
+    recipients  "billing@stumpwise.com"
     from        "billing@stumpwise.com"
     bcc         "statements@stumpwise.com"
     subject     "Batch Report - #{disbursement_date}"
