@@ -5,31 +5,31 @@ ThemeAsset.delete_all
 default_theme = Theme.create(:name => "Default Theme")
 default_theme.layouts.create(
   :filename => "layout.tpl",
-  :content => File.new("#{RAILS_ROOT}/db/seeds/layout.tpl").readlines.join
+  :content => File.new("#{Rails.root}/db/seeds/layout.tpl").readlines.join
 )
 default_theme.templates.create(
   :filename => "page.tpl",
-  :content => File.new("#{RAILS_ROOT}/db/seeds/page.tpl").readlines.join
+  :content => File.new("#{Rails.root}/db/seeds/page.tpl").readlines.join
 )
 default_theme.templates.create(
   :filename => 'blog.tpl',
-  :content => File.new("#{RAILS_ROOT}/db/seeds/blog.tpl").readlines.join
+  :content => File.new("#{Rails.root}/db/seeds/blog.tpl").readlines.join
 )
 default_theme.templates.create(
   :filename => 'article.tpl',
-  :content => File.new("#{RAILS_ROOT}/db/seeds/article.tpl").readlines.join
+  :content => File.new("#{Rails.root}/db/seeds/article.tpl").readlines.join
 )
-default_theme.assets.create(:file => File.open("#{RAILS_ROOT}/db/seeds/master.css"))
-default_theme.assets.create(:file => File.open("#{RAILS_ROOT}/db/seeds/grid.css"))
-default_theme.assets.create(:file => File.open("#{RAILS_ROOT}/db/seeds/bg.jpg"))
-default_theme.assets.create(:file => File.open("#{RAILS_ROOT}/db/seeds/footer_bg.gif"))
-default_theme.assets.create(:file => File.open("#{RAILS_ROOT}/db/seeds/profile_drop_shadow_top.png"))
-default_theme.assets.create(:file => File.open("#{RAILS_ROOT}/db/seeds/profile_drop_shadow.png"))
-default_theme.assets.create(:file => File.open("#{RAILS_ROOT}/db/seeds/facebook_32.png"))
-default_theme.assets.create(:file => File.open("#{RAILS_ROOT}/db/seeds/flickr_32.png"))
-default_theme.assets.create(:file => File.open("#{RAILS_ROOT}/db/seeds/linkedin_32.png"))
-default_theme.assets.create(:file => File.open("#{RAILS_ROOT}/db/seeds/twitter_32.png"))
-default_theme.assets.create(:file => File.open("#{RAILS_ROOT}/db/seeds/youtube_32.png"))
+default_theme.assets.create(:file => File.open("#{Rails.root}/db/seeds/master.css"))
+default_theme.assets.create(:file => File.open("#{Rails.root}/db/seeds/grid.css"))
+default_theme.assets.create(:file => File.open("#{Rails.root}/db/seeds/bg.jpg"))
+default_theme.assets.create(:file => File.open("#{Rails.root}/db/seeds/footer_bg.gif"))
+default_theme.assets.create(:file => File.open("#{Rails.root}/db/seeds/profile_drop_shadow_top.png"))
+default_theme.assets.create(:file => File.open("#{Rails.root}/db/seeds/profile_drop_shadow.png"))
+default_theme.assets.create(:file => File.open("#{Rails.root}/db/seeds/facebook_32.png"))
+default_theme.assets.create(:file => File.open("#{Rails.root}/db/seeds/flickr_32.png"))
+default_theme.assets.create(:file => File.open("#{Rails.root}/db/seeds/linkedin_32.png"))
+default_theme.assets.create(:file => File.open("#{Rails.root}/db/seeds/twitter_32.png"))
+default_theme.assets.create(:file => File.open("#{Rails.root}/db/seeds/youtube_32.png"))
 
 
 # User Accounts
@@ -65,7 +65,7 @@ site = candidate.owned_sites.create(
   :facebook_page_id => "81588820822",
   :twitter_username => "woods4congress",
   :google_analytics_id => "UA-9999999-1",
-  :candidate_photo => File.open("#{RAILS_ROOT}/db/seeds/anthonywoods.jpg"),
+  :candidate_photo => File.open("#{Rails.root}/db/seeds/anthonywoods.jpg"),
   :theme_id => 1,
   :eligibility_statement => "I am a United States citizen.",
   :campaign_legal_name => "Anthony Woods For Congress",
@@ -105,7 +105,7 @@ end
 Page.create(
   :site => site,
   :title => 'About Anthony',
-  :body => File.new("#{RAILS_ROOT}/db/seeds/about.html").readlines.join,
+  :body => File.new("#{Rails.root}/db/seeds/about.html").readlines.join,
   :published => true,
   :show_in_navigation => true
 )

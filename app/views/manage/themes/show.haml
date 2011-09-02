@@ -2,12 +2,12 @@
 - @menu 			= 'themes'
 
 #main.edit_theme
-	-form_for @theme, :url => manage_theme_path(@theme), :html => {:multipart => true} do |t|
+	=form_for @theme, :url => manage_theme_path(@theme), :html => {:multipart => true} do |t|
 		%h1 Edit Theme
 		=t.label :name, 'Name', :class => 'on-top'
 		=t.text_field :name, :class => 'text_field big wide'
 		
-		-fields_for @theme_version do |v|
+		=fields_for @theme_version do |v|
 			=hidden_field_tag 'theme_version[active]', true
 			
 			=v.label :code, "Template Code", :class => 'on-top'

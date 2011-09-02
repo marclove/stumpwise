@@ -61,8 +61,8 @@ class Site < ActiveRecord::Base
   
   RESERVED_SUBDOMAINS = %w( www support blog billing help api cdn asset assets chat mail email calendar docs documents apps app calendars mobile mobi static admin administration administrator moderator official store buy pages page ssl contribute secure )
   
-  named_scope :active, :conditions => {:active => true}
-  named_scope :contributable, :conditions => {:active => true, :can_accept_contributions => true}
+  scope :active, :conditions => {:active => true}
+  scope :contributable, :conditions => {:active => true, :can_accept_contributions => true}
   
   belongs_to  :owner, :class_name => 'User'
   has_many    :administratorships
@@ -172,7 +172,7 @@ class Site < ActiveRecord::Base
   end
   
   def contribute_url
-    "https://secure.#{HOST}/#{subdomain}/contribute" if can_accept_contributions?
+    "https://secure.#{HOST}/#{subdomain}/contribute".html_safe if can_accept_contributions?
   end
   
   def to_liquid

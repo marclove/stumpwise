@@ -1,7 +1,6 @@
 class ContributionsController < ApplicationController
   layout nil
   before_filter :get_site
-  ssl_required :new, :create, :thanks
   filter_parameter_logging :number, :cvv
   
   def new
@@ -52,7 +51,7 @@ class ContributionsController < ApplicationController
   
   private
     def get_site
-      unless @site = Site.contributable.find_by_subdomain(params[:subdomain])
+      unless @site = Site.contributable.find_by_subdomain(params[:site_subdomain])
         render :file => 'public/404.html', :status => 404
       end
     end

@@ -28,26 +28,26 @@ class StumpwiseController < ApplicationController
   
   private
     def set_navbar_headers
-      request.env[:navbar] = Stumpwise::Navbar.new(current_site, current_user.present?)
+      request.env[:navbar] = Stumpwise::Navbar.new(current_site, current_user.present?, self)
     end
     
     def find_item(path)
-      @path = path
-      if @path.last == "feed"
+      @path = path || ''
+      if @path.end_with?("/feed")
         @is_feed = true
-        @path = @path[0..-2]
+        @path = @path.gsub(/\/feed$/,'')
       end
       
       if @path.blank?
         unless @item = current_site.root_item
           @item = :in_development
         end
-      elsif @path == ["sitemap.xml"]
+      elsif @path == "sitemap.xml"
         @item = :sitemap
-      elsif @path == ["robots.txt"]
+      elsif @path == "robots.txt"
         @item = :robots
       else
-        unless @item = current_site.items.published.find_by_permalink(@path.join('/'))
+        unless @item = current_site.items.published.find_by_permalink(path)
           @item = :not_found
         end
       end
@@ -66,12 +66,14 @@ class StumpwiseController < ApplicationController
       if @is_feed
         render :template => 'stumpwise/show.atom.builder'
       else
+        previous_page = @articles.current_page > 1 && @articles.current_page - 1
+        next_page = @articles.current_page < @articles.total_pages && @articles.current_page + 1
         render_liquid(@item, {
           'articles' => @articles.map(&:to_liquid),
           'current_page' => @articles.current_page,
           'total_pages' => @articles.total_pages,
-          'previous_page' => @articles.previous_page,
-          'next_page' => @articles.next_page,
+          'previous_page' => previous_page,
+          'next_page' => next_page,
           'per_page' => @articles.per_page,
           'path' => request.path
         })

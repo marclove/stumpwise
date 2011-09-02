@@ -34,9 +34,14 @@
 						%th.submitted-at Submitted At
 				%tbody
 					-for contribution in @contributions
-						="<tr class='contribution_row #{cycle("odd","even")}' data-url='#{admin_contribution_path(contribution)}'>"
+						="<tr class='contribution_row #{cycle("odd","even")}' data-url='#{admin_contribution_path(contribution)}'>".html_safe
 						%td.name= link_to contribution.contributor_name, admin_contribution_path(contribution)
-						%td.location="#{contribution.address1}, #{contribution.city},&nbsp;#{contribution.state}&nbsp;#{contribution.zip}"
+						%td.location
+							-concat("#{contribution.address1}, #{contribution.city}")
+							-safe_concat(",&nbsp;")
+							-concat("#{contribution.state}")
+							-safe_concat(",&nbsp;")
+							-concat("#{contribution.zip}")
 						%td.status= contribution.status.titlecase
 						%td.amount= number_to_currency(contribution.amount)
 						%td.processing-fee
@@ -46,11 +51,11 @@
 							-unless contribution.approved?
 								=number_to_currency(contribution.net_amount)
 						%td.submitted-at=contribution.created_at.strftime('%a, %b %d %Y %I:%M %p')
-						="</tr>"
+						="</tr>".html_safe
 			=will_paginate @contributions
 
 			#export-supporters-button.buttons
-				=link_to "#{image_tag('icons-shadowless/document-excel-csv.png', :alt => '')} Download CSV File", export_admin_contributions_path
+				=link_to "#{image_tag('icons-shadowless/document-excel-csv.png', :alt => '')} Download CSV File".html_safe, export_admin_contributions_path
 		-else
 			%p{:style => 'clear:both; padding-top:2em;' } Your site hasn't received any contributions yet.
 	-else

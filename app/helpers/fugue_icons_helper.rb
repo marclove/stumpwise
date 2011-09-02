@@ -9,18 +9,18 @@ module FugueIconsHelper
     options.symbolize_keys!
 
     options[:class] = if options[:class]
-      "fugue-icon " + options[:class]
+      "fugue-icon ".html_safe + options[:class]
     else
-      "fugue-icon"
+      "fugue-icon".html_safe
     end
 
-    paths = options.delete(:shadow) ? ["icons"] : ["icons-shadowless"]
+    paths = options.delete(:shadow) ? ["icons".html_safe] : ["icons-shadowless".html_safe]
     if overlay = options.delete(:overlay)
-      paths << "_overlay"
-      name = "#{name}--#{overlay}"
+      paths << "_overlay".html_safe
+      name = "#{name}--#{overlay}".html_safe
     end
-    paths << "#{name}.png"
-    options[:src] = "/images/" + paths.join("/")
-    tag("img", options)
+    paths << "#{name}.png".html_safe
+    options[:src] = "/images/".html_safe + paths.join("/".html_safe)
+    tag("img", options, false)
   end
 end

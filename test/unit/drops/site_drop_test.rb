@@ -105,7 +105,7 @@ class SiteDropTest < ActiveSupport::TestCase
     
     should "have a candidate photo url" do
       site_drop = sites(:with_candidate_photo).to_liquid
-      assert_equal "http://s3.amazonaws.com/stumpwise-test/sites/7/candidate/image_t1.jpg", site_drop['candidate_photo']
+      assert_equal "http://stumpwise-test.s3.amazonaws.com/sites/7/candidate/image_t1.jpg", site_drop['candidate_photo']
     end
     
     # TODO: Better test

@@ -141,8 +141,8 @@
 </ol>
 </div>
 	<div id="acceptance" class="buttons">
-		<%= link_to "#{icon_tag('tick')} I AGREE", admin_accept_terms_path, :class => "positive", :style => "float:right;" %>
-		<%= link_to "#{icon_tag('cross')} I DO NOT AGREE", "http://www.google.com", :class => "negative" %>
+		<%= link_to "#{icon_tag('tick')} I AGREE".html_safe, admin_accept_terms_path, :class => "positive", :style => "float:right;" %>
+		<%= link_to "#{icon_tag('cross')} I DO NOT AGREE".html_safe, "http://www.google.com", :class => "negative" %>
 	</div>	
 </div>
 

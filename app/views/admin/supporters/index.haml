@@ -21,7 +21,7 @@
 					%th Joined On
 			%tbody
 				-for s in @supporterships
-					="<tr class='supporter_row' data-url='#{admin_supporter_path(s.supporter)}'>"
+					="<tr class='supporter_row' data-url='#{admin_supporter_path(s.supporter)}'>".html_safe
 					%td= link_to s.supporter.email, admin_supporter_path(s.supporter)
 					%td= link_to_unless s.supporter.first_name.blank?, s.supporter.first_name, admin_supporter_path(s.supporter)
 					%td= link_to_unless s.supporter.last_name.blank?, s.supporter.last_name, admin_supporter_path(s.supporter)
@@ -31,7 +31,7 @@
 					%td= number_to_phone(s.supporter.phone)
 					%td= number_to_phone(s.supporter.mobile_phone)
 					%td= s.created_at.strftime('%b %d, %Y %I:%M %p')
-					="</tr>"
+					="</tr>".html_safe
 			%tfoot{:id => "pager", :class => "pager"}
 				%tr
 					%td{:colspan => "9"}
@@ -48,6 +48,6 @@
 								%option{:value => "60"} 60
 	
 		#export-supporters-button.buttons
-			=link_to "#{image_tag('icons-shadowless/document-excel-csv.png', :alt => '')} Download CSV File", export_admin_supporters_path
+			=link_to "#{image_tag('icons-shadowless/document-excel-csv.png', :alt => '')} Download CSV File".html_safe, export_admin_supporters_path
 	-else
 		%p Your site doesn't have any supporters yet.

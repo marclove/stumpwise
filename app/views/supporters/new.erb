@@ -33,7 +33,7 @@
 			<h1>stumpwise</h1>
 			<h2>Join This Campaign</h2>
 		</div>
-		<% form_for @supporter do |f| %>
+		<%= form_for @supporter do |f| %>
 			<div id="form-body">
 				<div id="errors"></div>
 				<%= flash_messages %>
@@ -51,7 +51,7 @@
 				
 				<div>
 					<p id="address">
-						<%= f.label :address, 'Street Address &amp; Zip' %>
+						<%= f.label :address, 'Street Address &amp; Zip'.html_safe %>
 						<%= f.text_field :address, :class => 'required' %>
 					</p>
 					<div style="clear:both"></div>
@@ -68,7 +68,7 @@
 						</span>
 					</p>
 					<p id="mobile-phone">
-						<%= f.label :mobile_phone, 'Mobile Phone <span class="optional">(Optional)</span>' %>
+						<%= f.label :mobile_phone, 'Mobile Phone <span class="optional">(Optional)</span>'.html_safe %>
 						<%= f.text_field :mobile_phone %>
 						<span class="confirm">
 							<input name="supporter[receive_sms]" type="hidden" value="0" />

@@ -243,8 +243,8 @@ class LiquidFiltersTest < ActionView::TestCase
     
     context "for numbers" do
       should "convert a number of bytes into a human readable string" do
-        assert_equal "1.8 MB", render_template('1894302 | number_to_human_size')
-        assert_equal "1.8 MB", render_template('1894302 | readable_file_size')
+        assert_equal "1.81 MB", render_template('1894302 | number_to_human_size')
+        assert_equal "1.81 MB", render_template('1894302 | readable_file_size')
       end
       
       should "convert a number to currency" do

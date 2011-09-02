@@ -58,9 +58,9 @@ class Contribution < ActiveRecord::Base
   validates_acceptance_of   :compliance_confirmation, :accept => true, :allow_nil => false,
                             :if => :requires_compliance_confirmation?
   
-  named_scope :raised, :conditions => 'contributions.status IN ("approved", "settled", "paid")'
-  named_scope :disbursed_on, lambda {|disbursed_on| {:conditions => {:disbursed_on => disbursed_on}}}
-  named_scope :pending_disbursement, :conditions => "disbursed_on IS NULL AND status IN ('declined', 'voided', 'settled', 'refunded')"
+  scope :raised, :conditions => 'contributions.status IN ("approved", "settled", "paid")'
+  scope :disbursed_on, lambda {|disbursed_on| {:conditions => {:disbursed_on => disbursed_on}}}
+  scope :pending_disbursement, :conditions => "disbursed_on IS NULL AND status IN ('declined', 'voided', 'settled', 'refunded')"
   
   include AASM
   aasm_column :status
@@ -262,10 +262,6 @@ class Contribution < ActiveRecord::Base
       )
     end
     
-    def send_receipt
-      ContributionNotifier.deliver_send_receipt(self)
-    end
-    
     def schedule_sending_receipt
       Delayed::Job.enqueue(SendContributionReceiptJob.new(self.id))
     end
@@ -303,7 +299,7 @@ class Contribution < ActiveRecord::Base
     
     def requires_compliance_confirmation?
       return false unless site
-      !site.eligibility_statement.blank?
+      site.eligibility_statement.present?
     end
     
     def generate_unique_id

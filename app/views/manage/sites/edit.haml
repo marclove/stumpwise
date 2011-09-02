@@ -8,16 +8,16 @@
 			=@site.name
 		=f.label :name, 'Site Name / Header', {:class => 'on-top'}
 		=f.text_field :name, :class => 'text_field big wide'
-		=f.label :subdomain, "Subdomain <span>(Ex. For candidate Jane Doe: <strong>janedoe</strong>.stumpwise.com)</span>", {:class => 'on-top'}
+		=f.label :subdomain, "Subdomain <span>(Ex. For candidate Jane Doe: <strong>janedoe</strong>.stumpwise.com)</span>".html_safe, {:class => 'on-top'}
 		=f.text_field :subdomain, :class => 'text_field wide'
-		=f.label :custom_domain, 'Custom Domain <span>(Do not include the "www" &mdash; Ex. "mycustomdomain.com")</span>', {:class => 'on-top'}
+		=f.label :custom_domain, 'Custom Domain <span>(Do not include the "www" &mdash; Ex. "mycustomdomain.com")</span>'.html_safe, {:class => 'on-top'}
 		=f.text_field :custom_domain, :class => 'text_field wide'
 		=f.label :campaign_legal_name, 'Legal Name of the Campaign', {:class => 'on-top'}
 		=f.text_field :campaign_legal_name, :class => 'text_field wide'
 		=f.label :campaign_email, 'Campaign Email', {:class => 'on-top'}
 		=f.text_field :campaign_email, :class => 'text_field wide'
 		=f.label :time_zone, 'Timezone', {:class => 'on-top'}
-		=f.time_zone_select :time_zone, nil, :default => "Pacific Time (US & Canada)"	
+		=f.time_zone_select :time_zone, nil, :default => "Pacific Time (US &amp; Canada)".html_safe
 		%p
 			=f.check_box :can_accept_contributions
 			=f.label :can_accept_contributions, 'Can Accept Contributions'
@@ -29,11 +29,11 @@
 			%button.positive{:type => 'submit'}
 				=icon_tag "tick"
 				Save Changes
-			=link_to "#{icon_tag('cross')} Cancel", :back, :class => 'negative'
+			=link_to "#{icon_tag('cross')} Cancel".html_safe, :back, :class => 'negative'
 	
 	#sidebar
 		%h2 Owner
-		=mail_to(@site.owner.try(:email), icon_tag("mail", :overlay => "arrow")) + "&nbsp;"
+		=mail_to(@site.owner.try(:email), icon_tag("mail", :overlay => "arrow")) + "&nbsp;".html_safe
 		=@site.owner.try(:name)
 		
 		%h2 Authorized Users

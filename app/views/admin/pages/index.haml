@@ -10,7 +10,7 @@
 			-for page in @pages
 				%li= link_to page.title, edit_admin_page_path(page)
 		#add-page-button.buttons
-			=link_to "#{image_tag('icons-shadowless/plus-circle.png', :alt => '')} New Page", new_admin_page_path, :class => 'positive'
+			=link_to "#{image_tag('icons-shadowless/plus-circle.png', :alt => '')} New Page".html_safe, new_admin_page_path, :class => 'positive'
 	-else 
 		%p 
 			You have not created any pages for your site yet.

@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
   include Stumpwise::Domains
-  include SslRequirement
-  before_filter :set_time_zone, :set_cookie_domain, :set_current_user
+  before_filter :set_time_zone, :set_current_user
   
   filter_parameter_logging :password, :token
   
@@ -102,11 +101,5 @@ class ApplicationController < ActionController::Base
     def redirect_back_or_default(default)
       redirect_to(session[:return_to] || default)
       session[:return_to] = nil
-    end
-    
-    # Required because Authlogic uses ActionController::Base.session_options
-    # instead of rack.session.options. Still not quite sure why they aren't the same.
-    def set_cookie_domain
-      ActionController::Base.session_options[:domain] = request.env['rack.session.options'][:domain]
     end
 end

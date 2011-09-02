@@ -27,20 +27,18 @@ class Article < Item
   belongs_to :blog, :foreign_key => 'parent_id'
   attr_readonly :show_in_navigation
   validates_presence_of :parent_id, :body
-  before_validation_on_create :set_site
-  
+
+  before_validation(:on => :create) do
+    self[:site_id] = blog.site_id if blog
+  end
+
   def self.per_page; 5; end
-  
+
   def template
     @template ||= site.theme.templates.first(:conditions => {:filename => blog.article_template_name})
   end
-  
+
   def to_liquid
     ArticleDrop.new(self)
   end
-  
-  private
-    def set_site
-      self[:site_id] = blog.site_id if blog
-    end
 end

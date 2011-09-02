@@ -34,7 +34,7 @@ class Item < ActiveRecord::Base
   belongs_to :creator, :foreign_key => 'created_by', :class_name => 'User'
   belongs_to :updater, :foreign_key => 'updated_by', :class_name => 'User'
   
-  named_scope :published, :conditions => {:published => true}
+  scope :published, :conditions => {:published => true}
   
   before_validation :set_slug, :set_permalink
   before_create :set_created_by, :set_updated_by

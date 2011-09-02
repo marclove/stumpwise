@@ -8,4 +8,4 @@
 			%li{:class => "theme"}
 				=link_to theme.name, manage_theme_path(theme)
 	.buttons
-		=link_to "#{image_tag('icons-shadowless/plus-circle.png', :alt => '')} New Theme", new_manage_theme_path, :class => 'positive'
+		=link_to "#{image_tag('icons-shadowless/plus-circle.png', :alt => '')} New Theme".html_safe, new_manage_theme_path, :class => 'positive'

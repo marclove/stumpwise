@@ -5,9 +5,9 @@
 		%title= "stumpwise :: #{current_site.name}"
 		=csrf_meta_tag
 		=stylesheet_link_tag 'colorpicker.css','master.css'
-		=javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js'
-		=javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js'
-		=javascript_include_tag 'modernizr-1.5.min.js','tiny_mce/jquery.tinymce.js','jquery.timeago.min.js','jquery.tablesorter.min.js','jquery.tablesorter.pager.js','colorpicker.js','application.js'
+		=javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js'
+		=javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js'
+		=javascript_include_tag 'modernizr-1.5.min.js','tiny_mce/jquery.tinymce.js','jquery.timeago.min.js','jquery.tablesorter.min.js','jquery.tablesorter.pager.js','colorpicker.js','rails.js','application.js'
 		=yield :head
 	%body{:class => "#{@body_class} no-js"}
 		#container
@@ -34,10 +34,10 @@
 					=link_to 'Supporters', admin_supporters_path, :class => @menu == 'supporters' ? 'current' : ''
 					=link_to 'Contributions', admin_contributions_path, :class => @menu == 'contributions' ? 'current' : ''
 					-if current_site.campaign_monitor_password
-						-form_tag "http://email.stumpwise.com/login.aspx", :id => 'createsend', :target => '_blank', :method => :post do 
+						=form_tag "http://email.stumpwise.com/login.aspx", :id => 'createsend', :target => '_blank', :method => :post do 
 							=hidden_field_tag 'username', current_site.subdomain
 							=hidden_field_tag 'password', current_site.campaign_monitor_password
-						=link_to_function 'Email', "$('#createsend').submit()", :class => @menu == 'email' ? 'current' : ''
+						=link_to_function 'Email', "$('#createsend').submit()".html_safe, :class => @menu == 'email' ? 'current' : ''
 					=link_to 'SMS', admin_sms_campaigns_path, :class => @menu == 'sms' ? 'current' : ''
 			#content
 				= flash_messages

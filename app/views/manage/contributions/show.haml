@@ -59,4 +59,4 @@
 	
 	#contribution-admin-buttons.buttons
 		-if @contribution.reversible?
-			=link_to "#{image_tag('icons-shadowless/cross.png', :alt => '')} Refund Contribution", refund_manage_contribution_path(@contribution), :class => 'negative', :method => :put
+			=link_to "#{image_tag('icons-shadowless/cross.png', :alt => '')} Refund Contribution".html_safe, refund_manage_contribution_path(@contribution), :class => 'negative', :method => :put

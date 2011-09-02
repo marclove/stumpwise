@@ -1,13 +1,14 @@
 module ApplicationHelper
   def typekit_scripts(account_id)
-    html = <<-EOF
+    result = <<-EOF
       <script type="text/javascript" src="http://use.typekit.com/#{account_id}.js"></script>
     	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
     EOF
+    result.html_safe
   end
   
   def clippy(text, bgcolor='#FFFFFF')
-    html = <<-EOF
+    result = <<-EOF
       <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
               width="126"
               height="16"
@@ -32,11 +33,7 @@ module ApplicationHelper
              bgcolor="#{bgcolor}" />
       </object>
     EOF
-  end
-  
-  # Remove when upgrading to Rails 3.0
-  def csrf_meta_tag
-    %(<meta name="csrf-param" content="authenticity_token"/>\n<meta name="csrf-token" content="#{Rack::Utils.escape_html(form_authenticity_token)}"/>)
+    result.html_safe
   end
   
   def gridfs_image_tag(id, *args)

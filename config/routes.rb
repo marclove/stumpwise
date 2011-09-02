@@ -1,70 +1,103 @@
-ActionController::Routing::Routes.draw do |map|
-  map.with_options(:conditions => {:subdomain => false, :domain => HOST}) do |base|
-    base.connect 'info/:action', :controller => 'info', :conditions => {:method => :get}
-    base.connect 'home', :controller => 'home', :action => 'home'
-    base.connect 'robots.txt', :controller => 'home', :action => 'robots'
-    base.connect 'sitemap.xml', :controller => 'home', :action => 'sitemap'
-    base.root :controller => 'home', :action => 'index'
+Stumpwise::Application.routes.draw do
+
+  constraints(:subdomain => /^(www)?$/i, :domain => HOST) do
+    match 'info/:action', :controller => :info, :via => :get
+    match 'home' => 'home#home', :via => :get
+    match 'robots.txt' => 'home#robots', :via => :get
+    match 'sitemap.xml' => 'home#sitemap', :via => :get
+    root :to => 'home#index'
   end
-  
-  map.with_options(:conditions => {:subdomain => 'admin', :domain => HOST}) do |a|
-    a.namespace(:manage) do |manage|
-      manage.resources :sites
-      manage.resources :contributions, :only => [:index, :show], :member => {:refund => :put}
-      manage.resources :users
-      manage.resources :themes do |t|
-        t.resources :layouts
-        t.resources :templates
-        t.resources :theme_assets, :as => :assets, :name_prefix => 'manage_'
+
+  constraints(:subdomain => 'admin', :domain => HOST) do
+    namespace :manage do
+        resources :sites
+        resources :contributions do
+        member do
+          put :refund
+        end
       end
-    
-      manage.resources :sessions, :only => [:create]
-      manage.login  'login',  :controller => 'sessions', :action => 'new'
-      manage.logout 'logout', :controller => 'sessions', :action => 'destroy'
-    
-      manage.root :controller => 'sites', :action => 'index'
+      resources :users
+      resources :themes do
+        resources :layouts
+        resources :templates
+        resources :theme_assets
+      end
+      resources :sessions
+      match 'login' => 'sessions#new', :as => :login
+      match 'logout' => 'sessions#destroy', :as => :logout
+      root :to => 'sites#index'
     end
   end
-  
-  map.with_options(:conditions => {:subdomain => 'secure', :domain => HOST}) do |c|
+
+  constraints(:subdomain => 'secure', :domain => HOST, :protocol => 'https://') do
     # https://secure.stumpwise.com/woods/contribute
-    c.connect ':subdomain/contribute', :controller => 'contributions', :action => 'new', :conditions => {:method => :get}
+    match ':site_subdomain/contribute' => 'contributions#new', :via => :get
     # https://secure.stumpwise.com/woods/contribute
-    c.connect ':subdomain/contribute', :controller => 'contributions', :action => 'create', :conditions => {:method => :post}
+    match ':site_subdomain/contribute' => 'contributions#create', :via => :post
     # https://secure.stumpwise.com/woods/contribute/thanks/r94473624dj5d78fkfvmvht36
-    c.connect ':subdomain/contribute/:action/:order_id', :controller => 'contributions'
-    
-    c.connect 'signup', :controller => 'home', :action => 'signup'
-    c.connect 'create_site', :controller => 'home', :action => 'create_site'
+    match ':site_subdomain/contribute/thanks/:order_id' => 'contributions#thanks', :via => :get
+    match 'signup' => 'home#signup', :via => :get
+    match 'create_site' => 'home#create_site', :via => :post
   end
 
-  map.namespace(:admin) do |admin|
-    admin.terms 'terms', :controller => 'info', :action => 'terms'
-    admin.accept_terms 'accept_terms', :controller => 'info', :action => 'accept_terms'
-    
-    admin.resources :sessions, :only => [:new, :create, :destroy]
-    admin.login  'login',  :controller => 'sessions', :action => 'new'
-    admin.logout 'logout', :controller => 'sessions', :action => 'destroy'
-    admin.resource :profile
+  namespace :admin do
+    match 'terms' => 'info#terms', :as => :terms
+    match 'accept_terms' => 'info#accept_terms', :as => :accept_terms
 
-    admin.resource :site
-    admin.resource :navigation
-    admin.resource :theme, :member => { :set_theme => :put, :reset_customization => :put }
+    resources :sessions, :only => [:new, :create, :destroy]
+    match 'login' => 'sessions#new', :as => :login
+    match 'logout' => 'sessions#destroy', :as => :logout
+    resource :profile
 
-    admin.resources :assets
-    admin.resources :pages, :member => { :publish => :put, :unpublish => :put }
-    #admin.resources :articles, :member => { :publish => :put, :unpublish => :put }
-    admin.resources :blogs do |b|
-      b.resources :articles, :member => { :publish => :put, :unpublish => :put }
+    resource :site
+    resource :navigation
+    resource :theme do
+      member do
+        put :set_theme
+        put :reset_customization
+      end
     end
-        
-    admin.resources :supporters, :only => [:index, :show, :destroy], :collection => {:export => :get}
-    admin.resources :contributions, :only => [:index, :show], :collection => {:summary => :get, :export => :get, :settings => :get, :update_settings => :put}, :member => {:refund => :put}
-    admin.resources :sms_campaigns
-    admin.root :controller => 'dashboard', :action => 'index'
+
+    resources :assets
+    resources :pages do
+      member do
+        put :unpublish
+        put :publish
+      end
+    end
+
+    resources :blogs do
+      resources :articles do
+        member do
+          put :unpublish
+          put :publish
+        end
+      end
+    end
+
+    resources :supporters, :only => [:index, :show, :destroy] do
+      collection do
+        get :export
+      end
+    end
+
+    resources :contributions, :only => [:index, :show] do
+      collection do
+        get :summary
+        get :export
+        get :settings
+        put :update_settings
+      end
+      member do
+        put :refund
+      end
+    end
+    resources :sms_campaigns
+    root :to => 'dashboard#index'
   end
-  
-  map.resources :supporters, :only => [:new, :create]
-  map.join 'join', :controller => 'supporters', :action => 'new'
-  map.connect '*path', :controller => 'stumpwise', :action => 'show'
+
+  resources :supporters, :only => [:new, :create]
+  match 'join' => 'supporters#new', :as => :join
+
+  match '(*path)' => 'stumpwise#show'
 end

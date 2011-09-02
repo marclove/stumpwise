@@ -3,7 +3,7 @@
 - @submenu 		= 'settings'
 
 =render 'admin/layouts/site_menu'
--form_for @site, :url => admin_site_path, :html => {:multipart => true} do |f|
+=form_for @site, :url => admin_site_path, :html => {:multipart => true} do |f|
 	#main
 		%h1 Site Settings
 		=f.label :name, 'Site Header', {:class => 'on-top'}
@@ -12,15 +12,15 @@
 		=f.text_field :subhead, :class => 'text_field wide'
 		=f.label :subdomain, {}, {:class => 'on-top'}
 		=f.text_field :subdomain, :class => 'text_field wide'
-		=f.label :custom_domain, 'Custom Domain <span>(do not include the "http://" or "www", just "mycustomdomain.com")</span>', {:class => 'on-top'}
+		=f.label :custom_domain, 'Custom Domain <span>(do not include the "http://" or "www", just "mycustomdomain.com")</span>'.html_safe, {:class => 'on-top'}
 		=f.text_field :custom_domain, :class => 'text_field wide'
 		=f.label :keywords, 'Search Engine Keywords', {:class => 'on-top'}
 		=f.text_area :keywords, :class => 'wide', :rows => 3
-		=f.label :description, 'Brief Description of Site <span>(1-2 sentence summary of the site, to be displayed in search engine results)</span>', {:class => 'on-top'}
+		=f.label :description, 'Brief Description of Site <span>(1-2 sentence summary of the site, to be displayed in search engine results)</span>'.html_safe, {:class => 'on-top'}
 		=f.text_area :description, :class => 'wide', :rows => 3
-		=f.label :disclaimer, 'Site Legal Disclaimer <span>(i.e. "Paid for and maintained by THE COMMITTEE TO ELECT JOHN DOE")</span>', {:class => 'on-top'}
+		=f.label :disclaimer, 'Site Legal Disclaimer <span>(i.e. "Paid for and maintained by THE COMMITTEE TO ELECT JOHN DOE")</span>'.html_safe, {:class => 'on-top'}
 		=f.text_field :disclaimer, :class => 'text_field wide'
-		=f.label :google_analytics_id, "Google Analytics Tracking ID <span>(UA-XXXXXXX-X)</span>", {:class => 'on-top'}
+		=f.label :google_analytics_id, "Google Analytics Tracking ID <span>(UA-XXXXXXX-X)</span>".html_safe, {:class => 'on-top'}
 		=f.text_field :google_analytics_id, :class => 'text_field wide'
 
 		%h2{:id => 'campaign_info', :style => "margin-top:2em;"} Campaign Information
@@ -39,7 +39,7 @@
 		=f.label :campaign_phone, 'Campaign Phone', {:class => 'on-top'}
 		=f.text_field :campaign_phone, :class => 'text_field wide'
 		=f.label :time_zone, 'Timezone', {:class => 'on-top'}
-		=f.time_zone_select :time_zone, nil, :default => "Pacific Time (US & Canada)"
+		=f.time_zone_select :time_zone, nil, :default => "Pacific Time (US &amp; Canada)".html_safe
 		=f.label :candidate_photo, '', {:class => 'on-top'}
 		=f.file_field :candidate_photo
 		
@@ -47,7 +47,7 @@
 			%button.positive{:type => 'submit'}
 				=image_tag "icons-shadowless/tick.png", :alt => ''
 				Save Changes
-			=link_to "#{image_tag('icons-shadowless/cross.png', :alt => '')} Cancel", :back, :class => 'negative'
+			=link_to "#{image_tag('icons-shadowless/cross.png', :alt => '')} Cancel".html_safe, :back, :class => 'negative'
 	
 	#sidebar
 		%h2{:style => "margin-top:1em;"} Social Networks

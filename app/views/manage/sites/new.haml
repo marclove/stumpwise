@@ -1,11 +1,11 @@
 - @body_class = 'no-sidebar'
 - @menu 			= 'sites'
 
--form_for @site, :url => manage_sites_path do |f|
+=form_for @site, :url => manage_sites_path do |f|
 	#main
 		%h1 New Site
 		
-		-field_set_tag "Site Information" do
+		=field_set_tag "Site Information" do
 			=hidden_field_tag 'site[theme_id]', "1"
 			%table
 				%tr
@@ -47,8 +47,8 @@
 					%td{:colspan => 2}
 						=f.time_zone_select :time_zone, nil, :default => "Pacific Time (US & Canada)"
 
-		-field_set_tag "Administrator User Information" do
-			-fields_for @user do |o|
+		=field_set_tag "Administrator User Information" do
+			=fields_for @user do |o|
 				%table
 					%tr
 						%th
@@ -92,4 +92,4 @@
 			%button.positive{:type => 'submit'}
 				=icon_tag "tick"
 				Create Site
-			=link_to "#{icon_tag('cross')} Cancel", :back, :class => 'negative'
+			=link_to "#{icon_tag('cross')} Cancel".html_safe, :back, :class => 'negative'

@@ -22,4 +22,4 @@
 					=link_to image_tag("new_window_icon.png"), site.root_url, {:target => "_blank"}
 				
 	.buttons
-		=link_to "#{icon_tag('plus-circle')} New Site", new_manage_site_path, :class => 'positive'
+		=link_to "#{icon_tag('plus-circle')} New Site".html_safe, new_manage_site_path, :class => 'positive'

@@ -6,7 +6,7 @@
 	#sms-campaigns
 		#new-message
 			%h2 Compose a new message
-			-form_for @sms_campaign, :url => admin_sms_campaigns_path do |f|
+			=form_for @sms_campaign, :url => admin_sms_campaigns_path do |f|
 				#new-message-details
 					.detail
 						#number-of-supporters.figure=pluralize(current_site.supporters.wanting_sms_count, "supporter")

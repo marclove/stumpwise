@@ -3,18 +3,18 @@
 - @submenu 		= 'blogs'
 
 =render 'admin/layouts/site_menu'
--form_for :blog, :url => admin_blogs_path do |f|
+=form_for :blog, :url => admin_blogs_path do |f|
 	#main
 		%h1 New Blog
 		=f.label :title, {}, {:class => 'on-top'}
 		=f.text_field :title, :class => 'text_field big wide'
-		=f.label :slug, "Slug <span>(optional)</span>", {:class => 'on-top'}
+		=f.label :slug, "Slug <span>(optional)</span>".html_safe, {:class => 'on-top'}
 		=f.text_field :slug, :class => 'text_field wide'
 		.buttons
 			%button.positive{:type => 'submit'}
 				=image_tag "icons-shadowless/tick.png", :alt => ''
 				Create Blog
-			=link_to "#{image_tag('icons-shadowless/cross.png', :alt => '')} Cancel", :back, :class => 'negative'
+			=link_to "#{image_tag('icons-shadowless/cross.png', :alt => '')} Cancel".html_safe, :back, :class => 'negative'
 	#sidebar
 		%p
 			=f.check_box :published

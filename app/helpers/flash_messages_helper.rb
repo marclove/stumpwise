@@ -12,7 +12,7 @@ module FlashMessagesHelper
       if flash[:error]
         content_tag :p, flash[:error], {:id => 'error', :class => 'flash_message'}
       else
-        ''
+        ''.html_safe
       end
     end
 
@@ -20,7 +20,7 @@ module FlashMessagesHelper
       if flash[:notice]
         content_tag :p, flash[:notice], {:id => 'notice', :class => 'flash_message'}
       else
-        ''
+        ''.html_safe
       end
     end
 end

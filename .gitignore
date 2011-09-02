@@ -1,11 +1,10 @@
+.bundle
+db/*.sqlite3
 log/*.log
 tmp/*
 tmp/**/*
-doc/api
-doc/app
 public/system
 public/uploads
-db/development.sqlite3
-db/production.sqlite3
-db/test.sqlite3
+doc/api
+doc/app
 autotest.rb

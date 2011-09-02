@@ -3,11 +3,11 @@
 
 #main
 	%h1 New Theme
-	-form_for @theme, :url => manage_themes_path, :html => {:multipart => true} do |t|
+	=form_for @theme, :url => manage_themes_path, :html => {:multipart => true} do |t|
 		=t.label :name, 'Name', :class => 'on-top'
 		=t.text_field :name, :class => 'text_field big wide'
 
-		-fields_for @theme_version do |v|
+		=fields_for @theme_version do |v|
 			=v.label :thumbnail, 'Thumbnail Image', :class => 'on-top'
 			=v.file_field :thumbnail
 

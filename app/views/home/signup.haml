@@ -3,10 +3,10 @@
 		=render 'layouts/marketing_nav'
 		#signup
 			%h2 Launch your campaign site in less than 5 minutes!
-			-form_tag '/create_site', :id => 'signup-form' do
+			=form_tag '/create_site', :id => 'signup-form' do
 				=flash_messages
 				#site-information.section
-					-fields_for @site do |s|
+					=fields_for @site do |s|
 						%p.field
 							=s.label :name, 'Candidate name'
 							%br
@@ -19,7 +19,7 @@
 							%span.hint Example: "Mayor of New York" or "San Jose City Council, District 1"
 						=hidden_field_tag 'site[time_zone]', "Pacific Time (US & Canada)"
 						=hidden_field_tag 'site[theme_id]', "1"
-					-fields_for @user do |u|
+					=fields_for @user do |u|
 						%p.field
 							=u.label :email, 'Email'
 							%br
@@ -43,16 +43,16 @@
 						the meantime please choose a subdomain below.
 						<strong>Letters &amp; numbers only please</strong>.
 						
-					-fields_for @site do |s|
+					=fields_for @site do |s|
 						%p.url
 							http://
 							=s.text_field :subdomain
 							\.stumpwise.com
 
-				-fields_for @user do |u|
+				=fields_for @user do |u|
 					%p.accept-tos
 						=u.check_box :accepted_campaign_terms
-						=u.label :accepted_campaign_terms, "I agree to the <a href=\"http://#{HOST}/info/campaigns\" target=\"_blank\">Terms of Service</a>, <a href=\"http://#{HOST}/info/privacy\" target=\"_blank\">Privacy Policy</a> &amp; <a href=\"http://#{HOST}/info/refunds\" target=\"_blank\">Refund Policy</a>."
+						=u.label :accepted_campaign_terms, "I agree to the <a href=\"http://#{HOST}/info/campaigns\" target=\"_blank\">Terms of Service</a>, <a href=\"http://#{HOST}/info/privacy\" target=\"_blank\">Privacy Policy</a> &amp; <a href=\"http://#{HOST}/info/refunds\" target=\"_blank\">Refund Policy</a>.".html_safe
 				%p=submit_tag 'Create my site'
 				
 		#pricing

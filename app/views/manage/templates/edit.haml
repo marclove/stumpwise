@@ -3,7 +3,7 @@
 
 #main
 	%h1 Edit Template
-	-form_for @liquid_template, :url => manage_theme_template_path(@theme, @liquid_template) do |f|
+	=form_for @liquid_template, :url => manage_theme_template_path(@theme, @liquid_template) do |f|
 		=f.label :filename, 'Template Filename', :class => 'on-top'
 		=f.text_field :filename, :class => 'text_field big wide'
 		=f.label :content, 'Code', :class => 'on-top'
@@ -12,5 +12,5 @@
 			%button.positive{:type => 'submit'}
 				=image_tag "icons-shadowless/tick.png", :alt => ''
 				Save Changes
-			=link_to "#{image_tag('icons-shadowless/cross.png', :alt => '')} Cancel", :back, :class => 'negative'
+			=link_to "#{image_tag('icons-shadowless/cross.png', :alt => '')} Cancel".html_safe, :back, :class => 'negative'
 		

@@ -35,7 +35,7 @@
 			<h2>Contribute To This Campaign</h2>
 			<%= image_tag "secure.png", :alt => "This is a secure form" %>
 		</div>
-		<% form_for @contribution, :url => "/#{@site.subdomain}/contribute", :html => {:id => 'contribution_form', :method => :post} do |f| %>
+		<%= form_for @contribution, :url => "/#{@site.subdomain}/contribute", :html => {:id => 'contribution_form', :method => :post} do |f| %>
 			<div id="form-body">
 				<div style="font-weight:bold; font-size:24px; text-align:center; margin-bottom:1em; clear:both"><%= current_site.name %></div>
 				<div id="errors"></div>
@@ -55,13 +55,13 @@
 				</div>
 				<div id="card-information">
 					<h3>Card Information</h3>
-					<% fields_for :credit_card, @credit_card do |cc| %>
+					<%= fields_for :credit_card, @credit_card do |cc| %>
 						<p id="card-number">
 							<%= cc.label :number, "Card Number" %>
 							<%= cc.text_field :number, :class => 'required creditcard' %>
 						</p>
 						<p id="card-expiration">
-							<%= cc.label :expiration_month, 'Expires <span class="format">(XX/XXXX)</span>' %>
+							<%= cc.label :expiration_month, 'Expires <span class="format">(XX/XXXX)</span>'.html_safe %>
 							<%= cc.text_field :expiration_month, :class => 'required digits' %> / 
 							<%= cc.text_field :expiration_year, :class => 'required digits' %>
 						</p>
@@ -118,7 +118,7 @@
 						</span>
 					</p>
 					<p id="mobile-phone">
-						<%= f.label :phone, 'Mobile Phone <span class="optional">(Optional)</span>' %>
+						<%= f.label :phone, 'Mobile Phone <span class="optional">(Optional)</span>'.html_safe %>
 						<%= f.text_field :phone %>
 						<span class="confirm">
 							<input type="checkbox" name="send_sms" value="0" />
@@ -155,9 +155,9 @@
 						<h3>Confirm Eligibility</h3>
 						<div id="compliance_confirmation">
 							<input class="required" id="contribution_compliance_confirmation" name="contribution[compliance_confirmation]" type="checkbox" value="1" />
-							<%= f.label :compliance_confirmation, "Check this box to confirm the following statements are true and correct:" %>
+							<%= f.label :compliance_confirmation, "Check this box to confirm the following statements are true and correct:".html_safe %>
 						</div>
-						<div id="eligibility-statement"><%= current_site.eligibility_statement %></div>
+						<div id="eligibility-statement"><%= current_site.eligibility_statement.html_safe %></div>
 						<div style="clear:both"></div>
 					</div>
 					<div style="clear:both"></div>

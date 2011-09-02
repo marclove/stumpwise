@@ -3,7 +3,7 @@
 - @submenu 		= 'blogs'
 
 =render 'admin/layouts/site_menu'
--form_for @article, :url => admin_blog_article_path(@blog, @article) do |f|
+=form_for @article, :url => admin_blog_article_path(@blog, @article) do |f|
 	#main
 		%h1 Edit Article
 		=f.label :title, {}, {:class => 'on-top'}
@@ -14,7 +14,7 @@
 			%button.positive{:type => 'submit'}
 				=image_tag "icons-shadowless/tick.png", :alt => ''
 				Save Changes
-			=link_to "#{image_tag('icons-shadowless/cross.png', :alt => '')} Cancel", :back, :class => 'negative'
+			=link_to "#{image_tag('icons-shadowless/cross.png', :alt => '')} Cancel".html_safe, :back, :class => 'negative'
 
 	#sidebar
 		.details

@@ -30,7 +30,7 @@ module Stumpwise
           else
             result = ''
           end
-          result
+          result.html_safe
         end
       end
     end

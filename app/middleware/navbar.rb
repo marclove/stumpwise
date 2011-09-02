@@ -27,8 +27,8 @@ class Navbar
   end
   
   def insert_navbar(body, navbar)
-    body.gsub!(/<\/head>/, navbar.header_markup + "\n</head>")
-    body.gsub!(/<\/body>/, navbar.body_markup + "\n</body>")
+    body.gsub!(/<\/head>/, navbar.header_markup + "\n</head>".html_safe)
+    body.gsub!(/<\/body>/, navbar.body_markup + "\n</body>".html_safe)
     body
   end
 end

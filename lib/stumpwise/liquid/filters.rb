@@ -2,7 +2,17 @@ module Stumpwise
   module Liquid
     module Filters
       include ActionView::Helpers
-      
+
+      def simple_format(text)
+        start_tag = tag('p', nil, true)
+        text = text.to_s.dup
+        text.gsub!(/\r\n?/, "\n")                    # \r\n and \r -> \n
+        text.gsub!(/\n\n+/, "</p>\n\n#{start_tag}")  # 2+ newline  -> paragraph
+        text.gsub!(/([^\n]\n)(?=[^\n])/, '\1<br />') # 1 newline   -> br
+        text.insert 0, start_tag
+        text.html_safe.safe_concat("</p>")
+      end
+
       def textilize(text)
         RedCloth.new(text).to_html
       end
@@ -23,9 +33,18 @@ module Stumpwise
         end
       end
       
-      def image_tag(url, opts={})
+      def image_tag(url, alt=nil, size=nil, mouseover=nil)
         return nil if url.blank?
-        super(url, opts)
+        opts = {:src => url}
+        opts[:alt] = alt if alt
+        if size
+          opts[:width], opts[:height] = size.split("x") if size =~ %{^\d+x\d+$}
+        end
+        if mouseover
+          opts[:onmouseover] = "this.src='#{mouseover}'"
+          opts[:onmouseout]  = "this.src='#{url}'"
+        end
+        tag(:img, opts)
       end
       
       def link_to_item(item, link_text=nil)
@@ -63,7 +82,7 @@ module Stumpwise
       
       def asset_url(filename)
         path = []
-        path << ((RAILS_ENV == 'production') ? "http://#{ThemeAssetUploader.s3_bucket}" : "http://s3.amazonaws.com/#{ThemeAssetUploader.s3_bucket}")
+        path << (Rails.env.production? ? "http://#{ThemeAssetUploader.s3_bucket}" : "http://s3.amazonaws.com/#{ThemeAssetUploader.s3_bucket}")
         path << "themes"
         path << @context.registers[:site].theme_id.to_s
         path << filename

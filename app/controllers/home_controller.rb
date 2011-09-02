@@ -1,6 +1,5 @@
 class HomeController < ApplicationController
   layout 'marketing'
-  ssl_required :signup, :create_site
   filter_parameter_logging :number, :cvv
   
   def index

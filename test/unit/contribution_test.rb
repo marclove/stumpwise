@@ -92,12 +92,10 @@ class ContributionTest < ActiveSupport::TestCase
       end
     end
     
-    should "send a receipt to the contributor" do
-      assert_difference 'ActionMailer::Base.deliveries.size', +1 do
-        contributions(:approved).send(:send_receipt)
+    should "schedule sending a receipt to the contributor" do
+      assert_difference 'Delayed::Job.count', +1 do
+        contributions(:approved).send(:schedule_sending_receipt)
       end
-      email = ActionMailer::Base.deliveries.first
-      assert_equal contributions(:approved).email, email.to[0]
     end
     
     should "schedule a job to check the settlement status" do

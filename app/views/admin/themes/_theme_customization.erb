@@ -8,7 +8,7 @@
 <% if no_customizations %>
 	<p>The chosen theme has no options.</p>
 <% else %>
-	<% form_tag '/admin/theme', :method => :put, :multipart => true do %>
+	<%= form_tag '/admin/theme', :method => :put, :multipart => true do %>
 
 		<% for if_key in theme_customization.if_keys %>
 			<div class="theme_customization_option">

@@ -16,7 +16,7 @@
 		and press refresh after each change you make.
 	%br
 	#themes
-		-form_for current_site, :url => set_theme_admin_theme_path do |f|
+		=form_for current_site, :url => set_theme_admin_theme_path do |f|
 			-for theme in @themes
 				.theme
 					.theme_name

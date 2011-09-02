@@ -6,13 +6,13 @@
 #main
 	%h1= @blog.title
 	#add-post-button.buttons
-		=link_to "#{image_tag('icons-shadowless/pencil.png', :alt => '')} Edit Blog Details", edit_admin_blog_path
-		=link_to "#{image_tag('icons-shadowless/plus-circle.png', :alt => '')} New Article", new_admin_blog_article_path(@blog), :class => 'positive'
+		=link_to "#{image_tag('icons-shadowless/pencil.png', :alt => '')} Edit Blog Details".html_safe, edit_admin_blog_path
+		=link_to "#{image_tag('icons-shadowless/plus-circle.png', :alt => '')} New Article".html_safe, new_admin_blog_article_path(@blog), :class => 'positive'
 	-for article in @articles
 		.article
 			%h2
 				=link_to article.title, edit_admin_blog_article_path(@blog, article)
-			%p=truncate(strip_tags(article.body), :length => 800)
+			%p=raw(truncate(strip_tags(article.body), :length => 800))
 			.article-edit-links
 				=link_to 'Edit', edit_admin_blog_article_path(@blog, article)
 				&#124;
@@ -24,4 +24,4 @@
 		-for blog in @blogs
 			%li= link_to blog.title, admin_blog_path(blog), :class => (blog == @blog ? "current" : "")
 	.buttons
-		=link_to "#{image_tag('icons-shadowless/plus-circle.png', :alt => '')} New Blog", new_admin_blog_path, :class => 'positive'
+		=link_to "#{image_tag('icons-shadowless/plus-circle.png', :alt => '')} New Blog".html_safe, new_admin_blog_path, :class => 'positive'

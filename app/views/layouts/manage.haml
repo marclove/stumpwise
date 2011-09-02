@@ -5,9 +5,9 @@
 		%title= "stumpwise :: admin"
 		=csrf_meta_tag
 		=stylesheet_link_tag 'master.css', 'manage.css'
-		=javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js'
-		=javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js'
-		=javascript_include_tag 'tiny_mce/jquery.tinymce.js','jquery.timeago.min.js','jquery.tablesorter.min.js','jquery.tablesorter.pager.js','application.js','manage.js'
+		=javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js'
+		=javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js'
+		=javascript_include_tag 'tiny_mce/jquery.tinymce.js','jquery.timeago.min.js','jquery.tablesorter.min.js','jquery.tablesorter.pager.js','rails.js','application.js','manage.js'
 		=yield :head
 	%body{:class => @body_class}
 		#container

@@ -8,7 +8,7 @@
 		%h1 All Blog Articles
 		%p Select a blog on the right to view only the articles for a particular blog.
 		-# #add-post-button.buttons
-			-# =link_to "#{image_tag('icons-shadowless/plus-circle.png', :alt => '')} New Article", new_admin_article_path, :class => 'positive'
+			-# =link_to "#{image_tag('icons-shadowless/plus-circle.png', :alt => '')} New Article".html_safe, new_admin_article_path, :class => 'positive'
 		-for article in @articles
 			.article
 				%h2
@@ -26,7 +26,7 @@
 			-for blog in @blogs
 				%li= link_to blog.title, admin_blog_path(blog)
 		.buttons
-			=link_to "#{image_tag('icons-shadowless/plus-circle.png', :alt => '')} New Blog", new_admin_blog_path, :class => 'positive'
+			=link_to "#{image_tag('icons-shadowless/plus-circle.png', :alt => '')} New Blog".html_safe, new_admin_blog_path, :class => 'positive'
 -else
 	#main
 		%h1 Blogs &amp; Articles
