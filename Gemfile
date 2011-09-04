@@ -28,10 +28,10 @@ gem 'bson_ext', '1.3.1'
 gem 'joint', '0.3.2'
 gem 'haml', '3.0.21'
 gem 'xml-simple', '>= 1.0.11', :require => 'xmlsimple'
-gem 'soap4r', '>= 1.5.8'
 gem 'subdomain-fu', :git => "git://github.com/nhowell/subdomain-fu.git"
 gem 'be9-awesome_nested_set', '1.4.3', :require => 'awesome_nested_set'
 gem 'uuidtools', '2.1.1'
+gem 'createsend', '0.3.2'
 
 group :development, :test do
   gem 'sqlite3-ruby', :require => 'sqlite3'

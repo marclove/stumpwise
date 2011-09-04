@@ -2,41 +2,33 @@ require 'uuidtools'
 
 class CreateCampaignMonitorClientJob < Struct.new(:site)
   def perform
-    if create_client(site)
-      create_supporter_list(site)
-      create_contributor_list(site)
+    if client_id = create_client(site)
+      create_supporter_list(site, client_id)
+      create_contributor_list(site, client_id)
     end
   end
 
   def create_client(site)
     site.update_attribute(:campaign_monitor_password, UUIDTools::UUID.random_create.to_s[0..7])
-    @client = CampaignMonitor::Client.new(
-      "CompanyName"   => site.campaign_legal_name,
-      "ContactName"   => site.owner.name,
-      "EmailAddress"  => site.campaign_email,
-      "Country"       => "United States of America",
-      "Timezone"      => CM.timezones.select{|t| t =~ Regexp.new(Regexp.escape(site.time_zone))}.first
+    timezone = CreateSend::CreateSend.get('/timezones.json').parsed_response.select{|t| t.include?(site.time_zone)}.try(:first)
+
+    client_id = CreateSend::Client.create(
+      site.campaign_legal_name, site.owner.name, site.campaign_email,
+      timezone, "United States of America"
     )
-    @client.Create
-    @client["Username"] = site.subdomain
-    @client["Password"] = site.campaign_monitor_password
-    @client["AccessLevel"] = 47
-    @client["BillingType"] = "ClientPaysAtStandardRate"
-    @client["Currency"] = "USD"
-    @client.UpdateAccessAndBilling
+    @client = CreateSend::Client.new(client_id)
+    @client.set_access(site.subdomain, site.campaign_monitor_password, 47)
+    @client.set_payg_billing('USD', false, true, 0)
+    client_id
   end
   
-  def create_supporter_list(site)
-    supporter_list = @client.lists.build.defaults
-    supporter_list["Title"] = "Supporters"
-    supporter_list.Create
-    site.update_attribute(:supporter_list_id, supporter_list.id)
+  def create_supporter_list(site, client_id)
+    supporter_list_id = CreateSend::List.create(client_id, 'Supporters', '', false, '')
+    site.update_attribute(:supporter_list_id, supporter_list_id)
   end
   
-  def create_contributor_list(site)
-    contributor_list = @client.lists.build.defaults
-    contributor_list["Title"] = "Contributors"
-    contributor_list.Create
-    site.update_attribute(:contributor_list_id, contributor_list.id)
+  def create_contributor_list(site, client_id)
+    contributor_list_id = CreateSend::List.create(client_id, 'Contributors', '', false, '')
+    site.update_attribute(:contributor_list_id, contributor_list_id)
   end
 end
