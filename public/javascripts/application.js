@@ -137,11 +137,15 @@ $(document).ready(function() {
 	
 	// Theme Changing
 	$("input[name='site[mongo_theme_id]']").bind("click",function(){
-		$.post("/admin/theme/set_theme?id=" + $(this).val(), {"_method":'put'},
-			function(data){
-				$("#theme_customization_options").html(data);
-			}
-		);
+	  $.ajax("/admin/theme/set_theme?id=" + $(this).val(), {
+	    type: 'POST',
+	    dataType: 'text',
+	    accepts: {text:"text/javascript, application/javascript, application/ecmascript, application/x-ecmascript, */*"},
+	    data: {'_method':'put'},
+	    success: function(data){
+	      $("#theme_customization_options").html(data);
+	    }
+	  });
 	});	
 	
 	// SMS Campaign Send/Confirm
