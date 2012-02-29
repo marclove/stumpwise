@@ -1,4 +1,3 @@
-<!--
 Copyright (c) 2010-2011 ProgressBound, Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining
@@ -19,25 +18,3 @@ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
 LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
--->
-
-<!DOCTYPE HTML>
-<html>
-<head>
-	<meta charset="utf-8">
-	<title>Thank you for your contribution!</title>
-	<style type="text/css" media="screen">
-		*{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; position:relative; }
-		html { margin:0; padding:0; }
-		body { margin:0; padding:20px 10px; font-family:sans-serif; font-size:14px; background:#FFF; color:#333; text-align:center; }
-		h1 { margin-top:0; font-size:20px; }
-	</style>
-</head>
-<body>
-	<h1>Thank you for your contribution!</h1>
-	<p>
-		Your generous contribution is a critical component to our success.
-		A receipt will be emailed to you.
-	</p>
-</body>
-</html>
